@@ -14,7 +14,7 @@ test('email remains a mail link without copy controls or clipboard code', () => 
 
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
-  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="games-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"'];
+  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="awards-title"', 'id="games-title"'];
   const positions = order.map(marker => template.indexOf(marker));
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);

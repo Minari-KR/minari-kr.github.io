@@ -15,16 +15,16 @@ const sample = {
   links: [{ label: 'Google Play에서 보기', url: 'https://play.google.com/store/apps/details?id=example' }, { label: 'itch.io', url: 'https://minari-kr.itch.io/' }],
 };
 
-test('the configured release renders once between the awards and the projects with its image published', () => {
+test('the configured release renders once between the awards and the game-play section with its image published', () => {
   const { files, publicFiles } = compileSite(root);
   const html = files.get('index.html');
   assert.doesNotMatch(html, /\{\{/);
   if (!release) return assert.doesNotMatch(html, /id="release"|출시 앱/);
   assert.equal((html.match(/id="release"/g) || []).length, 1);
   assert.ok(html.indexOf('id="awards"') < html.indexOf('id="release"'));
-  assert.ok(html.indexOf('id="release"') < html.indexOf('id="projects"'));
+  assert.ok(html.indexOf('id="release"') < html.indexOf('id="games"'));
   assert.ok(publicFiles.has(release.image));
-  if (!release.links?.length) assert.doesNotMatch(html.slice(html.indexOf('id="release"'), html.indexOf('id="projects"')), /project-actions/);
+  if (!release.links?.length) assert.doesNotMatch(html.slice(html.indexOf('id="release"'), html.indexOf('id="games"')), /project-actions/);
 });
 
 test('an empty release produces no section', () => {

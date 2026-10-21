@@ -30,45 +30,7 @@
       </div>
     </header>
 
-    <section class="section games" id="games" aria-labelledby="games-title">
-      <h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험</span></h2>
-      <div class="gs" data-game-screen data-state="select">
-        <div class="gs-select">
-          <div class="pack-rows" data-pack-rows>
-{{game_packs}}
-          </div>
-        </div>
-        <div class="gs-detail" hidden>
-          <div class="gs-big" aria-hidden="true"></div>
-          <div class="gs-record">
-            <h3 class="gs-name" data-field="title" tabindex="-1"></h3>
-            <dl class="gs-info">
-              <div data-stat="platform"><dt>플랫폼</dt><dd data-field="platform"></dd></div>
-              <div data-stat="genre"><dt>장르</dt><dd data-field="genre"></dd></div>
-            </dl>
-            <dl class="gs-stat">
-              <div data-stat="hours"><dt>플레이 시간</dt><dd data-field="hours"></dd></div>
-              <div data-stat="achievements"><dt>업적</dt><dd data-field="achievements"></dd></div>
-            </dl>
-            <p class="gs-note" data-field="note"></p>
-          </div>
-          <p class="gs-exit">화면을 누르면 돌아가요</p>
-        </div>
-        <p class="gs-sr" aria-live="polite" data-game-status></p>
-      </div>
-    </section>
-
-    <section class="section" id="awards" aria-labelledby="awards-title">
-      <h2 class="section-title" id="awards-title"><span class="marker">수상</span></h2>
-      <ul class="award-list">
-        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-book.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">국가수리과학연구소장상</strong><span class="award-event"><span class="award-year">2026</span> 대전 inD 게임잼</span></li>
-        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-trophy.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">대상</strong><span class="award-event"><span class="award-year">2025</span> 대전 게임 브릿지</span></li>
-        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-crown.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">베스트 리더상</strong><span class="award-event"><span class="award-year">2025</span> 스토브 크루 2기</span></li>
-        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-gem.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">우수상</strong><span class="award-event"><span class="award-year">2020</span> 넷마블게임아카데미 5기</span></li>
-      </ul>
-    </section>
-
-{{release_section}}    <section class="section" id="projects" aria-labelledby="projects-title">
+    <section class="section" id="projects" aria-labelledby="projects-title">
       <h2 class="section-title" id="projects-title"><span class="marker">프로젝트</span></h2>
       <div class="ptabs" data-project-tabs>
         <div class="ptabs-list" role="tablist" aria-label="프로젝트 고르기" hidden>
@@ -105,6 +67,44 @@
               <a class="action action-primary" href="https://www.youtube.com/watch?v=RrdQxWXoZO4&amp;t=35s" target="_blank" rel="noopener noreferrer">플레이 영상</a>
             </div>
           </article>        </div>
+      </div>
+    </section>
+
+    <section class="section" id="awards" aria-labelledby="awards-title">
+      <h2 class="section-title" id="awards-title"><span class="marker">수상</span></h2>
+      <ul class="award-list">
+        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-book.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">국가수리과학연구소장상</strong><span class="award-event"><span class="award-year">2026</span> 대전 inD 게임잼</span></li>
+        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-trophy.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">대상</strong><span class="award-event"><span class="award-year">2025</span> 대전 게임 브릿지</span></li>
+        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-crown.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">베스트 리더상</strong><span class="award-event"><span class="award-year">2025</span> 스토브 크루 2기</span></li>
+        <li class="award-card"><span class="award-top"><img class="award-icon" src="./assets/images/awards/award-gem.png" width="48" height="48" alt="" aria-hidden="true"></span><strong class="award-name">우수상</strong><span class="award-event"><span class="award-year">2020</span> 넷마블게임아카데미 5기</span></li>
+      </ul>
+    </section>
+
+{{release_section}}    <section class="section games" id="games" aria-labelledby="games-title">
+      <h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험</span></h2>
+      <div class="gs" data-game-screen data-state="select">
+        <div class="gs-select">
+          <div class="pack-rows" data-pack-rows>
+{{game_packs}}
+          </div>
+        </div>
+        <div class="gs-detail" hidden>
+          <div class="gs-big" aria-hidden="true"></div>
+          <div class="gs-record">
+            <h3 class="gs-name" data-field="title" tabindex="-1"></h3>
+            <dl class="gs-info">
+              <div data-stat="platform"><dt>플랫폼</dt><dd data-field="platform"></dd></div>
+              <div data-stat="genre"><dt>장르</dt><dd data-field="genre"></dd></div>
+            </dl>
+            <dl class="gs-stat">
+              <div data-stat="hours"><dt>플레이 시간</dt><dd data-field="hours"></dd></div>
+              <div data-stat="achievements"><dt>업적</dt><dd data-field="achievements"></dd></div>
+            </dl>
+            <p class="gs-note" data-field="note"></p>
+          </div>
+          <p class="gs-exit">화면을 누르면 돌아가요</p>
+        </div>
+        <p class="gs-sr" aria-live="polite" data-game-status></p>
       </div>
     </section>
   </main>
