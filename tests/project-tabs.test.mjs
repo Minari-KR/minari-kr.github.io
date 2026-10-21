@@ -19,7 +19,9 @@ test('projects show as thumbnail tabs over one large card, and nothing of the ot
   assert.match(home, /<script src="\.\/assets\/js\/project-tabs\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   // The cards share one place: the others are hidden, not slid to the side, and none of the old slider is left.
   const styles = read('src/styles/home.css');
-  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project \{ grid-area: 1 \/ 1; \}/);
+  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project \{ display: flex; flex-direction: column; grid-area: 1 \/ 1; \}/);
+  // Each card's buttons sit at its bottom, so the buttons → next rule gap is the same whichever card is chosen.
+  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project > \.project-actions \{ margin-top: auto; padding-top: var\(--gap-actions\); \}/);
   assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project:not\(\.is-current\) \{ visibility: hidden; opacity: 0; \}/);
   assert.doesNotMatch(styles + section, /slider|translateX|translate: -?\d+px 0/);
   assert.ok(!fs.existsSync(new URL('../src/scripts/slider.js', import.meta.url)));

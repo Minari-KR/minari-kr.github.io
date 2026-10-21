@@ -134,7 +134,11 @@
 .ptabs-list.is-looping .ptabs-tab { flex: none; width: 136px; margin: 0; }
 .ptabs:not(.is-ready) .project + .project { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .ptabs.is-ready .ptabs-cards { display: grid; touch-action: pan-y; }
-.ptabs.is-ready .ptabs-cards > .project { grid-area: 1 / 1; }
+/* Every card takes the tallest card's height, so its buttons sit at the bottom: the space left over in a shorter card goes
+   between its heading group and the buttons, and the buttons → next section rule is the same for every tab (2026-10-21,
+   user choice). The padding keeps at least --gap-actions above the buttons. */
+.ptabs.is-ready .ptabs-cards > .project { display: flex; flex-direction: column; grid-area: 1 / 1; }
+.ptabs.is-ready .ptabs-cards > .project > .project-actions { margin-top: auto; padding-top: var(--gap-actions); }
 .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
 /* Release app (출시 앱): same layout as a project, with a status badge under its info line */
