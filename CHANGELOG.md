@@ -18,6 +18,24 @@
 
 ## 기록
 
+### 2026-10-21 · ‘비공식 2차 창작 팬게임’ → ‘2차 창작 팬게임’ (Claude)
+
+- 요청: 표기 바꾸기.
+- 변경: 사이트에서 이 표기는 Aiden & Magnus KartRider 카드 정보 줄 한 곳뿐(출시 앱은 이미 뺌) → `2차 창작 팬게임 / 1인 개발`. `src/templates/home.html`, `AGENTS.md`. `scripts/site-config.mjs`의 옛 주석은 이력이라 그대로.
+- 검증: `npm run build`, `npm run verify` 49개 통과, 생성된 홈에 ‘비공식’ 0개.
+
+### 2026-10-21 · Aiden & Magnus KartRider 장르도 제목 위로 (Claude)
+
+- 요청: Aiden & Magnus KartRider 장르도 표시.
+- 변경: 정보 줄 가운데의 ‘레이싱’을 다른 두 프로젝트처럼 제목 위 초록 글자로 옮김(같은 말이 두 번 나오지 않게 정보 줄에서는 뺌 → `비공식 2차 창작 팬게임 / 1인 개발`). `src/templates/home.html`, `AGENTS.md`.
+- 검증: `npm run build`, `npm run verify` 49개 통과. 생성된 홈에서 카드 장르 ‘레이싱’, 정보 줄 `비공식 2차 창작 팬게임/1인 개발`, 그림 ↔ 장르 24px(다른 카드와 같음) 확인.
+
+### 2026-10-21 · 팀 프로젝트 장르 표시 (Claude)
+
+- 요청: Barrel Good Barrel·Reflectory 장르를 적절히 적기(퍼즐 디펜스, 탄막 슈팅 로그라이크).
+- 변경: Reflectory ‘퍼즐 디펜스’(핵심 플레이 설명의 ‘퍼즐형 디펜스 게임’과 맞춤), Barrel Good Barrel ‘탄막 슈팅 로그라이크’. 홈 카드와 상세 페이지의 제목 바로 위에 작은 초록 글자(`.project-genre`)로. 정보 줄(`행사 / 역할 / 팀`)에 넣으면 휴대폰에서 한 줄을 넘어서 따로 둠. 상세 페이지는 홈 버튼 ↔ 장르 글자를 박스 위 ↔ 버튼과 같게(PC 24px·휴대폰 16px), 장르 ↔ 제목은 붙였다가, 글자 간격 점검 후 추천대로 `--gap-tight` 4px(보이는 간격 홈 12px·상세 16px로 제목 ↔ 정보 줄 11~15px과 비슷하게). 1인 개발 카드는 정보 줄에 이미 장르가 있어 그대로. `AGENTS.md` 갱신.
+- 검증: Barrel Good Barrel 상세 페이지 PC 24·24px, 320px 16·16px, 홈 카드 320px에서 장르 한 줄·정보 줄 한 줄·가로 넘침 없음. `npm run build`, `npm run verify` 49개 통과.
+
 ### 2026-10-21 · 상세 페이지 홈 버튼 위아래 간격 맞춤 (Claude)
 
 - 요청: PC에서 홈 버튼 위·아래 간격이 맞지 않음, 휴대폰까지 확인.

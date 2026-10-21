@@ -69,6 +69,10 @@
 .project-image-link { display: block; }
 .project-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; }
 .project-title { margin: var(--gap-block) 0 0; color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+/* Genre over the title of the team projects (2026-10-21 user request): a short green label, so the info line under the
+   title keeps fitting one line on phones. On the detail page it takes the title's place under the home button. */
+.project-genre { margin: var(--gap-block) 0 0; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); word-break: keep-all; }
+.project-genre + .project-title { margin-top: var(--gap-tight); }
 .project-meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .project-meta > span:not(.meta-sep) { white-space: nowrap; }
 .meta-sep { margin: 0 12px; color: rgba(32, 33, 31, .3); font-weight: 500; }
@@ -167,6 +171,8 @@
 .home-link img { width: 20px; height: 20px; }
 .project-detail { margin-top: 0; }
 .project-detail h1 { margin: calc(var(--gap-block) - .22em) 0 0; color: var(--ink); font-size: 2.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.project-detail .project-genre { margin-top: calc(var(--gap-block) - .3em); }
+.project-detail .project-genre + h1 { margin-top: var(--gap-tight); }
 .project-detail .project-meta { margin-top: 12px; font-variant-numeric: tabular-nums; }
 .period-badge img, .period-label { display: none; }
 .project-media { margin: 48px 0 0; }
