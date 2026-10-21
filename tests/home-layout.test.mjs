@@ -38,7 +38,7 @@ test('page drops template chrome: menus, middle-dot meta, link arrows and tile c
 });
 
 test('action buttons share one transition and darken on hover and press', () => {
-  assert.match(homeStyles, /\.action, \.home-link, \.play-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(homeStyles, /\.action, \.home-link, \.play-link, \.release-link \{ transition: var\(--action-transition\); \}/);
   assert.match(homeStyles, /\.action-primary:hover, \.play-link:hover \{ background: #163b32;/);
   assert.match(homeStyles, /\.action-primary:active, \.play-link:active \{ background: #163b32; \}/);
 });

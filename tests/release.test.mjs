@@ -50,6 +50,15 @@ test('icon style renders a square app icon instead of a wide project image', () 
   assert.match(releaseSection(template, sample), /<img class="release-image project-image" /);
 });
 
+test('a release without status or links can link its image to the store instead', () => {
+  const { status, links, ...bare } = sample;
+  const plain = releaseSection(template, bare);
+  assert.doesNotMatch(plain, /release-status|project-actions|<a /);
+  const linked = releaseSection(template, { ...bare, url: 'https://play.google.com/store/apps/details?id=example', linkLabel: 'Google Play에서 <보기>' });
+  assert.match(linked, /<a class="release-link" href="https:\/\/play\.google\.com\/[^"]+" target="_blank" rel="noopener noreferrer" aria-label="Google Play에서 &lt;보기&gt;"><img [^>]*alt=""><\/a>/);
+  assert.throws(() => releaseSection(template, { ...bare, url: 'http://example.com' }), /https/);
+});
+
 test('release information rejects missing fields, non-https links, remote images and bad sizes', () => {
   assert.throws(() => releaseSection(template, { ...sample, title: '' }), /title/);
   assert.throws(() => releaseSection(template, { ...sample, links: [{ label: 'x', url: 'http://example.com' }] }), /https/);

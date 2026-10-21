@@ -4,9 +4,10 @@ import { escapeHtml, fillTemplate } from './content.mjs';
 // With `release = null` the home page contains no trace of the section.
 export function releaseSection(template, release) {
   if (!release) return '';
-  for (const key of ['title', 'status', 'image']) {
+  for (const key of ['title', 'image']) {
     if (typeof release[key] !== 'string' || !release[key].trim()) throw new Error(`출시 앱 정보에 ${key} 값이 필요합니다.`);
   }
+  if (release.url !== undefined && !/^https:\/\//.test(release.url)) throw new Error('출시 앱 이미지 링크는 https 주소여야 합니다.');
   if (!/^assets\/images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/.test(release.image)) throw new Error('출시 앱 이미지는 assets/images/ 아래 로컬 파일이어야 합니다.');
   const [imageWidth, imageHeight] = [release.imageWidth ?? 960, release.imageHeight ?? 540];
   if (![imageWidth, imageHeight].every(n => Number.isInteger(n) && n > 0)) throw new Error('출시 앱 이미지 크기는 양의 정수여야 합니다.');
@@ -17,12 +18,16 @@ export function releaseSection(template, release) {
     return `          <a class="${kind}" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
   }).join('\n');
   const actions = links ? `        <div class="project-actions">\n${links}\n        </div>\n` : '';
+  // The image itself becomes the store link when `url` is set; the label names the app for screen readers.
+  const linkOpen = release.url ? `<a class="release-link" href="${escapeHtml(release.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(release.linkLabel ?? release.title)}">` : '';
   return fillTemplate(template, {
+    link_open: linkOpen,
+    link_close: release.url ? '</a>' : '',
     image: release.image,
     image_width: String(imageWidth),
     image_height: String(imageHeight),
     image_class: release.imageStyle === 'icon' ? ' release-icon' : ' project-image',
-    status: escapeHtml(release.status),
+    status: release.status ? `        <p class="release-status">${escapeHtml(release.status)}</p>\n` : '',
     title: escapeHtml(release.title),
     meta,
     actions,

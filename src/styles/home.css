@@ -157,10 +157,11 @@
 .ptabs.is-ready .ptabs-cards > .project > .project-actions { margin-top: auto; padding-top: var(--gap-actions); }
 .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
-/* Release app (출시 앱): same layout as a project, with a status badge under its info line */
+/* Release app (출시 앱): same layout as a project; an optional status badge under its info line, and the icon can link to the store */
 .release-status { display: block; width: fit-content; margin: 12px auto 0; padding: var(--gap-tight) 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); }
 .release-image.project-image { aspect-ratio: auto; }
-.release-icon + .project-title { margin-top: var(--gap-block); }
+.release-icon + .project-title, .release-link + .project-title { margin-top: var(--gap-block); }
+.release-link { display: block; width: fit-content; margin: 0 auto; border-radius: 22.5%; }
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
 
 /* Project detail page */
@@ -207,7 +208,7 @@
   .period-label { display: inline; margin-right: 2px; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .action, .home-link, .play-link { transition: var(--action-transition); }
+  .action, .home-link, .play-link, .release-link { transition: var(--action-transition); }
   /* A new card fades in and rises a little in its own place; the old one fades out. */
   .ptabs.is-ready .ptabs-cards > .project { transition: opacity .22s ease, translate .26s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .22s; }
   .ptabs.is-ready .ptabs-cards > .project.is-current { transition-delay: 0s; }
@@ -226,8 +227,8 @@
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .action:hover, .home-link:hover { transform: translateY(-2px); }
-  .action:active, .play-link:active, .home-link:active { transform: scale(.98); }
+  .action:hover, .home-link:hover, .release-link:hover { transform: translateY(-2px); }
+  .action:active, .play-link:active, .home-link:active, .release-link:active { transform: scale(.98); }
 }
 .action:active, .home-link:active { background: #dce8df; }
 .action-primary:active, .play-link:active { background: #163b32; }
