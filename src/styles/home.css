@@ -160,11 +160,13 @@
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
 
 /* Project detail page */
-.project-page { padding-top: 16px; }
+/* The home button sits as far from the box top as the title's letters sit under it (2026-10-21): the box top uses
+   --gap-block, and the title's top margin takes off the space its line holds above the letters (about .22em). */
+.project-page { padding-top: var(--gap-block); }
 .home-link { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid var(--ink); border-radius: 50%; background: #fff; }
 .home-link img { width: 20px; height: 20px; }
-.project-detail { margin-top: var(--gap-block); }
-.project-detail h1 { margin: 0; color: var(--ink); font-size: 2.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.project-detail { margin-top: 0; }
+.project-detail h1 { margin: calc(var(--gap-block) - .22em) 0 0; color: var(--ink); font-size: 2.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .project-detail .project-meta { margin-top: 12px; font-variant-numeric: tabular-nums; }
 .period-badge img, .period-label { display: none; }
 .project-media { margin: 48px 0 0; }
@@ -174,6 +176,7 @@
 @media (max-width: 640px) {
   .ptabs-list.is-looping .ptabs-tab { width: 120px; }
   .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 32px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
+  .project-page { padding-top: var(--gap-block); }
   .intro-role { margin-top: 8px; }
   .meta-sep { margin: 0 3px; }
   .release-icon { width: 112px; height: 112px; }
