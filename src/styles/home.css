@@ -71,6 +71,45 @@
 .project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
+/* Reflectory core play on its detail page (reflectory-core.js, 2026-10-21): a heading and two lines on the rule, the game
+   screen redrawn in its own look, and three steps that light up as the loop plays. Reduced motion swaps the screen for three
+   still pictures; without the script the screens stay hidden and the text and steps remain. The detail page doesn't load
+   games.css, so the pixel font is declared here as well (same file, so the home page doesn't load it twice). */
+@font-face { font-family: "NeoDunggeunmo"; src: url("../fonts/neodgm.woff2") format("woff2"); font-display: swap; }
+/* Under the play video and button, after the same dashed rule that separates the home sections (2026-10-21 user request). */
+.core { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
+.core-title { margin: 0; color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.core-text { margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
+/* Each sentence is its own line block with balanced lines, so a sentence a little longer than the column doesn't drop its
+   last word alone onto the next line (2026-10-21 line-break check; balance doesn't apply across a <br>). */
+.core-line { display: block; text-wrap: balance; }
+.core-live { margin-top: var(--gap-block); }
+/* The HUD sits on the paper strip above the room; container units keep it in that strip at any width. */
+.core-screen { position: relative; container-type: inline-size; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f5f1e8; }
+.core-screen canvas { display: block; width: 100%; height: auto; aspect-ratio: 960 / 400; }
+.core-hud { position: absolute; top: 0; left: 0; display: flex; gap: 1.2em; margin: 0; padding: 0 1.6cqw; color: #3a3a3a; font-family: "NeoDunggeunmo", var(--font-body); font-size: clamp(10px, 1.7cqw, 16px); font-weight: 400; font-synthesis: none; line-height: 4.17cqw; white-space: nowrap; pointer-events: none; }
+.core-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: var(--gap-block) 0 0; padding: 0; list-style: none; text-align: left; }
+.core-step { padding: 16px; border: 1px dashed var(--line); border-radius: 8px; }
+.core-step.is-on { border: 1px solid var(--accent-deep); background: #f1f6f2; }
+.core-step-num { display: block; color: var(--accent-deep); font-family: "NeoDunggeunmo", var(--font-body); font-size: 20px; font-weight: 400; font-synthesis: none; line-height: 1; }
+.core-step-title { display: block; margin-top: 12px; color: var(--ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; }
+.core-stills { display: none; gap: var(--gap-block); margin-top: var(--gap-block); }
+.core-stills figure { margin: 0; }
+.core-stills figcaption { margin-top: var(--gap-group); color: var(--ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-compact); }
+.core-stills .core-step-num { display: inline; margin-right: 4px; font-size: 1em; }
+/* The augment and map-change systems (reflectory-systems.js) follow as two more blocks: a 16:9 screen, no steps. */
+.core-screen-wide { margin-top: var(--gap-block); }
+.core-screen-wide canvas { aspect-ratio: 16 / 9; }
+/* Flowcharts (diagram-design skill rules, 2026-10-21): the core loop on its own and one under each screen. Below 560px they
+   keep that width and scroll sideways inside their own box, so the labels stay readable. */
+.core-flow { margin: var(--gap-block) 0 0; }
+.core-flow-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+.core-flow img { display: block; width: 100%; min-width: 560px; height: auto; }
+.core-title + .core-flow { margin-top: var(--gap-block); }
+.core:not(.is-ready) .core-screen { display: none; }
+.core.is-still .core-live { display: none; }
+.core.is-still .core-stills { display: grid; }
+
 /* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card
    (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, so the section keeps the tallest
    card's height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
@@ -129,6 +168,10 @@
   .award-card { padding: 16px; }
   .award-name { font-size: 1.125rem; }
   .project-actions .action { flex: 1 1 0; }
+  .core-steps { gap: 8px; }
+  .core-step { padding: 12px; }
+  .core-step-num { font-size: 16px; }
+  .core-step-title { margin-top: 8px; }
   .project-detail h1 { font-size: 1.875rem; }
   /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
   .project-detail .project-meta { flex-wrap: wrap; }
@@ -147,6 +190,7 @@
   .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { translate: 0 8px; }
   .ptabs-tab img { transition: opacity 160ms ease; }
   .project-image { transition: opacity 160ms ease; }
+  .core-step { transition: border-color 160ms ease, background-color 160ms ease; }
 }
 @media (hover: hover) and (pointer: fine) {
   .action:hover { background: #dce8df; text-decoration: none; }

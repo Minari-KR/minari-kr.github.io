@@ -58,7 +58,9 @@ export function validateFiles(files) {
     if (/<style\b|\sstyle\s*=|\son[a-z]+\s*=|<base\b|<form\b|<object\b|<embed\b|<svg\b/i.test(html)) throw new Error(`허용되지 않는 HTML 또는 인라인 코드: ${name}`);
     for (const { tag, attributes } of tags) {
       if (Object.hasOwn(attributes, 'srcset')) throw new Error(`srcset 리소스는 별도 검토가 필요합니다: ${name}`);
-      if (tag === 'script' && !/^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
+      // Pages at the root load ./assets/js; project detail pages, one folder down, load the same folder through ../ only.
+      const scriptPath = name.startsWith('projects/') ? /^\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/;
+      if (tag === 'script' && !scriptPath.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
     }
     for (const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)) {
       if (m[2].trim()) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);

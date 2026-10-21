@@ -1,0 +1,78 @@
+<svg viewBox="0 0 720 904" xmlns="http://www.w3.org/2000/svg">
+  <title id="reflectory-map-flow-title">Reflectory 맵 변화 시스템 순서도</title>
+  <desc id="reflectory-map-flow-desc">웨이브가 끝나면 설치한 벽을 모두 지우고, 6스테이지까지는 방을 하나 붙이며 방이 세 줄이 되면 맨 아래 줄을 지운 뒤, 적의 길이 바뀐 새 맵에 맞춰 플레이어가 길을 다시 설계하는 흐름.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
+  <path d="M300,168 L300,200" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,200 297,192 303,192" fill="#4f544d"/>
+  <path d="M300,312 L300,352" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,352 297,344 303,344" fill="#4f544d"/>
+  <path d="M412,256 L672,256 Q680,256 680,264 L680,576 Q680,584 672,584 L304,584" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="304,584 312,581 312,587" fill="#4f544d"/>
+  <path d="M300,408 L300,440" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,440 297,432 303,432" fill="#4f544d"/>
+  <path d="M188,496 L156,496" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="156,496 164,493 164,499" fill="#4f544d"/>
+  <path d="M300,552 L300,580" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,580 297,572 303,572" fill="#4f544d"/>
+  <path d="M84,524 L84,576 Q84,584 92,584 L296,584" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="296,584 288,581 288,587" fill="#4f544d"/>
+  <path d="M300,588 L300,608" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,608 297,600 303,600" fill="#4f544d"/>
+  <path d="M300,664 L300,696" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="300,696 297,688 303,688" fill="#1f4f43"/>
+  <path d="M300,752 L300,784" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="300,784 297,776 303,776" fill="#1f4f43"/>
+  <rect x="308" y="324" width="24" height="16" rx="2" fill="#ffffff"/>
+  <text x="320" y="336" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="428" y="232" width="48" height="16" rx="2" fill="#ffffff"/>
+  <text x="452" y="244" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="160" y="472" width="24" height="16" rx="2" fill="#ffffff"/>
+  <text x="172" y="484" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="308" y="556" width="48" height="16" rx="2" fill="#ffffff"/>
+  <text x="332" y="568" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="192" y="32" width="216" height="48" rx="20" fill="#ffffff"/>
+  <rect x="192" y="32" width="216" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 클리어</text>
+  <rect x="192" y="112" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="112" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">설치한 벽 모두 지우기</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 웨이브에 새로 설치</text>
+  <polygon points="300,200 412,256 300,312 188,256" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="252" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">6스테이지</text>
+  <text x="300" y="270" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">이하인가?</text>
+  <rect x="192" y="352" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="352" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="378" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 하나 붙이기</text>
+  <text x="300" y="396" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">가운데→왼쪽→오른쪽→위 줄</text>
+  <polygon points="300,440 412,496 300,552 188,496" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="501" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방이 3줄인가?</text>
+  <rect x="12" y="468" width="144" height="56" rx="6" fill="#ffffff"/>
+  <rect x="12" y="468" width="144" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="84" y="501" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">맨 아래 줄 지우기</text>
+  <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="634" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적의 길 바꾸기</text>
+  <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">스테이지마다 진입 방향이 달라짐</text>
+  <rect x="192" y="696" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="696" width="216" height="56" rx="6" fill="rgba(31,79,67,.08)" stroke="#1f4f43" stroke-width="1"/>
+  <text x="300" y="722" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">길을 다시 설계</text>
+  <text x="300" y="740" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">새 맵에 맞춰 벽을 다시 설치</text>
+  <rect x="192" y="784" width="216" height="48" rx="20" fill="#ffffff"/>
+  <rect x="192" y="784" width="216" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="813" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 웨이브</text>
+  <circle cx="300" cy="584" r="4" fill="#20211f"/>
+  <line x1="24" y1="860" x2="696" y2="860" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <rect x="24" y="876" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="60" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">시작·끝</text>
+  <rect x="144" y="876" width="28" height="16" rx="2" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">단계</text>
+  <polygon points="244,884 260,876 276,884 260,892" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="284" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
+  <circle cx="368" cy="884" r="4" fill="#20211f"/>
+  <text x="380" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
+  <line x1="468" y1="884" x2="496" y2="884" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="496,884 488,881 488,887" fill="#1f4f43"/>
+  <text x="504" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">핵심 흐름</text>
+</svg>

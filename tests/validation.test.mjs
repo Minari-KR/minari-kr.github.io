@@ -58,6 +58,17 @@ test('resource validation handles alternate quotes, case, entities and duplicate
   assert.doesNotThrow(() => validateFiles(withMarkup("<div ID='quoted' data-id='intro'></div><A HREF='#quoted'>link</A><a href='https://example.com?a=1&amp;b=2' target='_blank' rel='noreferrer noopener'>external</a>")));
 });
 
+test('project pages load local scripts only from the assets folder one level up', () => {
+  const { files } = compileSite(root);
+  const page = 'projects/reflectory.html';
+  assert.match(files.get(page), /<script src="\.\.\/assets\/js\/reflectory-core\.js\?v=[a-f0-9]{12}" defer><\/script>/);
+  const withScript = (name, src) => new Map(files).set(name, files.get(name).replace('</main>', `</main><script src="${src}"></script>`));
+  for (const src of ['./assets/js/games.js', '../../assets/js/games.js', '../assets/js/missing.js', '../assets/js/sub/games.js', 'https://example.com/evil.js']) {
+    assert.throws(() => validateFiles(withScript(page, src)), src);
+  }
+  assert.throws(() => validateFiles(withScript('index.html', '../assets/js/games.js')));
+});
+
 test('key-like content is blocked without echoing the value', t => {
   const dir = fixture(t);
   const fake = 'gh' + 'p_' + 'X'.repeat(36);

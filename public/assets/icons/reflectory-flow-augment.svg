@@ -1,0 +1,73 @@
+<svg viewBox="0 0 720 808" xmlns="http://www.w3.org/2000/svg">
+  <title id="reflectory-augment-flow-title">Reflectory 증강 시스템 순서도</title>
+  <desc id="reflectory-augment-flow-desc">첫 웨이브가 아니면 웨이브마다 가진 증강을 뺀 후보에서 세 장을 보여 주고, 처음 두 번은 강한 증강을 한 장으로 제한하며, 플레이어가 한 장을 골라 능력을 얻은 뒤 웨이브를 시작하는 흐름.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
+  <path d="M412,168 L672,168 Q680,168 680,176 L680,712 Q680,720 672,720 L408,720" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="408,720 416,717 416,723" fill="#4f544d"/>
+  <path d="M300,224 L300,264" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,264 297,256 303,256" fill="#4f544d"/>
+  <path d="M300,320 L300,352" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,352 297,344 303,344" fill="#4f544d"/>
+  <path d="M412,408 L456,408" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="456,408 448,405 448,411" fill="#4f544d"/>
+  <path d="M300,464 L300,492" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,492 297,484 303,484" fill="#4f544d"/>
+  <path d="M548,436 L548,488 Q548,496 540,496 L304,496" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="304,496 312,493 312,499" fill="#4f544d"/>
+  <path d="M300,500 L300,520" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,520 297,512 303,512" fill="#4f544d"/>
+  <path d="M300,576 L300,608" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="300,608 297,600 303,600" fill="#1f4f43"/>
+  <path d="M300,664 L300,696" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="300,696 297,688 303,688" fill="#1f4f43"/>
+  <rect x="440" y="144" width="24" height="16" rx="2" fill="#ffffff"/>
+  <text x="452" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="308" y="236" width="48" height="16" rx="2" fill="#ffffff"/>
+  <text x="332" y="248" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="422" y="384" width="24" height="16" rx="2" fill="#ffffff"/>
+  <text x="434" y="396" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="308" y="468" width="48" height="16" rx="2" fill="#ffffff"/>
+  <text x="332" y="480" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="192" y="32" width="216" height="48" rx="20" fill="#ffffff"/>
+  <rect x="192" y="32" width="216" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 준비</text>
+  <polygon points="300,112 412,168 300,224 188,168" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="173" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">첫 웨이브인가?</text>
+  <rect x="192" y="264" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="264" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="290" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">후보 섞기</text>
+  <text x="300" y="308" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">이미 가진 증강은 빼기</text>
+  <polygon points="300,352 412,408 300,464 188,408" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="404" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">처음 두 번의</text>
+  <text x="300" y="422" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">선택인가?</text>
+  <rect x="456" y="380" width="184" height="56" rx="6" fill="#ffffff"/>
+  <rect x="456" y="380" width="184" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="548" y="406" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">강한 증강은 1장만</text>
+  <text x="548" y="424" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">번식·오라·터렛</text>
+  <rect x="192" y="520" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="520" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="546" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3장 보여 주기</text>
+  <text x="300" y="564" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">추가 벽·터렛은 함께 안 나옴</text>
+  <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="192" y="608" width="216" height="56" rx="6" fill="rgba(31,79,67,.08)" stroke="#1f4f43" stroke-width="1"/>
+  <text x="300" y="634" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1장 고르기</text>
+  <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">능력을 얻어 플레이가 바뀜</text>
+  <rect x="192" y="696" width="216" height="48" rx="20" fill="#ffffff"/>
+  <rect x="192" y="696" width="216" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="725" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 시작</text>
+  <circle cx="300" cy="496" r="4" fill="#20211f"/>
+  <line x1="24" y1="764" x2="696" y2="764" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <rect x="24" y="780" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="60" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">시작·끝</text>
+  <rect x="144" y="780" width="28" height="16" rx="2" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">단계</text>
+  <polygon points="244,788 260,780 276,788 260,796" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="284" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
+  <circle cx="368" cy="788" r="4" fill="#20211f"/>
+  <text x="380" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
+  <line x1="468" y1="788" x2="496" y2="788" stroke="#1f4f43" stroke-width="1.6"/>
+  <polygon points="496,788 488,785 488,791" fill="#1f4f43"/>
+  <text x="504" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">핵심 흐름</text>
+</svg>
