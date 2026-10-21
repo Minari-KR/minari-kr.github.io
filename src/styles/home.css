@@ -100,6 +100,18 @@
 /* The augment and map-change systems (reflectory-systems.js) follow as two more blocks: a 16:9 screen, no steps. */
 .core-screen-wide { margin-top: var(--gap-block); }
 .core-screen-wide canvas { aspect-ratio: 16 / 9; }
+/* Augment cards under the augment screen (reflectory-augments.js, 2026-10-21 user choices C, then card look B): the game
+   screen's paper grid with a pixel-font name; the chosen card takes the game's blue wall colour and lifts a little.
+   Without the script they stay hidden. */
+.augment-picks { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--gap-group); margin: var(--gap-block) 0 0; padding: 0; list-style: none; }
+.augment-pick { display: grid; justify-items: center; gap: var(--gap-group); width: 100%; min-height: 44px; padding: 14px 4px 12px; border: 1px solid var(--line); border-radius: 8px; background: repeating-linear-gradient(0deg, rgba(120, 160, 200, .16) 0 1px, transparent 1px 10px), repeating-linear-gradient(90deg, rgba(120, 160, 200, .16) 0 1px, transparent 1px 10px), #f5f1e8; color: #3a3a3a; font: inherit; cursor: pointer; }
+/* The game icons are 64×64 pixel art: shown at 64px so each pixel maps to whole screen pixels (1×, 2×, 3×) and the
+   one-pixel lines stay even; scaled to 48 or 40px they broke up (2026-10-21). */
+.augment-pick img { width: 64px; height: 64px; image-rendering: pixelated; }
+.augment-pick-name { font-family: "NeoDunggeunmo", var(--font-body); font-size: 15px; font-weight: 400; font-synthesis: none; line-height: 1.2; word-break: keep-all; }
+.augment-pick[aria-pressed="true"] { border-color: #3d8fe0; box-shadow: inset 0 0 0 1px #3d8fe0, 0 3px 0 #1d4f9a; color: #1d4f9a; }
+.augment-desc { margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-body); line-height: var(--line-text); word-break: keep-all; text-wrap: balance; }
+.core:not(.is-ready) .augment-picks, .core:not(.is-ready) .augment-desc { display: none; }
 /* Flowcharts (diagram-design skill rules, 2026-10-21): the core loop on its own and one under each screen. Below 560px they
    keep that width and scroll sideways inside their own box, so the labels stay readable. */
 .core-flow { margin: var(--gap-block) 0 0; }
@@ -170,6 +182,8 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
+  .augment-picks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .augment-pick-name { font-size: 14px; }
   .award-name { font-size: 1.25rem; }
   .award-event { font-size: 1.125rem; }
   .project-actions .action { flex: 1 1 0; }
@@ -191,12 +205,15 @@
   .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { translate: 0 8px; }
   .ptabs-tab img { transition: opacity 160ms ease; }
   .project-image { transition: opacity 160ms ease; }
+  .augment-pick { transition: border-color 160ms ease, box-shadow 160ms ease, translate 160ms ease; }
+  .augment-pick[aria-pressed="true"] { translate: 0 -2px; }
 }
 @media (hover: hover) and (pointer: fine) {
   .action:hover { background: #dce8df; text-decoration: none; }
   .action-primary:hover, .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
   .home-link:hover { background: #dce8df; }
   .ptabs-tab:hover img { opacity: 1; }
+  .augment-pick:hover { border-color: #3d8fe0; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {

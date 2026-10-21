@@ -1,11 +1,10 @@
-// Reflectory augment and map-change systems on the detail page (2026-10-21 user request), under the core play block.
-// Both screens follow the game's own rules from its code: 12×10 rooms that get walls only where no room is next to them, a
-// gap in the bottom middle room's floor for the launcher, walls (the game's mirrors) that reflect balls, and enemies that
-// walk their lanes. The augment scene waits 2 s in an empty room, opens the game's selection screen, picks 번식
-// (the first bounce splits a ball into two, 10° apart) and then catches every enemy with one wall. The map scene adds
-// rooms in the game's order (middle → left → right → the row above) and clears the walls after every wave, so the path is
-// placed again. Ball speed (6.5 tiles/s) and fire interval (0.45 s) are the game's; enemy lanes, health and speed are chosen
-// to read well. Off screen they stop; with reduced motion each shows one still picture.
+// Reflectory map-change system on the detail page (2026-10-21 user request), under the augment block.
+// The screen follows the game's own rules from its code: 12×10 rooms that get walls only where no room is next to them,
+// a gap in the bottom middle room's floor for the launcher, walls (the game's mirrors) that reflect balls, and enemies
+// that walk their lanes. Rooms join in the game's order (middle → left → right → the row above) and the walls clear after
+// every wave, so the path is placed again. Ball speed (6.5 tiles/s) and fire interval (0.45 s) are the game's; enemy
+// lanes, health and speed are chosen to read well. Off screen it stops; with reduced motion it shows one still picture.
+// The augment block has its own script (reflectory-augments.js).
 (() => {
   const roots = [...document.querySelectorAll('[data-reflectory-system]')];
   if (!roots.length || !document.createElement('canvas').getContext) return;
@@ -44,7 +43,6 @@
     return { t, nx: -ey / n, ny: ex / n };
   };
   const reflect = (d, h) => { const k = d.x * h.nx + d.y * h.ny; return { x: d.x - 2 * k * h.nx, y: d.y - 2 * k * h.ny }; };
-  const rotate = (d, deg) => { const q = deg * Math.PI / 180, c = Math.cos(q), s = Math.sin(q); return { x: d.x * c - d.y * s, y: d.x * s + d.y * c }; };
   const nearest = (p, d, walls, len) => { let best = null; for (const w of walls) { const h = hitSeg(p, d, len, w); if (h && (!best || h.t < best.t)) best = h; } return best; };
   // A ball lives on floor that isn't a block wall, or in the launcher spot under the gap.
   const open = (tiles, x, y) => {
@@ -72,15 +70,7 @@
   const S = Math.SQRT1_2 * 0.85;
   const upRight = (x, y, t0, t1) => ({ a: { x: x - S, y: y - S }, b: { x: x + S, y: y + S }, t0, t1 });
   const upLeft = (x, y, t0, t1) => ({ a: { x: x - S, y: y + S }, b: { x: x + S, y: y - S }, t0, t1 });
-  const augLane = { path: [{ x: 9.5, y: 8.5 }, { x: 9.5, y: 1.5 }], spawns: [0.3, 1.5], hp: 3, speed: 1.1 };
   const SCENES = {
-    // 2026-10-21 user request: no "before" wave; an empty room for 2 s, then the selection (1.3 s: its 4.2 s of motion
-    // played faster through pace) and the play after it.
-    augment: { speed: 6.5, fireEvery: 0.45, length: 12.7, still: 7.1, stages: [
-      { t0: 0, rooms: [[0, 0]], walls: [], lanes: [] },
-      { t0: 2.0, rooms: [[0, 0]], walls: [], lanes: [], select: true, pickAt: 3.4, pace: 4.2 / 1.3 },
-      { t0: 3.3, rooms: [[0, 0]], walls: [upRight(6, 3.5, 0.4, 1.2)], fire: 1.6, lanes: [augLane], clear: 8.8 },
-    ] },
     map: { speed: 6.5, fireEvery: 0.45, length: 34.2, still: 31, stages: [
       { t0: 0, name: '스테이지 1', rooms: [[0, 0]], walls: [upRight(6, 6, 1.0, 1.8)], fire: 2.0, clear: 6.2,
         lanes: [{ path: [{ x: 9.5, y: 8.5 }, { x: 9.5, y: 1.5 }], spawns: [2.4, 3.2], hp: 2, speed: 1.3 }] },
@@ -95,7 +85,7 @@
   };
   for (const scene of Object.values(SCENES)) for (const st of scene.stages) st.tiles = tilesOf(st.rooms);
 
-  const fresh = scene => { seed = 7; return { scene, time: 0, stage: -1, balls: [], enemies: [], fx: [], placed: [], fired: 0, hp: 12, split: false, tiles: null, prev: null, spawned: [], hurt: 0 }; };
+  const fresh = scene => { seed = 7; return { scene, time: 0, stage: -1, balls: [], enemies: [], fx: [], placed: [], fired: 0, hp: 12, tiles: null, prev: null, spawned: [], hurt: 0 }; };
   const enter = (s, i) => {
     const st = s.scene.stages[i];
     s.stage = i; s.balls = []; s.enemies = []; s.placed = []; s.fired = 0; s.spawned = st.lanes.map(() => 0);
@@ -109,7 +99,6 @@
     while (i + 1 < sc.stages.length && sc.stages[i + 1].t0 <= t) i++;
     if (i !== s.stage) enter(s, i);
     const st = sc.stages[s.stage], u = t - st.t0;
-    if (st.select && u * st.pace >= st.pickAt) s.split = true;
     const cleared = st.clear !== undefined && u >= st.clear;
     // After a wave every placed wall goes (WaveManager.FinishWave → DestroyAllLines).
     if (cleared && s.placed.some(Boolean)) {
@@ -124,7 +113,7 @@
     });
     if (st.fire !== undefined && !cleared) {
       for (let at = st.fire + s.fired * sc.fireEvery; at <= u; at = st.fire + s.fired * sc.fireEvery) {
-        s.balls.push({ ...launch(s), d: { x: 0, y: 1 }, first: true, touched: new Set(), squash: 0 });
+        s.balls.push({ ...launch(s), d: { x: 0, y: 1 }, touched: new Set(), squash: 0 });
         s.fired++;
       }
     }
@@ -134,21 +123,16 @@
         s.spawned[n]++;
       }
     });
-    const walls = st.walls.filter((w, n) => s.placed[n]), born = [];
+    const walls = st.walls.filter((w, n) => s.placed[n]);
     for (const b of s.balls) {
       let left = sc.speed * dt;
       for (let g = 0; left > 0 && g < 4; g++) {
         const h = nearest(b, b.d, walls, left);
         if (!h) { b.x += b.d.x * left; b.y += b.d.y * left; break; }
         b.x += b.d.x * h.t; b.y += b.d.y * h.t; left -= h.t; b.d = reflect(b.d, h); b.squash = 1;
-        if (b.first) {
-          b.first = false;
-          if (s.split) { born.push({ x: b.x, y: b.y, d: rotate(b.d, -10), first: false, touched: new Set(), squash: 1 }); b.d = rotate(b.d, 10); }
-        }
       }
       b.squash = Math.max(0, b.squash - dt * 8);
     }
-    s.balls.push(...born);
     for (const b of s.balls) {
       if (!open(s.tiles, b.x, b.y)) {
         b.dead = true;
@@ -184,11 +168,11 @@
   };
   const stateAt = (scene, until) => { const s = fresh(scene); step(s, 1e-4); while (s.time < until) step(s, 1 / 120); return s; };
 
-  // The orange dashed path; with 번식 it forks at the first bounce, as the game's preview does.
+  // The orange dashed path the next ball will take.
   const previews = s => {
     const st = s.scene.stages[s.stage], walls = st.walls.filter((w, n) => s.placed[n]);
     if (!walls.length) return [];
-    const trace = (p, d, depth, forked) => {
+    const trace = (p, d, depth) => {
       const pts = [p];
       for (let n = 0; n < depth; n++) {
         const h = nearest(p, d, walls, 200);
@@ -199,23 +183,15 @@
           break;
         }
         p = { x: p.x + d.x * h.t, y: p.y + d.y * h.t }; pts.push(p); d = reflect(d, h);
-        if (!forked && s.split) return [pts, ...trace(p, rotate(d, 10), depth - n - 1, true), ...trace(p, rotate(d, -10), depth - n - 1, true)];
-        forked = true;
       }
       return [pts];
     };
-    return trace(launch(s), { x: 0, y: 1 }, 10, false);
+    return trace(launch(s), { x: 0, y: 1 }, 10);
   };
 
   // ── Drawing ──
   const W = 960, H = 540;
   const COL = { paper: '#f5f1e8', paperGrid: 'rgba(120,160,200,.16)', floorGrid: '#cfe0f1', block: '#666', wall: '#3d8fe0', wallDrag: '#1d4f9a', ball: '#1767dc', preview: 'rgba(235,140,70,.85)', lane: '#c93a52', target: '#f2cc45', enemy: '#ef5f6f', hpBar: '#4caf50' };
-  const CARDS = [
-    { id: 'damage', name: '데미지 증가', desc: ['처음 반사된 공이', '+1 데미지를 가진다.'] },
-    { id: 'more-walls', name: '추가 벽', desc: ['벽의 개수가', '2배 증가한다.'] },
-    { id: 'duplicate', name: '번식', desc: ['처음 반사된 공이', '두 갈래로 분열한다.'] },
-  ];
-  const PICK = 2;
   const ease = k => (k <= 0 ? 0 : k >= 1 ? 1 : k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
   const camFor = b => { const m = 1.2, bw = b.x1 - b.x0 + 2 * m, bh = b.y1 - b.y0 + 2 * m + 1.6; return { cx: (b.x0 + b.x1) / 2, cy: (b.y0 + b.y1) / 2 - 0.5, sc: Math.min(W / bw, H / bh) }; };
   const pointer = (ctx, x, y, k) => {
@@ -226,7 +202,7 @@
   const font = px => `${px}px NeoDunggeunmo, "Noto Sans KR", sans-serif`;
 
   // k (1–1.8) thickens lines and enlarges text on narrow screens, where the 960-wide scene is drawn small.
-  const draw = (ctx, s, k, icons) => {
+  const draw = (ctx, s, k) => {
     const st = s.scene.stages[s.stage], u = s.time - st.t0;
     const grow = s.prev && s.prev !== s.tiles ? ease(u / 1.0) : 1;
     const c1 = camFor(s.tiles.bounds), c0 = s.prev ? camFor(s.prev.bounds) : c1;
@@ -304,50 +280,16 @@
     };
     if (cleared) banner('웨이브 클리어', Math.min(1, (u - st.clear) / 0.2));
     else if (st.name && s.stage > 0 && u < 1.6) banner(st.name, Math.min(1, u / 0.3) * Math.min(1, (1.6 - u) / 0.3));
-    if (st.select) select(ctx, s, u * st.pace, k, icons);
     if (s.time > s.scene.length - 0.8) { ctx.fillStyle = `rgba(245,241,232,${Math.min(1, (s.time - (s.scene.length - 0.8)) / 0.6)})`; ctx.fillRect(0, 0, W, H); }
   };
 
-  // The game's selection screen ("특성 선택", called 증강 on the site). On narrow screens the cards grow and drop the
-  // description so the names stay readable.
-  const select = (ctx, s, u, k, icons) => {
-    const pickAt = s.scene.stages[s.stage].pickAt, out = Math.min(1, Math.max(0, (u - pickAt - 0.5) / 0.4));
-    const a = Math.min(1, u / 0.4) * (1 - out), phone = k > 1.3;
-    ctx.globalAlpha = a; ctx.fillStyle = 'rgba(70,70,70,.55)'; ctx.fillRect(0, 0, W, H);
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.font = font(32 * k);
-    ctx.fillText('증강 선택', W / 2, phone ? 70 : 64);
-    const gap = phone ? 20 : 24, cw = phone ? (W - 64 - 2 * gap) / 3 : 200, ch = phone ? 340 : 300, x0 = W / 2 - (cw * 3 + gap * 2) / 2, y0 = phone ? 140 : 120;
-    const hoverAt = pickAt - 1.0, from = { x: W / 2, y: H - 70 }, to = { x: x0 + PICK * (cw + gap) + cw * 0.6, y: y0 + ch * 0.7 };
-    CARDS.forEach((c, n) => {
-      const appear = ease((u - 0.3 - n * 0.15) / 0.45), hover = n === PICK ? ease((u - hoverAt) / 0.25) : 0, picked = n === PICK && u >= pickAt;
-      const x = x0 + n * (cw + gap), y = y0 + (1 - appear) * 40 - hover * 8;
-      ctx.globalAlpha = a * appear;
-      ctx.fillStyle = hover ? 'rgba(28,32,42,.95)' : 'rgba(45,50,62,.92)'; ctx.fillRect(x, y, cw, ch);
-      if (picked) { const f = Math.max(0, 1 - (u - pickAt) / 0.5); ctx.strokeStyle = `rgba(153,235,255,${0.4 + 0.6 * f})`; ctx.lineWidth = 3 + 4 * f; ctx.strokeRect(x, y, cw, ch); }
-      const img = icons[c.id], size = phone ? Math.min(cw - 48, 200) : 112;
-      if (img && img.complete && img.naturalWidth) { ctx.imageSmoothingEnabled = false; ctx.drawImage(img, x + (cw - size) / 2, y + 26, size, size); ctx.imageSmoothingEnabled = true; }
-      const nameY = y + 26 + size + (phone ? 50 : 32);
-      ctx.fillStyle = '#fff'; ctx.font = font(phone ? 40 : 22); ctx.fillText(c.name, x + cw / 2, nameY);
-      if (!phone) {
-        ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.fillRect(x + 20, nameY + 20, cw - 40, 1.5);
-        ctx.fillStyle = '#fff'; ctx.font = font(16);
-        c.desc.forEach((line, j) => ctx.fillText(line, x + cw / 2, nameY + 48 + j * 24));
-      }
-    });
-    ctx.globalAlpha = a; ctx.textAlign = 'left';
-    const m = ease((u - 1.2) / (hoverAt - 1.2));
-    if (u > 1.0) pointer(ctx, from.x + (to.x - from.x) * m, from.y + (to.y - from.y) * m, k);
-    ctx.globalAlpha = 1;
-  };
 
   // ── Players ──
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const players = roots.map(root => {
     const scene = SCENES[root.dataset.reflectorySystem], canvas = root.querySelector('canvas');
-    const icons = {};
-    for (const img of root.querySelectorAll('img[data-augment]')) icons[img.dataset.augment] = img;
     const hud = { hp: root.querySelector('[data-system-hp]'), info: root.querySelector('[data-system-info]') };
-    return { root, scene, canvas, icons, hud, state: fresh(scene), view: null, onScreen: true, shown: {} };
+    return { root, scene, canvas, hud, state: fresh(scene), view: null, onScreen: true, shown: {} };
   }).filter(p => p.scene && p.canvas);
 
   const fit = p => {
@@ -359,9 +301,9 @@
   };
   const paint = p => {
     if (p.state.stage < 0) step(p.state, 1e-4);
-    draw(p.view.ctx, p.state, p.view.k, p.icons);
+    draw(p.view.ctx, p.state, p.view.k);
     const st = p.scene.stages[p.state.stage];
-    const next = { hp: `HP ${p.state.hp} / 12`, info: p.scene === SCENES.map ? st.name : `증강: ${p.state.split ? '번식' : '없음'}` };
+    const next = { hp: `HP ${p.state.hp} / 12`, info: st.name };
     for (const name in next) if (p.hud[name] && p.shown[name] !== next[name]) p.hud[name].textContent = p.shown[name] = next[name];
   };
 
@@ -396,8 +338,7 @@
   motion.addEventListener('change', update);
   let resizeTimer;
   window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(update, 120); });
-  // Icons and the pixel font are drawn into the canvas, so the first picture waits for them.
-  const icons = players.flatMap(p => Object.values(p.icons)).map(img => (img.complete ? null : new Promise(done => { img.addEventListener('load', done); img.addEventListener('error', done); })));
+  // The pixel font is drawn into the canvas (stage names), so the first picture waits for it.
   const pixelFont = document.fonts && document.fonts.load ? document.fonts.load(font(16)).catch(() => null) : null;
-  Promise.all([...icons, pixelFont]).then(update);
+  Promise.resolve(pixelFont).then(update);
 })();
