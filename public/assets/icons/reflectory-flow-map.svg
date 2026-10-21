@@ -20,10 +20,10 @@
   <polygon points="296,584 288,581 288,587" fill="#4f544d"/>
   <path d="M300,588 L300,608" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,608 297,600 303,600" fill="#4f544d"/>
-  <path d="M300,664 L300,696" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="300,696 297,688 303,688" fill="#1f4f43"/>
-  <path d="M300,752 L300,784" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="300,784 297,776 303,776" fill="#1f4f43"/>
+  <path d="M300,664 L300,696" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,696 297,688 303,688" fill="#4f544d"/>
+  <path d="M300,752 L300,784" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,784 297,776 303,776" fill="#4f544d"/>
   <rect x="308" y="324" width="24" height="16" rx="2" fill="#ffffff"/>
   <text x="320" y="336" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
   <rect x="428" y="232" width="48" height="16" rx="2" fill="#ffffff"/>
@@ -56,7 +56,7 @@
   <text x="300" y="634" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적의 길 바꾸기</text>
   <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">스테이지마다 진입 방향이 달라짐</text>
   <rect x="192" y="696" width="216" height="56" rx="6" fill="#ffffff"/>
-  <rect x="192" y="696" width="216" height="56" rx="6" fill="rgba(31,79,67,.08)" stroke="#1f4f43" stroke-width="1"/>
+  <rect x="192" y="696" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="722" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">길을 다시 설계</text>
   <text x="300" y="740" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">새 맵에 맞춰 벽을 다시 설치</text>
   <rect x="192" y="784" width="216" height="48" rx="20" fill="#ffffff"/>
@@ -72,7 +72,4 @@
   <text x="284" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
   <circle cx="368" cy="884" r="4" fill="#20211f"/>
   <text x="380" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
-  <line x1="468" y1="884" x2="496" y2="884" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="496,884 488,881 488,887" fill="#1f4f43"/>
-  <text x="504" y="888" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">핵심 흐름</text>
 </svg>

@@ -108,7 +108,7 @@
 | 프로젝트 썸네일 탭 동작 | `src/scripts/project-tabs.js`(모양은 `home.css`의 `.ptabs`) |
 | Reflectory 상세 페이지 핵심 플레이 | 글 `src/templates/projects/reflectory.html`, 동작 `src/scripts/reflectory-core.js`, 모양 `home.css`의 `.core` |
 | Reflectory 상세 페이지 증강·맵 변화 시스템 | 글 `src/templates/projects/reflectory.html`, 동작 `src/scripts/reflectory-systems.js`(장면 시간표 포함), 증강 아이콘 `public/assets/images/reflectory/` |
-| Reflectory 상세 페이지 순서도 4장 | 그림 `public/assets/icons/reflectory-flow-{loop,core,augment,map}.svg`(diagram-design 스킬 규칙으로 만든 SVG, 고칠 때는 같은 규칙으로 다시 만들어 교체), 모양 `home.css`의 `.core-flow` |
+| Reflectory 상세 페이지 순서도 4장 | 그림 `public/assets/icons/reflectory-flow-{loop,core,augment,map}.svg`(diagram-design 스킬 규칙으로 만든 SVG, 고칠 때는 같은 규칙으로 다시 만들어 교체. 2026-10-21 사용자 요청으로 초록 강조 칸·화살표와 범례 ‘핵심 흐름’을 빼 모든 칸이 흰 칸·회색 화살표), 모양 `home.css`의 `.core-flow` |
 | 이미지 원본 | `public/assets/images/` |
 | 홈페이지 영상 파일 | `public/assets/videos/` |
 

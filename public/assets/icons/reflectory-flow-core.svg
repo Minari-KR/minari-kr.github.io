@@ -8,18 +8,18 @@
   <polygon points="300,200 297,192 303,192" fill="#4f544d"/>
   <path d="M300,256 L300,304" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,304 297,296 303,296" fill="#4f544d"/>
-  <path d="M412,352 L448,352" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="448,352 440,349 440,355" fill="#1f4f43"/>
+  <path d="M412,352 L448,352" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="448,352 440,349 440,355" fill="#4f544d"/>
   <path d="M188,352 L152,352" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="152,352 160,349 160,355" fill="#4f544d"/>
   <path d="M300,400 L300,448" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,448 297,440 303,440" fill="#4f544d"/>
-  <path d="M536,324 L536,288 Q536,280 528,280 L304,280" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="304,280 312,277 312,283" fill="#1f4f43"/>
+  <path d="M536,324 L536,288 Q536,280 528,280 L304,280" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="304,280 312,277 312,283" fill="#4f544d"/>
   <path d="M84,324 L84,288 Q84,280 92,280 L296,280" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="296,280 288,277 288,283" fill="#4f544d"/>
   <rect x="418" y="328" width="24" height="16" rx="2" fill="#ffffff"/>
-  <text x="430" y="340" fill="#1f4f43" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">벽</text>
+  <text x="430" y="340" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">벽</text>
   <rect x="158" y="328" width="24" height="16" rx="2" fill="#ffffff"/>
   <text x="170" y="340" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적</text>
   <rect x="308" y="416" width="48" height="16" rx="2" fill="#ffffff"/>
@@ -38,7 +38,7 @@
   <polygon points="300,304 412,352 300,400 188,352" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="357" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">무엇에 닿았나?</text>
   <rect x="448" y="324" width="176" height="56" rx="6" fill="#ffffff"/>
-  <rect x="448" y="324" width="176" height="56" rx="6" fill="rgba(31,79,67,.08)" stroke="#1f4f43" stroke-width="1"/>
+  <rect x="448" y="324" width="176" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="536" y="350" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">반사</text>
   <text x="536" y="368" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">들어온 각도대로 튕김</text>
   <rect x="16" y="324" width="136" height="56" rx="6" fill="#ffffff"/>
@@ -59,7 +59,4 @@
   <text x="284" y="552" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
   <circle cx="368" cy="548" r="4" fill="#20211f"/>
   <text x="380" y="552" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
-  <line x1="468" y1="548" x2="496" y2="548" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="496,548 488,545 488,551" fill="#1f4f43"/>
-  <text x="504" y="552" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">핵심 흐름</text>
 </svg>

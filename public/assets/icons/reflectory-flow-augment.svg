@@ -18,10 +18,10 @@
   <polygon points="304,496 312,493 312,499" fill="#4f544d"/>
   <path d="M300,500 L300,520" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,520 297,512 303,512" fill="#4f544d"/>
-  <path d="M300,576 L300,608" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="300,608 297,600 303,600" fill="#1f4f43"/>
-  <path d="M300,664 L300,696" fill="none" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="300,696 297,688 303,688" fill="#1f4f43"/>
+  <path d="M300,576 L300,608" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,608 297,600 303,600" fill="#4f544d"/>
+  <path d="M300,664 L300,696" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,696 297,688 303,688" fill="#4f544d"/>
   <rect x="440" y="144" width="24" height="16" rx="2" fill="#ffffff"/>
   <text x="452" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
   <rect x="308" y="236" width="48" height="16" rx="2" fill="#ffffff"/>
@@ -51,7 +51,7 @@
   <text x="300" y="546" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3장 보여 주기</text>
   <text x="300" y="564" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">추가 벽·터렛은 함께 안 나옴</text>
   <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff"/>
-  <rect x="192" y="608" width="216" height="56" rx="6" fill="rgba(31,79,67,.08)" stroke="#1f4f43" stroke-width="1"/>
+  <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="634" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1장 고르기</text>
   <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">능력을 얻어 플레이가 바뀜</text>
   <rect x="192" y="696" width="216" height="48" rx="20" fill="#ffffff"/>
@@ -67,7 +67,4 @@
   <text x="284" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
   <circle cx="368" cy="788" r="4" fill="#20211f"/>
   <text x="380" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
-  <line x1="468" y1="788" x2="496" y2="788" stroke="#1f4f43" stroke-width="1.6"/>
-  <polygon points="496,788 488,785 488,791" fill="#1f4f43"/>
-  <text x="504" y="792" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">핵심 흐름</text>
 </svg>
