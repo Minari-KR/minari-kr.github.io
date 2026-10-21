@@ -50,15 +50,19 @@
    greens and faint grid, glass edge): a pixel game item (assets/images/awards/*.png: Nikoichu's CC0 1-bit icons in the LCD greens, already scaled 3x to 48px, centred) then the award name in the site's bold type and
    the year (screen's pixel font NeoDunggeunmo, declared in games.css, which the home page loads) with the event in one line. All four
    cards look the same (2026-10-16 user request: the grand prize is no longer inverted). */
-.award-list { --award-ink: #0f380f; --award-face: #9bbc0f; --award-edge: #8bac0f; --award-grid: rgba(15, 56, 15, .03); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
+/* Two cards a row only while each is at least 296px (the longest event, 247px at 20px, plus 24px padding each side);
+   narrower, as between 641 and about 750px, they stack so nothing wraps (2026-10-21). */
+.award-list { --award-ink: #0f380f; --award-face: #9bbc0f; --award-edge: #8bac0f; --award-grid: rgba(15, 56, 15, .03); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
 .award-card { position: relative; display: grid; align-content: start; gap: var(--gap-tight); padding: 24px; border-radius: 8px; background: repeating-linear-gradient(0deg, var(--award-grid) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--award-grid) 0 1px, transparent 1px 4px), var(--award-face); color: var(--award-ink); }
 .award-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--award-edge), inset 0 6px 12px rgba(15, 56, 15, .4); pointer-events: none; }
 .award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
 .award-icon { display: block; width: 48px; height: 48px; image-rendering: pixelated; }
-/* The event reads in the site's type; only the year keeps the screen's pixel font, at the start of the same line. */
-.award-event { font-size: var(--text-body); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
+/* The event reads in the site's type; only the year keeps the screen's pixel font, at the start of the same line.
+   20px (phone 18px, 2026-10-21 user choice B): the longest event still fits one line in the narrowest card (256px, 230px). */
+.award-event { font-size: 1.25rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .award-year { font-family: "NeoDunggeunmo", var(--font-body); font-weight: 400; font-synthesis: none; }
-/* 22px (phone 20px): one step under the project titles, so the card text stays big without levelling with them. */
+/* 22px (phone 20px, up from 18px on 2026-10-21): under or level with the project titles, and the longest name
+   (국가수리과학연구소장상) still fits one line in the narrowest card. */
 .award-name { font-size: 1.375rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; }
 
 /* Projects: image / heading group (title, meta, award) / buttons */
@@ -162,7 +166,8 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
-  .award-name { font-size: 1.125rem; }
+  .award-name { font-size: 1.25rem; }
+  .award-event { font-size: 1.125rem; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
   /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
