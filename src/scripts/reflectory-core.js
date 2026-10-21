@@ -2,7 +2,7 @@
 // blue walls and balls, orange dashed path, red enemies — redrawn with canvas. The player drags four walls into a loop,
 // balls keep firing from the gap below and the loop carries them round, hitting the enemies on their lanes. The fire
 // interval (0.45 s), wall limit (5) and HP (12) are the game's values; speeds and enemy health are chosen to read well.
-// One loop takes 21 s and the step under the screen lights up as it plays. Off screen, on a hidden card or with reduced
+// One loop takes 21 s. Off screen, on a hidden card or with reduced
 // motion it stops; reduced motion shows the three steps as still pictures instead.
 (() => {
   const root = document.querySelector('[data-reflectory-core]');
@@ -35,7 +35,6 @@
   ];
   const ENEMY_R = 13, ENEMY_SPEED = 34, ENEMY_HP = 3;
   const SPAWNS = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  const stageAt = t => (t < FIRE_AT ? 1 : t < 11.5 ? 2 : 3);
 
   const hitWall = (p, d, len, w) => {
     const ex = w.b.x - w.a.x, ey = w.b.y - w.a.y, den = d.x * ey - d.y * ex;
@@ -250,13 +249,6 @@
     const next = { hp: `HP ${s.hp} / 12`, walls: `벽 ${s.placed.filter(Boolean).length} / 5`, bounces: `튕김 ${s.bounces}` };
     for (const key in next) if (hud[key] && shown[key] !== next[key]) hud[key].textContent = shown[key] = next[key];
   };
-  const steps = [...root.querySelectorAll('[data-core-step]')];
-  let lit = 0;
-  const light = stage => {
-    if (stage === lit) return;
-    lit = stage;
-    steps.forEach(el => el.classList.toggle('is-on', Number(el.dataset.coreStep) === stage));
-  };
 
   const stills = () => {
     for (const canvas of root.querySelectorAll('canvas[data-core-still]')) {
@@ -280,7 +272,6 @@
     if (state.time >= LOOP) state = fresh();
     draw(view.ctx, state, view.k);
     setHud(state);
-    light(stageAt(state.time));
     raf = window.requestAnimationFrame(frame);
   };
   const play = () => { if (!raf && playing()) { last = 0; raf = window.requestAnimationFrame(frame); } };
@@ -288,7 +279,7 @@
     root.classList.add('is-ready');
     root.classList.toggle('is-still', motion.matches);
     if (motion.matches) stills();
-    else { draw(view.ctx, state, view.k); setHud(state); light(stageAt(state.time)); play(); }
+    else { draw(view.ctx, state, view.k); setHud(state); play(); }
   };
 
   if ('IntersectionObserver' in window) {
