@@ -31,35 +31,35 @@
       </figure>
       <a class="play-link" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer"><span translate="no">Reflectory</span> 플레이하기</a>
       <div class="core">
-        <h2 class="core-title">코어 루프</h2>
-        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="코어 루프 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-loop.svg" width="720" height="860" alt="코어 루프 순서도: 게임 시작 후 첫 웨이브가 아니면 증강을 고르고, 적의 길을 본 뒤 벽을 설치해 Space로 시작합니다. 웨이브가 진행되며 HP가 0이 되면 게임 오버, 아니면 웨이브 클리어 후 벽이 사라지고 방이 넓어져 다음 웨이브로 돌아갑니다."></div></figure>
+        <h2 class="core-title">핵심 루프</h2>
+        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="핵심 루프 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-loop.svg" width="720" height="860" alt="핵심 루프 순서도: 게임 시작 후 첫 웨이브가 아니면 증강을 고르고, 적의 길을 본 뒤 벽을 설치해 Space로 시작합니다. 웨이브가 진행되며 HP가 0이 되면 게임 오버, 아니면 웨이브 클리어 후 벽이 사라지고 방이 넓어져 다음 웨이브로 돌아갑니다."></div></figure>
       </div>
       <div class="core" data-reflectory-core>
         <h2 class="core-title">핵심 플레이 규칙 설계</h2>
-        <p class="core-text"><span class="core-line">게임잼 주제인 ‘무한’을 코어 메카닉으로 풀어냈습니다.</span> <span class="core-line">일정한 방향으로 날아오는 공을 벽으로 튕겨내어, 끝없이 순환시키며 적을 처치하는 퍼즐형 디펜스 게임입니다.</span></p>
+        <p class="core-text"><span class="core-line">게임잼 주제인 ‘무한’을 핵심 메카닉으로 구현하였고,</span> <span class="core-line">일정한 방향으로 발사되는 공을 벽에 반사시켜, 끝없이 순환시키며 적을 처치하는 퍼즐 디펜스 게임입니다.</span></p>
         <div class="core-live">
           <div class="core-screen">
             <canvas data-core-screen width="960" height="400" role="img" aria-label="플레이어가 방 안에 벽 네 개를 놓아 사각형 길을 만들고, 아래에서 계속 발사되는 공이 그 길을 따라 돌며 다가오는 적을 맞히는 장면"></canvas>
-            <p class="core-hud" aria-hidden="true"><span data-core-hp>HP 12 / 12</span><span data-core-walls>벽 0 / 5</span><span data-core-bounces>튕김 0</span></p>
+            <p class="core-hud" aria-hidden="true"><span data-core-hp>HP 12 / 12</span><span data-core-walls>벽 0 / 5</span><span data-core-bounces>반사 0</span></p>
           </div>
         </div>
         <div class="core-stills">
           <figure><div class="core-screen"><canvas data-core-still="6.2" width="960" height="400" aria-hidden="true"></canvas></div><figcaption><span class="core-step-num">01</span> 벽을 세운다</figcaption></figure>
-          <figure><div class="core-screen"><canvas data-core-still="10" width="960" height="400" aria-hidden="true"></canvas></div><figcaption><span class="core-step-num">02</span> 공이 튕긴다</figcaption></figure>
+          <figure><div class="core-screen"><canvas data-core-still="10" width="960" height="400" aria-hidden="true"></canvas></div><figcaption><span class="core-step-num">02</span> 공이 반사된다</figcaption></figure>
           <figure><div class="core-screen"><canvas data-core-still="17" width="960" height="400" aria-hidden="true"></canvas></div><figcaption><span class="core-step-num">03</span> 끝없이 돈다</figcaption></figure>
         </div>
-        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="핵심 플레이 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-core.svg" width="720" height="568" alt="핵심 플레이 순서도: 벽을 설치하고 공이 발사되면, 공이 벽에 닿을 때 반사되어 다시 날아가고, 적에 닿으면 피해를 주며 통과하고, 방의 블록 벽에 닿으면 사라집니다."></div></figure>
+        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="핵심 플레이 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-core.svg" width="720" height="568" alt="핵심 플레이 순서도: 벽을 설치하고 공이 발사되면, 공이 벽에 닿을 때 반사되어 다시 날아가고, 적에 닿으면 피해를 주며 통과하고, 블록에 닿으면 사라집니다."></div></figure>
       </div>
       <div class="core" data-reflectory-augments>
         <h2 class="core-title">증강 시스템</h2>
-        <p class="core-text"><span class="core-line">벽 설치만 반복되는 단조로움을 줄이기 위해 증강을 도입하였고,</span> <span class="core-line">웨이브를 마칠 때마다 세 가지 증강 중 하나를 골라 능력을 얻으며 플레이에 변화를 줍니다.</span></p>
+        <p class="core-text"><span class="core-line">매 판 다른 선택과 성장을 제공하기 위해 증강을 도입하였고,</span> <span class="core-line">웨이브를 마칠 때마다 세 가지 증강 중 하나를 골라 능력을 얻으며 플레이에 변화를 줍니다.</span></p>
         <div class="core-screen core-screen-wide">
           <canvas width="960" height="540" role="img" aria-label="고른 증강이 플레이를 어떻게 바꾸는지 보여 주는 게임 화면"></canvas>
           <p class="core-hud" aria-hidden="true"><span data-augment-hp>HP 12 / 12</span><span data-augment-walls>벽 0 / 5</span><span data-augment-name>증강: 번식</span></p>
         </div>
         <ul class="augment-picks" aria-label="증강 고르기">
           <li><button class="augment-pick" type="button" data-augment="duplicate" data-desc="번식 · 처음 반사된 공이 두 갈래로 분열합니다." aria-pressed="true"><img src="../assets/images/reflectory/augment-duplicate.png" width="64" height="64" alt=""><span class="augment-pick-name">번식</span></button></li>
-          <li><button class="augment-pick" type="button" data-augment="damage" data-desc="데미지 증가 · 처음 반사된 공이 +1 데미지를 가집니다." aria-pressed="false"><img src="../assets/images/reflectory/augment-damage.png" width="64" height="64" alt=""><span class="augment-pick-name">데미지 증가</span></button></li>
+          <li><button class="augment-pick" type="button" data-augment="damage" data-desc="피해 증가 · 처음 반사된 공의 피해가 1 늘어납니다." aria-pressed="false"><img src="../assets/images/reflectory/augment-damage.png" width="64" height="64" alt=""><span class="augment-pick-name">피해 증가</span></button></li>
           <li><button class="augment-pick" type="button" data-augment="more-walls" data-desc="추가 벽 · 설치할 수 있는 벽이 5개에서 10개로 늘어납니다." aria-pressed="false"><img src="../assets/images/reflectory/augment-more-walls.png" width="64" height="64" alt=""><span class="augment-pick-name">추가 벽</span></button></li>
           <li><button class="augment-pick" type="button" data-augment="big-walls" data-desc="거대 벽 · 벽의 최대 길이가 2배로 늘어납니다." aria-pressed="false"><img src="../assets/images/reflectory/augment-big-walls.png" width="64" height="64" alt=""><span class="augment-pick-name">거대 벽</span></button></li>
           <li><button class="augment-pick" type="button" data-augment="aura" data-desc="거울 오라 · 벽 주변의 적에게 초당 1 피해를 줍니다." aria-pressed="false"><img src="../assets/images/reflectory/augment-aura.png" width="64" height="64" alt=""><span class="augment-pick-name">거울 오라</span></button></li>
@@ -70,12 +70,12 @@
       </div>
       <div class="core" data-reflectory-system="map">
         <h2 class="core-title">맵 변화 시스템</h2>
-        <p class="core-text"><span class="core-line">단조로운 벽 배치가 반복되지 않도록 동적 맵 변화 시스템을 도입했습니다.</span> <span class="core-line">웨이브를 마칠 때마다 공간이 좌우와 위로 확장되고 기존 벽이 사라져, 매번 새로운 반사 경로를 설계하게 됩니다.</span></p>
+        <p class="core-text"><span class="core-line">같은 벽 배치를 반복하지 못하도록 맵 변화 시스템을 도입하였고,</span> <span class="core-line">웨이브마다 공간이 좌우와 위로 확장되고 기존 벽이 사라져, 매번 새로운 반사 경로를 설계합니다.</span></p>
         <div class="core-screen core-screen-wide">
           <canvas width="960" height="540" role="img" aria-label="웨이브가 끝날 때마다 방이 왼쪽, 오른쪽, 위로 붙어 맵이 커지고, 설치한 벽이 사라진 뒤 새 맵에 맞춰 벽을 다시 놓는 장면"></canvas>
-          <p class="core-hud" aria-hidden="true"><span data-system-hp>HP 12 / 12</span><span data-system-info>스테이지 1</span></p>
+          <p class="core-hud" aria-hidden="true"><span data-system-hp>HP 12 / 12</span><span data-system-info>웨이브 1</span></p>
         </div>
-        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="맵 변화 시스템 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-map.svg" width="720" height="904" alt="맵 변화 시스템 순서도: 웨이브가 끝나면 설치한 벽을 모두 지우고, 6스테이지까지는 방을 하나 붙이며 방이 세 줄이면 맨 아래 줄을 지운 뒤, 바뀐 적의 길에 맞춰 길을 다시 설계합니다."></div></figure>
+        <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="맵 변화 시스템 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-map.svg" width="720" height="904" alt="맵 변화 시스템 순서도: 웨이브가 끝나면 설치한 벽을 모두 지우고, 6웨이브까지는 방을 하나 붙이며 방이 세 줄이면 맨 아래 줄을 지운 뒤, 바뀐 적의 길에 맞춰 반사 경로를 다시 설계합니다."></div></figure>
       </div>
     </article>
   </main>

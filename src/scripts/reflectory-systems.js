@@ -72,14 +72,14 @@
   const upLeft = (x, y, t0, t1) => ({ a: { x: x - S, y: y + S }, b: { x: x + S, y: y - S }, t0, t1 });
   const SCENES = {
     map: { speed: 6.5, fireEvery: 0.45, length: 34.2, still: 31, stages: [
-      { t0: 0, name: '스테이지 1', rooms: [[0, 0]], walls: [upRight(6, 6, 1.0, 1.8)], fire: 2.0, clear: 6.2,
+      { t0: 0, name: '웨이브 1', rooms: [[0, 0]], walls: [upRight(6, 6, 1.0, 1.8)], fire: 2.0, clear: 6.2,
         lanes: [{ path: [{ x: 9.5, y: 8.5 }, { x: 9.5, y: 1.5 }], spawns: [2.4, 3.2], hp: 2, speed: 1.3 }] },
-      { t0: 6.8, name: '스테이지 2', rooms: [[0, 0], [-1, 0]], walls: [upLeft(6, 7.5, 1.2, 2.0)], fire: 2.2, clear: 6.6,
+      { t0: 6.8, name: '웨이브 2', rooms: [[0, 0], [-1, 0]], walls: [upLeft(6, 7.5, 1.2, 2.0)], fire: 2.2, clear: 6.6,
         lanes: [{ path: [{ x: -10.5, y: 7.5 }, { x: 3.5, y: 7.5 }, { x: 3.5, y: 1.5 }], spawns: [1.4, 2.4], hp: 3, speed: 1.6 }] },
-      { t0: 14.0, name: '스테이지 3', rooms: [[0, 0], [-1, 0], [1, 0]], walls: [upLeft(6, 8, 1.2, 1.9), upRight(-4.5, 8, 2.0, 2.7), upLeft(-4.5, 1.5, 2.8, 3.5)], fire: 3.7, clear: 11.0,
+      { t0: 14.0, name: '웨이브 3', rooms: [[0, 0], [-1, 0], [1, 0]], walls: [upLeft(6, 8, 1.2, 1.9), upRight(-4.5, 8, 2.0, 2.7), upLeft(-4.5, 1.5, 2.8, 3.5)], fire: 3.7, clear: 11.0,
         lanes: [{ path: [{ x: -10.5, y: 8 }, { x: 22.5, y: 8 }, { x: 22.5, y: 4.5 }], spawns: [3.4, 4.4], hp: 3, speed: 1.5 },
                 { path: [{ x: 22.5, y: 1.5 }, { x: -10.5, y: 1.5 }, { x: -10.5, y: 4.5 }], spawns: [1.0, 2.0], hp: 3, speed: 1.8 }] },
-      { t0: 25.6, name: '스테이지 4', rooms: [[0, 0], [-1, 0], [1, 0], [0, 1]], walls: [upRight(6, 15, 1.4, 2.2)], fire: 2.4, clear: 7.8,
+      { t0: 25.6, name: '웨이브 4', rooms: [[0, 0], [-1, 0], [1, 0], [0, 1]], walls: [upRight(6, 15, 1.4, 2.2)], fire: 2.4, clear: 7.8,
         lanes: [{ path: [{ x: 9.5, y: 18.5 }, { x: 9.5, y: 1.5 }], spawns: [2.2, 3.0], hp: 2, speed: 1.1 }] },
     ] },
   };

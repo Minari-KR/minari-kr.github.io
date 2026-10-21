@@ -1,5 +1,5 @@
 <svg viewBox="0 0 720 860" xmlns="http://www.w3.org/2000/svg">
-  <title id="reflectory-loop-flow-title">Reflectory 코어 루프 순서도</title>
+  <title id="reflectory-loop-flow-title">Reflectory 핵심 루프 순서도</title>
   <desc id="reflectory-loop-flow-desc">첫 웨이브가 아니면 증강을 고르고, 이번 웨이브의 적의 길을 본 뒤 벽을 놓아 시작하며, 공이 반사로 적을 처치하는 동안 HP가 0이 되면 게임 오버, 아니면 웨이브 클리어 후 벽이 사라지고 방이 넓어져 다시 처음으로 돌아가는 흐름.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <path d="M300,80 L300,128" fill="none" stroke="#4f544d" stroke-width="1.2"/>

@@ -37,7 +37,7 @@
   <text x="300" y="173" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">첫 웨이브인가?</text>
   <rect x="192" y="264" width="216" height="56" rx="6" fill="#ffffff"/>
   <rect x="192" y="264" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
-  <text x="300" y="290" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">후보 섞기</text>
+  <text x="300" y="290" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">후보 정하기</text>
   <text x="300" y="308" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">이미 가진 증강은 빼기</text>
   <polygon points="300,352 412,408 300,464 188,408" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="404" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">처음 두 번의</text>
@@ -45,7 +45,7 @@
   <rect x="456" y="380" width="184" height="56" rx="6" fill="#ffffff"/>
   <rect x="456" y="380" width="184" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="548" y="406" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">강한 증강은 1장만</text>
-  <text x="548" y="424" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">번식·오라·터렛</text>
+  <text x="548" y="424" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">번식·거울 오라·터렛</text>
   <rect x="192" y="520" width="216" height="56" rx="6" fill="#ffffff"/>
   <rect x="192" y="520" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="546" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3장 보여 주기</text>
@@ -53,7 +53,7 @@
   <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff"/>
   <rect x="192" y="608" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="634" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1장 고르기</text>
-  <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">능력을 얻어 플레이가 바뀜</text>
+  <text x="300" y="652" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">고른 증강 바로 적용</text>
   <rect x="192" y="696" width="216" height="48" rx="20" fill="#ffffff"/>
   <rect x="192" y="696" width="216" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
   <text x="300" y="725" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 시작</text>

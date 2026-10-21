@@ -1,10 +1,10 @@
 // Reflectory augments on the detail page (2026-10-21 user choice C): one game screen and the game's six augment cards.
 // Pressing a card plays that augment; until one is pressed the screen moves on to the next augment after each scene.
 // Every scene uses the game's numbers from its code: ball speed 6.5 tiles/s, a ball every 0.45 s, 5 walls of up to 3.5
-// tiles; 번식 splits the first bounce 10° apart, 데미지 증가 adds 1 damage after the first bounce, 추가 벽 doubles the
+// tiles; 번식 splits the first bounce 10° apart, 피해 증가 adds 1 damage after the first bounce, 추가 벽 doubles the
 // walls to 10, 거대 벽 doubles the length to 7, 거울 오라 hurts enemies within 1.6 tiles of a wall once a second, and 터렛
 // puts a turret on each wall that fires a homing shot (speed 9) every second at the nearest enemy within 7.35 tiles.
-// Enemy health, speed and lanes are chosen to read well (the game's enemies have 1 health, so 데미지 증가 shows a 2).
+// Enemy health, speed and lanes are chosen to read well (the game's enemies have 1 health, so 피해 증가 shows a 2).
 // Off screen it stops; with reduced motion it shows a still picture of the chosen augment and doesn't move on.
 (() => {
   const root = document.querySelector('[data-reflectory-augments]');
@@ -27,7 +27,7 @@
     .map(([x, y, d], i) => (d === 'R' ? upRight : upLeft)(x, y, 0.3 + i * 0.45, 0.6 + i * 0.45, 0.8));
   const SCENES = {
     duplicate: { name: '번식', length: 10, still: 5, fire: 1.2, split: true, walls: [upRight(6, 3.5, 0.4, 1.0)], lanes: [lane(9.5, [1.0, 2.2, 3.4, 4.6], 3, 1.1)], max: 5 },
-    damage: { name: '데미지 증가', length: 10, still: 4, fire: 1.2, boost: true, walls: [upRight(6, 3.5, 0.4, 1.0)], lanes: [lane(9.5, [1.0, 2.2, 3.4, 4.6, 5.8], 2, 1.2)], max: 5 },
+    damage: { name: '피해 증가', length: 10, still: 4, fire: 1.2, boost: true, walls: [upRight(6, 3.5, 0.4, 1.0)], lanes: [lane(9.5, [1.0, 2.2, 3.4, 4.6, 5.8], 2, 1.2)], max: 5 },
     'more-walls': { name: '추가 벽', length: 12, still: 7, fire: 5.0, walls: snake, lanes: [lane(4.5, [5.0, 6.4, 7.8], 3, 0.9)], max: 10 },
     'big-walls': { name: '거대 벽', length: 10, still: 4.5, fire: 2.4, reach: true, walls: [seg(1.5, 1.5, 6.45, 6.45, 0.4, 2.0)], lanes: [lane(9.5, [2.0, 3.2, 4.4, 5.6], 2, 1.2)], max: 5 },
     aura: { name: '거울 오라', length: 11, still: 4.5, fire: 1.2, aura: true, walls: [upRight(6, 5, 0.4, 1.0)], lanes: [lane(4.6, [1.2, 2.8, 4.4], 2, 0.9)], max: 5 },
@@ -102,7 +102,7 @@
         b.bounced = true;
       }
       if (!open(b.x, b.y)) { b.dead = true; continue; }
-      // Enemies don't stop a ball; each touch costs them health (2 after the first bounce with 데미지 증가).
+      // Enemies don't stop a ball; each touch costs them health (2 after the first bounce with 피해 증가).
       for (const e of s.enemies) {
         if (e.hp <= 0) continue;
         const p = along(e.L.path, e.dist), near = Math.hypot(b.x - p.x, b.y - p.y) < 0.5;

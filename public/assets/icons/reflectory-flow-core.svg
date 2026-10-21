@@ -1,6 +1,6 @@
 <svg viewBox="0 0 720 568" xmlns="http://www.w3.org/2000/svg">
   <title id="reflectory-core-flow-title">Reflectory 핵심 플레이 순서도</title>
-  <desc id="reflectory-core-flow-desc">플레이어가 벽을 놓으면 발사된 공이 벽에 닿을 때마다 반사되어 다시 날아가고, 적은 통과하며 맞히고, 방의 블록 벽에 닿으면 사라지는 흐름.</desc>
+  <desc id="reflectory-core-flow-desc">플레이어가 벽을 놓으면 발사된 공이 벽에 닿을 때마다 반사되어 다시 날아가고, 적은 통과하며 맞히고, 블록에 닿으면 사라지는 흐름.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
@@ -23,14 +23,14 @@
   <rect x="158" y="328" width="24" height="16" rx="2" fill="#ffffff"/>
   <text x="170" y="340" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적</text>
   <rect x="308" y="416" width="48" height="16" rx="2" fill="#ffffff"/>
-  <text x="332" y="428" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 벽</text>
+  <text x="332" y="428" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">블록</text>
   <rect x="204" y="32" width="192" height="48" rx="20" fill="#ffffff"/>
   <rect x="204" y="32" width="192" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
   <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 시작</text>
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">벽 설치</text>
-  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">끌어서 길이·각도 · 최대 5개</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">끌어서 길이·각도 조절 · 최대 5개</text>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">공 발사</text>
@@ -40,7 +40,7 @@
   <rect x="448" y="324" width="176" height="56" rx="6" fill="#ffffff"/>
   <rect x="448" y="324" width="176" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="536" y="350" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">반사</text>
-  <text x="536" y="368" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">들어온 각도대로 튕김</text>
+  <text x="536" y="368" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">들어온 각도 그대로</text>
   <rect x="16" y="324" width="136" height="56" rx="6" fill="#ffffff"/>
   <rect x="16" y="324" width="136" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="84" y="350" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적에게 피해</text>
@@ -48,7 +48,7 @@
   <rect x="204" y="448" width="192" height="56" rx="20" fill="#ffffff"/>
   <rect x="204" y="448" width="192" height="56" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
   <text x="300" y="474" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">공 사라짐</text>
-  <text x="300" y="492" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방의 블록 벽에 닿음</text>
+  <text x="300" y="492" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">블록에 닿음</text>
   <circle cx="300" cy="280" r="4" fill="#20211f"/>
   <line x1="24" y1="524" x2="696" y2="524" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
   <rect x="24" y="540" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>

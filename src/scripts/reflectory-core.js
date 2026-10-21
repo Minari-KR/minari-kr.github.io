@@ -246,7 +246,7 @@
   const hud = { hp: root.querySelector('[data-core-hp]'), walls: root.querySelector('[data-core-walls]'), bounces: root.querySelector('[data-core-bounces]') };
   const shown = {};
   const setHud = s => {
-    const next = { hp: `HP ${s.hp} / 12`, walls: `벽 ${s.placed.filter(Boolean).length} / 5`, bounces: `튕김 ${s.bounces}` };
+    const next = { hp: `HP ${s.hp} / 12`, walls: `벽 ${s.placed.filter(Boolean).length} / 5`, bounces: `반사 ${s.bounces}` };
     for (const key in next) if (hud[key] && shown[key] !== next[key]) hud[key].textContent = shown[key] = next[key];
   };
 
