@@ -33,7 +33,7 @@
 
 /* Sections: the largest gap separates sections; the title sits close to its content. */
 .section { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
-.section-title { margin: 0 0 var(--gap-block); color: var(--ink); font-size: var(--text-project); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.section-title { margin: 0 0 var(--gap-actions); color: var(--ink); font-size: var(--text-project); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 /* Highlighter stroke (assets/icons/marker.svg): border-image keeps the slanted pen ends (20 units, drawn .7em wide) and stretches
    only the straight middle, so short and long titles get the same ends. One stroke per line if a title ever wraps. */
 .marker { padding: 0 .3em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -111,7 +111,7 @@
    card's height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
 .ptabs { --tab-speed: 24;  /* 조정값: 탭이 넘칠 때 탭 줄이 1초에 흐르는 거리(px) */ }
 /* The row keeps 8px of padding for the focus ring and the chosen picture's outline; equal negative margins keep it out of
-   the section's rhythm (title → pictures --gap-block, pictures → card --gap-actions, like every section). */
+   the section's rhythm (title → pictures --gap-actions, pictures → card --gap-actions, like every section). */
 .ptabs-list { margin: -8px 0 calc(var(--gap-actions) - 8px); padding: 8px; overflow-x: auto; scrollbar-width: none; }
 .ptabs-track { display: flex; gap: 12px; }
 .ptabs-list::-webkit-scrollbar { display: none; }
