@@ -6,7 +6,7 @@
 .page {
   --column: 720px; --box-padding: 48px;
   --text-display: 4rem; --text-project: 1.875rem; --text-title: 1.5rem; --text-lead: 1.25rem; --text-body: 1.125rem; --text-meta: 1rem;
-  --gap-tight: 4px; --gap-group: 8px; --gap-block: 24px; --gap-actions: 32px; --section-gap: 64px;
+  --gap-tight: 4px; --gap-group: 8px; --gap-block: 24px; --gap-actions: 32px; --section-gap: 48px;
   --line-heading: 1.2; --line-compact: 1.5; --line-text: 1.6;
   --note-rule: 1px dashed rgba(32, 33, 31, .28);
   position: relative; z-index: 1; box-sizing: border-box; width: min(calc(var(--column) + 2 * var(--box-padding)), calc(100% - 32px)); margin: 40px auto; padding: 64px var(--box-padding); border: 1px solid var(--line); border-radius: 12px; background: #fff; text-align: center;
@@ -157,7 +157,7 @@
 
 @media (max-width: 640px) {
   .ptabs-list.is-looping .ptabs-tab { width: 120px; }
-  .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 48px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
+  .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 32px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
   .intro-role { margin-top: 8px; }
   .meta-sep { margin: 0 3px; }
   .release-icon { width: 112px; height: 112px; }
