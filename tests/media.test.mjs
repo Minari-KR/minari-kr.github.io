@@ -12,7 +12,7 @@ test('media collection and link validation use the same attribute rules', t => {
   const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/images/', "SRC='./assets/images/").replace(/(SRC='[^"\n]+)"/g, "$1'");
   fs.writeFileSync(home, source.replace('src="./assets/videos/reflectory-gameplay.mp4"', "SRC='./assets/videos/reflectory-gameplay.mp4'"));
   const result = compileSite(dir);
-  for (const name of ['assets/images/cards/reflectory-title.webp', 'assets/images/cards/barrel-good-barrel-title.webp', 'assets/videos/reflectory-gameplay.mp4']) {
+  for (const name of ['assets/images/awards/award-book.png', 'assets/images/awards/award-gem.png', 'assets/videos/reflectory-gameplay.mp4']) {
     assert.ok(result.publicFiles.get(name).equals(fs.readFileSync(path.join(dir, 'public', name))));
   }
   assert.doesNotMatch(result.publicFiles.get('index.html'), /data-full-src="\.\/assets\/images\/(?:reflectory-title|barrel-good-barrel-title)\.png"/);
@@ -95,7 +95,7 @@ test('only images referenced by pages are generated, comments do not count', t =
   const home = path.join(dir, 'src/templates/home.html');
   fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', '<img src="./assets/images/home.png" alt="홈 사진">\n<!-- <img src="./assets/images/unused.png"> -->\n</main>'));
   const project = path.join(dir, 'src/templates/projects/reflectory.html');
-  fs.writeFileSync(project, fs.readFileSync(project, 'utf8').replace('</main>', '<img src="../assets/images/project.png" alt="프로젝트 사진">\n</main>'));
+  fs.appendFileSync(project, '      <img src="../assets/images/project.png" alt="프로젝트 사진">\n'); // the page body; the frame holds </main>
   const result = compileSite(dir);
   for (const files of [result.files, result.publicFiles]) {
     for (const name of ['home', 'project']) assert.ok(files.has(`assets/images/${name}.png`));

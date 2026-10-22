@@ -4,10 +4,63 @@ export const shareImage = 'assets/images/minari-share.png';
 // Browser tab and shared-link title of the portfolio page (project pages use '<title> | 박종찬').
 export const homeTitle = '박종찬 | Game Designer Portfolio';
 export const homeDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. 출시 앱과 수상 프로젝트의 플레이 영상 및 링크를 확인할 수 있습니다.';
-// Project detail pages: one template per slug in src/templates/projects/.
+// "프로젝트" section on the home page and the project detail pages: the one place for the facts about each project.
+// Order = tab and card order on the home page. Text is escaped when rendered; links must be https; images and videos must exist
+// in public/assets/ (paths here have no leading "./"). Only `description` (the sentence shown when the page link is shared)
+// is hand-written; tests/projects.test.mjs fails when it stops naming the event and the first award.
+//   slug         page name (projects/<slug>.html) and element ids; lowercase letters, digits, hyphens
+//   title        shown as written (translate="no")
+//   genre        small green line above the title
+//   meta         info line, items joined by "/" (event, role, team; the fan game: kind, solo)
+//   period       detail page only: { start, end }, each { datetime, text } (machine value and visible text)
+//   awards       highlighted lines under the info line (0-2)
+//   image        card and tab picture (960×540), also the poster of the detail page video
+//   actions      home card buttons in order: no url = the project's own page; primary = green button
+//   detail       only for projects with a page (without it the project gets no page): video { src, width, height, label }, scripts
+//                (page scripts after motion-loop.js, names in assets/js/), body in src/templates/projects/<slug>.html.
+//                The play link under the video repeats the primary button; the video's aria text is "<title> <label>".
+//   description  share text of the detail page (a project without a page needs none)
 export const projects = [
-  { slug: 'reflectory', title: 'Reflectory', description: '2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.' },
-  { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탄막 슈팅 로그라이크 게임입니다.' },
+  {
+    slug: 'reflectory',
+    title: 'Reflectory',
+    genre: '퍼즐 디펜스',
+    meta: ['2026 대전 인디(inD) 게임잼', '기획 및 팀장', '4인 팀'],
+    period: { start: { datetime: '2026-08-07', text: '2026 . 8 . 7' }, end: { datetime: '2026-08-09', text: '8 . 9' } },
+    awards: ['국가수리과학연구소장상'],
+    image: 'assets/images/cards/reflectory-title.webp',
+    actions: [{ label: '플레이 영상' }, { label: '플레이하기', url: 'https://minari-kr.itch.io/reflectory', primary: true }],
+    detail: {
+      video: { src: 'assets/videos/reflectory-gameplay.mp4', width: 1910, height: 1078, label: '플레이 영상' },
+      scripts: ['reflectory-core', 'reflectory-augments', 'reflectory-systems'],
+    },
+    description: '2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.',
+  },
+  {
+    slug: 'barrel-good-barrel',
+    title: 'Barrel Good Barrel',
+    genre: '탄막 슈팅 로그라이크',
+    meta: ['2025 대전 인디(inD) 게임어스', '기획 및 팀장', '3인 팀'],
+    period: { start: { datetime: '2025-03', text: '2025 . 3' }, end: { datetime: '2025-10', text: '10' } },
+    awards: ['2025 대전 게임 브릿지 대상', '대전콘텐츠페어·부산 BIC 전시 출품'],
+    image: 'assets/images/cards/barrel-good-barrel-title.webp',
+    actions: [{ label: '플레이 영상' }, { label: '플레이하기', url: 'https://minari-kr.itch.io/barrel-good-barrel', primary: true }],
+    detail: {
+      video: { src: 'assets/videos/barrel-good-barrel-gameplay.mp4', width: 1920, height: 1080, label: '플레이 영상' },
+      scripts: ['bgb-loadout', 'bgb-systems'],
+    },
+    description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탄막 슈팅 로그라이크 게임입니다.',
+  },
+  {
+    // No page: the video opens on YouTube in a new tab (the site's security policy keeps YouTube out of the page).
+    slug: 'aiden-magnus-kartrider',
+    title: 'Aiden & Magnus KartRider',
+    genre: '레이싱',
+    meta: ['2차 창작 팬게임', '1인 개발'],
+    awards: [],
+    image: 'assets/images/cards/aiden-magnus-kartrider-title.webp',
+    actions: [{ label: '플레이 영상', url: 'https://www.youtube.com/watch?v=RrdQxWXoZO4&t=35s', primary: true }],
+  },
 ];
 export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴리오입니다. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
 

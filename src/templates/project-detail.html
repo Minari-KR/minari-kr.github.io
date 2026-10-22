@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eceeea">
+  {{security}}
+  <title>{{title}} | 박종찬</title>
+  <meta name="description" content="{{description}}">
+  {{social}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/home.css">
+  <link rel="stylesheet" href="../assets/css/detail.css">
+  <link rel="stylesheet" href="../assets/css/page-transitions.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <main class="page project-page" id="main">
+    <a class="home-link" href="../index.html#projects" aria-label="홈으로" title="홈으로"><img src="../assets/icons/house.svg" width="20" height="20" alt="" aria-hidden="true"></a>
+    <article class="project-detail">
+      <p class="project-genre">{{genre}}</p>
+      <h1 translate="no">{{title}}</h1>
+      <p class="project-meta">{{meta}}</p>
+{{awards}}      <figure class="project-media">
+        <video controls playsinline preload="none" width="{{video_width}}" height="{{video_height}}" poster="../{{poster}}" src="../{{video_src}}" aria-label="{{video_label}}">
+          <a href="../{{video_src}}">{{video_label}} 열기</a>
+        </video>
+      </figure>
+      <a class="play-link" href="{{play_url}}" target="_blank" rel="noopener noreferrer"><span translate="no">{{title}}</span> {{play_label}}</a>
+{{body}}    </article>
+  </main>
+  <script src="../assets/js/motion-loop.js" defer></script>
+{{scripts}}</body>
+</html>

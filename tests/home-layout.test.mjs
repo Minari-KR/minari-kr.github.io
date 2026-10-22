@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { compileSite } from '../scripts/site.mjs';
+import { root } from './fixture.mjs';
 
 const template = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
 const homeStyles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
@@ -16,7 +18,9 @@ test('email remains a mail link without copy controls or clipboard code', () => 
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
   const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="ai-party-title"', 'id="games-title"'];
-  const positions = order.map(marker => template.indexOf(marker));
+  // The project cards are generated, so the order is read from the built page.
+  const built = compileSite(root).files.get('index.html');
+  const positions = order.map(marker => built.indexOf(marker));
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
@@ -48,9 +52,12 @@ test('action buttons share one transition and darken on hover and press', () => 
 });
 
 test('projects open their own pages without JavaScript, and the page has no back-to-top button', () => {
+  // The cards and the detail pages are generated from the projects list, so they are read from the build.
+  const { files } = compileSite(root);
+  const home = files.get('index.html');
   for (const slug of ['reflectory', 'barrel-good-barrel']) {
-    assert.ok(template.includes(`<a class="action" href="./projects/${slug}.html">플레이 영상</a>`));
-    const page = fs.readFileSync(new URL(`../src/templates/projects/${slug}.html`, import.meta.url), 'utf8');
+    assert.ok(home.includes(`<a class="action" href="./projects/${slug}.html">플레이 영상</a>`));
+    const page = files.get(`projects/${slug}.html`);
     assert.match(page, /class="home-link" href="\.\.\/index\.html#projects"/);
     assert.match(page, /<p class="project-award">[^<]+<\/p>/);
     assert.match(page, /<video controls playsinline preload="none"/);
@@ -59,7 +66,7 @@ test('projects open their own pages without JavaScript, and the page has no back
   // The solo fan game (2026-10-16) has no page of its own: its only button, the primary one, opens the YouTube video in a new
   // tab (the site's security policy keeps YouTube out of the page), and nothing else on its card links anywhere.
   for (const [slug, video] of [['aiden-magnus-kartrider', 'https://www.youtube.com/watch?v=RrdQxWXoZO4&amp;t=35s']]) {
-    const card = template.slice(template.indexOf(`<article class="project" id="project-${slug}"`), template.indexOf('</article>', template.indexOf(`id="project-${slug}"`)));
+    const card = home.slice(home.indexOf(`<article class="project" id="project-${slug}"`), home.indexOf('</article>', home.indexOf(`id="project-${slug}"`)));
     assert.equal((card.match(/<a /g) || []).length, 1, slug);
     assert.ok(card.includes(`<a class="action action-primary" href="${video}" target="_blank" rel="noopener noreferrer">플레이 영상</a>`), slug);
     assert.ok(fs.existsSync(new URL(`../public/assets/images/cards/${slug}-title.webp`, import.meta.url)), slug);

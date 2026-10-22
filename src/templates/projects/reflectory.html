@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#eceeea">
-  {{security}}
-  <title>Reflectory | 박종찬</title>
-  <meta name="description" content="2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.">
-  {{social}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/common.css">
-  <link rel="stylesheet" href="../assets/css/home.css">
-  <link rel="stylesheet" href="../assets/css/detail.css">
-  <link rel="stylesheet" href="../assets/css/page-transitions.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">본문 바로가기</a>
-  <main class="page project-page" id="main">
-    <a class="home-link" href="../index.html#projects" aria-label="홈으로" title="홈으로"><img src="../assets/icons/house.svg" width="20" height="20" alt="" aria-hidden="true"></a>
-    <article class="project-detail">
-      <p class="project-genre">퍼즐 디펜스</p>
-      <h1 translate="no">Reflectory</h1>
-      <p class="project-meta"><span>2026 대전 인디(inD) 게임잼</span><span class="meta-sep" aria-hidden="true">/</span><span>기획 및 팀장</span><span class="meta-sep" aria-hidden="true">/</span><span>4인 팀</span><span class="meta-sep" aria-hidden="true">/</span><span class="project-period"><span class="period-badge"><img src="../assets/icons/calendar.svg" width="16" height="16" alt="" aria-hidden="true"><span class="period-label">개발 기간</span><time datetime="2026-08-07">2026 . 8 . 7</time> ~ <time datetime="2026-08-09">8 . 9</time></span></span></p>
-      <p class="project-award">국가수리과학연구소장상</p>
-      <figure class="project-media">
-        <video controls playsinline preload="none" width="1910" height="1078" poster="../assets/images/cards/reflectory-title.webp" src="../assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
-          <a href="../assets/videos/reflectory-gameplay.mp4">Reflectory 플레이 영상 열기</a>
-        </video>
-      </figure>
-      <a class="play-link" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer"><span translate="no">Reflectory</span> 플레이하기</a>
       <div class="core">
         <h2 class="core-title">핵심 루프</h2>
         <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="핵심 루프 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-loop.svg" width="720" height="860" alt="핵심 루프 순서도: 게임 시작 후 첫 웨이브가 아니면 증강을 고르고, 적의 길을 본 뒤 벽을 설치해 Space로 시작합니다. 웨이브가 진행되며 HP가 0이 되면 게임 오버, 아니면 웨이브 클리어 후 벽이 사라지고 방이 넓어져 다음 웨이브로 돌아갑니다."></div></figure>
@@ -78,11 +45,3 @@
         </div>
         <figure class="core-flow"><div class="core-flow-scroll" tabindex="0" role="region" aria-label="맵 변화 시스템 순서도, 옆으로 밀어서 보기"><img src="../assets/icons/reflectory-flow-map.svg" width="720" height="904" alt="맵 변화 시스템 순서도: 웨이브가 끝나면 설치한 벽을 모두 지우고, 6웨이브까지는 방을 하나 붙이며 방이 세 줄이면 맨 아래 줄을 지운 뒤, 바뀐 적의 길에 맞춰 반사 경로를 다시 설계합니다."></div></figure>
       </div>
-    </article>
-  </main>
-  <script src="../assets/js/motion-loop.js" defer></script>
-  <script src="../assets/js/reflectory-core.js" defer></script>
-  <script src="../assets/js/reflectory-augments.js" defer></script>
-  <script src="../assets/js/reflectory-systems.js" defer></script>
-</body>
-</html>

@@ -9,12 +9,14 @@ import { socialMeta } from './social.mjs';
 import { homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
+import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
 export { securityMeta, validateFiles } from './validation.mjs';
 
 export function compileSite(root) {
   for (const file of walk(path.join(root, 'src'))) checkSecrets(fs.readFileSync(file, 'utf8'), path.relative(root, file));
+  validateProjects(projects);
   const template = name => fs.readFileSync(path.join(root, 'src/templates', name), 'utf8');
   const files = new Map();
   files.set('index.html', fillTemplate(template('home.html'), {
@@ -23,16 +25,21 @@ export function compileSite(root) {
     page_description: escapeHtml(homeDescription),
     social: socialMeta({ title: homeTitle, description: homeDescription }),
     release_section: releaseSection(template('release.html'), release),
-    game_packs: gamePacks(games)
+    game_packs: gamePacks(games),
+    project_tabs: projectTabs(projects),
+    project_cards: projectCards(projects)
   }));
-  for (const project of projects) {
-    if (!/^[a-z0-9-]+$/.test(project.slug)) throw new Error(`프로젝트 주소를 확인하세요: ${project.slug}`);
-    files.set(`projects/${project.slug}.html`, fillTemplate(template(`projects/${project.slug}.html`), {
+  // Only a project with `detail` gets a page: the shared frame plus that project's own body.
+  const pages = projects.filter(project => project.detail);
+  for (const project of pages) {
+    files.set(`projects/${project.slug}.html`, fillTemplate(template('project-detail.html'), {
+      ...detailValues(project),
       security: securityMeta(),
-      social: socialMeta({ title: `${project.title} | 박종찬`, description: project.description, page: `projects/${project.slug}.html`, article: true })
+      social: socialMeta({ title: `${project.title} | 박종찬`, description: project.description, page: `projects/${project.slug}.html`, article: true }),
+      body: template(`projects/${project.slug}.html`)
     }));
   }
-  const options = projects.map(project => `          <option value="./projects/${project.slug}.html">${escapeHtml(project.title)}</option>`).join('\n');
+  const options = pages.map(project => `          <option value="./projects/${project.slug}.html">${escapeHtml(project.title)}</option>`).join('\n');
   files.set('mobile-preview.html', fillTemplate(template('mobile-preview.html'), { security: securityMeta(true), project_options: options }));
   for (const [folder, ext, destination] of [['styles', '.css', 'css'], ['scripts', '.js', 'js']]) {
     for (const file of walk(path.join(root, 'src', folder))) {

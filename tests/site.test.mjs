@@ -9,7 +9,7 @@ import { root, fixture } from './fixture.mjs';
 test('home, every project page and the preview list are generated; no journal output remains', () => {
   const { files } = compileSite(root);
   assert.ok(files.has('index.html'));
-  for (const project of projects) {
+  for (const project of projects.filter(project => project.detail)) {
     assert.ok(files.has(`projects/${project.slug}.html`));
     assert.ok(files.get('mobile-preview.html').includes(`./projects/${project.slug}.html`));
   }
