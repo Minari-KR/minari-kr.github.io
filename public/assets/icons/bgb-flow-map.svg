@@ -1,6 +1,6 @@
 <svg viewBox="0 0 720 1072" xmlns="http://www.w3.org/2000/svg">
   <title id="bgb-map-flow-title">Barrel Good Barrel 맵과 보상 순서도</title>
-  <desc id="bgb-map-flow-desc">방 10개를 랜덤 워크로 붙이고 보스, 중간보스, 타임어택, 보물, 상점, 정예, 일반 순서로 방 종류를 정함. 방마다 입장 보상 3장 중 1장을 고르고, 전투방이면 웨이브를 깰 때마다 보상 3장을 고르며 웨이브가 남으면 반복하고, 정예·타임어택·중간보스는 마지막에 클리어 보상을 더 받은 뒤 다음 방으로 이동.</desc>
+  <desc id="bgb-map-flow-desc">방 10개를 무작위로 이어 붙이고 보스, 중간보스, 타임어택, 보물, 상점, 정예, 일반 순서로 방 종류를 정함. 방마다 입장 보상 3장 중 1장을 고르고, 전투방이면 웨이브를 깰 때마다 보상 3장을 고르며 웨이브가 남으면 반복하고, 정예·타임어택·중간보스는 마지막에 클리어 보상을 더 받은 뒤 다음 방으로 이동.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
@@ -49,8 +49,8 @@
   <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">맵 생성 시작</text>
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
-  <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">랜덤 워크</text>
-  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">10방 · 66% 직전 방에서</text>
+  <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">무작위 연결</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 10개 · 66% 직전 방에서</text>
   <rect x="144" y="200" width="312" height="72" rx="6" fill="#ffffff"/>
   <rect x="144" y="200" width="312" height="72" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="224" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 종류 배정 (코드 순서)</text>

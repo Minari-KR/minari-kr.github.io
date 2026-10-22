@@ -1,4 +1,4 @@
-/* "AI 협업 방식" (2026-10-22, between the awards and this section): the same LCD screen, drawn with real HTML text. All its text is
+/* "AI와 일하는 방식" (2026-10-22, between the awards and this section): the same LCD screen, drawn with real HTML text. All its text is
    16px pixel type (the font is built on a 16-dot grid); rank comes from form, not size: a box title is light text on a dark bar,
    body text is plain ink, a status is a small dark chip. Spacing is on the 4/8 scale: screen padding 24px (phones 16px), box
    padding 16px (phone cards 8px), title to body 8px, connector label 16px above and below. ai-party.js sets one phase class

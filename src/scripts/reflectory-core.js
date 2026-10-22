@@ -234,14 +234,7 @@
     if (t > LOOP - 0.8) { ctx.fillStyle = `rgba(245,241,232,${Math.min(1, (t - (LOOP - 0.8)) / 0.6)})`; ctx.fillRect(0, 0, W, H); }
   };
 
-  const fit = canvas => {
-    const css = canvas.clientWidth || W, ratio = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = Math.round(css * ratio);
-    canvas.height = Math.round(css * ratio * H / W);
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0);
-    return { ctx, k: Math.min(1.8, Math.max(1, 0.45 * W / css)) };
-  };
+  const fit = canvas => canvasKit.fit(canvas, W, H);
 
   const hud = { hp: root.querySelector('[data-core-hp]'), walls: root.querySelector('[data-core-walls]'), bounces: root.querySelector('[data-core-bounces]') };
   const shown = {};
@@ -274,8 +267,7 @@
     onReduce: () => update()
   });
   const update = () => {
-    root.classList.add('is-ready');
-    root.classList.toggle('is-still', motion.matches);
+    canvasKit.ready(root, motion.matches);
     if (motion.matches) stills();
     else { draw(view.ctx, state, view.k); setHud(state); loop.update(); }
   };

@@ -20,7 +20,7 @@
 /* Intro: identity group (name, role, school) is tight; statement and buttons are separate blocks. */
 .intro h1 { margin: 0; color: var(--accent-deep); font-family: var(--font-display); font-size: var(--text-display); font-weight: 800; line-height: 1; letter-spacing: var(--tracking-heading); }
 .intro-role { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 0; color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); }
-.intro-role-divider { width: 1px; height: 1em; background: rgba(32, 33, 31, .3); }
+.intro-role-divider { width: 1px; height: 1em; background: rgba(32, 33, 31, .28); } /* same grey as the section rule */
 .intro-school { margin: var(--gap-tight) 0 0; color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); }
 .intro-statement { max-width: 30em; margin: var(--gap-block) auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
 .summary-line { display: block; }
@@ -52,7 +52,7 @@
    cards look the same (2026-10-16 user request: the grand prize is no longer inverted). */
 /* Two cards a row only while each is at least 296px (the longest event, 247px at 20px, plus 24px padding each side);
    narrower, as between 641 and about 750px, they stack so nothing wraps (2026-10-21). */
-.award-list { --award-ink: #0f380f; --award-face: #9bbc0f; --award-edge: #8bac0f; --award-grid: rgba(15, 56, 15, .03); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
+.award-list { --award-ink: var(--lcd-ink); --award-face: var(--lcd-light); --award-edge: var(--lcd); --award-grid: rgba(15, 56, 15, .03); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
 .award-card { position: relative; display: grid; align-content: start; gap: var(--gap-tight); padding: 24px; border-radius: 8px; background: repeating-linear-gradient(0deg, var(--award-grid) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--award-grid) 0 1px, transparent 1px 4px), var(--award-face); color: var(--award-ink); }
 .award-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--award-edge), inset 0 6px 12px rgba(15, 56, 15, .4); pointer-events: none; }
 .award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
@@ -148,8 +148,8 @@
   .project-image { transition: opacity 160ms ease; }
 }
 @media (hover: hover) and (pointer: fine) {
-  .action:hover { background: #dce8df; text-decoration: none; }
-  .action-primary:hover { background: #163b32; color: #fff; text-decoration: none; }
+  .action:hover { background: var(--accent-soft); text-decoration: none; }
+  .action-primary:hover { background: var(--accent-hover); color: #fff; text-decoration: none; }
   .ptabs-tab:hover img { opacity: 1; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
@@ -157,5 +157,5 @@
   .action:hover, .release-link:hover { transform: translateY(-2px); }
   .action:active, .release-link:active { transform: scale(.98); }
 }
-.action:active { background: #dce8df; }
-.action-primary:active { background: #163b32; }
+.action:active { background: var(--accent-soft); }
+.action-primary:active { background: var(--accent-hover); }

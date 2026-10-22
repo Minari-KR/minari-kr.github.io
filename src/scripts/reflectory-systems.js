@@ -292,13 +292,7 @@
     return { root, scene, canvas, hud, state: fresh(scene), view: null, shown: {} };
   }).filter(p => p.scene && p.canvas);
 
-  const fit = p => {
-    const css = p.canvas.clientWidth || W, ratio = Math.min(2, window.devicePixelRatio || 1);
-    p.canvas.width = Math.round(css * ratio); p.canvas.height = Math.round(css * ratio * H / W);
-    const ctx = p.canvas.getContext('2d');
-    ctx.setTransform(p.canvas.width / W, 0, 0, p.canvas.height / H, 0, 0);
-    p.view = { ctx, k: Math.min(1.8, Math.max(1, 0.45 * W / css)) };
-  };
+  const fit = p => { p.view = canvasKit.fit(p.canvas, W, H); };
   const paint = p => {
     if (p.state.stage < 0) step(p.state, 1e-4);
     draw(p.view.ctx, p.state, p.view.k);
@@ -320,7 +314,7 @@
   }
   const update = () => {
     for (const p of players) {
-      p.root.classList.add('is-ready');
+      canvasKit.ready(p.root);
       fit(p);
       if (motion.matches) p.state = stateAt(p.scene, p.scene.still);
       paint(p);
@@ -331,6 +325,5 @@
   let resizeTimer;
   window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(update, 120); });
   // The pixel font is drawn into the canvas (stage names), so the first picture waits for it.
-  const pixelFont = document.fonts && document.fonts.load ? document.fonts.load(font(16)).catch(() => null) : null;
-  Promise.resolve(pixelFont).then(update);
+  canvasKit.fontReady(font(16)).then(update);
 })();

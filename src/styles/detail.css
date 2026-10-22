@@ -77,13 +77,13 @@
   .augment-pick[aria-pressed="true"] { translate: 0 -2px; }
 }
 @media (hover: hover) and (pointer: fine) {
-  .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
-  .home-link:hover { background: #dce8df; }
+  .play-link:hover { background: var(--accent-hover); color: #fff; text-decoration: none; }
+  .home-link:hover { background: var(--accent-soft); }
   .augment-pick:hover { border-color: #3d8fe0; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .home-link:hover { transform: translateY(-2px); }
   .play-link:active, .home-link:active { transform: scale(.98); }
 }
-.home-link:active { background: #dce8df; }
-.play-link:active { background: #163b32; }
+.home-link:active { background: var(--accent-soft); }
+.play-link:active { background: var(--accent-hover); }

@@ -44,14 +44,14 @@ test('every animation runs through the shared motion loop, which the pages load 
   for (const rule of ['prefers-reduced-motion: reduce', 'IntersectionObserver', 'document.hidden', 'visibilitychange']) assert.ok(loop.includes(rule), rule);
   const { files } = compileSite(root);
   const pages = {
-    'index.html': ['./assets/js/', ['games', 'project-tabs', 'ai-party']],
-    'projects/reflectory.html': ['../assets/js/', ['reflectory-core', 'reflectory-augments', 'reflectory-systems']],
-    'projects/barrel-good-barrel.html': ['../assets/js/', ['bgb-loadout', 'bgb-systems']],
+    'index.html': ['./assets/js/', ['games', 'project-tabs', 'ai-party'], ['flow-row']],
+    'projects/reflectory.html': ['../assets/js/', ['reflectory-core', 'reflectory-augments', 'reflectory-systems'], ['canvas-kit']],
+    'projects/barrel-good-barrel.html': ['../assets/js/', ['bgb-loadout', 'bgb-systems'], ['canvas-kit']],
   };
-  for (const [name, [folder, scripts]] of Object.entries(pages)) {
+  for (const [name, [folder, scripts, helpers]] of Object.entries(pages)) {
     const page = files.get(name);
     const tags = [...page.matchAll(/<script src="([^"]+)" defer><\/script>/g)].map(match => match[1].replace(/\?v=[a-f0-9]{12}$/, ''));
-    assert.deepEqual(tags, ['motion-loop', ...scripts].map(script => `${folder}${script}.js`), name);
+    assert.deepEqual(tags, ['motion-loop', ...helpers, ...scripts].map(script => `${folder}${script}.js`), name);
     // The scripts keep only their own drawing; none of them runs its own frame loop or watches the viewport.
     for (const script of scripts) {
       const source = read(`src/scripts/${script}.js`);

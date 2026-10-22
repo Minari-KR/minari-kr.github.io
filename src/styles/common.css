@@ -7,6 +7,11 @@
   --body-ink: #363b35;
   --line: rgba(32, 33, 31, .12);
   --accent-deep: #1f4f43;
+  /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #2f6f5e: SVG pictures cannot read CSS values). */
+  --accent-hover: #163b32;
+  --accent-soft: #dce8df;
+  --marker: #2f6f5e;
+  --tap: rgba(47, 111, 94, .12);
   --text-meta: .84rem;
   --text-small: .94rem;
   --text-body: .98rem;
@@ -17,7 +22,7 @@
   --action-transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
   --font-display: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  /* The LCD's four greens, darkest first, and the faint grid of its screen (the games screen and the "AI 협업 방식" screen). */
+  /* The LCD's four greens, darkest first, and the faint grid of its screen (the games screen and the "AI와 일하는 방식" screen). */
   --lcd: #8bac0f;
   --lcd-ink: #0f380f;
   --lcd-mid: #306230;
@@ -27,7 +32,7 @@
 /* The screens' pixel font, declared once for every page (games, award years, the detail pages' game screens). */
 @font-face { font-family: "NeoDunggeunmo"; src: url("../fonts/neodgm.woff2") format("woff2"); font-display: swap; }
 *, *::before, *::after { box-sizing: border-box; }
-html { color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(47, 111, 94, .12); }
+html { color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: var(--tap); }
 a, button, video { touch-action: manipulation; }
 .skip-link { position: absolute; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-small); font-weight: 800; line-height: 1.5; transform: translateY(calc(-100% - 16px)); }
 .skip-link:focus-visible { transform: none; outline-color: var(--accent-deep); text-decoration: none; }
@@ -44,7 +49,7 @@ p { text-wrap: pretty; }
 img, video { display: block; max-width: 100%; height: auto; }
 a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
 a[href]:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
-a[href]:active { background-color: rgba(47, 111, 94, .12); }
+a[href]:active { background-color: var(--tap); }
 @media (hover: hover) and (pointer: fine) {
   a[href]:hover { text-decoration: none; }
 }

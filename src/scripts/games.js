@@ -137,7 +137,10 @@
   // cartridges lean against the motion (up to --pack-tilt) and wobble back on a spring as it settles. The top row runs
   // right, the lower one left and a little slower. A row eases to a stop while a cartridge in it has keyboard focus, and
   // behind an open record every row crawls at 0.3×. Only transforms are written per frame; sizes are read on layout.
-  const lanes = tracks.map((track, index) => ({ track, flow: (index % 2 ? -1 : 1) * (index ? 0.8 : 1), x: 0, half: 0, v: 0, grab: null, focused: false, tilt: 0, spin: 0, shown: '' }));
+  const lanes = tracks.map((track, index) => Object.assign(
+    flowRow({ row: track.closest('.pack-row'), track, canGrab: () => screen.dataset.state !== 'detail' }),
+    { track, flow: (index % 2 ? -1 : 1) * (index ? 0.8 : 1), tilt: 0, spin: 0, shown: '' }
+  ));
   const setting = (name, fallback) => {
     const value = Number.parseFloat(getComputedStyle(screen).getPropertyValue(name));
     return Number.isFinite(value) ? value : fallback;
@@ -149,26 +152,11 @@
     for (const lane of lanes) {
       if (!lane.half) continue;
       const flow = lane.focused ? 0 : lane.flow * speed * pace;
-      const { grab } = lane;
-      if (grab?.moved) {
-        // Following the pointer.
-        lane.x = grab.left + grab.dx;
-        lane.v = grab.speed;
-      } else if (grab) {
-        // Caught: brakes within about 0.15s.
-        lane.v *= Math.exp(-dt * 22);
-        lane.x += lane.v * dt;
-      } else {
-        // Thrown or let go: glides back into its own flow.
-        lane.v = flow + (lane.v - flow) * Math.exp(-dt * 2.6);
-        lane.x += lane.v * dt;
-      }
-      lane.x = ((lane.x % lane.half) + lane.half) % lane.half;
+      lane.step(dt, flow);
       // The lean follows how far the row is from its own flow, on a damped spring so it wobbles a little as it settles.
       const lean = Math.max(-maxTilt, Math.min(maxTilt, -(lane.v - flow) * 0.012));
       lane.spin += ((lean - lane.tilt) * 190 - lane.spin * 9) * dt;
       lane.tilt += lane.spin * dt;
-      lane.track.style.transform = `translate3d(${(lane.x - lane.half).toFixed(1)}px, 0, 0)`;
       const tilt = Math.abs(lane.tilt) < 0.05 && Math.abs(lane.spin) < 0.05 ? '0deg' : `${Math.max(-maxTilt, Math.min(maxTilt, lane.tilt)).toFixed(2)}deg`;
       if (tilt !== lane.shown) {
         lane.track.style.setProperty('--tilt', tilt);
@@ -181,86 +169,19 @@
     maxTilt = setting('--pack-tilt', 9);
     lanes.forEach((lane, index) => {
       const { track } = lane;
-      for (const clone of track.querySelectorAll('[data-clone]')) clone.remove();
+      lane.clear();
       track.classList.remove('is-looping');
-      track.style.transform = '';
       track.style.removeProperty('--tilt');
-      lane.half = 0;
       lane.shown = '';
       if (motion.matches) return;
       const setWidth = originals[index].reduce((sum, pack) => sum + pack.offsetWidth + Number.parseFloat(getComputedStyle(pack).marginRight || 0), 0);
       if (!setWidth) return;
-      const copies = Math.max(1, Math.ceil(rows.clientWidth / setWidth));
-      for (let i = 1; i < copies * 2; i += 1) {
-        for (const pack of originals[index]) {
-          const clone = pack.cloneNode(true);
-          clone.dataset.clone = '';
-          clone.tabIndex = -1;
-          clone.setAttribute('aria-hidden', 'true');
-          clone.classList.remove('is-selected');
-          track.append(clone);
-        }
-      }
-      lane.half = setWidth * copies;
-      lane.x %= lane.half;
+      lane.fill(originals[index], setWidth, rows.clientWidth, clone => clone.classList.remove('is-selected'));
       if (!lane.v) lane.v = lane.flow * speed;
       track.classList.add('is-looping');
     });
     loop.update();
   };
-
-  let keyboard = false;
-  window.addEventListener('keydown', () => { keyboard = true; }, true);
-  window.addEventListener('pointerdown', () => { keyboard = false; }, true);
-  // Grab a row and drag or throw it sideways; it wraps around, so it never runs out of cartridges.
-  let dragged = false;
-  rows.querySelectorAll('.pack-row').forEach((row, index) => {
-    const lane = lanes[index];
-    if (!lane) return;
-    row.addEventListener('focusin', () => { lane.focused = keyboard; });
-    row.addEventListener('focusout', event => {
-      if (!row.contains(event.relatedTarget)) lane.focused = false;
-    });
-    row.addEventListener('pointerdown', event => {
-      if (event.button !== 0 || !lane.half || screen.dataset.state === 'detail') return;
-      lane.grab = { x: event.clientX, last: event.clientX, time: performance.now(), speed: 0, dx: 0, left: lane.x, moved: false };
-    });
-    row.addEventListener('pointermove', event => {
-      const { grab } = lane;
-      if (!grab) return;
-      const dx = event.clientX - grab.x;
-      if (!grab.moved) {
-        if (Math.abs(dx) < 6) return;
-        grab.moved = true;
-        grab.left = lane.x - dx;
-        row.setPointerCapture(event.pointerId);
-        row.classList.add('is-dragging');
-      }
-      const now = performance.now();
-      grab.speed = grab.speed * 0.6 + ((event.clientX - grab.last) / (Math.max(1, now - grab.time) / 1000)) * 0.4;
-      grab.last = event.clientX;
-      grab.time = now;
-      grab.dx = dx;
-    });
-    const end = () => {
-      const { grab } = lane;
-      if (!grab) return;
-      lane.grab = null;
-      dragged = grab.moved;
-      row.classList.remove('is-dragging');
-      // Thrown at the speed of the drag's last moment; a pause before letting go throws nothing.
-      if (grab.moved) lane.v = performance.now() - grab.time < 80 ? Math.max(-1600, Math.min(1600, grab.speed)) : 0;
-    };
-    row.addEventListener('pointerup', end);
-    row.addEventListener('pointercancel', end);
-    // A drag is not a press: the cartridge under the pointer does not open.
-    row.addEventListener('click', event => {
-      if (!dragged) return;
-      dragged = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }, true);
-  });
 
   // The rows only run while the screen is on screen, the tab is visible and motion is allowed (motion-loop.js); the hint's
   // blinking stops with them (games.css: .is-away).

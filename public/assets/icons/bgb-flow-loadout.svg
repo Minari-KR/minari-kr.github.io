@@ -1,6 +1,6 @@
 <svg viewBox="0 0 720 712" xmlns="http://www.w3.org/2000/svg">
   <title id="bgb-loadout-flow-title">Barrel Good Barrel 6칸 탄창 순서도</title>
-  <desc id="bgb-loadout-flow-desc">발사하면 1번 칸부터 순서대로 칸이 선택되고, 칸마다 정한 슬롯 타입의 발사 패턴과 특성이 적용된 뒤 패턴마다 다른 대기 시간이 지나는 흐름. 6칸을 다 쏘지 않았으면 다음 칸으로 돌아가고, 다 쐈으면 1.8초 재장전 뒤 1번 칸으로 돌아가며, TAB 화면에서는 언제든 칸의 순서와 구성을 바꿀 수 있음.</desc>
+  <desc id="bgb-loadout-flow-desc">발사하면 1번 칸부터 순서대로 칸이 선택되고, 칸마다 정한 발사 패턴과 특성이 적용된 뒤 패턴마다 다른 대기 시간이 지나는 흐름. 6칸을 다 쏘지 않았으면 다음 칸으로 돌아가고, 다 쐈으면 1.8초 재장전 뒤 1번 칸으로 돌아가며, TAB 화면에서는 언제든 칸의 순서와 구성을 바꿀 수 있음.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
@@ -36,7 +36,7 @@
   <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1번 → 6번 순서</text>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
-  <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">슬롯 타입 패턴</text>
+  <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">발사 패턴</text>
   <text x="300" y="244" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">칸마다 9종 중 하나</text>
   <rect x="204" y="288" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="288" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { compileSite } from '../scripts/site.mjs';
-import { root } from './fixture.mjs';
+import { root, cssRule, parseCss, between } from './fixture.mjs';
 
 const read = name => fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
 
@@ -19,43 +19,56 @@ test('projects show as thumbnail tabs over one large card, and nothing of the ot
   assert.match(home, /<script src="\.\/assets\/js\/project-tabs\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   // The cards share one place: the others are hidden, not slid to the side, and none of the old slider is left.
   const styles = read('src/styles/home.css');
-  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project \{ display: flex; flex-direction: column; grid-area: 1 \/ 1; \}/);
+  const stacked = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project');
+  assert.equal(stacked.get('display'), 'flex');
+  assert.equal(stacked.get('flex-direction'), 'column');
+  assert.equal(stacked.get('grid-area'), '1/1');
   // Each card's buttons sit at its bottom, so the buttons → next rule gap is the same whichever card is chosen.
-  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project > \.project-actions \{ margin-top: auto; padding-top: var\(--gap-actions\); \}/);
-  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards > \.project:not\(\.is-current\) \{ visibility: hidden; opacity: 0; \}/);
+  const actions = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project > .project-actions');
+  assert.equal(actions.get('margin-top'), 'auto');
+  assert.equal(actions.get('padding-top'), 'var(--gap-actions)');
+  const away = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project:not(.is-current)');
+  assert.equal(away.get('visibility'), 'hidden');
+  assert.equal(away.get('opacity'), '0');
   assert.doesNotMatch(styles + section, /slider|translateX|translate: -?\d+px 0/);
   assert.ok(!fs.existsSync(new URL('../src/scripts/slider.js', import.meta.url)));
 });
 
 test('the tabs follow the ARIA tabs pattern and the card change is gentle only without reduced motion', () => {
   const script = read('src/scripts/project-tabs.js');
+  const flow = read('src/scripts/flow-row.js');
   const styles = read('src/styles/home.css');
   // Arrow keys, Home and End move along the tabs; only the shown card is reachable; one card alone needs no tabs.
   for (const key of ['ArrowRight', 'ArrowLeft', 'Home', 'End']) assert.ok(script.includes(key), key);
-  assert.ok(script.includes("tab.setAttribute('aria-selected', String(on));"));
-  assert.ok(script.includes('tab.tabIndex = on ? 0 : -1;'));
-  assert.ok(script.includes('cards[i].inert = !on;'));
-  assert.match(script, /tabs\.length < 2 \|\| cards\.some\(card => !card\)\) continue;/);
+  assert.match(script, /setAttribute\(\s*['"]aria-selected['"]\s*,\s*String\(on\)/);
+  assert.match(script, /tab\.tabIndex\s*=\s*on\s*\?\s*0\s*:\s*-1/);
+  assert.match(script, /cards\[i\]\.inert\s*=\s*!on/);
+  assert.match(script, /tabs\.length\s*<\s*2\s*\|\|\s*cards\.some\(/);
   // A row of more tabs than fit scrolls sideways: a plain wheel moves it (and gives the scroll back to the page at its ends),
   // a mouse can pull it without that counting as a press, and a chosen tab slides fully into view without moving the page.
-  assert.ok(script.includes("list.addEventListener('wheel'"));
-  assert.ok(script.includes('if (room < 1) return;'));
-  assert.ok(script.includes('list.scrollLeft = pull.left - dx;'));
-  assert.ok(script.includes('if (!pulled) return;'));
-  assert.ok(script.includes('tabs[to].focus({ preventScroll: true })'));
+  assert.match(script, /list\.addEventListener\(\s*['"]wheel['"]/);
+  assert.match(script, /if \(\s*room\s*<\s*1\s*\)\s*return/);
+  assert.match(flow, /row\.scrollLeft\s*=\s*pull\.left\s*-\s*dx/);
+  assert.match(flow, /if \(\s*!dragged\s*\)\s*return/);
+  assert.match(script, /tabs\[to\]\.focus\(\s*\{\s*preventScroll\s*:\s*true/);
   // More tabs than fit: the row flows like the cartridge rows, with copies that are hidden from screen readers, keep no ids
   // and take no Tab stop; it leaves up-and-down wheel turns to the page, stops for keyboard focus, and stays still with
   // reduced motion or when everything fits.
-  assert.ok(script.includes("if (!motion.matches && list.scrollWidth > list.clientWidth + 1) {"));
-  for (const line of ["copy.removeAttribute('id');", "copy.setAttribute('aria-hidden', 'true');", 'copy.tabIndex = -1;', 'const flow = lane.focused ? 0 : -speed;', 'if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;']) assert.ok(script.includes(line), line);
-  const frame = script.slice(script.indexOf('const step = dt =>'), script.indexOf('const layout = () =>'));
+  assert.match(script, /if \(\s*!motion\.matches\s*&&\s*list\.scrollWidth\s*>\s*list\.clientWidth/);
+  for (const pattern of [/copy\.removeAttribute\(\s*['"]id['"]/, /lane\.step\(\s*dt\s*,\s*lane\.focused\s*\?\s*0\s*:\s*-speed/, /Math\.abs\(\s*event\.deltaX\s*\)\s*<=\s*Math\.abs\(\s*event\.deltaY\s*\)/]) assert.match(script, pattern);
+  for (const pattern of [/copy\.setAttribute\(\s*['"]aria-hidden['"]\s*,\s*['"]true['"]/, /copy\.tabIndex\s*=\s*-1/]) assert.match(flow, pattern);
+  const frame = between(script, /const step\s*=\s*dt\s*=>/, /const layout\s*=/);
   assert.doesNotMatch(frame, /getComputedStyle|getBoundingClientRect|offsetWidth|clientWidth|scrollWidth/);
-  assert.match(styles, /\.ptabs \{ --tab-speed: \d+;/);
-  assert.match(styles, /\.ptabs-list\.is-looping \{ overflow: hidden; touch-action: pan-y;/);
+  assert.match(cssRule(styles, '.ptabs').get('--tab-speed'), /^\d+$/);
+  const looping = cssRule(styles, '.ptabs-list.is-looping');
+  assert.equal(looping.get('overflow'), 'hidden');
+  assert.equal(looping.get('touch-action'), 'pan-y');
   // A sideways swipe on the card is for touch only and leaves vertical scrolling to the page.
-  assert.match(script, /event\.pointerType === 'mouse'/);
-  assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards \{ display: grid; touch-action: pan-y; \}/);
-  const motion = styles.slice(styles.indexOf('@media (prefers-reduced-motion: no-preference)'));
-  assert.ok(motion.includes('.ptabs.is-ready .ptabs-cards > .project { transition:'));
-  assert.ok(!styles.slice(0, styles.indexOf('@media (prefers-reduced-motion: no-preference)')).includes('.ptabs.is-ready .ptabs-cards > .project { transition:'));
+  assert.match(script, /event\.pointerType\s*===\s*['"]mouse['"]/);
+  const stage = cssRule(styles, '.ptabs.is-ready .ptabs-cards');
+  assert.equal(stage.get('display'), 'grid');
+  assert.equal(stage.get('touch-action'), 'pan-y');
+  const fade = '.ptabs.is-ready .ptabs-cards > .project';
+  assert.ok(cssRule(styles, fade, 'prefers-reduced-motion: no-preference').has('transition'));
+  assert.ok(!cssRule(styles, fade).has('transition'));
 });

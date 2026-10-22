@@ -258,13 +258,7 @@
     const next = { hp: `HP ${state.hp} / 12`, walls: `벽 ${state.placed.filter(Boolean).length} / ${state.sc.max}`, name: `증강: ${state.sc.name}` };
     for (const key in next) if (hud[key] && shown[key] !== next[key]) hud[key].textContent = shown[key] = next[key];
   };
-  const fit = () => {
-    const css = canvas.clientWidth || W, ratio = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = Math.round(css * ratio); canvas.height = Math.round(css * ratio * H / W);
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0);
-    view = { ctx, k: Math.min(1.8, Math.max(1, 0.45 * W / css)) };
-  };
+  const fit = () => { view = canvasKit.fit(canvas, W, H); };
   const paint = () => { draw(view.ctx, state, view.k); setHud(); };
   const choose = i => {
     current = i;
@@ -285,10 +279,9 @@
   });
   // Pressing a card shows that augment and stops the automatic turn.
   buttons.forEach((b, n) => b.addEventListener('click', () => { auto = false; choose(n); loop.update(); }));
-  const update = () => { root.classList.add('is-ready'); fit(); choose(current); loop.update(); };
+  const update = () => { canvasKit.ready(root); fit(); choose(current); loop.update(); };
   let resizeTimer;
   window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { fit(); paint(); }, 120); });
   // The pixel font is drawn into the canvas (the -2 and the 거대 벽 labels), so the first picture waits for it.
-  const pixelFont = document.fonts && document.fonts.load ? document.fonts.load(font(16)).catch(() => null) : null;
-  Promise.resolve(pixelFont).then(update);
+  canvasKit.fontReady(font(16)).then(update);
 })();

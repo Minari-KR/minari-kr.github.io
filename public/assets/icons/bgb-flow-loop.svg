@@ -1,6 +1,6 @@
 <svg viewBox="0 0 720 840" xmlns="http://www.w3.org/2000/svg">
   <title id="bgb-loop-flow-title">Barrel Good Barrel 핵심 루프 순서도</title>
-  <desc id="bgb-loop-flow-desc">한 판은 10방 맵을 만들고 방에 들어가 입장 보상을 고른 뒤 방 종류에 따라 갈라지는 흐름. 전투방은 웨이브가 남으면 반복하고 없으면 방이 클리어되어 다음 방으로 이동하며, 보스방에서 보스 HP가 0이면 승리, 내 HP가 0이면 처음부터 다시 시작.</desc>
+  <desc id="bgb-loop-flow-desc">한 판은 방 10개로 맵을 만들고 방에 들어가 입장 보상을 고른 뒤 방 종류에 따라 갈라지는 흐름. 전투방은 웨이브가 남으면 반복하고 없으면 방이 클리어되어 다음 방으로 이동하며, 보스방에서 보스 HP가 0이면 승리, 내 HP가 0이면 처음부터 다시 시작.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
   <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
@@ -56,7 +56,7 @@
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">맵 생성</text>
-  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">10방 · 종류 배정</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 10개 · 종류 배정</text>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff"/>
   <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
   <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 입장 · 입장 보상</text>

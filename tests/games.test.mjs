@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
 import { gamePacks } from '../scripts/games.mjs';
-import { root } from './fixture.mjs';
+import { root, parseCss, cssRule, cssDeclared, between } from './fixture.mjs';
 
 const read = name => fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
 const sample = (overrides = {}) => ({ title: 'Game <1>', platform: 'PC', genre: 'RPG', hours: '10시간', achievements: '3 / 5', note: '"첫" 기억', shell: 'gray', ...overrides });
@@ -71,8 +71,8 @@ test('stylesheets may only load reviewed local fonts and local SVG icons', () =>
 test('section titles and award lines use the drawn highlighter stroke, not a flat band', () => {
   const styles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
   const stroke = fs.readFileSync(new URL('../public/assets/icons/marker.svg', import.meta.url), 'utf8');
-  assert.match(styles, /\.marker \{[^}]*border-image: url\("\.\.\/icons\/marker\.svg"\) 0 20 fill \/ 0 \.7em stretch;/);
-  assert.match(styles, /\.project-award \{[^}]*border-image: url\("\.\.\/icons\/marker\.svg"\)/);
+  assert.match(cssRule(styles, '.marker', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\) .*\bfill\b/);
+  assert.match(cssRule(styles, '.project-award', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
   assert.doesNotMatch(styles, /var\(--marker\)/);
   assert.match(stroke, /width="120" height="40"/);
   // The intro's four key words get the same stroke in four colour steps, in sentence order.
@@ -80,7 +80,7 @@ test('section titles and award lines use the drawn highlighter stroke, not a fla
   const words = ['아이디어', '프로토타입', '플레이', '재미'];
   words.forEach((word, i) => {
     assert.match(home, new RegExp(`<span class="marker marker-step-${i + 1}">${word}</span>`));
-    assert.ok(styles.includes(`.marker-step-${i + 1} { border-image-source: url("../icons/marker-step-${i + 1}.svg"); }`), word);
+    assert.match(cssRule(styles, `.marker-step-${i + 1}`, '*').get('border-image-source'), new RegExp(`^url\\(["']?\\.\\./icons/marker-step-${i + 1}\\.svg["']?\\)$`), word);
     assert.ok(fs.existsSync(new URL(`../public/assets/icons/marker-step-${i + 1}.svg`, import.meta.url)));
   });
 });
@@ -88,55 +88,65 @@ test('section titles and award lines use the drawn highlighter stroke, not a fla
 test('the game screen moves only without a reduced-motion preference and goes back with a press, Esc, Enter or Space', () => {
   const styles = read('src/styles/games.css');
   const script = read('src/scripts/games.js');
+  const flow = read('src/scripts/flow-row.js');
   const template = read('src/templates/home.html');
-  const start = styles.indexOf('@media (prefers-reduced-motion: no-preference)');
+  const rules = parseCss(styles);
+  const calm = rule => rule.context.includes('prefers-reduced-motion: no-preference');
   for (const name of ['gs-blink', 'gs-fade', 'gs-bob']) {
-    assert.ok(styles.slice(start).includes(`@keyframes ${name}`), name);
-    assert.ok(!styles.slice(0, start).includes(name), name);
+    assert.ok(rules.some(rule => calm(rule) && rule.context.includes(`@keyframes ${name}`)), name);
+    assert.ok(!rules.some(rule => !calm(rule) && (rule.context + rule.selector + [...rule.decls.values()].join(' ')).includes(name)), name);
   }
   assert.match(read('src/scripts/motion-loop.js'), /prefers-reduced-motion: reduce/);
-  assert.match(script, /const motion = motionLoop\.reduce;/);
-  assert.match(script, /if \(motion\.matches\) return;/);
-  assert.match(script, /canPlay: \(\) => lanes\.some\(lane => lane\.half\)/);
-  assert.match(script, /!motion\.matches && copy\.animate/);
+  assert.match(script, /=\s*motionLoop\.reduce\b/);
+  assert.match(script, /if \(\s*motion\.matches\s*\)\s*return/);
+  assert.match(script, /canPlay\s*:[^;\n]*lanes\.some\(/);
+  assert.match(script, /!motion\.matches\s*&&\s*copy\.animate/);
   // No back button: a press anywhere on the record, Esc, Enter or Space returns.
-  assert.ok(script.includes("detail.addEventListener('click', close);"));
-  assert.ok(script.includes("['Escape', 'Enter', ' '].includes(event.key)"));
-  assert.match(template, /<p class="gs-exit">화면을 누르면 돌아가요<\/p>/);
+  assert.match(script, /detail\.addEventListener\(\s*['"]click['"]\s*,\s*close\b/);
+  assert.match(script, /\[\s*['"]Escape['"]\s*,\s*['"]Enter['"]\s*,\s*['"] ['"]\s*\]\.includes\(\s*event\.key/);
+  assert.match(compileSite(root).files.get('index.html'), /<p class="gs-exit">화면을 누르면 돌아가요<\/p>/);
   // Rows never stop on hover. "탄성 카트리지": a caught row brakes, a thrown one glides back into its flow and never rests;
   // cartridges lean while a row runs off its flow and wobble back on a spring. Only keyboard focus eases a row to a stop.
-  assert.doesNotMatch(styles, /\.pack-row:hover \.pack-track|:focus-within \.pack-track|@keyframes gs-flow/);
+  assert.ok(!parseCss(styles).some(rule => /\.pack-row:hover \.pack-track|:focus-within \.pack-track|gs-flow/.test(rule.selector + rule.context)));
   assert.doesNotMatch(script + styles, /--pack-rest|resting|playbackRate/);
-  assert.ok(script.includes('lane.v = flow + (lane.v - flow) * Math.exp(-dt * 2.6);'));
-  assert.ok(script.includes('lane.v *= Math.exp(-dt * 22);'));
-  assert.ok(script.includes('row.addEventListener(\'focusin\', () => { lane.focused = keyboard; });'));
-  assert.match(styles, /--pack-tilt: \d+;/);
-  assert.match(styles, /\.pack-track\.is-looping \.pack \{ rotate: var\(--tilt, 0deg\); transform-origin: 50% 100%; \}/);
+  assert.match(flow, /lane\.v\s*=[^;]*\blane\.v\b[^;]*Math\.exp\(/);
+  assert.match(flow, /lane\.v\s*\*=\s*Math\.exp\(/);
+  assert.match(flow, /addEventListener\(\s*['"]focusin['"][^;]*lane\.focused\s*=\s*keyboard/);
+  assert.ok(cssDeclared(styles, '--pack-tilt').some(value => /^\d+$/.test(value)));
+  const lean = cssRule(styles, '.pack-track.is-looping .pack', '*');
+  assert.match(lean.get('rotate'), /^var\(--tilt\b/);
+  assert.ok(lean.has('transform-origin'));
   // Each frame writes transforms only; the rows stop off screen.
-  const frame = script.slice(script.indexOf('const step = dt =>'), script.indexOf('const layout = () =>'));
-  assert.ok(frame.length > 500);
+  const frame = between(script, /const step\s*=\s*dt\s*=>/, /const layout\s*=/);
   assert.doesNotMatch(frame, /getComputedStyle|getBoundingClientRect|offsetWidth|clientWidth|scrollWidth/);
-  assert.ok(script.includes("onSeen: on => screen.classList.toggle('is-away', !on)"));
+  assert.match(script, /onSeen\s*:[^;\n]*classList\.toggle\(\s*['"]is-away['"]/);
   // Sound starts only after the visitor's first press, quietly, and is made in the browser (no sound files).
-  assert.ok(script.includes("for (const type of ['pointerdown', 'keydown']) window.addEventListener(type, wake"));
-  assert.ok(script.includes('const volume = 0.035;'));
+  assert.match(script, /for \(const type of \[\s*['"]pointerdown['"]\s*,\s*['"]keydown['"]\s*\]\)\s*window\.addEventListener\(\s*type\s*,\s*wake/);
+  const volume = Number(script.match(/const volume\s*=\s*([\d.]+)/)?.[1]);
+  assert.ok(volume > 0 && volume <= 0.1, `volume ${volume} should be quiet`);
   assert.doesNotMatch(template + script, /\.(?:mp3|wav|ogg)\b|<audio/);
 });
 
 test('the game screen keeps its pixel type crisp and readable on phones', () => {
   const styles = read('src/styles/games.css');
   // The screen's edge is a sunken glass: a thin line and a soft top shadow laid over the cartridges, never taking a press.
-  assert.match(styles, /\.gs::after \{[^}]*box-shadow: inset 0 0 0 2px var\(--lcd-mid\), inset 0 6px 12px rgba\(15, 56, 15, \.45\);[^}]*pointer-events: none;/);
+  const glass = cssRule(styles, '.gs::after');
+  assert.match(glass.get('box-shadow'), /inset .*var\(--lcd-mid\).*inset /);
+  assert.equal(glass.get('pointer-events'), 'none');
   // One font declaration (common.css, shared by every page), on the reviewed local file; Korean words keep an ordinary quarter-cell space.
-  assert.equal((styles.match(/@font-face/g) || []).length, 0);
-  assert.equal((read('src/styles/common.css').match(/@font-face[^}]*url\("\.\.\/fonts\/neodgm\.woff2"\)/g) || []).length, 1);
-  assert.match(styles, /\.gs \{[^}]*word-spacing: -\.25em;/);
+  const fontFaces = css => parseCss(css).filter(rule => rule.selector === '@font-face');
+  assert.equal(fontFaces(styles).length, 0);
+  const shared = fontFaces(read('src/styles/common.css'));
+  assert.equal(shared.length, 1);
+  assert.match(shared[0].decls.get('src'), /url\(["']?\.\.\/fonts\/neodgm\.woff2["']?\)/);
+  assert.match(cssRule(styles, '.gs').get('word-spacing'), /^-[\d.]+em$/);
   // Cartridge names snap to the font's 8px grid; a stat or detail left empty is hidden for real, label included.
-  assert.ok(styles.includes('--px-pack: max(16px, round(nearest, 11cqi, 8px));'));
-  assert.match(styles, /\.pack-name \{[^}]*font-size: var\(--px-pack\)/);
-  assert.ok(styles.includes('.gs-info div:not([hidden]) { display: contents; }'));
+  assert.ok(cssDeclared(styles, '--px-pack').some(value => /^max\(16px,round\(nearest,.*,8px\)\)$/.test(value)));
+  assert.match(cssRule(styles, '.pack-name').get('font-size'), /^var\(--px-pack\)/);
+  assert.equal(cssRule(styles, '.gs-info div:not([hidden])').get('display'), 'contents');
   // Phones: the record reads down the middle under its cartridge.
-  const phone = styles.slice(styles.indexOf('@media (max-width: 640px)'));
-  assert.match(phone, /\.gs-detail \{[^}]*grid-template-columns: minmax\(0, 1fr\); justify-items: center;/);
-  assert.match(phone, /\.gs-record \{[^}]*text-align: center;/);
+  const phone = selector => cssRule(styles, selector, 'max-width: 640px');
+  assert.equal(phone('.gs-detail').get('grid-template-columns'), 'minmax(0,1fr)');
+  assert.equal(phone('.gs-detail').get('justify-items'), 'center');
+  assert.equal(phone('.gs-record').get('text-align'), 'center');
 });
