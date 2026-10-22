@@ -75,7 +75,7 @@
 .project-genre + .project-title { margin-top: var(--gap-tight); }
 .project-meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .project-meta > span:not(.meta-sep) { white-space: nowrap; }
-.meta-sep { margin: 0 12px; color: rgba(32, 33, 31, .3); font-weight: 500; }
+.meta-sep { margin: 0 12px; color: rgba(32, 33, 31, .62); font-weight: 500; } /* about 4.6:1 on white (2026-10-22, was .3 = 1.9:1) */
 .project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
