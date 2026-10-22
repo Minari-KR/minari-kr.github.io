@@ -4,6 +4,7 @@ import fs from 'node:fs';
 
 const template = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
 const homeStyles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
+const detailStyles = fs.readFileSync(new URL('../src/styles/detail.css', import.meta.url), 'utf8');
 const scripts = ['games.js', 'project-tabs.js'].map(name => fs.readFileSync(new URL(`../src/scripts/${name}`, import.meta.url), 'utf8')).join('\n');
 
 test('email remains a mail link without copy controls or clipboard code', () => {
@@ -38,9 +39,12 @@ test('page drops template chrome: menus, middle-dot meta, link arrows and tile c
 });
 
 test('action buttons share one transition and darken on hover and press', () => {
-  assert.match(homeStyles, /\.action, \.home-link, \.play-link, \.release-link \{ transition: var\(--action-transition\); \}/);
-  assert.match(homeStyles, /\.action-primary:hover, \.play-link:hover \{ background: #163b32;/);
-  assert.match(homeStyles, /\.action-primary:active, \.play-link:active \{ background: #163b32; \}/);
+  assert.match(homeStyles, /\.action, \.release-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(detailStyles, /\.home-link, \.play-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(homeStyles, /\.action-primary:hover \{ background: #163b32;/);
+  assert.match(detailStyles, /\.play-link:hover \{ background: #163b32;/);
+  assert.match(homeStyles, /\.action-primary:active \{ background: #163b32; \}/);
+  assert.match(detailStyles, /\.play-link:active \{ background: #163b32; \}/);
 });
 
 test('projects open their own pages without JavaScript, and the page has no back-to-top button', () => {
@@ -99,18 +103,22 @@ test('the AI collaboration screen sits between the projects and the game screen,
   assert.ok(section.includes(`<div class="ap-link ap-l1" aria-hidden="true"><span>전달</span>${packet}</div>`));
   assert.ok(section.includes('<div class="ap-link ap-l2" aria-hidden="true"><span>출동</span><i></i><i></i><i></i><i></i></div>'));
   assert.match(read('public/assets/icons/pixelarticons-file-text.svg'), /fill="#0f380f"/);
-  assert.ok(read('src/styles/games.css').includes('.still .ap-pk { display: none; }'));
+  assert.ok(read('src/styles/ai-party.css').includes('.still .ap-pk { display: none; }'));
   assert.doesNotMatch(section, /ap-credit|ai-logos|claude-logo/);
   assert.ok(!fs.existsSync(new URL('../public/assets/images/ai-logos', import.meta.url)));
   assert.ok(!fs.existsSync(new URL('../public/assets/icons/claude-logo.svg', import.meta.url)));
   // The screen shares the game screen's LCD tokens and font; all its text is 16px; it moves only while on screen and visible.
-  const styles = read('src/styles/games.css');
-  assert.match(styles, /\.games, \.ai-party \{\s*--lcd: #8bac0f;/);
-  assert.equal((styles.match(/@font-face/g) || []).length, 1);
+  const styles = read('src/styles/ai-party.css');
+  assert.match(read('src/styles/common.css'), /:root \{[^}]*--lcd: #8bac0f;/);
+  assert.equal(['common', 'home', 'detail', 'games', 'ai-party'].map(name => (read(`src/styles/${name}.css`).match(/@font-face/g) || []).length).join(), '1,0,0,0,0');
   assert.match(styles, /\.ap \{[^}]*font-size: 16px;/);
-  const script = read('src/scripts/ai-party.js');
-  assert.match(script, /prefers-reduced-motion: reduce/);
-  assert.match(script, /IntersectionObserver/);
-  assert.match(script, /document\.hidden/);
+  // The page loads the shared loop first; it alone knows about reduced motion, the viewport and the hidden tab.
+  const loopAt = template.indexOf('<script src="./assets/js/motion-loop.js" defer></script>');
+  assert.ok(loopAt > 0 && loopAt < template.indexOf('assets/js/games.js') && loopAt < template.indexOf('assets/js/ai-party.js'));
+  const loop = read('src/scripts/motion-loop.js');
+  assert.match(loop, /prefers-reduced-motion: reduce/);
+  assert.match(loop, /IntersectionObserver/);
+  assert.match(loop, /document\.hidden/);
+  assert.match(read('src/scripts/ai-party.js'), /motionLoop\(\{ target: flow, threshold: 0\.1/);
   assert.match(styles, /\.still \.ap-meter i \{ width: 60%; \}/);
 });

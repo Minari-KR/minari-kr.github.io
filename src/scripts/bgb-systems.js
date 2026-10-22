@@ -8,7 +8,7 @@
 // Chosen to read well: the walk's seed (one fixed seed, so the loop never changes), canvas sizes and positions, the arena
 // scale (0.75 of the game's pixels for speeds), the demo cards, the HP numbers on the way down, and the player's moves.
 // The boss inner colour "#380" is copied literally from the analysis. Everything is drawn from the time t alone, so a still
-// frame is the same picture the loop shows. Off screen or in a hidden tab it stops; with reduced motion it draws one still.
+// frame is the same picture the loop shows. Off screen or in a hidden tab it stops (motion-loop.js); with reduced motion it draws one still.
 // Pace (user asked for slower, 2026-10-22): the scenes are still written in their original time t, and HOLDS freeze t between
 // beats (rooms attach every 0.75 s, the zoomed room's cards stay 2 s, and so on), so every motion keeps its game speed and
 // nothing is slowed down. Loop lengths: map about 26 s (was 14), threat about 18.5 s (was 12). Each caption/HUD text stays
@@ -71,7 +71,7 @@
     c.beginPath();
     c.arc(x, y, r, 0, Math.PI * 2);
   };
-  // The top strip stays dark like the game screen; the HUD text above it is gold (home.css, Barrel Good Barrel screens).
+  // The top strip stays dark like the game screen; the HUD text above it is gold (detail.css, Barrel Good Barrel screens).
   const strip = (v) => {
     const c = v.ctx;
     A(v);
@@ -1157,7 +1157,7 @@
   };
 
   // ── Players ──
-  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const motion = motionLoop.reduce;
   const players = roots
     .map((root) => {
       const scene = SCENES[root.dataset.bgbSystem],
@@ -1169,7 +1169,6 @@
         hud: root.querySelector("[data-bgb-hud]"),
         t: 0,
         view: null,
-        onScreen: true,
         shown: "",
       };
     })
@@ -1197,54 +1196,25 @@
     if (p.hud && p.shown !== hud) p.hud.textContent = p.shown = hud;
   };
 
-  let raf = 0,
-    last = 0;
-  const frame = (now) => {
-    raf = 0;
-    const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
-    last = now;
-    let running = false;
-    for (const p of players) {
-      if (!p.onScreen || motion.matches) continue;
-      running = true;
-      p.t = (p.t + dt) % p.scene.length;
-      paint(p);
-    }
-    if (running && !document.hidden) raf = window.requestAnimationFrame(frame);
-  };
-  const play = () => {
-    if (
-      !raf &&
-      !document.hidden &&
-      !motion.matches &&
-      players.some((p) => p.onScreen)
-    ) {
-      last = 0;
-      raf = window.requestAnimationFrame(frame);
-    }
-  };
+  // Each system plays on its own, only while it is on screen and the tab is visible (motion-loop.js).
+  for (const p of players) {
+    p.loop = motionLoop({
+      target: p.canvas,
+      tick: (dt) => {
+        p.t = (p.t + dt) % p.scene.length;
+        paint(p);
+      },
+    });
+  }
   const update = () => {
     for (const p of players) {
       p.root.classList.add("is-ready");
       fit(p);
       if (motion.matches) p.t = p.scene.still;
       paint(p);
+      p.loop.update();
     }
-    play();
   };
-  if ("IntersectionObserver" in window) {
-    for (const p of players)
-      new IntersectionObserver(([entry]) => {
-        p.onScreen = entry.isIntersecting;
-        play();
-      }).observe(p.canvas);
-  }
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      window.cancelAnimationFrame(raf);
-      raf = 0;
-    } else play();
-  });
   motion.addEventListener("change", update);
   let resizeTimer;
   window.addEventListener("resize", () => {

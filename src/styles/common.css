@@ -17,7 +17,15 @@
   --action-transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
   --font-display: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* The LCD's four greens, darkest first, and the faint grid of its screen (the games screen and the "AI 협업 방식" screen). */
+  --lcd: #8bac0f;
+  --lcd-ink: #0f380f;
+  --lcd-mid: #306230;
+  --lcd-light: #9bbc0f;
+  --lcd-grid: rgba(15, 56, 15, .05);
 }
+/* The screens' pixel font, declared once for every page (games, award years, the detail pages' game screens). */
+@font-face { font-family: "NeoDunggeunmo"; src: url("../fonts/neodgm.woff2") format("woff2"); font-display: swap; }
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(47, 111, 94, .12); }
 a, button, video { touch-action: manipulation; }

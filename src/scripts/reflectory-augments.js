@@ -5,7 +5,7 @@
 // walls to 10, 거대 벽 doubles the length to 7, 거울 오라 hurts enemies within 1.6 tiles of a wall once a second, and 터렛
 // puts a turret on each wall that fires a homing shot (speed 9) every second at the nearest enemy within 7.35 tiles.
 // Enemy health, speed and lanes are chosen to read well (the game's enemies have 1 health, so 피해 증가 shows a 2).
-// Off screen it stops; with reduced motion it shows a still picture of the chosen augment and doesn't move on.
+// Off screen or in a hidden tab it stops (motion-loop.js); with reduced motion it shows a still picture of the chosen augment and doesn't move on.
 (() => {
   const root = document.querySelector('[data-reflectory-augments]');
   const canvas = root && root.querySelector('canvas');
@@ -251,8 +251,8 @@
   const order = buttons.map(b => b.dataset.augment);
   const desc = root.querySelector('[data-augment-desc]');
   const hud = { hp: root.querySelector('[data-augment-hp]'), walls: root.querySelector('[data-augment-walls]'), name: root.querySelector('[data-augment-name]') };
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let current = 0, auto = true, state = fresh(SCENES[order[0]]), view = null, raf = 0, last = 0, onScreen = true;
+  const motion = motionLoop.reduce;
+  let current = 0, auto = true, state = fresh(SCENES[order[0]]), view = null;
   const shown = {};
   const setHud = () => {
     const next = { hp: `HP ${state.hp} / 12`, walls: `벽 ${state.placed.filter(Boolean).length} / ${state.sc.max}`, name: `증강: ${state.sc.name}` };
@@ -274,23 +274,18 @@
     if (desc) desc.textContent = buttons[i].dataset.desc || '';
     paint();
   };
-  const playing = () => onScreen && !motion.matches;
-  const frame = now => {
-    raf = 0;
-    if (!playing()) return;
-    const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
-    last = now;
-    for (let left = dt; left > 0; left -= 1 / 120) step(state, Math.min(1 / 120, left));
-    if (state.t >= state.sc.length) { if (auto) choose((current + 1) % order.length); else state = fresh(state.sc); }
-    paint();
-    raf = window.requestAnimationFrame(frame);
-  };
-  const play = () => { if (!raf && playing()) { last = 0; raf = window.requestAnimationFrame(frame); } };
+  const loop = motionLoop({
+    target: canvas,
+    tick: dt => {
+      for (let left = dt; left > 0; left -= 1 / 120) step(state, Math.min(1 / 120, left));
+      if (state.t >= state.sc.length) { if (auto) choose((current + 1) % order.length); else state = fresh(state.sc); }
+      paint();
+    },
+    onReduce: () => update()
+  });
   // Pressing a card shows that augment and stops the automatic turn.
-  buttons.forEach((b, n) => b.addEventListener('click', () => { auto = false; choose(n); play(); }));
-  const update = () => { root.classList.add('is-ready'); fit(); choose(current); play(); };
-  if ('IntersectionObserver' in window) new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; play(); }).observe(canvas);
-  motion.addEventListener('change', update);
+  buttons.forEach((b, n) => b.addEventListener('click', () => { auto = false; choose(n); loop.update(); }));
+  const update = () => { root.classList.add('is-ready'); fit(); choose(current); loop.update(); };
   let resizeTimer;
   window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { fit(); paint(); }, 120); });
   // The pixel font is drawn into the canvas (the -2 and the 거대 벽 labels), so the first picture waits for it.

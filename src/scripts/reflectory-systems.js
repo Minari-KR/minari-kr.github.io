@@ -3,7 +3,7 @@
 // a gap in the bottom middle room's floor for the launcher, walls (the game's mirrors) that reflect balls, and enemies
 // that walk their lanes. Rooms join in the game's order (middle → left → right → the row above) and the walls clear after
 // every wave, so the path is placed again. Ball speed (6.5 tiles/s) and fire interval (0.45 s) are the game's; enemy
-// lanes, health and speed are chosen to read well. Off screen it stops; with reduced motion it shows one still picture.
+// lanes, health and speed are chosen to read well. Off screen or in a hidden tab it stops (motion-loop.js); with reduced motion it shows one still picture.
 // The augment block has its own script (reflectory-augments.js).
 (() => {
   const roots = [...document.querySelectorAll('[data-reflectory-system]')];
@@ -285,11 +285,11 @@
 
 
   // ── Players ──
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = motionLoop.reduce;
   const players = roots.map(root => {
     const scene = SCENES[root.dataset.reflectorySystem], canvas = root.querySelector('canvas');
     const hud = { hp: root.querySelector('[data-system-hp]'), info: root.querySelector('[data-system-info]') };
-    return { root, scene, canvas, hud, state: fresh(scene), view: null, onScreen: true, shown: {} };
+    return { root, scene, canvas, hud, state: fresh(scene), view: null, shown: {} };
   }).filter(p => p.scene && p.canvas);
 
   const fit = p => {
@@ -307,34 +307,26 @@
     for (const name in next) if (p.hud[name] && p.shown[name] !== next[name]) p.hud[name].textContent = p.shown[name] = next[name];
   };
 
-  let raf = 0, last = 0;
-  const frame = now => {
-    raf = 0;
-    const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
-    last = now;
-    let running = false;
-    for (const p of players) {
-      if (!p.onScreen || motion.matches) continue;
-      running = true;
-      for (let left = dt; left > 0; left -= 1 / 120) step(p.state, Math.min(1 / 120, left));
-      if (p.state.time >= p.scene.length) p.state = fresh(p.scene);
-      paint(p);
-    }
-    if (running) raf = window.requestAnimationFrame(frame);
-  };
-  const play = () => { if (!raf && !motion.matches && players.some(p => p.onScreen)) { last = 0; raf = window.requestAnimationFrame(frame); } };
+  // Each map plays on its own, only while it is on screen (motion-loop.js).
+  for (const p of players) {
+    p.loop = motionLoop({
+      target: p.canvas,
+      tick: dt => {
+        for (let left = dt; left > 0; left -= 1 / 120) step(p.state, Math.min(1 / 120, left));
+        if (p.state.time >= p.scene.length) p.state = fresh(p.scene);
+        paint(p);
+      }
+    });
+  }
   const update = () => {
     for (const p of players) {
       p.root.classList.add('is-ready');
       fit(p);
       if (motion.matches) p.state = stateAt(p.scene, p.scene.still);
       paint(p);
+      p.loop.update();
     }
-    play();
   };
-  if ('IntersectionObserver' in window) {
-    for (const p of players) new IntersectionObserver(([entry]) => { p.onScreen = entry.isIntersecting; play(); }).observe(p.canvas);
-  }
   motion.addEventListener('change', update);
   let resizeTimer;
   window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(update, 120); });

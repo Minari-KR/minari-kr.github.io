@@ -2,8 +2,8 @@
 // blue walls and balls, orange dashed path, red enemies — redrawn with canvas. The player drags four walls into a loop,
 // balls keep firing from the gap below and the loop carries them round, hitting the enemies on their lanes. The fire
 // interval (0.45 s), wall limit (5) and HP (12) are the game's values; speeds and enemy health are chosen to read well.
-// One loop takes 21 s. Off screen, on a hidden card or with reduced
-// motion it stops; reduced motion shows the three steps as still pictures instead.
+// One loop takes 21 s. Off screen, on a hidden card, in a hidden tab or with reduced
+// motion it stops (motion-loop.js); reduced motion shows the three steps as still pictures instead.
 (() => {
   const root = document.querySelector('[data-reflectory-core]');
   const screen = root && root.querySelector('canvas[data-core-screen]');
@@ -258,35 +258,29 @@
     }
   };
 
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = motionLoop.reduce;
   const card = root.closest('.project');
-  let view = fit(screen), state = fresh(), last = 0, raf = 0, onScreen = true;
-  // A card hidden behind another project tab doesn't play.
-  const playing = () => onScreen && !motion.matches && !(card && card.closest('.ptabs.is-ready') && !card.classList.contains('is-current'));
-  const frame = now => {
-    raf = 0;
-    if (!playing()) return;
-    let left = last ? Math.min(0.05, (now - last) / 1000) : 0;
-    last = now;
-    while (left > 0) { const d = Math.min(1 / 120, left); step(state, d); left -= d; }
-    if (state.time >= LOOP) state = fresh();
-    draw(view.ctx, state, view.k);
-    setHud(state);
-    raf = window.requestAnimationFrame(frame);
-  };
-  const play = () => { if (!raf && playing()) { last = 0; raf = window.requestAnimationFrame(frame); } };
+  let view = fit(screen), state = fresh();
+  const loop = motionLoop({
+    target: screen,
+    // A card hidden behind another project tab doesn't play.
+    canPlay: () => !(card && card.closest('.ptabs.is-ready') && !card.classList.contains('is-current')),
+    tick: dt => {
+      for (let left = dt; left > 0; left -= 1 / 120) step(state, Math.min(1 / 120, left));
+      if (state.time >= LOOP) state = fresh();
+      draw(view.ctx, state, view.k);
+      setHud(state);
+    },
+    onReduce: () => update()
+  });
   const update = () => {
     root.classList.add('is-ready');
     root.classList.toggle('is-still', motion.matches);
     if (motion.matches) stills();
-    else { draw(view.ctx, state, view.k); setHud(state); play(); }
+    else { draw(view.ctx, state, view.k); setHud(state); loop.update(); }
   };
 
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; play(); }).observe(screen);
-  }
-  if (card) new MutationObserver(play).observe(card, { attributes: true, attributeFilter: ['class'] });
-  motion.addEventListener('change', update);
+  if (card) new MutationObserver(loop.update).observe(card, { attributes: true, attributeFilter: ['class'] });
   let resizeTimer;
   window.addEventListener('resize', () => {
     window.clearTimeout(resizeTimer);

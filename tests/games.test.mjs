@@ -94,9 +94,10 @@ test('the game screen moves only without a reduced-motion preference and goes ba
     assert.ok(styles.slice(start).includes(`@keyframes ${name}`), name);
     assert.ok(!styles.slice(0, start).includes(name), name);
   }
-  assert.match(script, /prefers-reduced-motion: reduce/);
+  assert.match(read('src/scripts/motion-loop.js'), /prefers-reduced-motion: reduce/);
+  assert.match(script, /const motion = motionLoop\.reduce;/);
   assert.match(script, /if \(motion\.matches\) return;/);
-  assert.match(script, /!away && !motion\.matches/);
+  assert.match(script, /canPlay: \(\) => lanes\.some\(lane => lane\.half\)/);
   assert.match(script, /!motion\.matches && copy\.animate/);
   // No back button: a press anywhere on the record, Esc, Enter or Space returns.
   assert.ok(script.includes("detail.addEventListener('click', close);"));
@@ -112,9 +113,10 @@ test('the game screen moves only without a reduced-motion preference and goes ba
   assert.match(styles, /--pack-tilt: \d+;/);
   assert.match(styles, /\.pack-track\.is-looping \.pack \{ rotate: var\(--tilt, 0deg\); transform-origin: 50% 100%; \}/);
   // Each frame writes transforms only; the rows stop off screen.
-  const frame = script.slice(script.indexOf('const step = now =>'), script.indexOf('const run = () =>'));
+  const frame = script.slice(script.indexOf('const step = dt =>'), script.indexOf('const layout = () =>'));
+  assert.ok(frame.length > 500);
   assert.doesNotMatch(frame, /getComputedStyle|getBoundingClientRect|offsetWidth|clientWidth|scrollWidth/);
-  assert.match(script, /away = !entry\.isIntersecting;/);
+  assert.ok(script.includes("onSeen: on => screen.classList.toggle('is-away', !on)"));
   // Sound starts only after the visitor's first press, quietly, and is made in the browser (no sound files).
   assert.ok(script.includes("for (const type of ['pointerdown', 'keydown']) window.addEventListener(type, wake"));
   assert.ok(script.includes('const volume = 0.035;'));
@@ -125,8 +127,9 @@ test('the game screen keeps its pixel type crisp and readable on phones', () => 
   const styles = read('src/styles/games.css');
   // The screen's edge is a sunken glass: a thin line and a soft top shadow laid over the cartridges, never taking a press.
   assert.match(styles, /\.gs::after \{[^}]*box-shadow: inset 0 0 0 2px var\(--lcd-mid\), inset 0 6px 12px rgba\(15, 56, 15, \.45\);[^}]*pointer-events: none;/);
-  // One font declaration, on the reviewed local file; Korean words keep an ordinary quarter-cell space.
-  assert.equal((styles.match(/@font-face/g) || []).length, 1);
+  // One font declaration (common.css, shared by every page), on the reviewed local file; Korean words keep an ordinary quarter-cell space.
+  assert.equal((styles.match(/@font-face/g) || []).length, 0);
+  assert.equal((read('src/styles/common.css').match(/@font-face[^}]*url\("\.\.\/fonts\/neodgm\.woff2"\)/g) || []).length, 1);
   assert.match(styles, /\.gs \{[^}]*word-spacing: -\.25em;/);
   // Cartridge names snap to the font's 8px grid; a stat or detail left empty is hidden for real, label included.
   assert.ok(styles.includes('--px-pack: max(16px, round(nearest, 11cqi, 8px));'));

@@ -48,7 +48,7 @@
 /* Awards: scannable 2 x 2 list */
 /* Awards (2026-10-16 user choice, mockup 2 "액정 카드 4장"): each award is a small LCD card like the game screen above (same
    greens and faint grid, glass edge): a pixel game item (assets/images/awards/*.png: Nikoichu's CC0 1-bit icons in the LCD greens, already scaled 3x to 48px, centred) then the award name in the site's bold type and
-   the year (screen's pixel font NeoDunggeunmo, declared in games.css, which the home page loads) with the event in one line. All four
+   the year (screen's pixel font NeoDunggeunmo, declared in common.css) with the event in one line. All four
    cards look the same (2026-10-16 user request: the grand prize is no longer inverted). */
 /* Two cards a row only while each is at least 296px (the longest event, 247px at 20px, plus 24px padding each side);
    narrower, as between 641 and about 750px, they stack so nothing wraps (2026-10-21). */
@@ -79,54 +79,11 @@
 .project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
-/* Reflectory core play on its detail page (reflectory-core.js, 2026-10-21): a heading and two lines on the rule, and the game
-   screen redrawn in its own look (the step cards under it were removed on 2026-10-21, user request). Reduced motion swaps the screen for three
-   still pictures; without the script the screens stay hidden and the text and steps remain. The detail page doesn't load
-   games.css, so the pixel font is declared here as well (same file, so the home page doesn't load it twice). */
-@font-face { font-family: "NeoDunggeunmo"; src: url("../fonts/neodgm.woff2") format("woff2"); font-display: swap; }
-/* Under the play video and button, after the same dashed rule that separates the home sections (2026-10-21 user request). */
-.core { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
-.core-title { margin: 0; color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+/* The "AI와 일하는 방식" caption and the detail pages share the next two rules (their other core-* rules are in detail.css). */
 .core-text { margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 /* Each sentence is its own line block with balanced lines, so a sentence a little longer than the column doesn't drop its
    last word alone onto the next line (2026-10-21 line-break check; balance doesn't apply across a <br>). */
 .core-line { display: block; text-wrap: balance; }
-.core-live { margin-top: var(--gap-block); }
-/* The HUD sits on the paper strip above the room; container units keep it in that strip at any width. */
-.core-screen { position: relative; container-type: inline-size; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f5f1e8; }
-.core-screen canvas { display: block; width: 100%; height: auto; aspect-ratio: 960 / 400; }
-.core-hud { position: absolute; top: 0; left: 0; display: flex; gap: 1.2em; margin: 0; padding: 0 1.6cqw; color: #3a3a3a; font-family: "NeoDunggeunmo", var(--font-body); font-size: clamp(10px, 1.7cqw, 16px); font-weight: 400; font-synthesis: none; line-height: 4.17cqw; white-space: nowrap; pointer-events: none; }
-/* Barrel Good Barrel screens are black like the game, so their HUD text takes the game's gold (#D4AF37). */
-[data-bgb-loadout] .core-hud, [data-bgb-system] .core-hud { color: #d4af37; }
-.core-step-num { display: block; color: var(--accent-deep); font-family: "NeoDunggeunmo", var(--font-body); font-size: 20px; font-weight: 400; font-synthesis: none; line-height: 1; }
-.core-stills { display: none; gap: var(--gap-block); margin-top: var(--gap-block); }
-.core-stills figure { margin: 0; }
-.core-stills figcaption { margin-top: var(--gap-group); color: var(--ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-compact); }
-.core-stills .core-step-num { display: inline; margin-right: 4px; font-size: 1em; }
-/* The augment and map-change systems (reflectory-systems.js) follow as two more blocks: a 16:9 screen, no steps. */
-.core-screen-wide { margin-top: var(--gap-block); }
-.core-screen-wide canvas { aspect-ratio: 16 / 9; }
-/* Augment cards under the augment screen (reflectory-augments.js, 2026-10-21 user choices C, then card look B): the game
-   screen's paper grid with a pixel-font name; the chosen card takes the game's blue wall colour and lifts a little.
-   Without the script they stay hidden. */
-.augment-picks { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--gap-group); margin: var(--gap-block) 0 0; padding: 0; list-style: none; }
-.augment-pick { display: grid; justify-items: center; gap: var(--gap-group); width: 100%; min-height: 44px; padding: 14px 4px 12px; border: 1px solid var(--line); border-radius: 8px; background: repeating-linear-gradient(0deg, rgba(120, 160, 200, .16) 0 1px, transparent 1px 10px), repeating-linear-gradient(90deg, rgba(120, 160, 200, .16) 0 1px, transparent 1px 10px), #f5f1e8; color: #3a3a3a; font: inherit; cursor: pointer; }
-/* The game icons are 64×64 pixel art: shown at 64px so each pixel maps to whole screen pixels (1×, 2×, 3×) and the
-   one-pixel lines stay even; scaled to 48 or 40px they broke up (2026-10-21). */
-.augment-pick img { width: 64px; height: 64px; image-rendering: pixelated; }
-.augment-pick-name { font-family: "NeoDunggeunmo", var(--font-body); font-size: 15px; font-weight: 400; font-synthesis: none; line-height: 1.2; word-break: keep-all; }
-.augment-pick[aria-pressed="true"] { border-color: #3d8fe0; box-shadow: inset 0 0 0 1px #3d8fe0, 0 3px 0 #1d4f9a; color: #1d4f9a; }
-.augment-desc { margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-body); line-height: var(--line-text); word-break: keep-all; text-wrap: balance; }
-.core:not(.is-ready) .augment-picks, .core:not(.is-ready) .augment-desc { display: none; }
-/* Flowcharts (diagram-design skill rules, 2026-10-21): the core loop on its own and one under each screen. Below 560px they
-   keep that width and scroll sideways inside their own box, so the labels stay readable. */
-.core-flow { margin: var(--gap-block) 0 0; }
-.core-flow-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
-.core-flow img { display: block; width: 100%; min-width: 560px; height: auto; }
-.core-title + .core-flow { margin-top: var(--gap-block); }
-.core:not(.is-ready) .core-screen { display: none; }
-.core.is-still .core-live { display: none; }
-.core.is-still .core-stills { display: grid; }
 
 /* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card
    (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, so the section keeps the tallest
@@ -166,26 +123,9 @@
 .release-link { display: block; width: fit-content; margin: 0 auto; border-radius: 22.5%; }
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
 
-/* Project detail page */
-/* The home button sits as far from the box top as the title's letters sit under it (2026-10-21): the box top uses
-   --gap-block, and the title's top margin takes off the space its line holds above the letters (about .22em). */
-.project-page { padding-top: var(--gap-block); }
-.home-link { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid var(--ink); border-radius: 50%; background: #fff; }
-.home-link img { width: 20px; height: 20px; }
-.project-detail { margin-top: 0; }
-.project-detail h1 { margin: calc(var(--gap-block) - .22em) 0 0; color: var(--ink); font-size: 2.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
-.project-detail .project-genre { margin-top: calc(var(--gap-block) - .3em); }
-.project-detail .project-genre + h1 { margin-top: var(--gap-tight); }
-.project-detail .project-meta { margin-top: 12px; font-variant-numeric: tabular-nums; }
-.period-badge img, .period-label { display: none; }
-.project-media { margin: 48px 0 0; }
-.project-media video { display: block; width: 100%; height: auto; border-radius: 8px; background: #000; }
-.play-link { display: flex; align-items: center; justify-content: center; gap: .3em; min-height: 52px; margin-top: var(--gap-block); border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); text-decoration: none; }
-
 @media (max-width: 640px) {
   .ptabs-list.is-looping .ptabs-tab { width: 120px; }
   .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 32px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
-  .project-page { padding-top: var(--gap-block); }
   .intro-role { margin-top: 8px; }
   .meta-sep { margin: 0 3px; }
   .release-icon { width: 112px; height: 112px; }
@@ -194,43 +134,28 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
-  .augment-picks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .augment-pick-name { font-size: 14px; }
   .award-name { font-size: 1.25rem; }
   .award-event { font-size: 1.125rem; }
   .project-actions .action { flex: 1 1 0; }
-  .project-detail h1 { font-size: 1.875rem; }
-  /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
-  .project-detail .project-meta { flex-wrap: wrap; }
-  .project-detail .project-meta > :nth-last-child(2) { display: none; }
-  .project-period { display: flex; flex-basis: 100%; justify-content: center; margin-top: var(--gap-group); }
-  /* Secondary to the 행사 / 역할 / 팀 line: same size, lighter color, quiet pill. */
-  .period-badge { display: inline-flex; align-items: center; gap: var(--gap-group); padding: var(--gap-tight) 12px; border: 1px solid var(--line); border-radius: 999px; background: #f6f7f5; color: var(--muted); font-size: inherit; font-weight: 500; line-height: var(--line-compact); }
-  .period-badge img { display: block; width: 14px; height: 14px; }
-  .period-label { display: inline; margin-right: 2px; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .action, .home-link, .play-link, .release-link { transition: var(--action-transition); }
+  .action, .release-link { transition: var(--action-transition); }
   /* A new card fades in and rises a little in its own place; the old one fades out. */
   .ptabs.is-ready .ptabs-cards > .project { transition: opacity .22s ease, translate .26s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .22s; }
   .ptabs.is-ready .ptabs-cards > .project.is-current { transition-delay: 0s; }
   .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { translate: 0 8px; }
   .ptabs-tab img { transition: opacity 160ms ease; }
   .project-image { transition: opacity 160ms ease; }
-  .augment-pick { transition: border-color 160ms ease, box-shadow 160ms ease, translate 160ms ease; }
-  .augment-pick[aria-pressed="true"] { translate: 0 -2px; }
 }
 @media (hover: hover) and (pointer: fine) {
   .action:hover { background: #dce8df; text-decoration: none; }
-  .action-primary:hover, .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
-  .home-link:hover { background: #dce8df; }
+  .action-primary:hover { background: #163b32; color: #fff; text-decoration: none; }
   .ptabs-tab:hover img { opacity: 1; }
-  .augment-pick:hover { border-color: #3d8fe0; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .action:hover, .home-link:hover, .release-link:hover { transform: translateY(-2px); }
-  .action:active, .play-link:active, .home-link:active, .release-link:active { transform: scale(.98); }
+  .action:hover, .release-link:hover { transform: translateY(-2px); }
+  .action:active, .release-link:active { transform: scale(.98); }
 }
-.action:active, .home-link:active { background: #dce8df; }
-.action-primary:active, .play-link:active { background: #163b32; }
+.action:active { background: #dce8df; }
+.action-primary:active { background: #163b32; }

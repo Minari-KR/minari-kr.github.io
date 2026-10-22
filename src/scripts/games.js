@@ -4,7 +4,7 @@
   const screen = document.querySelector('[data-game-screen]');
   const rows = screen?.querySelector('[data-pack-rows]');
   if (!screen || !rows) return;
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = motionLoop.reduce;
 
   // 8-bit sound: square-wave blips made in the browser (no sound files). Browsers only allow sound after the visitor clicks,
   // taps or presses a key on the page, so the sound engine starts on that first press; pointing before it stays silent.
@@ -144,12 +144,7 @@
   };
   let speed = 32;
   let maxTilt = 9;
-  let frame = 0;
-  let last = 0;
-  let away = false;
-  const step = now => {
-    const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
-    last = now;
+  const step = dt => {
     const pace = screen.dataset.state === 'detail' ? 0.3 : 1;
     for (const lane of lanes) {
       if (!lane.half) continue;
@@ -179,19 +174,6 @@
         lane.track.style.setProperty('--tilt', tilt);
         lane.shown = tilt;
       }
-    }
-    frame = window.requestAnimationFrame(step);
-  };
-  // The rows only run while the screen is on screen and motion is allowed.
-  const run = () => {
-    const on = !away && !motion.matches && lanes.some(lane => lane.half);
-    if (on && !frame) {
-      last = 0;
-      frame = window.requestAnimationFrame(step);
-    }
-    if (!on && frame) {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
     }
   };
   const layout = () => {
@@ -224,7 +206,7 @@
       if (!lane.v) lane.v = lane.flow * speed;
       track.classList.add('is-looping');
     });
-    run();
+    loop.update();
   };
 
   let keyboard = false;
@@ -280,14 +262,16 @@
     }, true);
   });
 
-  // The rows stop while the screen is off screen (and the hint's blinking with them, games.css: .is-away).
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => {
-      away = !entry.isIntersecting;
-      screen.classList.toggle('is-away', away);
-      run();
-    }).observe(screen);
-  }
+  // The rows only run while the screen is on screen, the tab is visible and motion is allowed (motion-loop.js); the hint's
+  // blinking stops with them (games.css: .is-away).
+  const loop = motionLoop({
+    target: screen,
+    tick: step,
+    canPlay: () => lanes.some(lane => lane.half),
+    cancelAtOnce: true,
+    onSeen: on => screen.classList.toggle('is-away', !on),
+    onReduce: layout
+  });
   // Lay the rows out again once the pixel font is ready and after the window is resized.
   let resizeTimer;
   let width = rows.clientWidth;
@@ -299,7 +283,6 @@
       layout();
     }, 200);
   });
-  motion.addEventListener('change', layout);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   else layout();
 })();

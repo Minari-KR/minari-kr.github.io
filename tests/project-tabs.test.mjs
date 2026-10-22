@@ -48,7 +48,7 @@ test('the tabs follow the ARIA tabs pattern and the card change is gentle only w
   // reduced motion or when everything fits.
   assert.ok(script.includes("if (!motion.matches && list.scrollWidth > list.clientWidth + 1) {"));
   for (const line of ["copy.removeAttribute('id');", "copy.setAttribute('aria-hidden', 'true');", 'copy.tabIndex = -1;', 'const flow = lane.focused ? 0 : -speed;', 'if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;']) assert.ok(script.includes(line), line);
-  const frame = script.slice(script.indexOf('const step = now =>'), script.indexOf('const run = () =>'));
+  const frame = script.slice(script.indexOf('const step = dt =>'), script.indexOf('const layout = () =>'));
   assert.doesNotMatch(frame, /getComputedStyle|getBoundingClientRect|offsetWidth|clientWidth|scrollWidth/);
   assert.match(styles, /\.ptabs \{ --tab-speed: \d+;/);
   assert.match(styles, /\.ptabs-list\.is-looping \{ overflow: hidden; touch-action: pan-y;/);

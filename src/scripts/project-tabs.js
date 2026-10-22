@@ -5,7 +5,7 @@
 // (2026-10-14 user request): it can be grabbed, dragged and thrown, and glides back into its flow. With reduced motion it
 // stays still and scrolls instead. Without this script the thumbnails stay hidden and the cards simply follow one another.
 (() => {
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = motionLoop.reduce;
   for (const root of document.querySelectorAll('[data-project-tabs]')) {
     const list = root.querySelector('[role="tablist"]');
     const tabs = list ? [...list.querySelectorAll('[role="tab"]')] : [];
@@ -165,12 +165,7 @@
 
     // The flowing row is moved frame by frame (transform only; sizes are read on layout), and only while it is on screen.
     let speed = 24;
-    let frame = 0;
-    let last = 0;
-    let away = false;
-    const step = now => {
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
-      last = now;
+    const step = dt => {
       const flow = lane.focused ? 0 : -speed;
       const { grab } = lane;
       if (grab?.moved) {
@@ -185,18 +180,6 @@
       }
       lane.x = ((lane.x % lane.half) + lane.half) % lane.half;
       track.style.transform = `translate3d(${(lane.x - lane.half).toFixed(1)}px, 0, 0)`;
-      frame = window.requestAnimationFrame(step);
-    };
-    const run = () => {
-      const on = !away && Boolean(lane.half);
-      if (on && !frame) {
-        last = 0;
-        frame = window.requestAnimationFrame(step);
-      }
-      if (!on && frame) {
-        window.cancelAnimationFrame(frame);
-        frame = 0;
-      }
     };
     // The row flows only when its tabs do not fit and motion is allowed; then it repeats its tabs until half of it is wider
     // than the row, and doubles that half so it wraps around without a seam.
@@ -228,14 +211,10 @@
         if (!lane.v) lane.v = -speed;
         show(current);
       }
-      run();
+      loop.update();
     };
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([entry]) => {
-        away = !entry.isIntersecting;
-        run();
-      }).observe(list);
-    }
+    // Only a flowing row moves, and only while it is on screen and the tab is visible (motion-loop.js).
+    const loop = motionLoop({ target: list, tick: step, canPlay: () => Boolean(lane.half), cancelAtOnce: true, onReduce: layout });
     let resizeTimer;
     let width = 0;
     window.addEventListener('resize', () => {
@@ -246,8 +225,6 @@
         layout();
       }, 200);
     });
-    motion.addEventListener('change', layout);
-
     cards.forEach(card => card.setAttribute('role', 'tabpanel'));
     root.classList.add('is-ready');
     list.hidden = false;

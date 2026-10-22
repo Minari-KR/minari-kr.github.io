@@ -35,3 +35,24 @@ test('Barrel Good Barrel detail page has its four blocks, flowcharts and scripts
   for (const script of ['bgb-loadout', 'bgb-systems']) assert.ok(page.includes(`<script src="../assets/js/${script}.js" defer></script>`), script);
   assert.doesNotMatch(page, /도탄|시너지|R 키/);
 });
+
+test('every animation runs through the shared motion loop, which the pages load first', () => {
+  const loop = read('src/scripts/motion-loop.js');
+  for (const rule of ['prefers-reduced-motion: reduce', 'IntersectionObserver', 'document.hidden', 'visibilitychange']) assert.ok(loop.includes(rule), rule);
+  const pages = {
+    'src/templates/home.html': ['./assets/js/', ['games', 'project-tabs', 'ai-party']],
+    'src/templates/projects/reflectory.html': ['../assets/js/', ['reflectory-core', 'reflectory-augments', 'reflectory-systems']],
+    'src/templates/projects/barrel-good-barrel.html': ['../assets/js/', ['bgb-loadout', 'bgb-systems']],
+  };
+  for (const [name, [folder, scripts]] of Object.entries(pages)) {
+    const page = read(name);
+    const tags = [...page.matchAll(/<script src="([^"]+)" defer><\/script>/g)].map(match => match[1]);
+    assert.deepEqual(tags, ['motion-loop', ...scripts].map(script => `${folder}${script}.js`), name);
+    // The scripts keep only their own drawing; none of them runs its own frame loop or watches the viewport.
+    for (const script of scripts) {
+      const source = read(`src/scripts/${script}.js`);
+      assert.match(source, /motionLoop\(/, script);
+      assert.doesNotMatch(source, /IntersectionObserver|visibilitychange|matchMedia|requestAnimationFrame/, script);
+    }
+  }
+});
