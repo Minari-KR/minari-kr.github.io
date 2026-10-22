@@ -4,6 +4,14 @@
    Text belongs in scripts/site-config.mjs (games) and src/templates/home.html, not in CSS. */
 @font-face { font-family: "NeoDunggeunmo"; src: url("../fonts/neodgm.woff2") format("woff2"); font-display: swap; }
 
+/* The LCD's four greens, darkest first, and the faint grid of its screen (shared with the "AI 협업 방식" screen at the end). */
+.games, .ai-party {
+  --lcd: #8bac0f;
+  --lcd-ink: #0f380f;
+  --lcd-mid: #306230;
+  --lcd-light: #9bbc0f;
+  --lcd-grid: rgba(15, 56, 15, .05);
+}
 .games {
   /* ── 조정값: 숫자만 바꾸면 바로 반영됩니다(단위 px). m-으로 시작하는 값은 휴대폰(폭 640px 이하) 전용입니다. ── */
   --pack-width: 112;           /* 게임팩 너비 (높이는 비율에 맞춰 자동) */
@@ -16,12 +24,6 @@
   --m-pack-gap: 16;            /* 휴대폰: 게임팩 사이 간격 */
   --m-big-pack: 112;           /* 휴대폰: 기록 화면 게임팩 너비 */
 
-  /* The LCD's four greens, darkest first, and the faint grid of its screen. */
-  --lcd: #8bac0f;
-  --lcd-ink: #0f380f;
-  --lcd-mid: #306230;
-  --lcd-light: #9bbc0f;
-  --lcd-grid: rgba(15, 56, 15, .05);
   /* Active sizes: PC here, phones in the block below. */
   --a-pack: calc(var(--pack-width) * 1px);
   --a-pack-gap: calc(var(--pack-gap) * 1px);
@@ -129,4 +131,137 @@
 /* Without motion the rows stand still and scroll sideways instead. */
 @media (prefers-reduced-motion: reduce) {
   .pack-row { overflow-x: auto; }
+}
+
+/* "AI 협업 방식" (2026-10-22, between the awards and this section): the same LCD screen, drawn with real HTML text. All its text is
+   16px pixel type (the font is built on a 16-dot grid); rank comes from form, not size: a box title is light text on a dark bar,
+   body text is plain ink, a status is a small dark chip. Spacing is on the 4/8 scale: screen padding 24px (phones 16px), box
+   padding 16px (phone cards 8px), title to body 8px, connector label 16px above and below. ai-party.js sets one phase class
+   (s1..s14) on .ap; the HTML ships in the still frame, which is also what reduced motion and no-script visitors see. */
+.ai-party .section-title { margin-bottom: var(--gap-group); }
+.ap-caption { margin-bottom: var(--gap-actions); }
+.ap { container-type: inline-size; position: relative; overflow: hidden; padding: 24px; border-radius: 8px; background: repeating-linear-gradient(0deg, var(--lcd-grid) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--lcd-grid) 0 1px, transparent 1px 4px), var(--lcd); color: var(--lcd-ink); font-family: "NeoDunggeunmo", var(--font-body); font-size: 16px; font-weight: 400; font-synthesis: none; line-height: 24px; text-align: left; word-spacing: -.25em; }
+.ap::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--lcd-mid), inset 0 6px 12px rgba(15, 56, 15, .45); pointer-events: none; }
+.ap p { margin: 0; text-wrap: balance; }
+/* The right and bottom 4px hold the boxes' shadows, so the screen's padding looks equal on all four sides. */
+.ap-stage { display: grid; justify-items: center; padding: 0 4px 4px 0; transition: opacity .8s ease; }
+.s14 .ap-stage { opacity: 0; }
+.rs .ap-stage * { transition: none !important; }
+/* Box: a dark title bar, then the body 8px below it. */
+.ap-box { width: 100%; border: 2px solid var(--lcd-ink); background: var(--lcd-light); box-shadow: 4px 4px 0 var(--lcd-mid); }
+.ap-node { max-width: 360px; text-align: center; }
+.ap-bar { padding: 4px 16px; background: var(--lcd-ink); color: var(--lcd-light); }
+.ap-body { display: grid; justify-items: center; gap: 8px; padding: 8px 16px 16px; }
+.ap-chip { padding: 0 8px; background: var(--lcd-ink); color: var(--lcd-light); }
+.ap-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.ap-req, .ap-quest { padding: 0 4px; border: 2px dashed var(--lcd-ink); background: var(--lcd); }
+.ap-req { padding: 0 8px; opacity: 0; transform: translateY(-8px); transition: opacity .4s ease, transform .4s ease; }
+.s1 .ap-req { opacity: 1; transform: none; }
+.ap-go { position: relative; display: inline-block; padding: 0 16px; background: var(--lcd-ink); color: var(--lcd-light); box-shadow: 0 4px 0 var(--lcd-mid); transition: transform .12s ease, box-shadow .12s ease; }
+.s3 .ap-go { transform: translateY(4px); box-shadow: 0 0 0 var(--lcd-mid); }
+.ap-cur { position: absolute; left: 75%; top: 75%; opacity: 0; transform: translate(32px, 24px); transition: opacity .4s ease, transform .8s ease; filter: drop-shadow(1px 0 0 var(--lcd-ink)) drop-shadow(-1px 0 0 var(--lcd-ink)) drop-shadow(0 1px 0 var(--lcd-ink)) drop-shadow(0 -1px 0 var(--lcd-ink)); color: var(--lcd-light); pointer-events: none; }
+.s1 .ap-cur { opacity: 1; }
+.s2 .ap-cur { transform: translate(0, 0); }
+/* Connector: 4px of room for the box shadow, then the label with 16px above and 16px below (the dashed line shows in those 16px). */
+.ap-link { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 60px; padding-top: 4px; }
+.ap-link::before { content: ""; position: absolute; top: 4px; bottom: 0; left: 50%; border-left: 4px dashed var(--lcd-mid); transform: translateX(-2px); transition: border-color .4s ease; }
+.ap-link span { position: relative; padding: 0 8px; background: var(--lcd); }
+.s3 .ap-l1::before, .s4 .ap-l2::before, .s12 .ap-l3::before { border-color: var(--lcd-ink); }
+/* Opus status: one chip at a time, all stacked in the same place. */
+.ap-status { display: grid; justify-items: center; }
+.ap-status span { grid-area: 1 / 1; opacity: 0; transition: opacity .4s ease; }
+.ap-status .o0 { opacity: 1 !important; }
+.s4 .ap-status .o0 { opacity: 0 !important; }
+.s4 .ap-status .o1 { opacity: 1; }
+.s8 .ap-status .o1 { opacity: 0; }
+.s8 .ap-status .o2 { opacity: 1; }
+.s12 .ap-status .o2 { opacity: 0; }
+.s12 .ap-status .o3 { opacity: 1; }
+
+/* Party: four cards in a row; the bar and the status chip sit at the bottom of every card so all four line up. */
+.ap-party { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; margin: 0; padding: 0; list-style: none; }
+.ap-m { display: flex; flex-direction: column; min-width: 0; text-align: center; white-space: nowrap; }
+.ap-m .ap-body { flex: 1; justify-items: stretch; align-content: start; }
+.ap-m .ap-bar { padding-right: 8px; padding-left: 8px; }
+/* Role icons: pixelarticons (MIT), colour set inside each SVG file. */
+.ap-icon { display: block; width: 48px; height: 48px; justify-self: center; }
+.ap-quest { opacity: 0; transform: translateY(-12px); transition: opacity .4s ease, transform .4s ease; }
+.ap-m:nth-child(2) .ap-quest { transition-delay: 120ms; }
+.ap-m:nth-child(3) .ap-quest { transition-delay: 240ms; }
+.ap-m:nth-child(4) .ap-quest { transition-delay: 360ms; }
+.s5 .ap-quest { opacity: 1; transform: none; }
+.ap-end { display: grid; gap: 8px; margin-top: auto; }
+.ap-meter { height: 12px; border: 2px solid var(--lcd-ink); background: var(--lcd); }
+.ap-meter i { display: block; width: 0; height: 100%; background: var(--lcd-ink); }
+.s6 .ap-meter i { width: 100%; transition: width 2.4s steps(12); }
+.ap-foot { display: grid; align-items: start; justify-items: center; min-height: 28px; }
+.ap-foot > * { grid-area: 1 / 1; padding: 0 8px; opacity: 0; transition: opacity .4s ease, transform .6s ease; }
+.ap-foot .work { padding: 0; }
+.s6 .work { opacity: 1; }
+.s7 .work { opacity: 0; }
+.ap-foot .res { border: 2px solid var(--lcd-ink); background: var(--lcd); }
+.s7 .res { opacity: 1; }
+.s8 .res { opacity: 0; transform: translateY(-48px); }
+.s10 .ap-codex .res { opacity: 1; transform: none; }
+.s11 .ap-codex .res { opacity: 0; transform: translateY(-48px); }
+.ap-foot .pass { background: var(--lcd-ink); color: var(--lcd-light); }
+.ap-foot .redo { border: 2px dashed var(--lcd-ink); background: var(--lcd-light); }
+.s9 .ap-m:not(.ap-codex) .pass, .s9 .redo, .s12 .ap-codex .pass { opacity: 1; }
+.s10 .redo { opacity: 0; } /* the redo chip leaves before the reworked result comes back into the same spot */
+.ap-done { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; }
+.s13 .ap-done { opacity: 1; transform: none; }
+/* Still frame (reduced motion, no script): everyone at work, one pass mark, nothing moves. */
+.still, .still * { transition: none !important; }
+.still .ap-meter i { width: 60%; }
+.still .ap-sonnet .ap-meter i { width: 100%; }
+.still .ap-sonnet .work { opacity: 0; }
+.still .ap-sonnet .pass { opacity: 1; }
+.still .ap-cur { transform: none; }
+.still .ap-l3, .still .ap-done { visibility: hidden; } /* keeps their space, so the page does not jump when the script starts */
+/* Step label (top-left) and the helper-agent chips that Opus calls. Both are decoration: aria-hidden, covered by the box's aria-label.
+   Step label: stacked spans, one shown per phase (same trick as .ap-status). It is a normal row above the first box on narrow screens. */
+.ap .ap-hud { display: grid; justify-items: start; margin-bottom: 8px; } /* .ap p { margin: 0 } would otherwise win */
+.ap-hud span { grid-area: 1 / 1; padding: 0 8px; background: var(--lcd-ink); color: var(--lcd-light); opacity: 0; transition: opacity .4s ease; }
+.ap-hud .h1 { opacity: 1 !important; }
+.s4 .ap-hud .h1 { opacity: 0 !important; }
+.s4 .ap-hud .h2 { opacity: 1; }
+.s6 .ap-hud .h2 { opacity: 0; }
+.s6 .ap-hud .h3 { opacity: 1; }
+.s8 .ap-hud .h3 { opacity: 0; }
+.s8 .ap-hud .h4 { opacity: 1; }
+.s9 .ap-hud .h4 { opacity: 0; }
+.s9 .ap-hud .h5 { opacity: 1; }
+.s12 .ap-hud .h5 { opacity: 0; }
+.s12 .ap-hud .h6 { opacity: 1; }
+.s13 .ap-hud .h6 { opacity: 0; }
+.s13 .ap-hud .h7 { opacity: 1; }
+.s14 .ap-hud { opacity: 0; transition: opacity .8s ease; }
+.rs .ap-hud, .rs .ap-hud * { transition: none !important; }
+/* Narrow: the chips sit just below the Opus box in space the wrapper reserves, so nothing moves when they appear. */
+.ap-opus { position: relative; width: 100%; max-width: 360px; padding-bottom: 40px; }
+.ap-agents { position: absolute; width: max-content; bottom: 4px; left: 50%; display: grid; transform: translateX(-50%); }
+.ap-agent { grid-area: 1 / 1; display: flex; align-items: center; gap: 8px; margin: 0; padding: 0 8px; border: 2px solid var(--lcd-ink); background: var(--lcd-light); white-space: nowrap; opacity: 0; transform: translateY(-8px); transition: opacity .4s ease, transform .4s ease; }
+.ap-agent span { overflow-wrap: normal; } /* the site-wide anywhere-wrap would break the label letter by letter */
+.ap-agent img { display: block; width: 24px; height: 24px; }
+.s4 .ap-explore, .s8 .ap-review { opacity: 1; transform: none; }
+.s6 .ap-explore, .s10 .ap-review { opacity: 0; transform: translateY(-8px); }
+/* Wide: the HUD takes the free top-left corner, and each chip slides out of the Opus box's right side on a short dashed line. */
+@container (min-width: 664px) {
+  .ap-hud { position: absolute; top: 24px; left: 24px; margin: 0; }
+  .ap-opus { padding-bottom: 0; }
+  .ap-agents { top: 50%; bottom: auto; left: calc(100% + 20px); transform: translateY(-50%); }
+  .ap-agent { flex-direction: column; gap: 0; padding: 4px 8px; transform: translateX(-16px); }
+  .ap-agent::before { content: ""; position: absolute; top: 50%; right: 100%; width: 16px; border-top: 4px dashed var(--lcd-ink); transform: translateY(-2px); }
+  .s6 .ap-explore, .s10 .ap-review { transform: translateX(-16px); }
+}
+/* Two columns when the screen is narrow; at 320px a card holds 107px inside its border, so phone cards use 8px padding and no side padding on the name bar: "Claude Sonnet" (100px) and "아이콘 그림" (88px with its border) stay on one line at 16px. */
+@container (max-width: 599px) {
+  .ap-party { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .ap { padding: 16px; }
+  .ap-party { gap: 8px; }
+  .ap-m .ap-bar { padding-right: 0; padding-left: 0; } /* centred names keep about 3px each side at 320px */
+  .ap-m .ap-body { padding: 8px; }
+  .ap-quest { padding: 0; }
 }

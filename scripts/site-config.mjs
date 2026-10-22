@@ -6,8 +6,8 @@ export const homeTitle = '박종찬 | Game Designer Portfolio';
 export const homeDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. 출시 앱과 수상 프로젝트의 플레이 영상 및 링크를 확인할 수 있습니다.';
 // Project detail pages: one template per slug in src/templates/projects/.
 export const projects = [
-  { slug: 'reflectory', title: 'Reflectory', description: '2026 대전 inD 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 팀장과 기획을 맡은 퍼즐 디펜스 게임입니다.' },
-  { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 팀장과 기획을 맡은 탄막 슈팅 로그라이크 게임입니다.' },
+  { slug: 'reflectory', title: 'Reflectory', description: '2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.' },
+  { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탄막 슈팅 로그라이크 게임입니다.' },
 ];
 export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴리오입니다. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
 
