@@ -144,7 +144,7 @@
 .ap::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--lcd-mid), inset 0 6px 12px rgba(15, 56, 15, .45); pointer-events: none; }
 .ap p { margin: 0; text-wrap: balance; }
 /* The right and bottom 4px hold the boxes' shadows, so the screen's padding looks equal on all four sides. */
-.ap-stage { display: grid; justify-items: center; padding: 0 4px 4px 0; transition: opacity .8s ease; }
+.ap-stage { position: relative; display: grid; justify-items: center; padding: 0 4px 4px 0; transition: opacity .8s ease; }
 .s14 .ap-stage { opacity: 0; }
 .rs .ap-stage * { transition: none !important; }
 /* Box: a dark title bar, then the body 8px below it. */
@@ -166,7 +166,7 @@
 .ap-link { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 60px; padding-top: 4px; }
 .ap-link::before { content: ""; position: absolute; top: 4px; bottom: 0; left: 50%; border-left: 4px dashed var(--lcd-mid); transform: translateX(-2px); transition: border-color .4s ease; }
 .ap-link span { position: relative; padding: 0 8px; background: var(--lcd); }
-.s3 .ap-l1::before, .s4 .ap-l2::before, .s12 .ap-l3::before { border-color: var(--lcd-ink); }
+.s3 .ap-l1::before, .s4 .ap-l2::before, .s4 .ap-l2::after, .s4 .ap-l2 i, .s12 .ap-l3::before { border-color: var(--lcd-ink); }
 /* Opus status: one chip at a time, all stacked in the same place. */
 .ap-status { display: grid; justify-items: center; }
 .ap-status span { grid-area: 1 / 1; opacity: 0; transition: opacity .4s ease; }
@@ -179,8 +179,8 @@
 .s12 .ap-status .o3 { opacity: 1; }
 
 /* Party: four cards in a row; the bar and the status chip sit at the bottom of every card so all four line up. */
-.ap-party { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; margin: 0; padding: 0; list-style: none; }
-.ap-m { display: flex; flex-direction: column; min-width: 0; text-align: center; white-space: nowrap; }
+.ap-party { --pg: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--pg); width: 100%; margin: 0; padding: 0; list-style: none; }
+.ap-m { --k: 0; position: relative; display: flex; flex-direction: column; min-width: 0; text-align: center; white-space: nowrap; }
 .ap-m .ap-body { flex: 1; justify-items: stretch; align-content: start; }
 .ap-m .ap-bar { padding-right: 8px; padding-left: 8px; }
 /* Role icons: pixelarticons (MIT), colour set inside each SVG file. */
@@ -217,6 +217,7 @@
 .still .ap-sonnet .work { opacity: 0; }
 .still .ap-sonnet .pass { opacity: 1; }
 .still .ap-cur { transform: none; }
+.still .ap-pk { display: none; }
 .still .ap-l3, .still .ap-done { visibility: hidden; } /* keeps their space, so the page does not jump when the script starts */
 /* Step label (top-left) and the helper-agent chips that Opus calls. Both are decoration: aria-hidden, covered by the box's aria-label.
    Step label: stacked spans, one shown per phase (same trick as .ap-status). It is a normal row above the first box on narrow screens. */
@@ -257,11 +258,71 @@
 /* Two columns when the screen is narrow; at 320px a card holds 107px inside its border, so phone cards use 8px padding and no side padding on the name bar: "Claude Sonnet" (100px) and "아이콘 그림" (88px with its border) stay on one line at 16px. */
 @container (max-width: 599px) {
   .ap-party { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ap-m { --cx: 1; --dy: 0; }
+  .ap-m:nth-child(even) { --cx: -1; }
+  .ap-m:nth-child(n+3) { --dy: 1; }
 }
 @media (max-width: 640px) {
   .ap { padding: 16px; }
-  .ap-party { gap: 8px; }
+  .ap-party { --pg: 8px; }
   .ap-m .ap-bar { padding-right: 0; padding-left: 0; } /* centred names keep about 3px each side at 320px */
   .ap-m .ap-body { padding: 8px; }
   .ap-quest { padding: 0; }
+}
+/* Quest packets (2026-10-22): one 24px document icon leaves the "나" box down 전달 into Opus (s3), then four leave Opus down 출동 and fan out into the four cards (s4, 120ms apart, arriving as the quest labels appear at s5).
+   .ap-pk is an invisible layer that fills its parent, so percentages in transform mean the parent's size; the icon sits at its top centre. Hidden at rest, kept hidden after arrival, absent from the still frame. */
+.ap-m:nth-child(2) { --k: 1; }
+.ap-m:nth-child(3) { --k: 2; }
+.ap-m:nth-child(4) { --k: 3; }
+.ap-pk { position: absolute; inset: -2px; z-index: 1; opacity: 0; pointer-events: none; }
+.ap-pk img { position: absolute; top: 0; left: 50%; box-sizing: content-box; width: 24px; height: 24px; margin-left: -14px; border: 2px solid var(--lcd-ink); background: var(--lcd-light); }
+.ap-l1 .ap-pk { inset: 0; }
+.s3 .ap-l1 .ap-pk { animation: ap-pass .8s linear both; }
+.s4 .ap-m .ap-pk { animation: ap-fan .8s linear calc(var(--k) * 120ms) both; }
+.rs .ap-pk { animation: none !important; }
+.ap-l2 i, .ap-l2::after { display: none; }
+@keyframes ap-pass {
+  0% { transform: translateY(-12px); opacity: 0; }
+  15%, 80% { opacity: 1; }
+  100% { transform: translateY(68px); opacity: 0; }
+}
+/* Wide: a dashed tree under 출동 (one bar over the four card centres, four drops). The connector is 12px taller; the cards sit 16px below the bar. Card centres are 12.5% + 25%k + (4k - 6)px of the width (16px gaps), i.e. +-12.5% / +-37.5% from the middle. */
+@container (min-width: 600px) {
+  .ap-l2 { height: 72px; }
+  .ap-l2::before { bottom: 16px; }
+  .ap-l2::after { content: ""; display: block; position: absolute; top: 52px; right: calc(12.5% - 6px); left: calc(12.5% - 6px); border-top: 4px dashed var(--lcd-mid); transition: border-color .4s ease; }
+  .ap-l2 i { display: block; position: absolute; top: 52px; bottom: 0; left: calc(50% + var(--x)); border-left: 4px dashed var(--lcd-mid); transform: translateX(-2px); transition: border-color .4s ease; }
+  .ap-l2 i:nth-of-type(1) { --x: -37.5% - 6px; }
+  .ap-l2 i:nth-of-type(2) { --x: -12.5% - 2px; }
+  .ap-l2 i:nth-of-type(3) { --x: 12.5% + 2px; }
+  .ap-l2 i:nth-of-type(4) { --x: 37.5% + 6px; }
+  .ap-m { --dx: calc(1.5 - var(--k)); }
+  .rs .ap-l2::after, .rs .ap-l2 i { transition: none; }
+}
+@keyframes ap-fan {
+  0% { transform: translate(calc(var(--dx) * (100% + 16px)), -72px); opacity: 0; }
+  8% { opacity: 1; }
+  30% { transform: translate(calc(var(--dx) * (100% + 16px)), -32px); }
+  62% { transform: translate(0, -32px); }
+  85% { opacity: 1; }
+  100% { transform: translate(0, 8px); opacity: 0; }
+}
+/* Narrow: down 출동, then down the middle gutter, then sideways into the card. The two lower cards pass the upper row's edges on the way (the layer's 100% is one card's height). */
+@container (max-width: 599px) {
+  .s4 .ap-m .ap-pk { animation-name: ap-fan-a; }
+  .s4 .ap-m:nth-child(n+3) .ap-pk { animation-name: ap-fan-b; }
+}
+@keyframes ap-fan-a {
+  0% { transform: translate(calc(var(--cx) * (50% + var(--pg) / 2)), -60px); opacity: 0; }
+  10% { opacity: 1; }
+  45% { transform: translate(calc(var(--cx) * (50% + var(--pg) / 2)), -28px); }
+  85% { opacity: 1; }
+  100% { transform: translate(0, 8px); opacity: 0; }
+}
+@keyframes ap-fan-b {
+  0% { transform: translate(calc(var(--cx) * (50% + var(--pg) / 2)), calc(-100% - var(--pg) - 60px)); opacity: 0; }
+  8% { opacity: 1; }
+  78% { transform: translate(calc(var(--cx) * (50% + var(--pg) / 2)), -28px); }
+  90% { opacity: 1; }
+  100% { transform: translate(0, 8px); opacity: 0; }
 }

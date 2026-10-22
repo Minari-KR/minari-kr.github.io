@@ -93,6 +93,13 @@ test('the AI collaboration screen sits between the projects and the game screen,
   assert.ok(section.includes('>탐색 에이전트</span>') && section.includes('>검토 에이전트</span>'));
   assert.ok(section.includes('src="./assets/icons/pixelarticons-robot.svg"'));
   assert.match(read('public/assets/icons/pixelarticons-robot.svg'), /fill="#0f380f"/);
+  // Quest packets: one into Opus (in the 전달 connector) and one per member card, plus the dashed branch (four drops) under 출동; all decorative.
+  const packet = '<i class="ap-pk" aria-hidden="true"><img src="./assets/icons/pixelarticons-file-text.svg" width="24" height="24" alt=""></i>';
+  assert.equal(section.split(packet).length - 1, 5);
+  assert.ok(section.includes(`<div class="ap-link ap-l1" aria-hidden="true"><span>전달</span>${packet}</div>`));
+  assert.ok(section.includes('<div class="ap-link ap-l2" aria-hidden="true"><span>출동</span><i></i><i></i><i></i><i></i></div>'));
+  assert.match(read('public/assets/icons/pixelarticons-file-text.svg'), /fill="#0f380f"/);
+  assert.ok(read('src/styles/games.css').includes('.still .ap-pk { display: none; }'));
   assert.doesNotMatch(section, /ap-credit|ai-logos|claude-logo/);
   assert.ok(!fs.existsSync(new URL('../public/assets/images/ai-logos', import.meta.url)));
   assert.ok(!fs.existsSync(new URL('../public/assets/icons/claude-logo.svg', import.meta.url)));
