@@ -1,0 +1,107 @@
+<svg viewBox="0 0 720 840" xmlns="http://www.w3.org/2000/svg">
+  <title id="bgb-loop-flow-title">Barrel Good Barrel 핵심 루프 순서도</title>
+  <desc id="bgb-loop-flow-desc">한 판은 10방 맵을 만들고 방에 들어가 입장 보상을 고른 뒤 방 종류에 따라 갈라지는 흐름. 전투방은 웨이브가 남으면 반복하고 없으면 방이 클리어되어 다음 방으로 이동하며, 보스방에서 보스 HP가 0이면 승리, 내 HP가 0이면 처음부터 다시 시작.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
+  <path d="M300,168 L300,200" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,200 297,192 303,192" fill="#4f544d"/>
+  <path d="M300,256 L300,288" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,288 297,280 303,280" fill="#4f544d"/>
+  <path d="M188,336 L124,336" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="124,336 132,333 132,339" fill="#4f544d"/>
+  <path d="M412,336 L464,336" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="464,336 456,333 456,339" fill="#4f544d"/>
+  <path d="M300,384 L300,416" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,416 297,408 303,408" fill="#4f544d"/>
+  <path d="M204,444 L140,444" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="140,444 148,441 148,447" fill="#4f544d"/>
+  <path d="M300,472 L300,504" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,504 297,496 303,496" fill="#4f544d"/>
+  <path d="M412,552 L432,552 Q440,552 440,544 L440,452 Q440,444 432,444 L396,444" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="396,444 404,441 404,447" fill="#4f544d"/>
+  <path d="M300,600 L300,632" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,632 297,624 303,624" fill="#4f544d"/>
+  <path d="M300,688 L300,720" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,720 297,712 303,712" fill="#4f544d"/>
+  <path d="M30,364 L30,740 Q30,748 38,748 L204,748" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="204,748 196,745 196,751" fill="#4f544d"/>
+  <path d="M396,748 L696,748 Q704,748 704,740 L704,236 Q704,228 696,228 L396,228" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="396,228 404,225 404,231" fill="#4f544d"/>
+  <path d="M522,364 L522,412" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="522,412 519,404 525,404" fill="#4f544d"/>
+  <path d="M622,364 L622,412" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="622,412 619,404 625,404" fill="#4f544d"/>
+  <rect x="133.5" y="324" width="45" height="16" rx="2" fill="#ffffff"/>
+  <text x="156" y="336" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">비전투</text>
+  <rect x="421" y="324" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="438" y="336" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">보스</text>
+  <rect x="283" y="388" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="300" y="400" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">전투</text>
+  <rect x="154.5" y="432" width="35" height="16" rx="2" fill="#ffffff"/>
+  <text x="172" y="444" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">HP 0</text>
+  <rect x="428.5" y="488" width="23" height="16" rx="2" fill="#ffffff"/>
+  <text x="440" y="500" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="277.5" y="604" width="45" height="16" rx="2" fill="#ffffff"/>
+  <text x="300" y="616" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="526" y="216" width="48" height="16" rx="2" fill="#ffffff"/>
+  <text x="550" y="228" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 방</text>
+  <rect x="492" y="380" width="60" height="16" rx="2" fill="#ffffff"/>
+  <text x="522" y="392" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">보스 HP 0</text>
+  <rect x="597.5" y="380" width="49" height="16" rx="2" fill="#ffffff"/>
+  <text x="622" y="392" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">내 HP 0</text>
+  <rect x="204" y="32" width="192" height="48" rx="20" fill="#ffffff"/>
+  <rect x="204" y="32" width="192" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">게임 시작</text>
+  <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">맵 생성</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">10방 · 종류 배정</text>
+  <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 입장 · 입장 보상</text>
+  <text x="300" y="244" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3장 중 1장 선택</text>
+  <polygon points="300,288 412,336 300,384 188,336" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="341" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 종류?</text>
+  <rect x="16" y="308" width="108" height="56" rx="6" fill="#ffffff"/>
+  <rect x="16" y="308" width="108" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="70" y="334" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">비전투방</text>
+  <text x="70" y="352" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">시작·상점·보물</text>
+  <rect x="464" y="308" width="216" height="56" rx="6" fill="#ffffff"/>
+  <rect x="464" y="308" width="216" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="572" y="334" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">보스방</text>
+  <text x="572" y="352" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">문 잠김 · 3페이즈 전투</text>
+  <rect x="464" y="412" width="110" height="56" rx="20" fill="#ffffff"/>
+  <rect x="464" y="412" width="110" height="56" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="519" y="438" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">승리</text>
+  <text x="519" y="456" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">런 종료</text>
+  <rect x="584" y="412" width="96" height="56" rx="20" fill="#ffffff"/>
+  <rect x="584" y="412" width="96" height="56" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="632" y="438" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">사망</text>
+  <text x="632" y="456" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">처음부터</text>
+  <rect x="204" y="416" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="416" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="442" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 전투</text>
+  <text x="300" y="460" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">처치 후 보상 3장 선택</text>
+  <rect x="48" y="416" width="92" height="56" rx="20" fill="#ffffff"/>
+  <rect x="48" y="416" width="92" height="56" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="94" y="442" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">사망</text>
+  <text x="94" y="460" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">처음부터</text>
+  <polygon points="300,504 412,552 300,600 188,552" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="557" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">웨이브 남음?</text>
+  <rect x="204" y="632" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="632" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="658" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방 클리어</text>
+  <text x="300" y="676" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">문 열림 · 돈 +2~4</text>
+  <rect x="204" y="720" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="720" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="746" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 방으로 이동</text>
+  <text x="300" y="764" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">TAB으로 탄창 변경</text>
+  <line x1="24" y1="796" x2="696" y2="796" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <rect x="24" y="812" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="60" y="824" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">시작·끝</text>
+  <rect x="144" y="812" width="28" height="16" rx="2" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="824" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">단계</text>
+  <polygon points="244,820 260,812 276,820 260,828" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="284" y="824" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
+</svg>

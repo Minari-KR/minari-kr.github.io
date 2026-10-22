@@ -1,0 +1,69 @@
+<svg viewBox="0 0 720 712" xmlns="http://www.w3.org/2000/svg">
+  <title id="bgb-loadout-flow-title">Barrel Good Barrel 6칸 탄창 순서도</title>
+  <desc id="bgb-loadout-flow-desc">발사하면 1번 칸부터 순서대로 칸이 선택되고, 칸마다 정한 슬롯 타입의 발사 패턴과 특성이 적용된 뒤 패턴마다 다른 대기 시간이 지나는 흐름. 6칸을 다 쏘지 않았으면 다음 칸으로 돌아가고, 다 쐈으면 1.8초 재장전 뒤 1번 칸으로 돌아가며, TAB 화면에서는 언제든 칸의 순서와 구성을 바꿀 수 있음.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path d="M300,80 L300,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,112 297,104 303,104" fill="#4f544d"/>
+  <path d="M300,168 L300,200" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,200 297,192 303,192" fill="#4f544d"/>
+  <path d="M300,256 L300,288" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,288 297,280 303,280" fill="#4f544d"/>
+  <path d="M300,344 L300,376" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,376 297,368 303,368" fill="#4f544d"/>
+  <path d="M300,432 L300,464" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,464 297,456 303,456" fill="#4f544d"/>
+  <path d="M412,512 L432,512 Q440,512 440,504 L440,148 Q440,140 432,140 L396,140" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="396,140 404,137 404,143" fill="#4f544d"/>
+  <path d="M300,560 L300,592" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="300,592 297,584 303,584" fill="#4f544d"/>
+  <path d="M112,140 L204,140" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="204,140 196,137 196,143" fill="#4f544d"/>
+  <rect x="417.5" y="318" width="45" height="16" rx="2" fill="#ffffff"/>
+  <text x="440" y="330" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="288.5" y="564" width="23" height="16" rx="2" fill="#ffffff"/>
+  <text x="300" y="576" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="161" y="388" width="30" height="16" rx="2" fill="#ffffff"/>
+  <text x="176" y="400" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1번</text>
+  <rect x="119.5" y="128" width="45" height="16" rx="2" fill="#ffffff"/>
+  <text x="142" y="140" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">언제든</text>
+  <path d="M204,620 L184,620 Q176,620 176,612 L176,140" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <rect x="204" y="32" width="192" height="48" rx="20" fill="#ffffff"/>
+  <rect x="204" y="32" width="192" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="300" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">마우스 누름</text>
+  <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="112" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 칸 선택</text>
+  <text x="300" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1번 → 6번 순서</text>
+  <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="200" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="226" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">슬롯 타입 패턴</text>
+  <text x="300" y="244" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">칸마다 9종 중 하나</text>
+  <rect x="204" y="288" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="288" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="314" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">특성 적용</text>
+  <text x="300" y="332" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">칸당 최대 3개</text>
+  <rect x="204" y="376" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="376" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="402" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">발사 후 대기</text>
+  <text x="300" y="420" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">패턴마다 0.6~0.98초</text>
+  <polygon points="300,464 412,512 300,560 188,512" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="517" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">6칸 다 쐈나?</text>
+  <rect x="204" y="592" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="204" y="592" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="300" y="618" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">재장전 1.8초</text>
+  <text x="300" y="636" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">자동 시작</text>
+  <rect x="16" y="112" width="96" height="56" rx="6" fill="#ffffff"/>
+  <rect x="16" y="112" width="96" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="64" y="138" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">TAB 배치</text>
+  <text x="64" y="156" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">칸 재배치</text>
+  <circle cx="176" cy="140" r="4" fill="#20211f"/>
+  <line x1="24" y1="668" x2="696" y2="668" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <rect x="24" y="684" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="60" y="696" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">시작·끝</text>
+  <rect x="144" y="684" width="28" height="16" rx="2" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="696" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">단계</text>
+  <polygon points="244,692 260,684 276,692 260,700" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="284" y="696" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
+  <circle cx="368" cy="692" r="4" fill="#20211f"/>
+  <text x="380" y="696" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
+</svg>

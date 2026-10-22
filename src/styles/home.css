@@ -96,6 +96,8 @@
 .core-screen { position: relative; container-type: inline-size; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f5f1e8; }
 .core-screen canvas { display: block; width: 100%; height: auto; aspect-ratio: 960 / 400; }
 .core-hud { position: absolute; top: 0; left: 0; display: flex; gap: 1.2em; margin: 0; padding: 0 1.6cqw; color: #3a3a3a; font-family: "NeoDunggeunmo", var(--font-body); font-size: clamp(10px, 1.7cqw, 16px); font-weight: 400; font-synthesis: none; line-height: 4.17cqw; white-space: nowrap; pointer-events: none; }
+/* Barrel Good Barrel screens are black like the game, so their HUD text takes the game's gold (#D4AF37). */
+[data-bgb-loadout] .core-hud, [data-bgb-system] .core-hud { color: #d4af37; }
 .core-step-num { display: block; color: var(--accent-deep); font-family: "NeoDunggeunmo", var(--font-body); font-size: 20px; font-weight: 400; font-synthesis: none; line-height: 1; }
 .core-stills { display: none; gap: var(--gap-block); margin-top: var(--gap-block); }
 .core-stills figure { margin: 0; }

@@ -1,0 +1,138 @@
+<svg viewBox="0 0 720 996" xmlns="http://www.w3.org/2000/svg">
+  <title id="bgb-threat-flow-title">Barrel Good Barrel 위협 설계 순서도</title>
+  <desc id="bgb-threat-flow-desc">적은 예고, 공격, 빈틈 순서로 움직임. 아머는 0.8초 빨간 점선 예고 뒤 돌진하고 벽에 부딪히면 1.5초 기절하며, 쿨다운 2.5초 뒤 다시 예고함. 방패가 있을 때 후면은 피해 ×2, 정면은 ×0.2. 보스는 방패가 켜져 피해 ×0.5인 상태에서 패턴을 쏜 직후 코어가 노출되어 피해 ×2가 되며, 노출 시간은 1페이즈 3.0초, 2페이즈 2.0초, 3페이즈 1.5초이고 3페이즈에는 방패가 없음.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <path d="M360,80 L360,112" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="360,112 357,104 363,104" fill="#4f544d"/>
+  <path d="M248,160 L188,160 Q180,160 180,168 L180,232" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="180,232 177,224 183,224" fill="#4f544d"/>
+  <path d="M472,160 L532,160 Q540,160 540,168 L540,232" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,232 537,224 543,224" fill="#4f544d"/>
+  <path d="M180,288 L180,320" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="180,320 177,312 183,312" fill="#4f544d"/>
+  <path d="M180,376 L180,408" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="180,408 177,400 183,400" fill="#4f544d"/>
+  <path d="M180,504 L180,536" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="180,536 177,528 183,528" fill="#4f544d"/>
+  <path d="M276,456 L322,456 Q330,456 330,464 L330,644 Q330,652 322,652 L276,652" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="276,652 284,649 284,655" fill="#4f544d"/>
+  <path d="M180,592 L180,624" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="180,624 177,616 183,616" fill="#4f544d"/>
+  <path d="M84,652 L60,652 Q52,652 52,644 L52,268 Q52,260 60,260 L84,260" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="84,260 76,257 76,263" fill="#4f544d"/>
+  <path d="M540,288 L540,320" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,320 537,312 543,312" fill="#4f544d"/>
+  <path d="M540,376 L540,408" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,408 537,400 543,400" fill="#4f544d"/>
+  <path d="M540,464 L540,496" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,496 537,488 543,488" fill="#4f544d"/>
+  <path d="M540,592 L540,600 Q540,608 532,608 L436,608 Q428,608 428,616 L428,624" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="428,624 425,616 431,616" fill="#4f544d"/>
+  <path d="M540,608 L540,624" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,624 537,616 543,616" fill="#4f544d"/>
+  <path d="M540,608 L644,608 Q652,608 652,616 L652,624" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="652,624 649,616 655,616" fill="#4f544d"/>
+  <path d="M428,680 L428,696 Q428,704 436,704 L536,704" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="536,704 528,701 528,707" fill="#4f544d"/>
+  <path d="M540,680 L540,704" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,704 537,696 543,696" fill="#4f544d"/>
+  <path d="M652,680 L652,696 Q652,704 644,704 L544,704" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="544,704 552,701 552,707" fill="#4f544d"/>
+  <path d="M540,704 L540,736" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="540,736 537,728 543,728" fill="#4f544d"/>
+  <path d="M636,764 L704,764 Q712,764 712,756 L712,268 Q712,260 704,260 L636,260" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="636,260 644,257 644,263" fill="#4f544d"/>
+  <path d="M180,844 L180,852 Q180,860 172,860 L102,860 Q94,860 94,868 L94,876" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="94,876 91,868 97,868" fill="#4f544d"/>
+  <path d="M180,860 L258,860 Q266,860 266,868 L266,876" fill="none" stroke="#4f544d" stroke-width="1.2"/>
+  <polygon points="266,876 263,868 269,868" fill="#4f544d"/>
+  <rect x="197" y="148" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="214" y="160" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아머</text>
+  <rect x="489" y="148" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="506" y="160" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">보스</text>
+  <rect x="307.5" y="548" width="45" height="16" rx="2" fill="#ffffff"/>
+  <text x="330" y="560" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">아니오</text>
+  <rect x="168.5" y="596" width="23" height="16" rx="2" fill="#ffffff"/>
+  <text x="180" y="608" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예</text>
+  <rect x="35" y="428" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="52" y="440" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">반복</text>
+  <rect x="120" y="848" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="137" y="860" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">후면</text>
+  <rect x="206" y="848" width="34" height="16" rx="2" fill="#ffffff"/>
+  <text x="223" y="860" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">정면</text>
+  <rect x="264" y="32" width="192" height="48" rx="20" fill="#ffffff"/>
+  <rect x="264" y="32" width="192" height="48" rx="20" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="360" y="61" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">적이 공격 선택</text>
+  <polygon points="360,112 472,160 360,208 248,160" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="360" y="165" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">어떤 적인가?</text>
+  <rect x="84" y="232" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="84" y="232" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="258" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">예고</text>
+  <text x="180" y="276" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">빨간 점선 0.8초</text>
+  <rect x="84" y="320" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="84" y="320" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="346" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">돌진</text>
+  <text x="180" y="364" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">속도 350 · 피해 2</text>
+  <polygon points="180,408 292,456 180,504 68,456" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="461" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">벽에 부딪힘?</text>
+  <rect x="84" y="536" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="84" y="536" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="562" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">기절 1.5초</text>
+  <text x="180" y="580" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방패 해제 · 빈틈</text>
+  <rect x="84" y="624" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="84" y="624" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="650" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">쿨다운</text>
+  <text x="180" y="668" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 돌진까지 2.5초</text>
+  <rect x="444" y="232" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="444" y="232" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="258" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방패 켜짐</text>
+  <text x="540" y="276" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">받는 피해 ×0.5</text>
+  <rect x="444" y="320" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="444" y="320" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="346" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">패턴 발사</text>
+  <text x="540" y="364" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">조준탄 · 연속탄 · 전방위</text>
+  <rect x="444" y="408" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="444" y="408" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="434" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">코어 노출</text>
+  <text x="540" y="452" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">받는 피해 ×2</text>
+  <polygon points="540,496 652,544 540,592 428,544" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="549" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">몇 페이즈?</text>
+  <rect x="378" y="624" width="100" height="56" rx="6" fill="#ffffff"/>
+  <rect x="378" y="624" width="100" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="428" y="650" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3.0초</text>
+  <text x="428" y="668" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1페이즈</text>
+  <rect x="490" y="624" width="100" height="56" rx="6" fill="#ffffff"/>
+  <rect x="490" y="624" width="100" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="650" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">2.0초</text>
+  <text x="540" y="668" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">2페이즈</text>
+  <rect x="602" y="624" width="100" height="56" rx="6" fill="#ffffff"/>
+  <rect x="602" y="624" width="100" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="652" y="650" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">1.5초</text>
+  <text x="652" y="668" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3페이즈</text>
+  <circle cx="540" cy="704" r="4" fill="#20211f"/>
+  <rect x="444" y="736" width="192" height="56" rx="6" fill="#ffffff"/>
+  <rect x="444" y="736" width="192" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="540" y="762" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">다음 패턴</text>
+  <text x="540" y="780" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">3페이즈는 방패 없음</text>
+  <line x1="24" y1="712" x2="344" y2="712" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <text x="24" y="732" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">내 탄이 맞을 때 (방패가 있을 때)</text>
+  <polygon points="180,748 292,796 180,844 68,796" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="801" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">맞은 방향?</text>
+  <rect x="16" y="876" width="156" height="56" rx="6" fill="#ffffff"/>
+  <rect x="16" y="876" width="156" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="94" y="902" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">후면 ×2</text>
+  <text x="94" y="920" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방패 반대편</text>
+  <rect x="188" y="876" width="156" height="56" rx="6" fill="#ffffff"/>
+  <rect x="188" y="876" width="156" height="56" rx="6" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="266" y="902" fill="#20211f" font-size="13" font-weight="800" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">정면 ×0.2</text>
+  <text x="266" y="920" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="middle">방패에 막힘</text>
+  <line x1="24" y1="952" x2="696" y2="952" stroke="rgba(32,33,31,.10)" stroke-width="0.8"/>
+  <rect x="24" y="968" width="28" height="16" rx="8" fill="rgba(32,33,31,.03)" stroke="rgba(32,33,31,.30)" stroke-width="1"/>
+  <text x="60" y="980" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">시작·끝</text>
+  <rect x="144" y="968" width="28" height="16" rx="2" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="180" y="980" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">단계</text>
+  <polygon points="244,976 260,968 276,976 260,984" fill="#ffffff" stroke="#20211f" stroke-width="1"/>
+  <text x="284" y="980" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">갈림길</text>
+  <circle cx="368" cy="976" r="4" fill="#20211f"/>
+  <text x="380" y="980" fill="#4f544d" font-size="11" font-weight="500" font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" text-anchor="start">다시 합류</text>
+</svg>
