@@ -24,9 +24,8 @@
 .intro-school { margin: var(--gap-tight) 0 0; color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); }
 .intro-statement { max-width: 30em; margin: var(--gap-block) auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
 .summary-line { display: block; }
-.intro-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
-/* Buttons used for contact and play links */
+/* Buttons used for play links */
 .action { display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-group); min-height: 52px; padding: 0 24px; border: 1.5px solid var(--ink); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); text-decoration: none; white-space: nowrap; }
 .action img { width: 18px; height: 18px; }
 .action-primary { border-color: var(--accent-deep); background: var(--accent-deep); color: #fff; }
@@ -131,7 +130,6 @@
   .release-icon { width: 112px; height: 112px; }
   /* Keep the project info line on one line on phones: text scales with the screen width. */
   .project-meta { flex-wrap: nowrap; font-size: clamp(.75rem, 3.6vw, var(--text-meta)); letter-spacing: -.02em; }
-  .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
   .award-name { font-size: 1.25rem; }
