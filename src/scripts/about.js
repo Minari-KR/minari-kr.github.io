@@ -62,6 +62,63 @@
     });
   }
 
+  // One more downward scroll at the very bottom fades the page out (600ms) and opens the portfolio.
+  // The fade is a Web Animation whose `finished` promise starts the navigation, so no timer is needed.
+  const ARM_AFTER = 300; // ms at the bottom before a further scroll counts (a long fling must not carry through)
+  const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+  let since = null; // performance.now() when the bottom was reached; null while above it
+  let pulled = 0; // downward wheel distance gathered since arming
+  let touchY = null;
+  let fade = null;
+  const refresh = () => {
+    if (!atBottom()) since = null;
+    else if (since === null) since = performance.now();
+  };
+  const armed = () => {
+    refresh();
+    return fade === null && since !== null && performance.now() - since >= ARM_AFTER;
+  };
+  const leave = () => {
+    if (fade) return;
+    if (window.motionLoop.reduce.matches) { fade = {}; location.assign('../'); return; }
+    fade = document.body.animate({ opacity: [1, 0] }, { duration: 600, easing: 'ease', fill: 'forwards' });
+    fade.finished.then(() => location.assign('../'), () => {});
+  };
+  window.addEventListener('scroll', refresh, { passive: true });
+  // A trackpad fling keeps sending wheel events for about a second, so only a wheel gesture that STARTS after the bottom was
+  // reached counts: a new gesture begins after 250ms without wheel events.
+  let lastWheel = -Infinity;
+  let gestureStart = -Infinity;
+  window.addEventListener('wheel', event => {
+    const now = performance.now();
+    if (now - lastWheel > 250) gestureStart = now;
+    lastWheel = now;
+    if (!armed() || event.deltaY <= 0 || gestureStart <= since) { pulled = 0; return; }
+    pulled += event.deltaY;
+    if (pulled >= 40) leave();
+  }, { passive: true });
+  window.addEventListener('touchstart', event => { touchY = event.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchend', event => {
+    const swipe = touchY === null ? 0 : touchY - event.changedTouches[0].clientY;
+    touchY = null;
+    if (swipe >= 40 && armed()) leave();
+  }, { passive: true });
+  window.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (!['ArrowDown', 'PageDown', ' '].includes(event.key) || event.target.closest?.('input, textarea, select, button, [contenteditable]')) return;
+    if (armed()) leave();
+  });
+  // Coming back from the back/forward cache: show the page again and ask for a fresh "reach the bottom, then scroll".
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    fade?.cancel?.();
+    fade = null;
+    pulled = 0;
+    since = null;
+    refresh();
+  });
+  refresh();
+
   const inventory = document.querySelector('[data-inventory]');
   if (inventory) {
     const tabs = [...inventory.querySelectorAll('[data-filter]')];

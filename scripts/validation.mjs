@@ -96,7 +96,8 @@ export function validateFiles(files) {
           if (!query || !['link', 'script'].includes(tag) || fragment) throw new Error(`허용되지 않는 리소스 버전 주소: ${name}`);
           [, relative, version] = query;
         }
-        const target = relative ? path.posix.normalize(path.posix.join(path.posix.dirname(name), relative)) : name;
+        let target = relative ? path.posix.normalize(path.posix.join(path.posix.dirname(name), relative)) : name;
+        if (target === '.' || target.endsWith('/')) target = path.posix.join(target, 'index.html'); // "../" means that folder's index.html
         if (!files.has(target)) throw new Error(`연결 대상이 없습니다: ${name} → ${target}`);
         if (version && (!/^assets\/(?:css|js)\/.+\.(?:css|js)$/.test(target) || assetVersion(files.get(target)) !== version)) throw new Error(`리소스 버전이 실제 파일과 다릅니다: ${name} → ${target}`);
         if (fragment && !ids.get(target)?.has(fragment)) throw new Error(`연결된 위치가 없습니다: ${name} → ${target}#${fragment}`);
