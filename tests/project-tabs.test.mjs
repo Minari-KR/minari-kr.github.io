@@ -23,10 +23,8 @@ test('projects show as thumbnail tabs over one large card, and nothing of the ot
   assert.equal(stacked.get('display'), 'flex');
   assert.equal(stacked.get('flex-direction'), 'column');
   assert.equal(stacked.get('grid-area'), '1/1');
-  // Each card's buttons sit at its bottom, so the buttons → next rule gap is the same whichever card is chosen.
-  const actions = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project > .project-actions');
-  assert.equal(actions.get('margin-top'), 'auto');
-  assert.equal(actions.get('padding-top'), 'var(--gap-actions)');
+  // Each card's buttons follow its content (the same award → buttons gap on every card), not pinned to the bottom.
+  assert.ok(!styles.includes('.ptabs-cards > .project > .project-actions'));
   const away = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project:not(.is-current)');
   assert.equal(away.get('visibility'), 'hidden');
   assert.equal(away.get('opacity'), '0');

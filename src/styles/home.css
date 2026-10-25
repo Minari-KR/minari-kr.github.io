@@ -22,7 +22,7 @@
 .intro-role { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 0; color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); }
 .intro-role-divider { width: 1px; height: 1em; background: rgba(32, 33, 31, .28); } /* same grey as the section rule */
 .intro-school { margin: var(--gap-tight) 0 0; color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); }
-.intro-statement { max-width: 30em; margin: var(--gap-block) auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
+.intro-statement { max-width: 30em; margin: 16px auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
 .summary-line { display: block; }
 
 /* Buttons used for play links */
@@ -112,7 +112,6 @@
    between its heading group and the buttons, and the buttons → next section rule is the same for every tab (2026-10-21,
    user choice). The padding keeps at least --gap-actions above the buttons. */
 .ptabs.is-ready .ptabs-cards > .project { display: flex; flex-direction: column; grid-area: 1 / 1; }
-.ptabs.is-ready .ptabs-cards > .project > .project-actions { margin-top: auto; padding-top: var(--gap-actions); }
 .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
 /* Release app (출시 앱): same layout as a project; an optional status badge under its info line, and the icon can link to the store */
