@@ -38,14 +38,23 @@
 
     <section class="section" id="taste" aria-labelledby="taste-title">
       <h2 class="section-title" id="taste-title"><span class="marker">게임 취향</span></h2>
-      <div class="about-stack">
-        <div>
-          <h3 class="about-sub">좋아하는 게임</h3>
-          <p class="about-text">저는 서브컬처 게임을 좋아합니다. 그동안 블루 아카이브, 명조: 워더링 웨이브, 원신, 이터널 리턴 같은 서브컬처 게임을 가장 많이 즐겨 왔습니다. 이와 함께 툼 레이더 시리즈도 오랫동안 아껴 온 작품입니다.</p>
+      <div class="taste-grid">
+        <div class="about-stack">
+          <div>
+            <h3 class="about-sub">좋아하는 게임</h3>
+            <p class="about-text">제가 서브컬처 게임을 좋아하는 가장 큰 이유는 다른 장르보다 게임과 세계관에 더 깊이 몰입해 플레이할 수 있기 때문입니다. 그동안 원신에서는 광활한 티바트 대륙을 누비고, 블루 아카이브에서는 선생님으로서 학생들을 만나며, 이터널 리턴에서는 한 명의 실험체가 되어 다른 이들과 경쟁했습니다. 이렇게 다채로운 세계를 경험하는 즐거움 덕분에 저는 지금까지 게임을 사랑하고 있습니다.</p>
+          </div>
+          <div>
+            <h3 class="about-sub">플레이할 때 보는 것</h3>
+            <p class="about-text">게임을 할 때는 먼저 화면이 아름다운지 살펴봅니다. 그리고 게임플레이와 그래픽이 같은 톤앤매너로 자연스럽게 어우러져 하나의 분위기를 완성하는지를 중요하게 생각합니다.</p>
+          </div>
         </div>
-        <div>
-          <h3 class="about-sub">플레이할 때 보는 것</h3>
-          <p class="about-text">게임을 할 때는 먼저 화면이 아름다운지 살펴봅니다. 그리고 게임플레이와 그래픽이 같은 톤앤매너로 자연스럽게 어우러져 하나의 분위기를 완성하는지를 중요하게 생각합니다.</p>
+        <div class="banner" data-banner role="region" aria-roledescription="carousel" aria-label="서브컬처 게임 배너">
+          <div class="banner-view" data-view tabindex="0" role="group" aria-label="방향키로 넘길 수 있습니다">
+            <div class="banner-track" data-track>
+{{banner_slides}}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -53,8 +62,18 @@
     <section class="section" id="tools" aria-labelledby="tools-title">
       <h2 class="section-title" id="tools-title"><span class="marker">도구</span></h2>
       <div class="about-stack">
-        <div class="tool-groups">
+        <div class="inventory" data-inventory>
+          <div class="inv-tabs" data-filters role="group" aria-label="도구 종류" hidden>
+            <button type="button" class="inv-tab" data-filter="전체" aria-pressed="true">전체</button>
+            <button type="button" class="inv-tab" data-filter="개발" aria-pressed="false">개발</button>
+            <button type="button" class="inv-tab" data-filter="기획·협업" aria-pressed="false">기획·협업</button>
+            <button type="button" class="inv-tab" data-filter="그래픽" aria-pressed="false">그래픽</button>
+            <button type="button" class="inv-tab" data-filter="AI" aria-pressed="false">AI</button>
+          </div>
+          <p class="inv-hide" data-filter-status aria-live="polite"></p>
+          <div class="inv-groups">
 {{tool_groups}}
+          </div>
         </div>
         <div>
           <h3 class="about-sub">AI는 이렇게 씁니다</h3>
@@ -63,5 +82,7 @@
       </div>
     </section>
   </main>
+  <script src="../assets/js/motion-loop.js" defer></script>
+  <script src="../assets/js/about.js" defer></script>
 </body>
 </html>

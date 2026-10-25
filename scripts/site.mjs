@@ -9,7 +9,7 @@ import { socialMeta } from './social.mjs';
 import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
-import { toolGroups, toolGroupsHtml, logoExists } from './about.mjs';
+import { toolGroups, toolGroupsHtml, logoExists, bannerSlidesHtml } from './about.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
@@ -35,7 +35,8 @@ export function compileSite(root) {
     page_title: escapeHtml(aboutTitle),
     page_description: escapeHtml(aboutDescription),
     social: socialMeta({ title: aboutTitle, description: aboutDescription, page: 'about/' }),
-    tool_groups: toolGroupsHtml(toolGroups, logoExists(root))
+    tool_groups: toolGroupsHtml(toolGroups, logoExists(root)),
+    banner_slides: bannerSlidesHtml(games)
   }));
   // Only a project with `detail` gets a page: the shared frame plus that project's own body.
   const pages = projects.filter(project => project.detail);

@@ -5,30 +5,82 @@
 .about-intro h1 { display: grid; justify-items: center; gap: 12px; }
 .about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
 /* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
-.about-flow, .about-stack, .tool-groups { display: grid; text-align: left; }
+.about-flow, .about-stack { display: grid; text-align: left; }
 .about-flow { gap: 16px; }
-/* 소개: text on the left, the 200px profile illustration on the right; on phones the picture goes above the text. */
-.about-intro-body { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: var(--gap-block); align-items: center; }
-.about-profile { grid-column: 2; grid-row: 1; width: 200px; height: auto; border-radius: 8px; }
+/* 소개: text on the left, the 280px square profile illustration on the right (about as tall as the three paragraphs); on phones the picture goes above the text. */
+.about-intro-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--gap-block); align-items: center; }
+.about-profile { grid-column: 2; grid-row: 1; width: 280px; height: 280px; object-fit: cover; }
 .about-intro-body > .about-flow { grid-column: 1; grid-row: 1; }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 .about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 
-/* Tools: one row per group (label column + chips); the logo (32px tall) appears only when its file exists. */
-.tool-groups { gap: 16px; }
-.tool-group { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--gap-group); }
-/* Labels never drop under 16px, though --text-meta is 14px on phones. */
-.tool-label { display: flex; align-items: center; min-height: 44px; margin: 0; color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
-.tool-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.tool-chip { display: inline-flex; align-items: center; gap: var(--gap-group); min-height: 44px; padding: var(--gap-tight) 16px; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
-.tool-logo { width: auto; height: 32px; }
+/* 게임 취향: text left, a 240px image-only banner right (smaller than the 280px profile), centred on the text; the banner goes below the text on phones. */
+.taste-grid { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: var(--gap-actions); align-items: center; }
+.banner { min-width: 0; }
+.banner-view { position: relative; aspect-ratio: 352 / 336; overflow-x: auto; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; touch-action: pan-y; }
+.banner-view:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
+/* The track is out of flow; the view keeps the art's 352:336 ratio. */
+.banner-track { position: absolute; inset: 0; display: flex; }
+.banner-slide { flex: 0 0 100%; min-width: 0; height: 100%; }
+.banner-art { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Script on: one slide at a time, the track slides by --i; without it the slides are a scrollable row. */
+.banner.is-live .banner-view { overflow: hidden; }
+.banner.is-live .banner-track { transform: translateX(calc(var(--i, 0) * -100%)); transition: transform .5s ease; }
+
+/* Tools: a card collection (references: Raycast Store pill filter and logo tiles, StackShare group labels).
+   A pill filter on top, a centred grid of logo cards below; the filter dims the cards that do not match. */
+.inventory { display: grid; gap: var(--gap-block); }
+.inventory [hidden] { display: none; }
+.inv-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; width: fit-content; max-width: 100%; margin: 0 auto; padding: 4px; border-radius: 999px; background: var(--bg); }
+.inv-tab { min-height: 44px; padding: 0 16px; border: 1.5px solid transparent; border-radius: 999px; background: transparent; color: var(--muted); font: 800 max(1rem, var(--text-meta))/1 var(--font-body); white-space: nowrap; cursor: pointer; }
+.inv-tab[aria-pressed="true"] { border-color: var(--accent-deep); background: #fff; color: var(--accent-deep); }
+.inv-groups { display: grid; gap: var(--gap-block); }
+.inv-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
+.inv-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.inv-slot { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; min-width: 0; padding: 16px 8px 12px; border: 1px solid rgba(32, 33, 31, .16); border-radius: 16px; background: #fff; text-align: center; }
+.inv-box { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; margin-bottom: 4px; border-radius: 16px; background: var(--bg); }
+.inv-logo { display: block; width: 40px; height: 40px; }
+.inv-name { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); white-space: nowrap; }
+.inv-hide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Script on: the four groups flow into one centred row of --cols (labels hidden); the filter dims. */
+.inventory.is-live .inv-groups { --cols: 5; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.inventory.is-live .inv-slot { width: calc((100% - (var(--cols) - 1) * 16px) / var(--cols)); }
+.inventory.is-live .inv-group, .inventory.is-live .inv-list { display: contents; }
+.inventory.is-live .inv-label { display: none; }
+.inventory.is-live .inv-slot.is-dim { opacity: .3; }
+@media (prefers-reduced-motion: no-preference) {
+  .inv-tab { transition: background-color .2s cubic-bezier(.4, 0, .2, 1), border-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1); }
+  .inv-slot { transition: opacity .2s cubic-bezier(.4, 0, .2, 1), transform .3s cubic-bezier(0, 0, .2, 1), border-color .2s ease; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .inv-tab[aria-pressed="false"]:hover { color: var(--ink); }
+  .inv-slot:hover { border-color: rgba(32, 33, 31, .32); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .inv-slot:hover { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner.is-live .banner-track { transition: none; }
+}
 
 @media (max-width: 640px) {
   .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
   .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
-  .about-profile { width: 160px; }
-  .tool-groups { gap: var(--gap-block); }
-  .tool-group { grid-template-columns: minmax(0, 1fr); }
-  .tool-label { min-height: 0; }
+  .about-profile { width: 160px; height: 160px; }
+  .taste-grid { grid-template-columns: minmax(0, 1fr); }
+  .inv-tabs { border-radius: 24px; }
+  .inv-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .inventory.is-live .inv-groups { --cols: 3; gap: 12px; }
+  .inventory.is-live .inv-slot { width: calc((100% - (var(--cols) - 1) * 12px) / var(--cols)); }
+}
+
+/* Narrow phones: two cards a row so even "Photoshop" stays on one line. */
+@media (max-width: 520px) {
+  .inv-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .inventory.is-live .inv-groups { --cols: 2; }
+  /* The pill bar becomes an even 3 + 2 grid instead of leaving one pill alone on a second row. */
+  .inv-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; border-radius: 24px; }
+  .inv-tab { padding: 0 2px; }
 }
