@@ -22,7 +22,8 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.deepEqual(hrefs, ['#main', '../']);
   // The only way out is a link at the very end of <main> that stays hidden until it gets keyboard focus.
   assert.match(page, /<a class="skip-link about-exit" href="\.\.\/">포트폴리오로 이동<\/a>\s*<\/main>/);
-  assert.doesNotMatch(files.get('index.html'), /href="[^"]*about\//);
+  assert.equal([...files.get('index.html').matchAll(/<a [^>]*href="about\/"[^>]*>/g)].filter(match => match[0].includes('data-scroll-exit="top"')).length, 1);
+  assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
   assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/about.js']);
@@ -92,6 +93,12 @@ test('about.js drives the carousel through motionLoop and uses no timers or fram
 test('about.js opens the portfolio on one more scroll at the bottom, and resets after the back/forward cache', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
   for (const rule of ["addEventListener('wheel'", "addEventListener('touchstart'", "addEventListener('touchend'", "addEventListener('keydown'", "addEventListener('pageshow'", 'ARM_AFTER', "location.assign(home)", "'../index.html' : '../'", 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
+});
+
+test('scroll-exit.js opens About Me on one more scroll at the top of the portfolio, with no timers or frame loop', () => {
+  const source = fs.readFileSync(path.join(root, 'src/scripts/scroll-exit.js'), 'utf8');
+  for (const rule of ["addEventListener('wheel'", "addEventListener('keydown'", "addEventListener('pageshow'", '.animate(', 'location.assign', 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
+  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
 
 test('the styles never transition everything', () => {

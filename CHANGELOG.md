@@ -21,6 +21,12 @@
 
 ## 기록
 
+### 2026-10-26 · 포트폴리오 맨 위에서 About Me로 디졸브 (Claude, 코드 Sonnet)
+
+- 요청: About Me 맨 아래 → 포트폴리오와 반대로, 포트폴리오 맨 위에서 위로 한 번 더 스크롤하면 흐려지며 About Me로. 보이는 글자·버튼 없음, 휴대폰 끌어내리기는 새로고침이라 넣지 않음.
+- 변경: 공용 `src/scripts/scroll-exit.js` 추가(맨 위·맨 아래 둘 다 지원, 지금은 홈의 `data-scroll-exit="top"` 링크만 씀), `home.html`에 화면 읽기용 ‘About Me로 이동’ 링크(‘본문 바로가기’ 다음)와 스크립트 태그. About Me 쪽 파일은 건드리지 않음. 테스트 3곳과 `AGENTS.md` 갱신.
+- 검증: `npm run build`·`npm run verify` 통과.
+
 ### 2026-10-26 · About Me ‘AI는 이렇게 씁니다’를 문제 정의·목표 중심으로 (Claude, 다시 쓰기는 Gemini)
 
 - 요청: AI별로 맡긴 일을 나열하는 대신, 문제를 정의하고 목표를 세운 뒤 AI와 작업한다는 뜻으로 보충·재해석, AI에게 맡긴 일은 넣지 않음.
