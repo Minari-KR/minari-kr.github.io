@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { compileSite } from '../scripts/site.mjs';
-import { root, cssRule, parseCss } from './fixture.mjs';
+import { root, cssRule } from './fixture.mjs';
 
 const template = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
 const homeStyles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
@@ -16,7 +16,7 @@ test('intro has no contact buttons or clipboard code', () => {
 
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
-  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"','id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="ai-party-title"', 'id="games-title"'];
+  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"','id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="games-title"'];
   // The project cards are generated, so the order is read from the built page.
   const built = compileSite(root).files.get('index.html');
   const positions = order.map(marker => built.indexOf(marker));
@@ -75,58 +75,12 @@ test('projects open their own pages without JavaScript, and the page has no back
   assert.doesNotMatch(template, /back-to-top|home-actions|circle-arrow-up/);
 });
 
-test('the AI collaboration screen sits between the projects and the game screen, with real text and one still frame', () => {
-  const read = name => fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
-  const order = ['id="projects-title"', 'id="ai-party-title"', 'id="games-title"'].map(marker => template.indexOf(marker));
-  assert.ok(order.every(position => position >= 0) && order[0] < order[1] && order[1] < order[2], String(order));
-  assert.match(template, /<h2 class="section-title" id="ai-party-title"><span class="marker">AI와 일하는 방식<\/span><\/h2>/);
-  assert.match(template, /<script src="\.\/assets\/js\/ai-party\.js" defer><\/script>/);
-  const section = template.slice(template.indexOf('id="ai-party"'), template.indexOf('id="games"'));
-  assert.equal((section.match(/<li class="ap-box ap-m /g) || []).length, 4);
-  assert.equal((section.match(/class="core-line"/g) || []).length, 2);
-  assert.doesNotMatch(section, /<br|Nintendo|Game Boy| · /);
-  assert.match(section, /data-ai-party role="group" aria-label="AI와 일하는 방식 애니메이션/);
-  // The cursor and the four role icons (pixelarticons, MIT) are local files; no company logos or trademark line remain.
-  assert.ok(section.includes('./assets/icons/ap-cursor.svg'));
-  assert.ok(fs.existsSync(new URL('../public/assets/icons/ap-cursor.svg', import.meta.url)));
-  for (const icon of ['terminal', 'image', 'clapperboard', 'article']) {
-    assert.ok(section.includes(`src="./assets/icons/pixelarticons-${icon}.svg"`), icon);
-    const svg = read(`public/assets/icons/pixelarticons-${icon}.svg`);
-    assert.match(svg, /fill="#0f380f"/);
-    assert.match(svg, /shape-rendering="crispEdges"/);
-  }
-  assert.match(read('public/assets/icons/pixelarticons-license.txt'), /MIT License/);
-  // Step label (one visible per phase) and the two helper-agent chips; both aria-hidden, covered by one sentence in the aria-label.
-  assert.match(section, /<p class="ap-hud" aria-hidden="true">/);
-  for (const step of ['1/5 의뢰', '2/5 계획·분배', '3/5 작업 중', '4/5 검토', '4/5 재작업', '5/5 완성']) assert.ok(section.includes(`>${step}</span>`), step);
-  assert.ok(section.includes('Opus는 필요할 때 탐색·검토 에이전트를 불러 작업을 돕게 합니다.'));
-  assert.match(section, /<div class="ap-agents" aria-hidden="true">/);
-  assert.ok(section.includes('>탐색 에이전트</span>') && section.includes('>검토 에이전트</span>'));
-  assert.ok(section.includes('src="./assets/icons/pixelarticons-robot.svg"'));
-  assert.match(read('public/assets/icons/pixelarticons-robot.svg'), /fill="#0f380f"/);
-  // Quest packets: one into Opus (in the 전달 connector) and one per member card, plus the dashed branch (four drops) under 출동; all decorative.
-  const packet = '<i class="ap-pk" aria-hidden="true"><img src="./assets/icons/pixelarticons-file-text.svg" width="24" height="24" alt=""></i>';
-  assert.equal(section.split(packet).length - 1, 5);
-  assert.ok(section.includes(`<div class="ap-link ap-l1" aria-hidden="true"><span>전달</span>${packet}</div>`));
-  assert.ok(section.includes('<div class="ap-link ap-l2" aria-hidden="true"><span>출동</span><i></i><i></i><i></i><i></i></div>'));
-  assert.match(read('public/assets/icons/pixelarticons-file-text.svg'), /fill="#0f380f"/);
-  assert.equal(cssRule(read('src/styles/ai-party.css'), '.still .ap-pk').get('display'), 'none');
-  assert.doesNotMatch(section, /ap-credit|ai-logos|claude-logo/);
-  assert.ok(!fs.existsSync(new URL('../public/assets/images/ai-logos', import.meta.url)));
-  assert.ok(!fs.existsSync(new URL('../public/assets/icons/claude-logo.svg', import.meta.url)));
-  // The screen shares the game screen's LCD tokens and font; all its text is 16px; it moves only while on screen and visible.
-  const styles = read('src/styles/ai-party.css');
-  assert.match(cssRule(read('src/styles/common.css'), ':root').get('--lcd'), /^#[0-9a-f]{6}$/i);
-  assert.equal(['common', 'home', 'detail', 'games', 'ai-party'].map(name => parseCss(read(`src/styles/${name}.css`)).filter(rule => rule.selector === '@font-face').length).join(), '1,0,0,0,0');
-  assert.equal(cssRule(styles, '.ap').get('font-size'), '16px');
-  // The page loads the shared loop first; it alone knows about reduced motion, the viewport and the hidden tab.
+test('the home page ends projects -> games and no longer has the AI collaboration section', () => {
+  const order = ['id="projects-title"', 'id="games-title"'].map(marker => template.indexOf(marker));
+  assert.ok(order.every(position => position >= 0) && order[0] < order[1], String(order));
   const built = compileSite(root).files.get('index.html');
+  assert.doesNotMatch(built, /id="ai-party|ai-party\.(css|js)|pixelarticons|ap-cursor/);
+  // The page loads the shared loop first (it alone knows reduced motion, the viewport and the hidden tab).
   const loopAt = built.indexOf('assets/js/motion-loop.js');
-  assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js') && loopAt < built.indexOf('assets/js/ai-party.js'));
-  const loop = read('src/scripts/motion-loop.js');
-  assert.match(loop, /prefers-reduced-motion: reduce/);
-  assert.match(loop, /IntersectionObserver/);
-  assert.match(loop, /document\.hidden/);
-  assert.match(read('src/scripts/ai-party.js'), /motionLoop\(\s*\{[^}]*\btarget\s*:\s*flow\b/);
-  assert.equal(cssRule(styles, '.still .ap-meter i', '*').get('width'), '60%');
+  assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js'));
 });

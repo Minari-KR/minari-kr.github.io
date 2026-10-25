@@ -22,7 +22,7 @@
   --action-transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
   --font-display: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  /* The LCD's four greens, darkest first, and the faint grid of its screen (the games screen and the "AI와 일하는 방식" screen). */
+  /* The LCD's four greens, darkest first, and the faint grid of its screen (the games screen and the award cards). */
   --lcd: #8bac0f;
   --lcd-ink: #0f380f;
   --lcd-mid: #306230;

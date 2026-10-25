@@ -6,13 +6,19 @@
 
 ## 지금 상황 (2026-10-26, Claude)
 
-- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → AI와 일하는 방식 → 게임 플레이 경험, 그리고 `/about/`(링크트리 ‘어필’). 홈 맨 위와 About Me 맨 아래에서 한 번 더 스크롤하면 서로 넘어감.
+- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험, 그리고 `/about/`(링크트리 ‘어필’). 홈 맨 위와 About Me 맨 아래에서 한 번 더 스크롤하면 서로 넘어감.
 - **커밋 안 된 변경:** 작업 폴더에 다른 세션이 남긴 About Me 글 몇 줄·미리보기·`AGENTS.md` 보관 경로 변경이 있음(사용자 확인 전이라 커밋하지 않음).
 - **남은 일(사용자 자료 대기):** Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장(사용자가 직접 쓸 한두 문장).
 - **확인 못 한 것:** 실제 휴대폰·링크트리 앱 안에서 보기, 휴대폰 손가락 밀기(About Me 넘어가기·프로젝트 카드).
 - **작업 방식:** 커밋·push는 사용자 요청 때만, `.claude/`는 넣지 않음. 화면 작업은 `ui-rules` + `AGENTS.md` 디자인 기준, 끝나면 build·verify.
 
 ## 기록
+
+### 2026-10-26 · 홈에서 ‘AI와 일하는 방식’ 섹션 뺌 (Claude, 코드 Sonnet)
+
+- 요청: 홈에서 ‘AI와 일하는 방식’ 섹션을 빼고, 파일은 보관.
+- 변경: `home.html`에서 `#ai-party` 섹션과 `ai-party.css`·`ai-party.js` 불러오는 줄을 지움. 파일 삭제: `src/scripts/ai-party.js`, `src/styles/ai-party.css`, `public/assets/icons/ap-cursor.svg`, `pixelarticons-*.svg` 6개와 `pixelarticons-license.txt`. 액정 색 변수·도트 글꼴은 게임 화면·수상 카드가 쓰므로 `common.css`에 그대로 두고 주석만 고침. 검사(`tests/home-layout.test.mjs`·`tests/motion.test.mjs`)와 `AGENTS.md`(홈 순서, 움직이는 그림 7개, 불러오는 순서, 파일 표)를 맞춤. 보관 위치: `D:_Archive\Minari-Portfolio-AIParty\`(되살리는 법은 `ARCHIVE_INFO.txt`).
+- 검증: build·verify 통과(테스트 65개). 만들어진 `dist/`에 `ai-party`·`pixelarticons`·`ap-cursor`가 없음. 홈 섹션 순서는 소개 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험. 브라우저에서 눈으로 본 확인은 안 함.
 
 ### 2026-10-26 · 코드 정리(리팩터링) (Claude, 코드 Sonnet)
 

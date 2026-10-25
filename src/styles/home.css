@@ -78,7 +78,7 @@
 .project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
-/* The "AI와 일하는 방식" caption and the detail pages share the next two rules (their other core-* rules are in detail.css). */
+/* The detail pages use the next two rules (their other core-* rules are in detail.css). */
 .core-text { margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 /* Each sentence is its own line block with balanced lines, so a sentence a little longer than the column doesn't drop its
    last word alone onto the next line (2026-10-21 line-break check; balance doesn't apply across a <br>). */
