@@ -35,35 +35,3 @@ export function toolGroupsHtml(groups, hasLogo) {
 }
 
 export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
-
-// Work cards: facts come from site-config `projects` and `release`; only the role label is written here.
-export function workCards(projects, release) {
-  const project = (slug, role) => {
-    const found = projects.find(item => item.slug === slug);
-    if (!found) throw new Error(`작업 카드에 쓸 프로젝트가 없습니다: ${slug}`);
-    return { title: found.title, genre: found.genre, image: found.image, width: 960, height: 540, role, event: found.meta[0], award: found.awards[0] };
-  };
-  const cards = [
-    project('reflectory', '4인 팀 · 팀장'),
-    project('barrel-good-barrel', '3인 팀 · 팀장'),
-    project('aiden-magnus-kartrider', '1인 개발'),
-    { title: release.title, genre: release.meta[1], image: release.image, width: release.imageWidth, height: release.imageHeight, icon: true, role: '1인 개발 · 출시', event: 'Google Play 정식 출시' },
-  ];
-  return cards.map(card => {
-    const image = `<img class="project-image${card.icon ? ' work-icon' : ''}" src="../${card.image}" width="${card.width}" height="${card.height}" alt="" loading="lazy" decoding="async">`;
-    const award = card.award ? `\n                <p class="work-award">${escapeHtml(card.award)}</p>` : '';
-    return `            <li class="work" data-work>
-              <div class="work-faces">
-                <div class="work-face work-front is-shown">
-                  ${image}
-                  <p class="project-genre">${escapeHtml(card.genre)}</p>
-                  <h3 class="project-title" translate="no">${escapeHtml(card.title)}</h3>
-                  <p class="release-status">${escapeHtml(card.role)}</p>
-                </div>
-                <div class="work-face work-back">
-                  <p class="work-event">${escapeHtml(card.event)}</p>${award}
-                </div>
-              </div>
-            </li>`;
-  }).join('\n');
-}

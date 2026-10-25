@@ -1,36 +1,4 @@
-/* /about/ page. Sections reuse the portfolio's (home.css: sheet, marker titles, project card parts) and games.css (cartridges).
-   The "능력치" RPG stat window uses the same LCD look as the home screens (four greens, faint grid, pixel font).
-   Pixel type stays on whole multiples of 16px (counts 32px). Without the script all four panels show one after another;
-   about.js adds .is-ready, which stacks them in one place and fades between them. */
-.stats { position: relative; overflow: hidden; padding: 24px; border-radius: 8px; background: repeating-linear-gradient(0deg, var(--lcd-grid) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--lcd-grid) 0 1px, transparent 1px 4px), var(--lcd); color: var(--lcd-ink); font-family: "NeoDunggeunmo", var(--font-body); font-size: 16px; font-weight: 400; font-synthesis: none; line-height: 24px; text-align: left; word-spacing: -.25em; }
-.stats::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--lcd-mid), inset 0 6px 12px rgba(15, 56, 15, .45); pointer-events: none; }
-.stats p, .stats h3 { margin: 0; }
-/* The right and bottom 4px hold the boxes' shadows. */
-.stat-tabs, .stat-panels { display: grid; gap: 16px; padding: 0 4px 4px 0; }
-.stat-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
-.stat-tab { display: grid; justify-items: center; gap: 4px; min-height: 44px; padding: 12px 8px; border: 2px solid var(--lcd-ink); background: var(--lcd-light); color: var(--lcd-ink); box-shadow: 4px 4px 0 var(--lcd-mid); font: inherit; word-spacing: inherit; cursor: pointer; }
-.stat-tab[aria-selected="true"] { background: var(--lcd-ink); color: var(--lcd-light); }
-.stat-count { font-size: 32px; line-height: 32px; }
-.stat-panel { border: 2px solid var(--lcd-ink); background: var(--lcd-light); box-shadow: 4px 4px 0 var(--lcd-mid); }
-.stat-title { padding: 4px 16px; background: var(--lcd-ink); color: var(--lcd-light); font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: 0; }
-.stat-lines { display: grid; gap: 12px; margin: 0; padding: 16px; list-style: none; }
-.stat-lines li { display: grid; gap: 4px; }
-.stat-detail { padding-left: 16px; }
-.stats.is-ready .stat-panels > .stat-panel { grid-area: 1 / 1; }
-.stats.is-ready .stat-panel:not(.is-current) { visibility: hidden; opacity: 0; }
-@media (max-width: 640px) {
-  .stats { padding: 16px; }
-  .stat-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .stat-tab { transition: background-color 160ms ease, color 160ms ease; }
-  .stats.is-ready .stat-panel { transition: opacity .24s ease, translate .24s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .24s; }
-  .stats.is-ready .stat-panel.is-current { transition-delay: 0s; }
-  .stats.is-ready .stat-panel:not(.is-current) { translate: 0 8px; }
-}
-@media (hover: hover) and (pointer: fine) {
-  .stat-tab[aria-selected="false"]:hover { background: var(--lcd); }
-}
+/* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles) and games.css (cartridges). */
 
 /* Header and text blocks: headings stay centred like the home page, running text reads left-aligned. */
 .about-handle { margin: 12px 0 0; color: var(--muted); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
@@ -60,24 +28,8 @@
 .tool-chip { display: inline-flex; align-items: center; gap: var(--gap-group); min-height: 44px; padding: var(--gap-tight) 16px; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .tool-logo { width: auto; height: 32px; }
 
-/* Work cards: the project card parts (picture, genre, title, role chip); the button turns the card to its award/event line.
-   Without the script both faces show one under the other. */
-.work-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
-.work { display: flex; flex-direction: column; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; }
-.work-faces { display: grid; flex: 1; }
-.work-icon { object-fit: contain; background: var(--bg); }
-.work-back { display: grid; align-content: center; gap: var(--gap-group); margin-top: var(--gap-block); padding: var(--gap-block) 16px; border-radius: 8px; background: var(--accent-soft); }
-.work-event, .work-award { margin: 0; font-size: var(--text-body); line-height: var(--line-compact); word-break: keep-all; }
-.work-event { color: var(--body-ink); font-weight: 500; }
-.work-award { color: var(--accent-deep); font-weight: 800; }
-.work-flip { margin-top: var(--gap-block); white-space: nowrap; word-break: keep-all; }
-.work-flip[aria-pressed="true"] { background: var(--accent-soft); }
-.work.is-ready .work-back { margin-top: 0; }
-.work.is-ready .work-face { grid-area: 1 / 1; backface-visibility: hidden; }
-.work.is-ready .work-face:not(.is-shown) { visibility: hidden; }
-
 @media (max-width: 640px) {
-  .taste-cols, .work-list { grid-template-columns: minmax(0, 1fr); }
+  .taste-cols { grid-template-columns: minmax(0, 1fr); }
   .taste-cols { gap: var(--gap-block); }
   .about-lcd { padding: 32px 16px 16px; }
   .top-games { column-gap: 16px; }
@@ -85,11 +37,4 @@
 /* Two cartridges a row on the narrowest phones (three would shrink them under 88px). */
 @media (max-width: 400px) {
   .top-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .work.is-ready .work-faces { perspective: 1000px; }
-  .work.is-ready .work-face { transition: transform .4s ease, visibility 0s linear .4s; }
-  .work.is-ready .work-face.is-shown { transition-delay: 0s; }
-  .work.is-ready .work-front:not(.is-shown) { transform: rotateY(-180deg); }
-  .work.is-ready .work-back:not(.is-shown) { transform: rotateY(180deg); }
 }

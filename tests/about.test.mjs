@@ -12,26 +12,25 @@ const { files, publicFiles } = compileSite(root);
 const page = files.get('about/index.html');
 const tags = readHtmlTags(page);
 
-test('about page is standalone: one h1, sections in order, no way back to the portfolio, scripts in order', () => {
+test('about page is standalone: one h1, sections in order, no way back to the portfolio, one script', () => {
   assert.ok(publicFiles.has('about/index.html'));
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
   assert.match(page, /<h1 id="intro-title" tabindex="-1">About Me<\/h1>\s*<p class="about-handle" translate="no">Minari<\/p>\s*<p class="intro-role">박종찬 /);
-  const order = ['intro-title', 'about-title', 'taste-title', 'tools-title', 'stats-title', 'work-title'].map(id => page.indexOf(`id="${id}"`));
+  const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
   assert.deepEqual(hrefs, ['#main']);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/about.js']);
+  assert.deepEqual(scripts, ['../assets/js/about.js']);
+  // Specific skills live in the portfolio, so the stat window and the work cards are gone.
+  assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work/);
   assert.ok(!/<svg|<script>|<style|style=/.test(page));
 });
 
-test('stat window keeps its four tabs and counts; the game count includes Tomb Raider', () => {
+test('the games list includes Tomb Raider', () => {
   assert.equal(games.length, 30);
   assert.ok(games.some(game => game.title === '툼 레이더 시리즈' && game.image === 'assets/images/games/tomb-raider.webp' && game.hours === ''));
-  assert.deepEqual([...page.matchAll(/data-count="(\d+)"/g)].map(match => Number(match[1])), [4, 2, 1, games.length]);
-  for (const text of ['국가수리과학연구소장상', '베스트 리더상', '우수상', '4인 팀 기획 및 팀장', '3인 팀 기획 및 팀장', '쭉쭉냥 : 고양이 퍼즐']) assert.ok(page.includes(text), text);
-  assert.equal((page.match(/role="tab"/g) || []).length, 4);
 });
 
 test('the six games with the most play hours show as packs, most hours first, with the play time as text', () => {
@@ -62,20 +61,9 @@ test('13 tool chips in four groups; a logo shows only when its file exists', () 
   assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
 });
 
-test('four work cards with role labels, not links, award or event on the back', () => {
-  assert.equal((page.match(/<li class="work" data-work>/g) || []).length, 4);
-  assert.deepEqual([...page.matchAll(/<p class="release-status">([^<]+)</g)].map(match => match[1]), ['4인 팀 · 팀장', '3인 팀 · 팀장', '1인 개발', '1인 개발 · 출시']);
-  assert.deepEqual([...page.matchAll(/<h3 class="project-title" translate="no">([^<]+)</g)].map(match => match[1]), ['Reflectory', 'Barrel Good Barrel', 'Aiden &amp; Magnus KartRider', '쭉쭉냥 : 고양이 퍼즐']);
-  assert.match(page, /<p class="work-award">국가수리과학연구소장상<\/p>/);
-  assert.match(page, /<p class="work-event">Google Play 정식 출시<\/p>/);
-  assert.equal((page.match(/class="work-face work-back"/g) || []).length, 4);
-});
-
-test('the script draws no markup from text, and the styles keep the motion rules', () => {
+test('the script draws no markup from text, and the styles never transition everything', () => {
   const script = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
   assert.doesNotMatch(script, /innerHTML|setTimeout|setInterval/);
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
   assert.doesNotMatch(css, /transition:\s*all/);
-  // The turn only exists where motion is allowed; otherwise the face just swaps.
-  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*{[^@]*rotateY/);
 });

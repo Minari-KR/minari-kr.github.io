@@ -5,7 +5,7 @@ export const shareImage = 'assets/images/minari-share.png';
 export const homeTitle = '박종찬 | Game Designer Portfolio';
 // The standalone /about/ page (linked from Linktree only, no link to the portfolio).
 export const aboutTitle = '박종찬 | 게임 디자이너';
-export const aboutDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. 수상, 팀장 경험, 출시 앱, 게임 플레이 경험을 능력치로 정리했습니다.';
+export const aboutDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. 게임을 꿈꾸게 된 계기, 게임 취향, 쓰는 도구를 소개합니다.';
 export const homeDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. 출시 앱과 수상 프로젝트의 플레이 영상 및 링크를 확인할 수 있습니다.';
 // "프로젝트" section on the home page and the project detail pages: the one place for the facts about each project.
 // Order = tab and card order on the home page. Text is escaped when rendered; links must be https; images and videos must exist
