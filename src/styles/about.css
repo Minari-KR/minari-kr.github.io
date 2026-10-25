@@ -39,8 +39,8 @@
 .inv-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
 .inv-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .inv-slot { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; min-width: 0; padding: 16px 8px 12px; border: 1px solid rgba(32, 33, 31, .16); border-radius: 16px; background: #fff; text-align: center; }
-.inv-box { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; margin-bottom: 4px; border-radius: 16px; background: var(--bg); }
-.inv-logo { display: block; width: 40px; height: 40px; }
+.inv-box { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; margin-bottom: 4px; border-radius: 20px; background: var(--bg); }
+.inv-logo { display: block; width: 56px; height: 56px; }
 .inv-name { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); white-space: nowrap; }
 .inv-hide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* Script on: the four groups flow into one centred row of --cols (labels hidden); the filter dims. */
