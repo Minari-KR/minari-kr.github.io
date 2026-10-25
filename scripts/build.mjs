@@ -11,7 +11,7 @@ const manifestPath = path.join(root, '.generated-files.json');
 const previous = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
 
 function targetPath(base, name) {
-  if (typeof name !== 'string' || !/^(?:index\.html|mobile-preview\.html|\.nojekyll|projects\/[a-z0-9-]+\.html|assets\/(?:css|js|images|videos|icons|fonts)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
+  if (typeof name !== 'string' || !/^(?:index\.html|about\/index\.html|mobile-preview\.html|\.nojekyll|projects\/[a-z0-9-]+\.html|assets\/(?:css|js|images|videos|icons|fonts)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
   if (name.split('/').some(part => part === '..' || part === '.')) throw new Error('상위 경로 이동은 허용되지 않습니다.');
   const target = path.resolve(base, name);
   if (!target.startsWith(path.resolve(base) + path.sep)) throw new Error('프로젝트 밖의 경로는 수정할 수 없습니다.');
@@ -48,7 +48,7 @@ if (!Array.isArray(previous)) throw new Error('생성 파일 목록은 배열이
 for (const name of previous) targetPath(root, name);
 const previousFiles = new Set(previous);
 for (const [base, expected, folders] of [
-  [root, compiled.files, ['projects', 'assets']],
+  [root, compiled.files, ['projects', 'about', 'assets']],
   [path.join(root, 'dist'), compiled.publicFiles, ['']]
 ]) {
   for (const folder of folders) {

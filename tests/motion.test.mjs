@@ -45,6 +45,7 @@ test('every animation runs through the shared motion loop, which the pages load 
   const { files } = compileSite(root);
   const pages = {
     'index.html': ['./assets/js/', ['games', 'project-tabs', 'ai-party'], ['flow-row']],
+    'about/index.html': ['../assets/js/', ['about-stats'], []],
     'projects/reflectory.html': ['../assets/js/', ['reflectory-core', 'reflectory-augments', 'reflectory-systems'], ['canvas-kit']],
     'projects/barrel-good-barrel.html': ['../assets/js/', ['bgb-loadout', 'bgb-systems'], ['canvas-kit']],
   };

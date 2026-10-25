@@ -6,7 +6,7 @@ import { addReferencedMedia } from './media.mjs';
 import { versionAssets } from './assets.mjs';
 import { checkSecrets, securityMeta, validateFiles } from './validation.mjs';
 import { socialMeta } from './social.mjs';
-import { homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
+import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
@@ -28,6 +28,13 @@ export function compileSite(root) {
     game_packs: gamePacks(games),
     project_tabs: projectTabs(projects),
     project_cards: projectCards(projects)
+  }));
+  files.set('about/index.html', fillTemplate(template('about.html'), {
+    security: securityMeta(),
+    page_title: escapeHtml(aboutTitle),
+    page_description: escapeHtml(aboutDescription),
+    social: socialMeta({ title: aboutTitle, description: aboutDescription, page: 'about/' }),
+    game_count: String(games.length)
   }));
   // Only a project with `detail` gets a page: the shared frame plus that project's own body.
   const pages = projects.filter(project => project.detail);
