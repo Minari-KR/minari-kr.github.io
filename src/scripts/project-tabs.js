@@ -1,6 +1,6 @@
 // Projects on the home page (2026-10-14 user choice "썸네일 탭 + 큰 카드"): a row of small title pictures above one large card.
 // Every project is visible at a glance as a thumbnail; pressing one (or the arrow keys on the row, or a sideways swipe on the
-// card) shows its card. The cards share one place, so the page keeps the height of the tallest and nothing below jumps.
+// card) shows its card. The cards share one place, and the section takes the height of the card shown.
 // When there are more thumbnails than fit, the row flows sideways on its own like the game screen's cartridge rows
 // (2026-10-14 user request): it can be grabbed, dragged and thrown, and glides back into its flow. With reduced motion it
 // stays still and scrolls instead. Without this script the thumbnails stay hidden and the cards simply follow one another.

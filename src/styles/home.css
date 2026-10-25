@@ -107,12 +107,12 @@
 .ptabs-list.is-looping .ptabs-track { width: max-content; will-change: transform; }
 .ptabs-list.is-looping .ptabs-tab { flex: none; width: 136px; margin: 0; }
 .ptabs:not(.is-ready) .project + .project { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
-.ptabs.is-ready .ptabs-cards { display: grid; touch-action: pan-y; }
-/* Every card takes the tallest card's height, so its buttons sit at the bottom: the space left over in a shorter card goes
-   between its heading group and the buttons, and the buttons → next section rule is the same for every tab (2026-10-21,
-   user choice). The padding keeps at least --gap-actions above the buttons. */
+.ptabs.is-ready .ptabs-cards { position: relative; display: grid; touch-action: pan-y; }
+/* The cards share one grid cell, but only the card shown takes up space (the hidden ones leave the flow), so the section is as
+   tall as that card: award → buttons and buttons → next rule are the same on every tab, and what is below moves when the tab
+   changes (2026-10-26, user choice). */
 .ptabs.is-ready .ptabs-cards > .project { display: flex; flex-direction: column; grid-area: 1 / 1; }
-.ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
+.ptabs.is-ready .ptabs-cards > .project:not(.is-current) { position: absolute; inset: 0 0 auto; visibility: hidden; opacity: 0; }
 
 /* Release app (출시 앱): same layout as a project; an optional status badge under its info line, and the icon can link to the store */
 .release-status { display: block; width: fit-content; margin: 12px auto 0; padding: var(--gap-tight) 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); }

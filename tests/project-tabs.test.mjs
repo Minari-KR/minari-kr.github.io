@@ -27,6 +27,9 @@ test('projects show as thumbnail tabs over one large card, and nothing of the ot
   assert.ok(!styles.includes('.ptabs-cards > .project > .project-actions'));
   const away = cssRule(styles, '.ptabs.is-ready .ptabs-cards > .project:not(.is-current)');
   assert.equal(away.get('visibility'), 'hidden');
+  // Hidden cards leave the flow, so the section is only as tall as the card shown.
+  assert.equal(away.get('position'), 'absolute');
+  assert.equal(cssRule(styles, '.ptabs.is-ready .ptabs-cards').get('position'), 'relative');
   assert.equal(away.get('opacity'), '0');
   assert.doesNotMatch(styles + section, /slider|translateX|translate: -?\d+px 0/);
   assert.ok(!fs.existsSync(new URL('../src/scripts/slider.js', import.meta.url)));
