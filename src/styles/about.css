@@ -2,7 +2,9 @@
 
 /* Header: the h1 holds "About Me" and the name/role line, which is sized (in em of the h1) to run as wide as "About Me".
    Headings stay centred like the home page, running text reads left-aligned. */
-.about-intro h1 { display: grid; justify-items: center; gap: 12px; }
+.about-intro h1 { display: grid; justify-items: center; gap: 16px; }
+/* The name line sits halfway between "About Me" and the statement (about 27px each way on PC). */
+.about-intro .intro-statement { margin-top: 16px; }
 .about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
 /* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
 /* The keyboard way out: the skip-link look (hidden above the screen until focused), fixed so it appears in view from the page end. */
