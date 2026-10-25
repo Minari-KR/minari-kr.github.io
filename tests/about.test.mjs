@@ -91,7 +91,7 @@ test('about.js drives the carousel through motionLoop and uses no timers or fram
 
 test('about.js opens the portfolio on one more scroll at the bottom, and resets after the back/forward cache', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
-  for (const rule of ["addEventListener('wheel'", "addEventListener('touchstart'", "addEventListener('touchend'", "addEventListener('keydown'", "addEventListener('pageshow'", 'ARM_AFTER', "location.assign('../')", 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
+  for (const rule of ["addEventListener('wheel'", "addEventListener('touchstart'", "addEventListener('touchend'", "addEventListener('keydown'", "addEventListener('pageshow'", 'ARM_AFTER', "location.assign(home)", "'../index.html' : '../'", 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
 });
 
 test('the styles never transition everything', () => {

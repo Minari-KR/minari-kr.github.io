@@ -78,11 +78,13 @@
     refresh();
     return fade === null && since !== null && performance.now() - since >= ARM_AFTER;
   };
+  // A local copy opened as a file has no server to turn "../" into the home page, so it names index.html.
+  const home = location.protocol === 'file:' ? '../index.html' : '../';
   const leave = () => {
     if (fade) return;
-    if (window.motionLoop.reduce.matches) { fade = {}; location.assign('../'); return; }
+    if (window.motionLoop.reduce.matches) { fade = {}; location.assign(home); return; }
     fade = document.body.animate({ opacity: [1, 0] }, { duration: 600, easing: 'ease', fill: 'forwards' });
-    fade.finished.then(() => location.assign('../'), () => {});
+    fade.finished.then(() => location.assign(home), () => {});
   };
   window.addEventListener('scroll', refresh, { passive: true });
   // A trackpad fling keeps sending wheel events for about a second, so only a wheel gesture that STARTS after the bottom was
