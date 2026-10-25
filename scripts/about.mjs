@@ -30,7 +30,7 @@ export function toolGroupsHtml(groups, hasLogo) {
       const logo = hasLogo(slug) ? `<img class="tool-logo" src="../assets/images/tools/${slug}.png" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
       return `                <li class="tool-chip">${logo}<span translate="no">${escapeHtml(name)}</span></li>`;
     }).join('\n');
-    return `            <div class="tool-group">\n              <h3 class="tool-label">${escapeHtml(label)}</h3>\n              <ul class="tool-list">\n${chips}\n              </ul>\n            </div>`;
+    return `            <div class="tool-group">\n              <p class="tool-label">${escapeHtml(label)}</p>\n              <ul class="tool-list">\n${chips}\n              </ul>\n            </div>`;
   }).join('\n');
 }
 

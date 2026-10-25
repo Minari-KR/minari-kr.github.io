@@ -1,16 +1,19 @@
 /* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles) and games.css (cartridges). */
 
-/* Header and text blocks: headings stay centred like the home page, running text reads left-aligned. */
-.about-handle { margin: 12px 0 0; color: var(--muted); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
-.about-handle + .intro-role { margin-top: var(--gap-tight); }
-.about-flow, .about-stack, .tool-groups { display: grid; gap: var(--gap-block); text-align: left; }
+/* Header: Minari eyebrow, name, role, statement. Headings stay centred like the home page, running text reads left-aligned. */
+/* Labels never drop under 16px, though --text-meta is 14px on phones. */
+.about-handle { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
+.about-intro .intro-role { margin-top: 12px; font-size: var(--text-lead); }
+/* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, LCD, tools, AI) --gap-actions apart. */
+.about-flow, .about-stack, .tool-groups { display: grid; text-align: left; }
+.about-flow { gap: 16px; }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
-.about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
-.taste-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-actions); }
+.about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 
 /* Top games: six cartridges on the LCD; the pressed one shows its play time and genre in the caption. */
-.about-lcd { gap: 24px; padding: 32px 24px 24px; font-size: 16px; line-height: 24px; }
+/* The top 48px leaves room for the ▼ over a pointed or focused cartridge in the first row. */
+.about-lcd { gap: 24px; padding: 48px 24px 24px; font-size: 16px; line-height: 24px; }
 .top-games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; margin: 0; padding: 0; list-style: none; }
 .top-game { display: grid; justify-items: center; align-content: start; gap: 8px; min-width: 0; }
 .about-lcd .pack { width: min(100%, 112px); margin: 0; }
@@ -22,16 +25,19 @@
 .about-lcd .pack:focus-visible::after { content: none; }
 .about-lcd.is-ready .top-info { display: none; }
 
-/* Tools: a label above a row of chips; the logo (32px tall) appears only when its file exists. */
-.tool-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+/* Tools: one row per group (label column + chips); the logo (32px tall) appears only when its file exists. */
+.tool-groups { gap: 16px; }
+.tool-group { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--gap-group); }
+.tool-label { display: flex; align-items: center; min-height: 44px; margin: 0; color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
 .tool-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .tool-chip { display: inline-flex; align-items: center; gap: var(--gap-group); min-height: 44px; padding: var(--gap-tight) 16px; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .tool-logo { width: auto; height: 32px; }
 
 @media (max-width: 640px) {
-  .taste-cols { grid-template-columns: minmax(0, 1fr); }
-  .taste-cols { gap: var(--gap-block); }
-  .about-lcd { padding: 32px 16px 16px; }
+  .tool-groups { gap: var(--gap-block); }
+  .tool-group { grid-template-columns: minmax(0, 1fr); }
+  .tool-label { min-height: 0; }
+  .about-lcd { padding: 48px 16px 16px; }
   .top-games { column-gap: 16px; }
 }
 /* Two cartridges a row on the narrowest phones (three would shrink them under 88px). */

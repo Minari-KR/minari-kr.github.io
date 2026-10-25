@@ -15,7 +15,7 @@ const tags = readHtmlTags(page);
 test('about page is standalone: one h1, sections in order, no way back to the portfolio, one script', () => {
   assert.ok(publicFiles.has('about/index.html'));
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
-  assert.match(page, /<h1 id="intro-title" tabindex="-1">About Me<\/h1>\s*<p class="about-handle" translate="no">Minari<\/p>\s*<p class="intro-role">박종찬 /);
+  assert.match(page, /<p class="about-handle" translate="no">Minari<\/p>\s*<h1 id="intro-title" tabindex="-1">About Me<\/h1>\s*<p class="intro-role">박종찬 /);
   const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
@@ -47,7 +47,7 @@ test('the six games with the most play hours show as packs, most hours first, wi
 
 test('13 tool chips in four groups; a logo shows only when its file exists', () => {
   assert.equal((page.match(/<li class="tool-chip">/g) || []).length, 13);
-  assert.deepEqual([...page.matchAll(/<h3 class="tool-label">([^<]+)</g)].map(match => match[1]), ['개발', '기획·협업', '그래픽', 'AI']);
+  assert.deepEqual([...page.matchAll(/<p class="tool-label">([^<]+)</g)].map(match => match[1]), ['개발', '기획·협업', '그래픽', 'AI']);
   const slugs = toolGroups.flatMap(([, tools]) => tools.map(([, slug]) => slug));
   assert.equal(slugs.length, 13);
   // Real files decide the real page.
