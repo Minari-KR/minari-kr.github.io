@@ -113,6 +113,8 @@ export const games = [
   ['이환', 'PC, 모바일, 콘솔', '오픈월드 RPG', 'nte', 21.4],
   ['소녀전선2: 망명', 'PC, 모바일', '턴제 전략 RPG', 'girls-frontline-2', 24.9],
   ['트릭컬 리바이브', '모바일', '수집형 RPG', 'trickcal-revive', 32.6],
+  // No play time yet for the last one.
+  ['툼 레이더 시리즈', 'PC, 콘솔, 모바일', '액션 어드벤처', 'tomb-raider'],
 ].map(([title, platform, genre, image, hours, achievements = ''], i) => ({
   title,
   platform,
@@ -120,7 +122,7 @@ export const games = [
   hours: hours === undefined ? '' : `${hours.toLocaleString('en-US')}시간`,
   achievements,
   note: '',
-  image: `assets/images/games/${image}.webp`,
+  image: image ? `assets/images/games/${image}.webp` : undefined,
   shell: shells[Math.floor(i / 2) % shells.length],
 }));
 

@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/common.css">
   <link rel="stylesheet" href="../assets/css/home.css">
+  <link rel="stylesheet" href="../assets/css/games.css">
   <link rel="stylesheet" href="../assets/css/about.css">
   <link rel="stylesheet" href="../assets/css/page-transitions.css">
 </head>
@@ -20,11 +21,55 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
   <main class="page" id="main">
     <header class="intro" id="intro">
-      <h1 id="intro-title" tabindex="-1" translate="no">Minari</h1>
+      <h1 id="intro-title" tabindex="-1">About Me</h1>
+      <p class="about-handle" translate="no">Minari</p>
       <p class="intro-role">박종찬 <span class="intro-role-divider" aria-hidden="true"></span> 게임 디자이너</p>
-      <p class="intro-school">우송대학교 게임멀티미디어학과</p>
       <p class="intro-statement"><span class="summary-line"><span class="marker marker-step-1">아이디어</span>를 <span class="marker marker-step-2">프로토타입</span>으로 만들고,</span> <span class="summary-line"><span class="marker marker-step-3">플레이</span>하며 <span class="marker marker-step-4">재미</span>를 검증합니다.</span></p>
     </header>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title"><span class="marker">소개</span></h2>
+      <div class="about-flow">
+        <p class="about-text">게임을 좋아하던 저에게 꿈이 생긴 건 중학교 2학년 때 찾은 부산 지스타에서였습니다. 개발자분들이 직접 만든 게임을 소개하는 모습에서, 자기 작업물에 대한 자부심과 다른 사람에게 즐거움을 준다는 것이 멋있다고 느꼈습니다.</p>
+        <p class="about-text">지금은 우송대학교 게임멀티미디어학과 3학년에 재학 중이며, 2028년에 졸업할 예정입니다.</p>
+        <p class="about-text">팀으로 기획할 때는 AI를 활용해 빠르게 프로토타입을 만들고, 직접 플레이하며 재미를 확인합니다. 그 결과를 바탕으로 팀원들과 이야기를 나누며 개발 방향을 맞춰 나갑니다.</p>
+      </div>
+    </section>
+
+    <section class="section" id="taste" aria-labelledby="taste-title">
+      <h2 class="section-title" id="taste-title"><span class="marker">게임 취향</span></h2>
+      <div class="about-stack">
+        <div class="taste-cols">
+          <div>
+            <h3 class="about-sub">좋아하는 게임</h3>
+            <p class="about-text">서브컬처 게임을 즐겨 합니다. 블루 아카이브, 명조: 워더링 웨이브, 원신, 이터널 리턴을 많이 플레이했고, 가장 애정하는 이터널 리턴은 7,000시간 넘게 플레이하며 프로 리그 ‘마스터즈’에 출전하고 최상위 티어 ‘이터니티’를 달성했습니다. 툼 레이더 시리즈도 오래 좋아해 온 게임입니다.</p>
+          </div>
+          <div>
+            <h3 class="about-sub">플레이할 때 보는 것</h3>
+            <p class="about-text">게임이 얼마나 아름다운지, 그리고 게임플레이와 그래픽이 하나의 톤앤매너로 어우러져 분위기를 만들어 내는지를 주로 봅니다.</p>
+          </div>
+        </div>
+        <div class="gs games about-lcd" data-top-games>
+          <ul class="top-games">
+{{top_games}}
+          </ul>
+          <p class="top-caption" data-top-caption aria-live="polite" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools" aria-labelledby="tools-title">
+      <h2 class="section-title" id="tools-title"><span class="marker">쓰는 도구</span></h2>
+      <div class="about-stack">
+        <div class="tool-groups">
+{{tool_groups}}
+        </div>
+        <div>
+          <h3 class="about-sub">AI는 이렇게 씁니다</h3>
+          <p class="about-text">기획과 최종 결정은 제가 직접 내리고, AI로는 아이디어를 빠르게 프로토타입으로 만들어 재미를 확인합니다. Claude로 작업 계획과 코드를, GPT로 그림을, Grok으로 영상을 만들고, Gemini로 문장을 다듬습니다. 나온 결과물은 직접 확인해 완성합니다.</p>
+        </div>
+      </div>
+    </section>
 
     <section class="section" id="stats" aria-labelledby="stats-title">
       <h2 class="section-title" id="stats-title"><span class="marker">능력치</span></h2>
@@ -37,7 +82,7 @@
         </div>
         <div class="stat-panels">
           <div class="stat-panel is-current" id="stat-plan">
-            <h3 class="stat-title">기획 · 수상 4개</h3>
+            <p class="stat-title">기획 · 수상 4개</p>
             <ul class="stat-lines">
               <li><span class="stat-name">국가수리과학연구소장상</span><span class="stat-detail">2026 대전 인디(inD) 게임잼 · <span translate="no">Reflectory</span></span></li>
               <li><span class="stat-name">대상</span><span class="stat-detail">2025 대전 게임 브릿지 · <span translate="no">Barrel Good Barrel</span></span></li>
@@ -46,21 +91,21 @@
             </ul>
           </div>
           <div class="stat-panel" id="stat-lead">
-            <h3 class="stat-title">리더십 · 팀장 2회</h3>
+            <p class="stat-title">리더십 · 팀장 2회</p>
             <ul class="stat-lines">
               <li><span class="stat-name" translate="no">Reflectory</span><span class="stat-detail">4인 팀 기획 및 팀장</span></li>
               <li><span class="stat-name" translate="no">Barrel Good Barrel</span><span class="stat-detail">3인 팀 기획 및 팀장</span></li>
             </ul>
           </div>
           <div class="stat-panel" id="stat-finish">
-            <h3 class="stat-title">완성력 · 출시 앱 1개</h3>
+            <p class="stat-title">완성력 · 출시 앱 1개</p>
             <ul class="stat-lines">
               <li><span class="stat-name">쭉쭉냥 : 고양이 퍼즐</span><span class="stat-detail">Google Play 정식 출시, 1인 개발</span></li>
               <li><span class="stat-name" translate="no">Aiden &amp; Magnus KartRider</span><span class="stat-detail">1인 개발 레이싱 팬게임</span></li>
             </ul>
           </div>
           <div class="stat-panel" id="stat-play">
-            <h3 class="stat-title">플레이 경험 · 게임 {{game_count}}개</h3>
+            <p class="stat-title">플레이 경험 · 게임 {{game_count}}개</p>
             <ul class="stat-lines">
               <li><span class="stat-name">플레이한 게임 {{game_count}}개</span></li>
             </ul>
@@ -68,8 +113,15 @@
         </div>
       </div>
     </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <h2 class="section-title" id="work-title"><span class="marker">작업</span></h2>
+      <ul class="work-list">
+{{work_cards}}
+      </ul>
+    </section>
   </main>
   <script src="../assets/js/motion-loop.js" defer></script>
-  <script src="../assets/js/about-stats.js" defer></script>
+  <script src="../assets/js/about.js" defer></script>
 </body>
 </html>

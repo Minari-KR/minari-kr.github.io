@@ -1,6 +1,7 @@
-/* /about/ page: the "능력치" RPG stat window on the same LCD look as the home screens (four greens, faint grid, pixel font).
+/* /about/ page. Sections reuse the portfolio's (home.css: sheet, marker titles, project card parts) and games.css (cartridges).
+   The "능력치" RPG stat window uses the same LCD look as the home screens (four greens, faint grid, pixel font).
    Pixel type stays on whole multiples of 16px (counts 32px). Without the script all four panels show one after another;
-   about-stats.js adds .is-ready, which stacks them in one place and fades between them. */
+   about.js adds .is-ready, which stacks them in one place and fades between them. */
 .stats { position: relative; overflow: hidden; padding: 24px; border-radius: 8px; background: repeating-linear-gradient(0deg, var(--lcd-grid) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, var(--lcd-grid) 0 1px, transparent 1px 4px), var(--lcd); color: var(--lcd-ink); font-family: "NeoDunggeunmo", var(--font-body); font-size: 16px; font-weight: 400; font-synthesis: none; line-height: 24px; text-align: left; word-spacing: -.25em; }
 .stats::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--lcd-mid), inset 0 6px 12px rgba(15, 56, 15, .45); pointer-events: none; }
 .stats p, .stats h3 { margin: 0; }
@@ -29,4 +30,66 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .stat-tab[aria-selected="false"]:hover { background: var(--lcd); }
+}
+
+/* Header and text blocks: headings stay centred like the home page, running text reads left-aligned. */
+.about-handle { margin: 12px 0 0; color: var(--muted); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
+.about-handle + .intro-role { margin-top: var(--gap-tight); }
+.about-flow, .about-stack, .tool-groups { display: grid; gap: var(--gap-block); text-align: left; }
+.about-stack { gap: var(--gap-actions); }
+.about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
+.about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.taste-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-actions); }
+
+/* Top games: six cartridges on the LCD; the pressed one shows its play time and genre in the caption. */
+.about-lcd { gap: 24px; padding: 32px 24px 24px; font-size: 16px; line-height: 24px; }
+.top-games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; margin: 0; padding: 0; list-style: none; }
+.top-game { display: grid; justify-items: center; align-content: start; gap: 8px; min-width: 0; }
+.about-lcd .pack { width: min(100%, 112px); margin: 0; }
+.top-info { display: grid; margin: 0; text-align: center; }
+.top-caption { min-height: 84px; margin: 0; padding-top: 12px; border-top: 3px dashed var(--lcd-mid); text-align: center; }
+.caption-line { display: block; }
+/* Focus ring 6px off the cartridge (8px out in all): it fits the LCD padding, so overflow: hidden does not clip it. It replaces the pixel frame. */
+.about-lcd .pack:focus-visible { outline: 2px solid var(--lcd-ink); outline-offset: 6px; }
+.about-lcd .pack:focus-visible::after { content: none; }
+.about-lcd.is-ready .top-info { display: none; }
+
+/* Tools: a label above a row of chips; the logo (32px tall) appears only when its file exists. */
+.tool-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.tool-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.tool-chip { display: inline-flex; align-items: center; gap: var(--gap-group); min-height: 44px; padding: var(--gap-tight) 16px; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
+.tool-logo { width: auto; height: 32px; }
+
+/* Work cards: the project card parts (picture, genre, title, role chip); the button turns the card to its award/event line.
+   Without the script both faces show one under the other. */
+.work-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.work { display: flex; flex-direction: column; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; }
+.work-faces { display: grid; flex: 1; }
+.work-icon { object-fit: contain; background: var(--bg); }
+.work-back { display: grid; align-content: center; gap: var(--gap-group); margin-top: var(--gap-block); padding: var(--gap-block) 16px; border-radius: 8px; background: var(--accent-soft); }
+.work-event, .work-award { margin: 0; font-size: var(--text-body); line-height: var(--line-compact); word-break: keep-all; }
+.work-event { color: var(--body-ink); font-weight: 500; }
+.work-award { color: var(--accent-deep); font-weight: 800; }
+.work-flip { margin-top: var(--gap-block); white-space: nowrap; word-break: keep-all; }
+.work-flip[aria-pressed="true"] { background: var(--accent-soft); }
+.work.is-ready .work-back { margin-top: 0; }
+.work.is-ready .work-face { grid-area: 1 / 1; backface-visibility: hidden; }
+.work.is-ready .work-face:not(.is-shown) { visibility: hidden; }
+
+@media (max-width: 640px) {
+  .taste-cols, .work-list { grid-template-columns: minmax(0, 1fr); }
+  .taste-cols { gap: var(--gap-block); }
+  .about-lcd { padding: 32px 16px 16px; }
+  .top-games { column-gap: 16px; }
+}
+/* Two cartridges a row on the narrowest phones (three would shrink them under 88px). */
+@media (max-width: 400px) {
+  .top-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .work.is-ready .work-faces { perspective: 1000px; }
+  .work.is-ready .work-face { transition: transform .4s ease, visibility 0s linear .4s; }
+  .work.is-ready .work-face.is-shown { transition-delay: 0s; }
+  .work.is-ready .work-front:not(.is-shown) { transform: rotateY(-180deg); }
+  .work.is-ready .work-back:not(.is-shown) { transform: rotateY(180deg); }
 }
