@@ -1,27 +1,15 @@
-/* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles) and games.css (cartridges). */
+/* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles). */
 
-/* Header: title, role, statement. Headings stay centred like the home page, running text reads left-aligned. */
-.about-intro .intro-role { margin-top: 12px; font-size: var(--text-lead); }
-/* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, LCD, tools, AI) --gap-actions apart. */
+/* Header: the h1 holds "About Me" and the name/role line, which is sized (in em of the h1) to run as wide as "About Me".
+   Headings stay centred like the home page, running text reads left-aligned. */
+.about-intro h1 { display: grid; justify-items: center; gap: 12px; }
+.about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
+/* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
 .about-flow, .about-stack, .tool-groups { display: grid; text-align: left; }
 .about-flow { gap: 16px; }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 .about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
-
-/* Top games: six cartridges on the LCD; the pressed one shows its play time and genre in the caption. */
-/* The top 48px leaves room for the ▼ over a pointed or focused cartridge in the first row. */
-.about-lcd { gap: 24px; padding: 48px 24px 24px; font-size: 16px; line-height: 24px; }
-.top-games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; margin: 0; padding: 0; list-style: none; }
-.top-game { display: grid; justify-items: center; align-content: start; gap: 8px; min-width: 0; }
-.about-lcd .pack { width: min(100%, 112px); margin: 0; }
-.top-info { display: grid; margin: 0; text-align: center; }
-.top-caption { min-height: 84px; margin: 0; padding-top: 12px; border-top: 3px dashed var(--lcd-mid); text-align: center; }
-.caption-line { display: block; }
-/* Focus ring 6px off the cartridge (8px out in all): it fits the LCD padding, so overflow: hidden does not clip it. It replaces the pixel frame. */
-.about-lcd .pack:focus-visible { outline: 2px solid var(--lcd-ink); outline-offset: 6px; }
-.about-lcd .pack:focus-visible::after { content: none; }
-.about-lcd.is-ready .top-info { display: none; }
 
 /* Tools: one row per group (label column + chips); the logo (32px tall) appears only when its file exists. */
 .tool-groups { gap: 16px; }
@@ -36,10 +24,4 @@
   .tool-groups { gap: var(--gap-block); }
   .tool-group { grid-template-columns: minmax(0, 1fr); }
   .tool-label { min-height: 0; }
-  .about-lcd { padding: 48px 16px 16px; }
-  .top-games { column-gap: 16px; }
-}
-/* Two cartridges a row on the narrowest phones (three would shrink them under 88px). */
-@media (max-width: 400px) {
-  .top-games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
