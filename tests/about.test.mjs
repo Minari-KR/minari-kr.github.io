@@ -26,6 +26,8 @@ test('about page is standalone: one h1, sections in order, no way back to the po
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
   assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);
+  // The profile illustration sits in the 소개 section, with its words as alt text.
+  assert.match(page, /id="about-title"[\s\S]*<img class="about-profile" src="\.\.\/assets\/images\/about\/profile\.webp" width="400" height="400" alt="[^"]+">[\s\S]*id="taste-title"/);
   assert.ok(!/<svg|<script>|<style|style=/.test(page));
 });
 

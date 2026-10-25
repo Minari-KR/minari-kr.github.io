@@ -7,6 +7,10 @@
 /* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
 .about-flow, .about-stack, .tool-groups { display: grid; text-align: left; }
 .about-flow { gap: 16px; }
+/* 소개: text on the left, the 200px profile illustration on the right; on phones the picture goes above the text. */
+.about-intro-body { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: var(--gap-block); align-items: center; }
+.about-profile { grid-column: 2; grid-row: 1; width: 200px; height: auto; border-radius: 8px; }
+.about-intro-body > .about-flow { grid-column: 1; grid-row: 1; }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 .about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
@@ -21,6 +25,9 @@
 .tool-logo { width: auto; height: 32px; }
 
 @media (max-width: 640px) {
+  .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
+  .about-profile { width: 160px; }
   .tool-groups { gap: var(--gap-block); }
   .tool-group { grid-template-columns: minmax(0, 1fr); }
   .tool-label { min-height: 0; }
