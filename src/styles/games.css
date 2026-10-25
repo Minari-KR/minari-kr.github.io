@@ -1,4 +1,4 @@
-/* "게임 플레이 경험" on the home page (right under the intro): a small handheld LCD inside the note box. Two rows of cartridges flow across it
+/* "게임 플레이 경험" on the home page (the last section): a small handheld LCD inside the note box. Two rows of cartridges flow across it
    (games.js loops them) and a pressed cartridge shows its record on the same screen. The screen keeps its own look (four
    greens, cartridges, pixel font); everything around it is the portfolio's.
    Text belongs in scripts/site-config.mjs (games) and src/templates/home.html, not in CSS. */

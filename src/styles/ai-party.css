@@ -1,4 +1,4 @@
-/* "AI와 일하는 방식" (2026-10-22, between the awards and this section): the same LCD screen, drawn with real HTML text. All its text is
+/* "AI와 일하는 방식" (2026-10-22, below the projects): the same LCD screen, drawn with real HTML text. All its text is
    16px pixel type (the font is built on a 16-dot grid); rank comes from form, not size: a box title is light text on a dark bar,
    body text is plain ink, a status is a small dark chip. Spacing is on the 4/8 scale: screen padding 24px (phones 16px), box
    padding 16px (phone cards 8px), title to body 8px, connector label 16px above and below. ai-party.js sets one phase class
@@ -120,12 +120,11 @@
   .ap-agent::before { content: ""; position: absolute; top: 50%; right: 100%; width: 16px; border-top: 4px dashed var(--lcd-ink); transform: translateY(-2px); }
   .s6 .ap-explore, .s10 .ap-review { transform: translateX(-16px); }
 }
-/* Two columns when the screen is narrow; at 320px a card holds 107px inside its border, so phone cards use 8px padding and no side padding on the name bar: "Claude Sonnet" (100px) and "아이콘 그림" (88px with its border) stay on one line at 16px. */
+/* Two columns when the screen is narrow; at 320px a card holds 107px inside its border, so phone cards use 8px padding and no side padding on the name bar: "Claude Sonnet" (100px) and "아이콘 제작" (88px with its border) stay on one line at 16px. */
 @container (max-width: 599px) {
   .ap-party { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ap-m { --cx: 1; --dy: 0; }
+  .ap-m { --cx: 1; }
   .ap-m:nth-child(even) { --cx: -1; }
-  .ap-m:nth-child(n+3) { --dy: 1; }
 }
 @media (max-width: 640px) {
   .ap { padding: 16px; }

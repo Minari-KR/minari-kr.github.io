@@ -6,7 +6,7 @@
 // for 3 s with a tick every 0.5 s, the wait after each shot, overload x1.5, mark x2, ignite 1 per second for 3 s.
 // Chosen to read well: arena distances at 0.6 of the game's, the pace between shots, the enemies' spots and health, beam width.
 // One loop takes 18 s (was 12 s, which read too fast): the in-game motions keep their speed and the extra time is holds between beats
-// (chambers fill 0.5 s apart, 1.6 s between shots, "장전 완료" held 2 s). Off screen, on a hidden card, in a hidden tab or with reduced motion it stops (motion-loop.js); reduced motion shows three stills instead.
+// (chambers fill 0.5 s apart, 1.6 s between shots, "장전 완료" held 2 s). Off screen, in a hidden tab or with reduced motion it stops (motion-loop.js); reduced motion shows three stills instead.
 (() => {
   const root = document.querySelector('[data-bgb-loadout]');
   const screen = root && root.querySelector('canvas[data-bgb-screen]');
@@ -597,12 +597,9 @@
   };
 
   const motion = motionLoop.reduce;
-  const card = root.closest('.project');
   let view = fit(screen), clock = 0;
   const loop = motionLoop({
     target: screen,
-    // A card hidden behind another project tab doesn't play.
-    canPlay: () => !(card && card.closest('.ptabs.is-ready') && !card.classList.contains('is-current')),
     tick: dt => { clock += dt; if (clock >= LOOP) clock -= LOOP; draw(view, clock); setHud(clock); },
     onReduce: () => update(),
   });
@@ -612,7 +609,6 @@
     else { draw(view, clock); setHud(clock); loop.update(); }
   };
 
-  if (card) new MutationObserver(loop.update).observe(card, { attributes: true, attributeFilter: ['class'], });
   if (document.fonts && document.fonts.ready)
     document.fonts.ready.then(() => { if (motion.matches) stills(); else draw(view, clock); });
   let resizeTimer;

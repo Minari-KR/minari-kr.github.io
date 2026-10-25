@@ -1,8 +1,8 @@
-// Reflectory core play on the home card (2026-10-21 user request): the game's own look — paper grid, grey block walls,
+// Reflectory core play on the detail page (2026-10-21 user request): the game's own look — paper grid, grey block walls,
 // blue walls and balls, orange dashed path, red enemies — redrawn with canvas. The player drags four walls into a loop,
 // balls keep firing from the gap below and the loop carries them round, hitting the enemies on their lanes. The fire
 // interval (0.45 s), wall limit (5) and HP (12) are the game's values; speeds and enemy health are chosen to read well.
-// One loop takes 21 s. Off screen, on a hidden card, in a hidden tab or with reduced
+// One loop takes 21 s. Off screen, in a hidden tab or with reduced
 // motion it stops (motion-loop.js); reduced motion shows the three steps as still pictures instead.
 (() => {
   const root = document.querySelector('[data-reflectory-core]');
@@ -252,12 +252,9 @@
   };
 
   const motion = motionLoop.reduce;
-  const card = root.closest('.project');
   let view = fit(screen), state = fresh();
   const loop = motionLoop({
     target: screen,
-    // A card hidden behind another project tab doesn't play.
-    canPlay: () => !(card && card.closest('.ptabs.is-ready') && !card.classList.contains('is-current')),
     tick: dt => {
       for (let left = dt; left > 0; left -= 1 / 120) step(state, Math.min(1 / 120, left));
       if (state.time >= LOOP) state = fresh();
@@ -272,7 +269,6 @@
     else { draw(view.ctx, state, view.k); setHud(state); loop.update(); }
   };
 
-  if (card) new MutationObserver(loop.update).observe(card, { attributes: true, attributeFilter: ['class'] });
   let resizeTimer;
   window.addEventListener('resize', () => {
     window.clearTimeout(resizeTimer);

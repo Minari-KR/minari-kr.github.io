@@ -1,4 +1,4 @@
-// "AI 협업 방식" on the home page: a small LCD story (I ask, Claude Opus splits the job, four AIs work, Opus reviews, it ships).
+// "AI와 일하는 방식" on the home page: a small LCD story (I ask, Claude Opus splits the job, four AIs work, Opus reviews, it ships).
 // The markup ships in its still frame; this script plays the loop by setting one phase class (s1..s14) on the screen.
 // motion-loop.js stops it off screen and while the tab is hidden; with reduced motion only the still frame shows.
 (() => {

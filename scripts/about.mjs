@@ -41,6 +41,6 @@ function bannerGames(games, titles) {
 export function bannerSlidesHtml(games, titles = bannerTitles) {
   const list = bannerGames(games, titles);
   return list.map((game, i) => `            <div class="banner-slide" data-slide role="group" aria-roledescription="slide" aria-label="${i + 1} / ${list.length} ${escapeHtml(game.title)}">
-              <img class="banner-art" src="../${escapeHtml(game.image)}" width="352" height="336" alt="${escapeHtml(game.title)}"decoding="async">
+              <img class="banner-art" src="../${escapeHtml(game.image)}" width="352" height="336" alt="${escapeHtml(game.title)}" decoding="async">
             </div>`).join('\n');
 }

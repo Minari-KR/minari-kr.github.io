@@ -85,8 +85,8 @@
 .core-line { display: block; text-wrap: balance; }
 
 /* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card
-   (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, so the section keeps the tallest
-   card's height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
+   (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, and only the card shown takes up
+   space, so the section follows its height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
 .ptabs { --tab-speed: 24;  /* 조정값: 탭이 넘칠 때 탭 줄이 1초에 흐르는 거리(px) */ }
 /* The row keeps 8px of padding for the focus ring and the chosen picture's outline; equal negative margins keep it out of
    the section's rhythm (title → pictures --gap-actions, pictures → card --gap-actions, like every section). */

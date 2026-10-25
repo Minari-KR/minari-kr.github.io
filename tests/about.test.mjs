@@ -21,12 +21,12 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
   assert.deepEqual(hrefs, ['#main', '../']);
   // The only way out is a link at the very end of <main> that stays hidden until it gets keyboard focus.
-  assert.match(page, /<a class="skip-link about-exit" href="\.\.\/">포트폴리오로 이동<\/a>\s*<\/main>/);
+  assert.match(page, /<a class="skip-link about-exit" href="\.\.\/" data-scroll-exit="bottom">포트폴리오로 이동<\/a>\s*<\/main>/);
   assert.equal([...files.get('index.html').matchAll(/<a [^>]*href="about\/"[^>]*>/g)].filter(match => match[0].includes('data-scroll-exit="top"')).length, 1);
   assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/about.js']);
+  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/scroll-exit.js', '../assets/js/about.js']);
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
   assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);
@@ -107,9 +107,10 @@ test('about.js drives the carousel through motionLoop and uses no timers or fram
   assert.doesNotMatch(source, /innerHTML/);
 });
 
-test('about.js opens the portfolio on one more scroll at the bottom, and resets after the back/forward cache', () => {
+test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
-  for (const rule of ["addEventListener('wheel'", "addEventListener('touchstart'", "addEventListener('touchend'", "addEventListener('keydown'", "addEventListener('pageshow'", 'ARM_AFTER', "location.assign(home)", "'../index.html' : '../'", 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
+  assert.doesNotMatch(source, /ARM_AFTER|location\.assign|window\.addEventListener|'(wheel|pageshow)'/);
+  assert.match(page, /<a class="skip-link about-exit" href="\.\.\/" data-scroll-exit="bottom">/);
 });
 
 test('scroll-exit.js opens About Me on one more scroll at the top of the portfolio, with no timers or frame loop', () => {

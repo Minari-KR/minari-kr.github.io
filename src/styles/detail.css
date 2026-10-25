@@ -58,7 +58,6 @@
 .play-link { display: flex; align-items: center; justify-content: center; gap: .3em; min-height: 52px; margin-top: var(--gap-block); border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); text-decoration: none; }
 
 @media (max-width: 640px) {
-  .project-page { padding-top: var(--gap-block); }
   .augment-picks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .augment-pick-name { font-size: 14px; }
   .project-detail h1 { font-size: 1.875rem; }

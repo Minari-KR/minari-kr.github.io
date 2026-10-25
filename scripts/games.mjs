@@ -3,9 +3,8 @@ import { escapeHtml } from './content.mjs';
 const shells = new Set(['gray', 'yellow', 'purple', 'black']);
 const fields = ['platform', 'genre', 'hours', 'achievements', 'note'];
 
-// One cartridge button. `base` is the path prefix of assets/ seen from the page (./ for the home page, ../ for /about/); `label` ends the
-// reading name ("<title> <label>"); `attrs` adds extra attributes. Every value is escaped; games.js and about.js read the data-* attributes.
-export function gamePack(game, index, { base = './', label = '기록 보기', attrs = '' } = {}) {
+// One cartridge button for the home page (paths seen from index.html); its reading name is "<title> 기록 보기". Every value is escaped; games.js reads the data-* attributes.
+export function gamePack(game, index) {
   if (typeof game.title !== 'string' || !game.title.trim()) throw new Error(`게임팩 ${index + 1}번에 title 값이 필요합니다.`);
   if (!shells.has(game.shell)) throw new Error(`게임팩 색은 gray, yellow, purple, black 중 하나여야 합니다: ${game.title}`);
   for (const key of fields) {
@@ -15,9 +14,9 @@ export function gamePack(game, index, { base = './', label = '기록 보기', at
   const title = escapeHtml(game.title);
   const data = fields.map(key => ` data-${key}="${escapeHtml(game[key] ?? '')}"`).join('');
   const art = game.image
-    ? `<img class="pack-img" src="${base}${game.image}" width="352" height="336" alt="" loading="lazy" decoding="async">`
+    ? `<img class="pack-img" src="./${game.image}" width="352" height="336" alt="" loading="lazy" decoding="async">`
     : `<span class="pack-name">${title}</span>`;
-  return `<button class="pack" type="button" data-title="${title}"${data}${attrs} aria-label="${title} ${label}"><span class="pack-art">${art}</span><img class="pack-shell is-${game.shell}" src="${base}assets/images/packs/shell-${game.shell}.webp" width="440" height="540" alt="" loading="lazy" decoding="async"></button>`;
+  return `<button class="pack" type="button" data-title="${title}"${data} aria-label="${title} 기록 보기"><span class="pack-art">${art}</span><img class="pack-shell is-${game.shell}" src="./assets/images/packs/shell-${game.shell}.webp" width="440" height="540" alt="" loading="lazy" decoding="async"></button>`;
 }
 
 // Renders the home page's game packs ("게임 플레이 경험") from site-config.mjs `games`, dealt into two rows inside the game screen.
