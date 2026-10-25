@@ -21,6 +21,12 @@
 
 ## 기록
 
+### 2026-10-26 · About Me 게임 취향 아래 캐릭터 띠 (Claude, 코드 Sonnet, 그림 ComfyUI+Codex)
+
+- 요청: 게임 취향 섹션 맨 아래에 좋아하는 캐릭터 치비 9명을 본문 폭 띠로 추가(PC 한 줄, 휴대폰 두 줄).
+- 변경: `about.html`의 `.taste-grid` 뒤에 `<img>` 두 장(`character-strip.webp` 1440×302, `character-strip-mobile.webp` 1200×831, 같은 대체 글, `loading="lazy"`), `about.css`에 `.taste-strip` 규칙과 640px 이하 전환(`srcset`이 막혀 있어 CSS로 한 장만 보임), `tests/about.test.mjs`에 검사 1개, `AGENTS.md` About Me 항목 갱신. `validation.mjs`는 그대로.
+- 검증: `npm run build` 후 `npm run verify` 통과(테스트 65개, 실패 0, 마지막 `check` 검사 완료). 생성된 `about/index.html`·`dist/about/index.html`에 두 `<img>` 확인. 실제 화면(320~1280px)은 보지 못함.
+
 ### 2026-10-26 · About Me 맨 위 이름 줄을 가운데로 (Claude)
 
 - 요청: ‘About Me’ → 이름 줄 → 소개 문장의 위아래 간격이 달라 보임.

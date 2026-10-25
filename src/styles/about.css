@@ -31,6 +31,9 @@
 /* Script on: one slide at a time, the track slides by --i; without it the slides are a scrollable row. */
 .banner.is-live .banner-view { overflow: hidden; }
 .banner.is-live .banner-track { transform: translateX(calc(var(--i, 0) * -100%)); transition: transform .5s ease; }
+/* Character strip under the grid: two <img>s (the site forbids srcset), one row on PC and two rows on phones. */
+.taste-strip { display: block; width: 100%; height: auto; margin-top: var(--gap-actions); }
+.taste-strip-narrow { display: none; }
 
 /* Tools: a card collection (references: Raycast Store pill filter and logo tiles, StackShare group labels).
    A pill filter on top, a centred grid of logo cards below; the filter dims the cards that do not match. */
@@ -74,6 +77,8 @@
   .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
   .about-profile { width: 160px; height: 160px; }
   .taste-grid { grid-template-columns: minmax(0, 1fr); }
+  .taste-strip-wide { display: none; }
+  .taste-strip-narrow { display: block; }
   .inv-tabs { border-radius: 24px; }
   .inv-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .inventory.is-live .inv-groups { --cols: 3; gap: 12px; }

@@ -63,6 +63,23 @@ test('banner: 11 image-only slides in order with the carousel ARIA pattern', () 
   assert.throws(() => bannerSlidesHtml(games, ['없는 게임']), /없는 게임/);
 });
 
+test('character strip: two lazy imgs after the banner, swapped by CSS at 640px', () => {
+  const taste = page.slice(page.indexOf('id="taste"'), page.indexOf('id="tools"'));
+  const strips = tags.filter(({ tag, attributes }) => tag === 'img' && /\btaste-strip\b/.test(attributes.class));
+  assert.equal(strips.length, 2);
+  assert.ok(taste.indexOf('taste-strip') > taste.indexOf('banner-art'));
+  const [wide, narrow] = strips.map(({ attributes }) => attributes);
+  const src = attributes => attributes.src.replace(/\?v=[a-f0-9]{12}$/, '');
+  assert.deepEqual([src(wide), wide.width, wide.height], ['../assets/images/about/character-strip.webp', '1440', '302']);
+  assert.deepEqual([src(narrow), narrow.width, narrow.height], ['../assets/images/about/character-strip-mobile.webp', '1200', '831']);
+  assert.ok(wide.alt.length > 0 && wide.alt === narrow.alt);
+  assert.equal(wide.loading, 'lazy');
+  assert.equal(narrow.loading, 'lazy');
+  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
+  assert.match(css, /\.taste-strip-narrow \{ display: none; \}/);
+  assert.match(css, /@media \(max-width: 640px\) \{[^@]*\.taste-strip-wide \{ display: none; \}\s*\.taste-strip-narrow \{ display: block; \}/);
+});
+
 test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the accessible name, no detail panel', () => {
   const slots = tags.filter(({ attributes }) => 'data-slot' in attributes);
   assert.equal(slots.length, 13);
