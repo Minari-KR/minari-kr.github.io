@@ -1,8 +1,6 @@
 /* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles) and games.css (cartridges). */
 
-/* Header: Minari eyebrow, name, role, statement. Headings stay centred like the home page, running text reads left-aligned. */
-/* Labels never drop under 16px, though --text-meta is 14px on phones. */
-.about-handle { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
+/* Header: title, role, statement. Headings stay centred like the home page, running text reads left-aligned. */
 .about-intro .intro-role { margin-top: 12px; font-size: var(--text-lead); }
 /* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, LCD, tools, AI) --gap-actions apart. */
 .about-flow, .about-stack, .tool-groups { display: grid; text-align: left; }
@@ -28,6 +26,7 @@
 /* Tools: one row per group (label column + chips); the logo (32px tall) appears only when its file exists. */
 .tool-groups { gap: 16px; }
 .tool-group { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--gap-group); }
+/* Labels never drop under 16px, though --text-meta is 14px on phones. */
 .tool-label { display: flex; align-items: center; min-height: 44px; margin: 0; color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
 .tool-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .tool-chip { display: inline-flex; align-items: center; gap: var(--gap-group); min-height: 44px; padding: var(--gap-tight) 16px; border: 1px solid rgba(32, 33, 31, .28); border-radius: 8px; background: #fff; color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }

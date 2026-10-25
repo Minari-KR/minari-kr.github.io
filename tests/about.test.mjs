@@ -15,7 +15,7 @@ const tags = readHtmlTags(page);
 test('about page is standalone: one h1, sections in order, no way back to the portfolio, one script', () => {
   assert.ok(publicFiles.has('about/index.html'));
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
-  assert.match(page, /<p class="about-handle" translate="no">Minari<\/p>\s*<h1 id="intro-title" tabindex="-1">About Me<\/h1>\s*<p class="intro-role">박종찬 /);
+  assert.match(page, /<header class="intro about-intro" id="intro">\s*<h1 id="intro-title" tabindex="-1">About Me<\/h1>\s*<p class="intro-role">박종찬 /);
   const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
