@@ -21,6 +21,10 @@
 
 ## 기록
 
+### 2026-10-25 · About Me Blender 로고 교체 (Claude)
+
+- 요청: Blender 로고 변경(사용자가 준 256×256 투명 PNG). 변경: `tools/blender.png`를 그 그림으로(64×64 안 56×47, 가운데). 검증: build·verify 통과.
+
 ### 2026-10-25 · About Me 끝 전환: 내 PC에서 파일로 열 때도 홈으로 (Claude)
 
 - 문제: `about/index.html`을 파일(`file://`)로 열고 끝에서 넘어가면 `../`가 폴더 목록을 보여 줌(서버가 없어 index.html로 안 바뀜). 공개 사이트는 정상.
