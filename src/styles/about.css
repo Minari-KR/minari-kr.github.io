@@ -5,8 +5,6 @@
 .about-intro h1 { display: grid; justify-items: center; gap: 12px; }
 .about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
 /* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
-/* Sections sit closer than on the home page so that text → rule, rule → title and title → content read as one even step (about 40px on PC, 30px on phones). */
-.page { --section-gap: 32px; }
 /* The keyboard way out: the skip-link look (hidden above the screen until focused), fixed so it appears in view from the page end. */
 .about-exit { position: fixed; }
 .about-flow, .about-stack { display: grid; text-align: left; }
@@ -70,7 +68,6 @@
 }
 
 @media (max-width: 640px) {
-  .page { --section-gap: 24px; }
   .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
   .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
   .about-profile { width: 160px; height: 160px; }
