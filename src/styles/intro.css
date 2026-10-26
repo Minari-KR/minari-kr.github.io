@@ -1,7 +1,6 @@
-/* First-visit intro layer (src/scripts/intro.js). Hidden until the script shows it. */
-.intro-layer { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: #000; }
-.intro-card { grid-area: 1 / 1; width: 240px; height: auto; aspect-ratio: 352 / 336; border-radius: 8px; object-fit: cover; will-change: transform; }
-.intro-skip { position: absolute; right: 16px; bottom: 16px; min-width: 44px; min-height: 44px; padding: 8px 16px; border: 0; border-radius: 999px; background: rgba(0, 0, 0, .55); color: #fff; font: inherit; font-size: var(--text-small); font-weight: 800; line-height: 1.5; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5); }
-.intro-skip:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+/* First-visit intro layer (src/scripts/intro.js): glass over the real page. Hidden until the script shows it. */
+.intro-layer { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: rgba(255, 255, 255, .2); -webkit-backdrop-filter: blur(24px) saturate(1.4); backdrop-filter: blur(24px) saturate(1.4); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .intro-layer { background: rgba(236, 238, 234, .92); } }
+.intro-card { grid-area: 1 / 1; width: 240px; height: auto; aspect-ratio: 352 / 336; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 30px rgba(0, 0, 0, .1); will-change: transform; }
 .intro-layer.is-waiting .intro-card { visibility: hidden; }
 @media (max-width: 640px) { .intro-card { width: 160px; } }

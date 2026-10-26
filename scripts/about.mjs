@@ -45,9 +45,9 @@ export function bannerSlidesHtml(games, titles = bannerTitles) {
             </div>`).join('\n');
 }
 
-// First-visit intro layer: the same games as the banner, hidden until src/scripts/intro.js shows it. The layer is not
-// aria-hidden because the skip button lives inside it; the cards have empty alt text, so screen readers pass over them.
-export function introHtml(games, titles = bannerTitles) {
-  const cards = bannerGames(games, titles).map(game => `    <img class="intro-card" src="./${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
-  return `<div class="intro-layer" data-intro hidden>\n${cards}\n    <button type="button" class="intro-skip" data-intro-skip>건너뛰기</button>\n  </div>\n`;
+// First-visit intro layer: the same games as the banner, hidden until src/scripts/intro.js shows it. `base` is the path
+// to the site root ('.' on home, '..' on About Me). The cards have empty alt text, so screen readers pass over them.
+export function introHtml(games, base = '.', titles = bannerTitles) {
+  const cards = bannerGames(games, titles).map(game => `    <img class="intro-card" src="${base}/${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
+  return `<div class="intro-layer" data-intro hidden>\n${cards}\n  </div>\n`;
 }

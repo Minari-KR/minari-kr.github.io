@@ -88,22 +88,31 @@ test('the home page ends projects -> games and no longer has the AI collaboratio
   assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js'));
 });
 
-test('the home page has a first-visit intro layer of the About banner games, driven by a timer-free script', () => {
-  const built = compileSite(root).files.get('index.html');
-  const layer = built.match(/<div class="intro-layer" data-intro hidden>[\s\S]*?<\/div>/)[0];
-  const cards = [...layer.matchAll(/<img class="intro-card" src="\.\/(assets\/images\/games\/[^"]+)" width="352" height="336" alt="" decoding="async">/g)].map(match => match[1]);
-  const wanted = bannerTitles.map(title => games.find(game => game.title === title).image);
-  assert.deepEqual(cards, wanted);
-  assert.equal(cards.length, 11);
-  assert.match(layer, /<button type="button" class="intro-skip" data-intro-skip>건너뛰기<\/button>/);
-  assert.doesNotMatch(layer, /aria-hidden/);
-  assert.ok(built.indexOf('data-scroll-exit="top"') < built.indexOf('data-intro hidden') && built.indexOf('data-intro hidden') < built.indexOf('<main'));
-  assert.ok(built.indexOf('assets/js/motion-loop.js') < built.indexOf('assets/js/intro.js') && built.indexOf('assets/js/intro.js') < built.indexOf('assets/js/scroll-exit.js'));
-  assert.ok(built.indexOf('assets/css/games.css') < built.indexOf('assets/css/intro.css') && built.indexOf('assets/css/intro.css') < built.indexOf('assets/css/page-transitions.css'));
+test('home and About Me have a first-visit glass intro layer of the About banner games, driven by a timer-free script', () => {
   const files = compileSite(root).files;
-  for (const name of ['about/index.html', 'projects/reflectory.html', 'projects/barrel-good-barrel.html']) assert.doesNotMatch(files.get(name), /data-intro|intro.(js|css)/, name);
+  const wanted = bannerTitles.map(title => games.find(game => game.title === title).image);
+  for (const [name, base] of [['index.html', '\.'], ['about/index.html', '\.\.']]) {
+    const page = files.get(name);
+    const layer = page.match(/<div class="intro-layer" data-intro hidden>[\s\S]*?<\/div>/)[0];
+    const cards = [...layer.matchAll(new RegExp(`<img class="intro-card" src="${base}/(assets/images/games/[^"]+)" width="352" height="336" alt="" decoding="async">`, 'g'))].map(match => match[1]);
+    assert.deepEqual(cards, wanted, name);
+    assert.equal(cards.length, 11);
+    assert.doesNotMatch(layer, /<button|skip|aria-hidden/);
+    assert.ok(page.indexOf('data-intro hidden') < page.indexOf('<main'), name);
+    assert.ok(page.indexOf('assets/js/motion-loop.js') < page.indexOf('assets/js/intro.js') && page.indexOf('assets/js/intro.js') < page.indexOf('assets/js/scroll-exit.js'), name);
+    assert.ok(page.indexOf('assets/css/intro.css') < page.indexOf('assets/css/page-transitions.css'), name);
+  }
+  const home = files.get('index.html'), about = files.get('about/index.html');
+  assert.ok(home.indexOf('data-scroll-exit="top"') < home.indexOf('data-intro hidden'));
+  assert.ok(home.indexOf('assets/css/games.css') < home.indexOf('assets/css/intro.css'));
+  assert.ok(about.indexOf('assets/css/about.css') < about.indexOf('assets/css/intro.css'));
+  for (const name of ['projects/reflectory.html', 'projects/barrel-good-barrel.html']) assert.doesNotMatch(files.get(name), /data-intro|intro.(js|css)/, name);
+  const css = fs.readFileSync(path.join(root, 'src/styles/intro.css'), 'utf8');
+  assert.match(css, /backdrop-filter: blur\(24px\) saturate\(1\.4\)/);
+  assert.match(css, /@supports not \(\(backdrop-filter/);
+  assert.doesNotMatch(css, /skip/);
   const source = fs.readFileSync(path.join(root, 'src/scripts/intro.js'), 'utf8');
-  for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'stopImmediatePropagation', 'is-waiting']) assert.ok(source.includes(part), part);
+  for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'stopImmediatePropagation', 'is-waiting', "'intro-seen'"]) assert.ok(source.includes(part), part);
   assert.match(source, /try {[^}]*sessionStorage/);
-  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
+  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval|intro-skip/);
 });

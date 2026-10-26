@@ -26,7 +26,7 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/scroll-exit.js', '../assets/js/about.js']);
+  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/about.js']);
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
   assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);

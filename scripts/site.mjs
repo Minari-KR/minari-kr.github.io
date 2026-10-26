@@ -37,7 +37,8 @@ export function compileSite(root) {
     page_description: escapeHtml(aboutDescription),
     social: socialMeta({ title: aboutTitle, description: aboutDescription, page: 'about/' }),
     tool_groups: toolGroupsHtml(toolGroups, logoExists(root)),
-    banner_slides: bannerSlidesHtml(games)
+    banner_slides: bannerSlidesHtml(games),
+    intro: introHtml(games, '..')
   }));
   // Only a project with `detail` gets a page: the shared frame plus that project's own body.
   const pages = projects.filter(project => project.detail);
