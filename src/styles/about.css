@@ -27,7 +27,9 @@
 .spiral.is-live { position: relative; display: block; overflow: hidden; perspective: 1000px; perspective-origin: 50% 50%; }
 .spiral.is-live .spiral-stage { display: block; position: absolute; inset: 0; transform-style: preserve-3d; }
 /* Never add the layer-promotion hint here. --card (set by about.js) is the LARGEST size a card is shown at (about 121px); the transform only scales down, so the art stays sharp. */
-.spiral.is-live .spiral-card { position: absolute; left: 50%; top: 50%; width: var(--card, 121px); height: var(--card, 121px); margin: calc(var(--card, 121px) / -2) 0 0 calc(var(--card, 121px) / -2); }
+.spiral.is-live .spiral-card { position: absolute; left: 50%; top: 50%; width: var(--card, 121px); height: var(--card, 121px); margin: calc(var(--card, 121px) / -2) 0 0 calc(var(--card, 121px) / -2);
+  /* Left and right edges fade out, so where a tilted card slips behind its neighbour the cut-off edge dissolves instead of ending in a hard line. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 /* Character strip under the grid: two <img>s (the site forbids srcset), one row on PC and two rows on phones. */
 .taste-strip { display: block; width: 100%; height: auto; margin-top: var(--gap-actions); }
 .taste-strip-narrow { display: none; }
