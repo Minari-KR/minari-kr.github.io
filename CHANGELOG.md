@@ -14,6 +14,12 @@
 
 ## 기록
 
+### 2026-10-26 · About Me 게임 배너를 무한 나선으로 (Claude, 코드 Sonnet)
+
+- **요청:** About Me ‘게임 취향’의 자동 넘김 배너를, 같은 게임 11장이 나선을 따라 끝없이 올라가는 ‘무한 나선’으로 바꾸기(레퍼런스 React Bits ‘Infinite Spiral’의 값과 기법만 참고).
+- **변경:** `scripts/about.mjs`의 `bannerSlidesHtml`을 `spiralHtml`로(틀 `{{spiral}}`), `src/scripts/about.js`의 배너 코드를 `motionLoop` 기반 나선으로, `src/styles/about.css`는 오른쪽 열 300px·상자 없음·640px 이하 360px. 마우스 올리면 부드럽게 멈춤, 동작 줄이기는 정지 장면. `tests/about.test.mjs`와 `AGENTS.md` 갱신.
+- **검증:** `npm run build`, `npm run verify` 통과(67개). 가장 크게 보이는 카드·열 안 폭은 수식으로 확인(최대 폭 약 143px ≤ 150px). 브라우저 눈 확인과 실제 휴대폰은 하지 않음.
+
 ### 2026-10-26 · 인트로를 유리 바탕·바둑판 정렬 뒤 퍼지기로, About Me에도 (Claude, 코드 Sonnet)
 
 - **요청:** 첫 진입 인트로를 검은 바탕 대신 유리 바탕으로 바꾸고, 카드가 쌓인 뒤 바둑판으로 정렬했다가 바깥으로 퍼지게, About Me에서도 나오게.

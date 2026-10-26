@@ -1,63 +1,69 @@
-// /about/ page: the game banner and the tool inventory filter. Without this file the page still shows every image and slot.
-// The banner's auto-advance clock runs inside window.motionLoop (motion-loop.js), which also stops it off-screen, in a hidden tab and under reduced motion.
+// /about/ page: the game spiral and the tool inventory filter. Without this file the page still shows every image and slot.
+// The spiral's clock runs inside window.motionLoop (motion-loop.js), which also stops it off-screen, in a hidden tab and under reduced motion.
 (() => {
-  const banner = document.querySelector('[data-banner]');
-  if (banner) {
-    const view = banner.querySelector('[data-view]');
-    const track = banner.querySelector('[data-track]');
-    const slides = [...banner.querySelectorAll('[data-slide]')];
-    const every = 3.5;
-    let index = 0;
-    let clock = 0;
+  const spiral = document.querySelector('[data-spiral]');
+  if (spiral) {
+    // Each card is a point on a helix, projected by hand to a 2D matrix every frame (no WebGL). Values follow React Bits 'Infinite Spiral'.
+    const cards = [...spiral.querySelectorAll('.spiral-card')];
+    const perTurn = 7;
+    const speed = 0.55; // cards per second, travelling up
+    const perspective = 1000;
+    const centerScale = 1.2;
+    const edgeFade = 0.3;
+    const edgeBlur = 6;
+    let offset = 0;
+    let pace = 1; // 1 = full speed, eased to 0 while a mouse hovers
     let hover = false;
-    let inside = false;
+    const count = cards.length; // the 11 games; a card that leaves at the top comes back at the bottom
+    let w = 0;
+    let h = 0;
     let loop;
 
-    const show = to => {
-      index = (to + slides.length) % slides.length;
-      clock = 0;
-      track.style.setProperty('--i', index);
-      slides.forEach((slide, i) => {
-        slide.inert = i !== index;
-        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+    const draw = () => {
+      const k = Math.min(1, w / 300); // 300px is the PC column; phones use the same helix, scaled down only if narrower
+      const radius = 90 * k;
+      const spacing = Math.max(56 * k, h / (count - 2)); // tall columns spread the cards so the stream still fills the height
+      const half = h / 2;
+      cards.forEach((card, i) => {
+        // Slot i of a stream of count cards, wrapped so the stream never ends.
+        const p = ((((i - offset + count / 2) % count) + count) % count) - count / 2;
+        const angle = (2 * Math.PI * p) / perTurn;
+        const z = radius * Math.cos(angle);
+        const y = p * spacing;
+        const c = Math.max(0, 1 - Math.abs(y) / half);
+        const s = (perspective / (perspective - z)) * (1 + (centerScale - 1) * c * c * (3 - 2 * c));
+        const edge = Math.min(1, Math.max(0, (Math.abs(y) / half - (1 - edgeFade)) / edgeFade));
+        const px = Math.round(radius * Math.sin(angle) * (perspective / (perspective - z)) * 100) / 100;
+        card.style.visibility = edge >= 1 ? 'hidden' : 'visible';
+        card.style.transform = `matrix(${s}, 0, 0, ${s}, ${px}, ${y * (perspective / (perspective - z))})`;
+        card.style.zIndex = Math.round(z + radius);
+        card.style.opacity = 1 - edge;
+        card.style.filter = edge > 0 ? `blur(${(edgeBlur * edge).toFixed(2)}px)` : 'none';
       });
     };
+    const size = () => {
+      w = spiral.clientWidth;
+      h = spiral.clientHeight;
+      spiral.style.setProperty('--card', `${Math.round(92 * Math.min(1, w / 300))}px`);
+      draw();
+    };
 
-    banner.classList.add('is-live');
-    show(0);
+    spiral.classList.add('is-live');
+    size();
+    new ResizeObserver(size).observe(spiral);
 
-    banner.addEventListener('keydown', event => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-      event.preventDefault();
-      show(index + (event.key === 'ArrowRight' ? 1 : -1));
-    });
-
-    // Swipe: a mostly horizontal move of 40px or more.
-    let start = null;
-    view.addEventListener('touchstart', event => { start = event.touches[0]; }, { passive: true });
-    view.addEventListener('touchend', event => {
-      if (!start) return;
-      const end = event.changedTouches[0];
-      const dx = end.clientX - start.clientX;
-      const dy = end.clientY - start.clientY;
-      start = null;
-      if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show(index + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-
-    // Paused while a mouse is over the banner or focus is inside it (a tap on a phone must not pause it for good).
-    const sync = () => loop.update();
-    banner.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hover = true; sync(); } });
-    banner.addEventListener('pointerleave', () => { hover = false; sync(); });
-    banner.addEventListener('focusin', () => { inside = true; sync(); });
-    banner.addEventListener('focusout', event => { inside = banner.contains(event.relatedTarget); sync(); });
+    // Mouse only: a tap on a phone must not pause it for good. The speed eases to 0 and back instead of stopping at once.
+    spiral.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hover = true; });
+    spiral.addEventListener('pointerleave', () => { hover = false; loop.update(); });
 
     loop = window.motionLoop({
-      target: banner,
-      threshold: 0.1,
-      canPlay: () => !hover && !inside,
+      target: spiral,
+      canPlay: () => !hover || pace > 0.001,
+      onReduce: draw,
       tick: dt => {
-        clock += dt;
-        if (clock >= every) show(index + 1);
+        pace += ((hover ? 0 : 1) - pace) * (1 - Math.exp(-dt / 0.1));
+        offset += speed * pace * dt;
+        draw();
       },
     });
   }

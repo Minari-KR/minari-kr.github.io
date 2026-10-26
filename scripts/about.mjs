@@ -38,11 +38,11 @@ export function bannerGames(games, titles) {
   });
 }
 
-export function bannerSlidesHtml(games, titles = bannerTitles) {
+// Infinite spiral: the games as cards on a helix (src/scripts/about.js). Screen readers get the 11 titles once; the cards have empty alt text.
+export function spiralHtml(games, titles = bannerTitles) {
   const list = bannerGames(games, titles);
-  return list.map((game, i) => `            <div class="banner-slide" data-slide role="group" aria-roledescription="slide" aria-label="${i + 1} / ${list.length} ${escapeHtml(game.title)}">
-              <img class="banner-art" src="../${escapeHtml(game.image)}" width="352" height="336" alt="${escapeHtml(game.title)}" decoding="async">
-            </div>`).join('\n');
+  const cards = list.map(game => `          <img class="spiral-card" src="../${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
+  return `        <div class="spiral" data-spiral role="img" aria-label="서브컬처 게임 ${list.length}개: ${escapeHtml(list.map(game => game.title).join(', '))}">\n${cards}\n        </div>`;
 }
 
 // First-visit intro layer: the same games as the banner, hidden until src/scripts/intro.js shows it. `base` is the path
