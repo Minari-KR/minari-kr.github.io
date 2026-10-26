@@ -9,7 +9,7 @@ import { root, cssRule } from './fixture.mjs';
 const template = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
 const homeStyles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
 const detailStyles = fs.readFileSync(new URL('../src/styles/detail.css', import.meta.url), 'utf8');
-const scripts = ['games.js', 'project-tabs.js'].map(name => fs.readFileSync(new URL(`../src/scripts/${name}`, import.meta.url), 'utf8')).join('\n');
+const scripts = ['games.js', 'project-tabs.js', 'awards.js'].map(name => fs.readFileSync(new URL(`../src/scripts/${name}`, import.meta.url), 'utf8')).join('\n');
 
 test('intro has no contact buttons or clipboard code', () => {
   assert.doesNotMatch(template, /mailto:|minari-kr\.itch\.io\/"|intro-actions|email-copy|copy-status|email-actions/);
@@ -25,13 +25,32 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
-  // Awards are four identical LCD cards with a pixel game item (CC0, assets/images/awards) and the year.
+  // Awards are four hanging badges (band, clip, flip button, LCD front with a pixel item and the year, aria-hidden back).
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
+  assert.equal((template.match(/<button class="award-flip" type="button" disabled>/g) || []).length, 4);
+  assert.equal((template.match(/<span class="award-face award-back" aria-hidden="true">/g) || []).length, 4);
+  for (const decoration of ['award-band', 'award-clip']) assert.equal((template.match(new RegExp(`class="${decoration}" aria-hidden="true"`, 'g')) || []).length, 4, decoration);
+  // Names and events stay readable text; the two single long words may break only at the <wbr>.
+  for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
   for (const icon of ['book', 'trophy', 'crown', 'gem']) {
     assert.ok(template.includes(`src="./assets/images/awards/award-${icon}.png" width="48" height="48" alt="" aria-hidden="true"`), icon);
+    assert.ok(template.includes(`src="./assets/images/awards/award-${icon}.png" width="96" height="96" alt="" aria-hidden="true"`), icon);
     assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/award-${icon}.png`, import.meta.url)), icon);
   }
+  // Text never truncates, keeps Korean words whole and stays at the phone minimums (name 16px, event 14px).
+  assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /text-overflow|line-clamp|ellipsis/);
+  assert.equal(cssRule(homeStyles, '.award-name', '*').get('word-break'), 'keep-all');
+  assert.equal(cssRule(homeStyles, '.award-event', '*').get('word-break'), 'keep-all');
+  const phone = homeStyles.slice(homeStyles.indexOf('@media (max-width: 640px)'));
+  assert.match(phone, /\.award-name \{ font-size: 1rem; \}/);
+  assert.match(phone, /\.award-event \{ font-size: \.875rem; \}/);
+  // Band, clip and back belong to the script (.is-live); without it the badges are plain cards.
+  assert.equal(cssRule(homeStyles, '.award-band', '*').get('display'), 'none');
+  assert.match(homeStyles, /\.is-live \.is-flipped \.award-flipper \{ transform: rotateY\(180deg\); \}/);
+  assert.ok(cssRule(homeStyles, '.award-face', '*').get('backface-visibility') === 'hidden');
+  assert.match(homeStyles, /\.is-live \.award-flip:focus-visible \{ outline: 2px solid/);
+  assert.match(homeStyles, /\.award-list\.is-live \{[^}]*overflow: clip/);
   assert.doesNotMatch(template, /role-list/);
   assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
 });
@@ -124,4 +143,15 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   assert.ok(source.includes("for (const card of all) card.style.opacity = '0';") && source.includes("layer.style.opacity = '0';"));
   assert.match(css, /\.intro-layer\.is-lite \{[^}]*rgba\(236, 238, 234, \.92\)[^}]*backdrop-filter: none/);
   assert.match(css, /\.intro-layer\.is-lite \.intro-card \{ box-shadow: none; \}/);
+});
+
+test('awards script loads after project-tabs, uses the shared loop and has a reduced-motion path', () => {
+  const tags = [...template.matchAll(/<script src="\.\/assets\/js\/([a-z-]+)\.js" defer>/g)].map(match => match[1]);
+  assert.equal(tags.indexOf('awards'), tags.indexOf('project-tabs') + 1);
+  const script = fs.readFileSync(new URL('../src/scripts/awards.js', import.meta.url), 'utf8');
+  assert.match(script, /motionLoop\(/);
+  assert.doesNotMatch(script, /requestAnimationFrame|IntersectionObserver|setTimeout|setInterval|matchMedia/);
+  assert.match(script, /reduce\.matches/);
+  assert.match(script, /onReduce/);
+  assert.match(homeStyles, /@media \(prefers-reduced-motion: no-preference\) \{\s*\.award-flipper \{ transition/);
 });

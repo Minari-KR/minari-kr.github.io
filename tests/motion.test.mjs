@@ -44,7 +44,7 @@ test('every animation runs through the shared motion loop, which the pages load 
   for (const rule of ['prefers-reduced-motion: reduce', 'IntersectionObserver', 'document.hidden', 'visibilitychange']) assert.ok(loop.includes(rule), rule);
   const { files } = compileSite(root);
   const pages = {
-    'index.html': ['./assets/js/', ['games', 'project-tabs'], ['intro', 'scroll-exit', 'text-loop', 'flow-row']],
+    'index.html': ['./assets/js/', ['games', 'project-tabs', 'awards'], ['intro', 'scroll-exit', 'text-loop', 'flow-row']],
     'about/index.html': ['../assets/js/', ['about'], ['intro', 'scroll-exit', 'text-loop']], // text-loop (home and About Me) only draws in once, so it is a helper, not a motionLoop script
     'projects/reflectory.html': ['../assets/js/', ['reflectory-core', 'reflectory-augments', 'reflectory-systems'], ['canvas-kit']],
     'projects/barrel-good-barrel.html': ['../assets/js/', ['bgb-loadout', 'bgb-systems'], ['canvas-kit']],
