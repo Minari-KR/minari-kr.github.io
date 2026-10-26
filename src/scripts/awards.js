@@ -64,6 +64,8 @@
     const d = Math.hypot(b.x, b.y) || 1e-6;
     b.swing.style.transform = `translate(${b.x.toFixed(1)}px, ${(b.y - L).toFixed(1)}px) rotate(${b.th.toFixed(3)}rad)`;
     b.band.style.transform = `rotate(${(-Math.atan2(b.x, b.y)).toFixed(3)}rad) scaleY(${(d / L).toFixed(3)})`;
+    // The gloss slides across the card as it turns (home.css .award-face::before).
+    b.swing.style.setProperty('--sheen', `${(-b.th * 160).toFixed(1)}px`);
   };
   // Hang still and straight (reduced motion, or back to it): drop the inline transforms so the CSS rest position shows.
   const settle = () =>
@@ -72,6 +74,7 @@
       b.on = true;
       b.li.classList.add('is-hung');
       b.swing.style.transform = b.band.style.transform = '';
+      b.swing.style.removeProperty('--sheen');
     });
 
   const sim = (b, h, t) => {
