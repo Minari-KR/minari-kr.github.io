@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
 import { toolGroups, toolGroupsHtml, bannerTitles, spiralHtml } from '../scripts/about.mjs';
@@ -188,6 +189,7 @@ test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, 
   assert.match(source, /COUNT = 5, OUT = 80, STEP = 0\.25/);
   assert.match(source, /Math\.random\(\)/);
   assert.match(source, /36 \+ rnd\(\) \* 12/);
+  assert.match(source, /translate\(1\.5 2\.5\)/); // narrow shadow
   assert.equal((source.match(/el\(container, 'svg'/g) || []).length, 1); // one full-viewport svg holding all ribbons
   assert.doesNotMatch(source, /feGaussianBlur|filter=|mask-image/);
   assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia|innerHTML/);
@@ -197,4 +199,37 @@ test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, 
   assert.doesNotMatch(loopCss, /mask-image|gradient|blur/);
   assert.match(css, /\.tl-a \{ stroke: var\(--accent-soft\); \}/);
   assert.match(css, /\.tl-text \{ fill: var\(--accent-deep\)/);
+});
+
+test('Text Loop layout: ribbons never come closer than (thickA + thickB) / 2 + 24px where visible, and every side has one ribbon per slot', () => {
+  const source = fs.readFileSync(path.join(root, 'src/scripts/text-loop.js'), 'utf8');
+  const sandbox = { module: { exports: {} } };
+  vm.runInNewContext(source, sandbox); // no document there, so the script only exports its pure layout
+  const { layoutRibbons, bez, GAP } = sandbox.module.exports;
+  const stats = [];
+  for (const [W, H] of [[1920, 1000], [1440, 860], [1280, 800]]) {
+    const box = { left: (W - 816) / 2, right: (W + 816) / 2, top: 40, bottom: H * 3 }; // main.page: 816px wide, taller than the screen
+    for (let seed = 1; seed <= 20; seed++) {
+      const ribbons = layoutRibbons(W, H, box, seed * 7919);
+      assert.equal(ribbons.length, 5, `${W}x${H} seed ${seed}`);
+      const lines = ribbons.map(r => bez(r.pts, 1200).filter(([x, y]) => x >= 0 && x <= W && y >= 0 && y <= H && !(x >= box.left && x <= box.right && y >= box.top && y <= box.bottom)));
+      for (let a = 0; a < 5; a++) for (let b = a + 1; b < 5; b++) {
+        let min = Infinity;
+        for (const p of lines[a]) for (const q of lines[b]) min = Math.min(min, Math.hypot(p[0] - q[0], p[1] - q[1]));
+        const need = (ribbons[a].thick + ribbons[b].thick) / 2 + GAP;
+        assert.ok(min >= need, `${W}x${H} seed ${seed}: ribbons ${a}/${b} ${min.toFixed(1)} < ${need}`);
+        stats.push(min - need);
+      }
+      ribbons.forEach((r, i) => {
+        assert.ok(r.thick >= 36 && r.thick <= 48 && r.size >= 16 && r.size <= 20);
+        for (const [side, from, to] of [['left', 0, box.left], ['right', box.right, W]]) {
+          const slot = lines[i].filter(([x, y]) => x >= from && x <= to && Math.floor(y / (H / 5)) === i);
+          assert.ok(slot.length > 20, `${W}x${H} seed ${seed}: ribbon ${i} misses its ${side} slot`);
+        }
+      });
+    }
+  }
+  assert.ok(Math.min(...stats) >= 0);
+  const short = layoutRibbons(1400, 300, { left: 292, right: 1108, top: 40, bottom: 900 }, 5); // 300px < 5 * 72: fewer ribbons, still no overlap
+  assert.ok(short.length >= 1 && short.length < 5);
 });
