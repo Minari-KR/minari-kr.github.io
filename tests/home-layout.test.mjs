@@ -25,17 +25,17 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
-  // Awards are four hanging badges (band, clip, flip button, LCD front with a pixel item and the year, aria-hidden back).
+  // Awards are four plain tilt cards: icon, name, event, year tag and a decorative glare; no button, band, clip or back face.
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
-  assert.equal((template.match(/<button class="award-flip" type="button" disabled>/g) || []).length, 4);
-  assert.equal((template.match(/<span class="award-face award-back" aria-hidden="true">/g) || []).length, 4);
-  for (const decoration of ['award-band', 'award-clip']) assert.equal((template.match(new RegExp(`class="${decoration}" aria-hidden="true"`, 'g')) || []).length, 4, decoration);
+  assert.equal((template.match(/<span class="award-glare" aria-hidden="true"><\/span>/g) || []).length, 4);
+  assert.equal((template.match(/<span class="award-year">(2026|2025|2025|2020)<\/span>/g) || []).length, 4);
+  assert.equal((template.match(/<span class="award-event">/g) || []).length, 4);
+  assert.doesNotMatch(template, /award-flip|award-band|award-clip|award-back|award-swing|award-face/);
   // Names and events stay readable text; the two single long words may break only at the <wbr>.
   for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
   for (const icon of ['book', 'trophy', 'crown', 'gem']) {
     assert.ok(template.includes(`src="./assets/icons/award-${icon}.svg" width="40" height="40" alt="" aria-hidden="true"`), icon);
-    assert.ok(template.includes(`src="./assets/icons/award-${icon}.svg" width="80" height="80" alt="" aria-hidden="true"`), icon);
     assert.ok(fs.existsSync(new URL(`../public/assets/icons/award-${icon}.svg`, import.meta.url)), icon);
   }
   // Text never truncates, keeps Korean words whole and stays at the phone minimums (name 16px, event 14px).
@@ -45,12 +45,16 @@ test('intro, awards and projects follow the single-column order with the approve
   const phone = homeStyles.slice(homeStyles.indexOf('@media (max-width: 640px)'));
   assert.match(phone, /\.award-name \{ font-size: 1rem; \}/);
   assert.match(phone, /\.award-event \{ font-size: \.875rem; \}/);
-  // Band, clip and back belong to the script (.is-live); without it the badges are plain cards.
-  assert.equal(cssRule(homeStyles, '.award-band', '*').get('display'), 'none');
-  assert.match(homeStyles, /\.is-live \.is-flipped \.award-flipper \{ transform: rotateY\(180deg\); \}/);
-  assert.ok(cssRule(homeStyles, '.award-face', '*').get('backface-visibility') === 'hidden');
-  assert.match(homeStyles, /\.is-live \.award-flip:focus-visible \{ outline: 2px solid/);
-  assert.match(homeStyles, /\.award-list\.is-live \{[^}]*overflow: clip/);
+  // Two columns where a card keeps 296px, one column on phones; cards share a row height and the awards CSS has no lanyard left.
+  assert.match(homeStyles, /\.award-list \{ display: grid; grid-template-columns: repeat\(auto-fit, minmax\(min\(100%, 296px\), 1fr\)\)/);
+  assert.match(homeStyles, /\.award-list \{[^}]*grid-auto-rows: 1fr;/);
+  assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 12px; \}/);
+  assert.match(phone, /\.award-card \{ padding: 16px; \}/);
+  assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|--bleed|--sheen|backface-visibility/);
+  // Before the rise-in the cards are only transparent (Tab still reaches them), and the glare shows on hover-capable pointers only.
+  assert.match(homeStyles, /\.award-list\.is-live \.award-card:not\(\.is-in\) \{ opacity: 0; \}/);
+  assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /visibility/);
+  assert.match(homeStyles, /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.award-glare \{ display: block; \}/);
   assert.doesNotMatch(template, /role-list/);
   assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
 });
@@ -153,5 +157,9 @@ test('awards script loads after project-tabs, uses the shared loop and has a red
   assert.doesNotMatch(script, /requestAnimationFrame|IntersectionObserver|setTimeout|setInterval|matchMedia/);
   assert.match(script, /reduce\.matches/);
   assert.match(script, /onReduce/);
-  assert.match(homeStyles, /@media \(prefers-reduced-motion: no-preference\) \{\s*\.award-flipper \{ transition/);
+  assert.match(script, /pointerType !== 'mouse'/);
+  assert.match(script, /\[data-intro\]/);
+  assert.match(script, /MAX_TILT = 8/);
+  assert.match(script, /PERSPECTIVE = 800/);
+  assert.doesNotMatch(script, /visibility/);
 });

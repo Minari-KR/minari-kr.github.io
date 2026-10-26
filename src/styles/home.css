@@ -43,57 +43,30 @@
 .marker-step-3 { border-image-source: url("../icons/marker-step-3.svg"); }
 .marker-step-4 { border-image-source: url("../icons/marker-step-4.svg"); }
 
-/* Awards (2026-10-27): four badges hanging from a band, in the spirit of React Bits "Lanyard" but plain 2D (src/scripts/awards.js
-   swings them). Each badge is a white glossy plastic ID card (2026-10-27 user request, after the reference's card): pixel icon,
-   award name, event and a small year tag in the site's type (Lucide line icons, 2026-10-27); the sheen slides with the swing (--sheen from awards.js). A click flips it to a
-   back with the big icon and "MINARI ✦ AWARD". The long band (about 1.5x the old section height, user request) hangs it low. Without the script (no .is-live) it is a plain row of cards: no band, no clip, no back, the button disabled.
-   Four in a row only from 760px (a card is then at least 146px: "국가수리과학" at 18px needs 108px plus padding); below that 2 x 2.
-   Nothing may break inside a word, so the two long single words carry <wbr> in the template. */
-.award-list { --band: 240px; --bleed: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
-.award-card { position: relative; display: grid; }
-.award-swing { position: relative; display: grid; width: min(100%, 152px); margin: 0 auto; transform-origin: 50% 0; }
-.award-flip { display: grid; padding: 0; border: 0; border-radius: 12px; background: none; color: inherit; font: inherit; text-align: center; perspective: 800px; }
-.award-flip:disabled { color: inherit; }
-.award-flipper { display: grid; transform-style: preserve-3d; }
-/* Both faces share one grid cell, so the badge is as tall as the taller one; the back is turned away until the flip. */
-.award-face { position: relative; grid-area: 1 / 1; display: grid; align-content: center; gap: var(--gap-tight); min-height: 224px; padding: 32px 12px 24px; overflow: hidden; border-radius: 12px; background: linear-gradient(160deg, #fff, #f3f4f2 55%, #e6e8e5); color: var(--ink); box-shadow: 0 8px 18px rgba(32, 33, 31, .16), 0 1px 3px rgba(32, 33, 31, .12); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.award-face::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(32, 33, 31, .1), inset 0 1px 0 #fff, inset 0 -2px 3px rgba(32, 33, 31, .06); pointer-events: none; }
-/* Gloss: a soft diagonal light band, moved sideways by the swing (transform only, so the card is not repainted each frame). */
-.award-face::before { content: ""; position: absolute; inset: -20% -60%; background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .6) 46%, rgba(255, 255, 255, .15) 52%, transparent 60%); transform: translate(var(--sheen, 0px), 0); pointer-events: none; }
-/* Print sits above the gloss so the text keeps its contrast. */
-.award-face > * { position: relative; z-index: 1; }
-.award-back { justify-items: center; gap: var(--gap-group); color: var(--accent-deep); transform: rotateY(180deg); }
-.award-back-text { color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: var(--line-compact); letter-spacing: .08em; text-wrap: balance; }
+/* Awards (2026-10-27): four calm tilt cards (src/scripts/awards.js tilts them toward the pointer and sweeps a glare; the idea of
+   React Bits "Tilted Card" + "Glare Hover", none of their code). Each card is a white glossy plastic card: Lucide line icon,
+   award name, event and a small year tag in the site's type. 2 x 2 (a card is at least 296px wide, so the names stay on one line),
+   one column on phones. Nothing may break inside a word, so the two long single words carry <wbr> in the template. */
+.award-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
+.award-card { position: relative; display: grid; align-content: center; gap: var(--gap-tight); padding: 24px; border-radius: 12px; background: linear-gradient(160deg, #fff, #f3f4f2 55%, #e6e8e5); color: var(--ink); box-shadow: 0 8px 18px rgba(32, 33, 31, .16), 0 1px 3px rgba(32, 33, 31, .12); }
+.award-card > * { position: relative; z-index: 1; }
+.award-card::before { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(32, 33, 31, .1), inset 0 1px 0 #fff, inset 0 -2px 3px rgba(32, 33, 31, .06); pointer-events: none; }
+/* Lift: a bigger, softer shadow that fades in with the tilt (opacity only, so it costs no repaint). */
+.award-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 20px 36px rgba(32, 33, 31, .18); opacity: var(--lift, 0); pointer-events: none; }
+/* Glare: a soft white streak (30% wide, -45deg) parked off the card; the script slides it across once on pointer enter. */
+.award-glare { position: absolute; inset: 0; z-index: 2; display: none; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.award-glare::before { content: ""; position: absolute; inset: -50%; background: linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, .95) 48%, rgba(31, 79, 67, .07) 53%, transparent 60%); translate: -70% 0; }
+/* On a white card a white streak alone is invisible: a faint green shadow line right behind it makes the light read as a shine. */
 .award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
 .award-icon { display: block; width: 40px; height: 40px; pointer-events: none; -webkit-user-drag: none; }
-.award-icon-big { width: 80px; height: 80px; }
-/* The event is the quieter line; the year leads it in bold. */
+/* The event is the quieter line; the year closes it as a small tag. */
 .award-event { color: var(--muted); font-size: 1rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .award-year { justify-self: center; margin-top: var(--gap-group); padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
 .award-name { font-size: 1.125rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-.award-band, .award-clip { display: none; }
-
-/* Live: the list clips the swing, so a badge never covers the title above or the rule below (--bleed keeps the focus ring and a
-   wide swing inside the clip; the margins cancel it). Each cell keeps --band of room on top for the band. */
-.award-list.is-live { padding: 0 var(--bleed) var(--bleed); margin: 0 calc(-1 * var(--bleed)) calc(-1 * var(--bleed)); overflow: hidden; overflow: clip; }
-.is-live .award-card { padding-top: var(--band); }
-/* Before the drop-in the badges are only transparent (not visibility: hidden), so Tab still reaches them and scrolls them in. */
-.is-live .award-card:not(.is-hung) { opacity: 0; }
-.is-live .award-swing, .is-live .award-band { will-change: transform; }
-.is-live .award-flip:not(:disabled) { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
-.is-live .is-dragging .award-flip { cursor: grabbing; }
-.is-live .is-flipped .award-flipper { transform: rotateY(180deg); }
-.is-live .award-flip:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
-/* Lanyard after the React Bits reference (2026-10-27 user requests): a woven strap in the site's deep green (fine cross ribs, darker
-   edges) printed with light green ✦ marks, fading in at the top so it hangs from above and cut 8px short of its end, under the clip. */
-.is-live .award-band { position: absolute; top: 0; left: 50%; display: block; width: 20px; height: var(--band); margin-left: -10px; overflow: hidden; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .08) 0 1px, transparent 1px 3px), linear-gradient(90deg, #143a31, var(--accent-deep) 50%, #143a31); color: var(--accent-soft); font-size: 12px; line-height: 20px; letter-spacing: 16px; text-align: center; white-space: nowrap; writing-mode: vertical-rl; user-select: none; transform-origin: 50% 0; -webkit-mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); }
-/* Badge clip (user choice B): a silver bulldog clip biting the card's top edge (press line, teeth); the band ends under it. It rides
-   on the card, not on the flipping face, so it shows on the front and the back. */
-.is-live .award-clip { position: absolute; top: -12px; left: 50%; z-index: 3; display: block; width: 28px; height: 26px; margin-left: -14px; border: 1px solid #5c625e; border-radius: 4px 4px 3px 3px; background: linear-gradient(90deg, #9aa19c, #eef1ef 35%, #c3c8c5 60%, #8d948f); box-shadow: 0 2px 3px rgba(0, 0, 0, .3); pointer-events: none; }
-.is-live .award-clip::before { content: ""; position: absolute; top: 8px; left: 3px; right: 3px; height: 3px; border-radius: 2px; background: #4a504c; box-shadow: 0 1px 0 rgba(255, 255, 255, .6); }
-.is-live .award-clip::after { content: ""; position: absolute; left: 4px; right: 4px; bottom: 3px; height: 4px; border-radius: 1px; background: repeating-linear-gradient(90deg, #6d746f 0 2px, #d5d9d6 2px 4px); }
-@media (prefers-reduced-motion: no-preference) {
-  .award-flipper { transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+/* Before the rise-in the cards are only transparent (never hidden), so Tab still reaches them. */
+.award-list.is-live .award-card:not(.is-in) { opacity: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .award-glare { display: block; }
 }
 
 /* Projects: image / heading group (title, meta, award) / buttons */
@@ -153,9 +126,6 @@
 .release-link { display: block; width: fit-content; margin: 0 auto; border-radius: 22.5%; }
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
 
-@media (max-width: 759px) {
-  .award-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 640px) {
   .ptabs-list.is-looping .ptabs-tab { width: 120px; }
   .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 24px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
@@ -164,11 +134,10 @@
   .release-icon { width: 112px; height: 112px; }
   /* Keep the project info line on one line on phones: text scales with the screen width. */
   .project-meta { flex-wrap: nowrap; font-size: clamp(.75rem, 3.6vw, var(--text-meta)); letter-spacing: -.02em; }
-  .award-list { --band: 128px; --bleed: 12px; gap: 12px; }
-  .award-face { min-height: 192px; padding: 28px 8px 16px; }
+  .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .award-card { padding: 16px; }
   .award-name { font-size: 1rem; }
   .award-event { font-size: .875rem; }
-  .is-live .award-band { letter-spacing: 12px; }
   .project-actions .action { flex: 1 1 0; }
 }
 @media (prefers-reduced-motion: no-preference) {
