@@ -43,12 +43,10 @@
 .marker-step-3 { border-image-source: url("../icons/marker-step-3.svg"); }
 .marker-step-4 { border-image-source: url("../icons/marker-step-4.svg"); }
 
-/* Awards (2026-10-27): four memo cards stuck onto the planning note (src/scripts/awards.js sticks them on a press, peels a corner on
-   mouse hover and lets a mouse move them). Memo paper with a faint dot grid, a strip of masking tape, a Lucide line icon with
-   three spark ticks, the award name on the site's highlighter stroke, the event and a year tag. 2 x 2 (a card is at least 296px
-   wide, so the names stay on one line), one column on phones. Nothing may break inside a word: the two long single words carry <wbr>.
-   Peel: --peel is the size of the folded-back corner, data-corner (tl/tr/bl/br) says which one; --lift grows the shadow. */
-@property --peel { syntax: "<length>"; inherits: true; initial-value: 0px; }
+/* Awards (2026-10-27): four memo cards stuck onto the planning note (src/scripts/awards.js sticks them on a press or after a short
+   quiet, one by one, and lets a mouse move them; the corners never curl). Memo paper with a faint dot grid and a strip of masking
+   tape; on the left the year, the award name on the site's highlighter stroke and the event, on the right a game sticker. 2 x 2
+   (a card is at least 296px wide), one column on phones. The two long single words carry <wbr>. --lift grows the shadow. */
 @property --lift { syntax: "<number>"; inherits: true; initial-value: 0; }
 .award-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 24px 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
 .award-card { position: relative; display: grid; }
@@ -58,18 +56,8 @@
 .award-card:nth-child(4) { --rest: -.9deg; --tape: 3deg; }
 .award-sheet { grid-area: 1 / 1; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: center; align-items: center; column-gap: 16px; row-gap: var(--gap-tight); padding: 24px; text-align: left; color: var(--ink); rotate: var(--rest, 0deg); user-select: none; -webkit-user-select: none; filter: drop-shadow(0 calc(1px + var(--lift) * 12px) calc(2px + var(--lift) * 8px) rgba(32, 33, 31, calc(.16 + var(--lift) * .12))); }
 .award-sheet > * { position: relative; }
-.award-paper, .award-fold, .award-tape { position: absolute; pointer-events: none; }
+.award-paper, .award-tape { position: absolute; pointer-events: none; }
 .award-paper { inset: 0; border: 1px solid rgba(32, 33, 31, .14); border-radius: 8px; background: radial-gradient(circle, rgba(31, 79, 67, .08) 1px, transparent 1.5px) 0 0 / 16px 16px, #fbfaf6; }
-/* The peeled corner: the paper is cut off along the diagonal and the folded-back triangle (the paper's back) is drawn in its place. */
-.award-fold { inset: var(--fi, 0 0 auto auto); width: var(--peel); height: var(--peel); background: linear-gradient(var(--fa, 225deg), #d3d1c7 50%, #f1efe8); clip-path: var(--flap, polygon(0 0, 100% 100%, 0 100%)); }
-.award-sheet[data-corner="tr"] { --fi: 0 0 auto auto; --fa: 225deg; --flap: polygon(0 0, 100% 100%, 0 100%); }
-.award-sheet[data-corner="tl"] { --fi: 0 auto auto 0; --fa: 135deg; --flap: polygon(100% 0, 100% 100%, 0 100%); }
-.award-sheet[data-corner="br"] { --fi: auto 0 0 auto; --fa: 315deg; --flap: polygon(0 0, 0 100%, 100% 0); }
-.award-sheet[data-corner="bl"] { --fi: auto auto 0 0; --fa: 45deg; --flap: polygon(100% 0, 100% 100%, 0 0); }
-.award-sheet[data-corner="tr"] .award-paper { clip-path: polygon(0 0, calc(100% - var(--peel)) 0, 100% var(--peel), 100% 100%, 0 100%); }
-.award-sheet[data-corner="tl"] .award-paper { clip-path: polygon(var(--peel) 0, 100% 0, 100% 100%, 0 100%, 0 var(--peel)); }
-.award-sheet[data-corner="br"] .award-paper { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--peel)), calc(100% - var(--peel)) 100%, 0 100%); }
-.award-sheet[data-corner="bl"] .award-paper { clip-path: polygon(0 0, 100% 0, 100% 100%, var(--peel) 100%, 0 calc(100% - var(--peel))); }
 /* Masking tape over the top edge. */
 .award-tape { top: -11px; left: 50%; width: 72px; height: 22px; margin-left: -36px; rotate: var(--tape, 0deg); background: color-mix(in srgb, var(--accent-soft) 78%, transparent); box-shadow: inset 0 0 0 1px rgba(31, 79, 67, .06); }
 /* Icon with three spark ticks above it: the middle one is the box's own background, the side ones are tilted pseudo-elements. */
@@ -86,7 +74,7 @@
 .award-slot { grid-area: 1 / 1; align-self: stretch; justify-self: stretch; z-index: 1; margin: 0; padding: 0; border: 2px dashed rgba(31, 79, 67, .28); border-radius: 8px; background: transparent; cursor: pointer; }
 @media (hover: hover) and (pointer: fine) {
   .award-slot:hover { background: rgba(31, 79, 67, .04); }
-  .award-sheet { transition: --peel .18s ease-out, --lift .2s ease-out; }
+  .award-sheet { transition: --lift .2s ease-out; }
 }
 
 /* Projects: image / heading group (title, meta, award) / buttons */

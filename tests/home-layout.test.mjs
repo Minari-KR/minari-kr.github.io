@@ -25,10 +25,10 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
-  // Awards are four memo cards: sheet with paper, fold and tape (decorative), icon, name, event and year tag. The empty-slot buttons
+  // Awards are four memo cards: sheet with paper and tape (decorative), year, name, event and a game sticker. The empty-slot buttons
   // are added by the script, never in the template; no glare, band, clip or back face is left.
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
-  assert.equal((template.match(/<span class="award-sheet"><span class="award-paper" aria-hidden="true"><\/span><span class="award-fold" aria-hidden="true"><\/span><span class="award-tape" aria-hidden="true"><\/span>/g) || []).length, 4);
+  assert.equal((template.match(/<span class="award-sheet"><span class="award-paper" aria-hidden="true"><\/span><span class="award-tape" aria-hidden="true"><\/span>/g) || []).length, 4);
   assert.doesNotMatch(template, /<button[^>]*award-slot|award-glare/);
   assert.equal((template.match(/<span class="award-year">(2026|2025|2025|2020)<\/span>/g) || []).length, 4);
   assert.equal((template.match(/<span class="award-event">/g) || []).length, 4);
@@ -56,7 +56,7 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 24px; \}/);
   assert.match(phone, /\.award-sheet \{ padding: 16px; \}/);
   assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|award-glare|--bleed|--sheen|backface-visibility/);
-  // Memo paper with a faint dot grid, a masking-tape strip, the name on the highlighter stroke, the year in the light-green pill.
+  // Memo paper with a faint dot grid, a masking-tape strip, the name on the highlighter stroke, the year in deep green.
   const awardCss = homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image'));
   assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /rgba\(31,79,67,0\.08\) 1px.*0 0\/16px 16px,#fbfaf6/);
   assert.equal(cssRule(homeStyles, '.award-paper', '*').get('border-radius'), '8px');
@@ -73,7 +73,9 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.match(homeStyles, /\.award-list\.is-live \.award-card:not\(\.is-stuck\) \.award-sheet \{ opacity: 0;/);
   assert.doesNotMatch(awardCss, /visibility|display: none/);
   assert.match(awardCss, /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.award-slot:hover/);
-  assert.match(homeStyles, /@property --peel[\s\S]*@property --lift/);
+  assert.match(homeStyles, /@property --lift/);
+  // The corners never curl any more (2026-10-27 user request): no fold element, no peel variable.
+  assert.doesNotMatch(homeStyles + template, /--peel|award-fold|data-corner/);
   assert.doesNotMatch(template, /role-list/);
   assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
 });
@@ -181,10 +183,9 @@ test('awards script loads after project-tabs, uses the shared loop and has a red
   // The slot buttons come from the script; the 3 s quiet time is an empty Web Animation (no timers), 0.15 s apart afterwards.
   assert.match(script, /createElement\('button'\)[\s\S]*type = 'button'[\s\S]*붙이기/);
   assert.match(script, /new Animation\(new KeyframeEffect\(null, \[\], ms\)\)/);
-  assert.match(script, /WAIT_MS = 3000/);
-  assert.match(script, /GAP_MS = 150/);
-  assert.match(script, /PEEL_HOVER = 0\.25/);
-  assert.match(script, /PEEL_DRAG = 0\.4/);
+  assert.match(script, /WAIT_MS = 1300/);
+  assert.match(script, /GAP_MS = 400/);
+  assert.doesNotMatch(script, /PEEL|--peel|dataset\.corner/);
   assert.match(script, /DROP_MS = 320/);
   assert.match(script, /cubic-bezier\(\.2,\.9,\.3,1\.15\)/);
   assert.match(script, /SWING_MAX = 8/);
