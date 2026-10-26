@@ -104,23 +104,16 @@
   .inv-tab { padding: 0 2px; }
 }
 
-/* Side Text Loop ribbons (src/scripts/text-loop.js): fixed in the gutters behind the white box (.page is z-index 1), only where a gutter is at least 220px wide
-   ((100vw - 816px) / 2 >= 220px, i.e. 1256px). The script draws the SVG; top and bottom edges fade out. */
+/* Scribbled Text Loop ribbons (src/scripts/text-loop.js): one full-viewport SVG fixed behind the white box (.page is z-index 1), so the opaque box hides them;
+   only from 1256px, where the gutters are wide enough to show them. The script draws the SVG. No edge fade, no blur. */
 .text-loop { display: none; }
 @media (min-width: 1256px) {
-  .text-loop {
-    display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
-  }
+  .text-loop { display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 }
-.tl-svg { position: absolute; top: 0; overflow: hidden; }
-.tl-left { left: 0; }
-.tl-right { right: 0; }
-.tl-band { stroke-width: 44px; stroke-linecap: butt; }
-.tl-front { stroke: var(--accent-deep); }
-.tl-cross { stroke: var(--accent-soft); }
-.tl-shadow { stroke: #000; stroke-opacity: .28; stroke-width: 44px; }
-.tl-text { font: 800 18px var(--font-body); letter-spacing: 2px; text-transform: uppercase; white-space: pre; dominant-baseline: central; }
-.tl-text-front { fill: #fff; }
-.tl-text-cross { fill: var(--accent-deep); }
+.tl-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tl-band { stroke-linecap: butt; }
+.tl-a { stroke: var(--accent-soft); }
+.tl-b { stroke: #e6efe8; }
+.tl-c { stroke: #d2e2d6; }
+.tl-shadow { stroke: #000; stroke-opacity: .07; stroke-linecap: butt; }
+.tl-text { fill: var(--accent-deep); font-weight: 800; font-family: var(--font-body); letter-spacing: 2px; text-transform: uppercase; white-space: pre; dominant-baseline: central; }

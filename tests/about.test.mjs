@@ -26,7 +26,7 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/about.js', '../assets/js/text-loop.js']);
+  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/text-loop.js', '../assets/js/about.js']);
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
   assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);
@@ -171,7 +171,7 @@ test('the styles never transition everything', () => {
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*transition: none/);
 });
 
-test('side Text Loop ribbons: an empty aria-hidden container outside main, built by text-loop.js through motionLoop, shown only from 1256px', () => {
+test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, built by text-loop.js (one-time draw-in, no motion loop), shown only from 1256px', () => {
   const containers = tags.filter(({ attributes }) => 'data-text-loop' in attributes);
   assert.equal(containers.length, 1);
   assert.equal(containers[0].attributes['aria-hidden'], 'true');
@@ -180,14 +180,21 @@ test('side Text Loop ribbons: an empty aria-hidden container outside main, built
   const home = files.get('index.html');
   assert.doesNotMatch(home + files.get('projects/reflectory.html'), /text-loop|data-text-loop/);
   const source = fs.readFileSync(path.join(root, 'src/scripts/text-loop.js'), 'utf8');
-  assert.match(source, /motionLoop\(/);
+  assert.doesNotMatch(source, /motionLoop\(/); // after the one-time draw-in everything is still, so no frame loop
   assert.match(source, /createElementNS/);
-  assert.match(source, /querySelector\('\[data-intro\]'\)\) return;/);
+  assert.match(source, /querySelector\('\[data-intro\]'\)\) return;/); // waits for the intro layer to go
+  assert.doesNotMatch(source, /startOffset|speed/); // the text does not move
   assert.match(source, /DRAW = 1600, EASE = 'cubic-bezier\(\.77, 0, \.175, 1\)'/);
-  assert.match(source, /SPEED = 60/);
+  assert.match(source, /COUNT = 5, OUT = 80, STEP = 0\.25/);
+  assert.match(source, /Math\.random\(\)/);
+  assert.match(source, /36 \+ rnd\(\) \* 12/);
+  assert.equal((source.match(/el\(container, 'svg'/g) || []).length, 1); // one full-viewport svg holding all ribbons
+  assert.doesNotMatch(source, /feGaussianBlur|filter=|mask-image/);
   assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia|innerHTML/);
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
-  assert.match(css, /\.text-loop \{ display: none; \}\s*@media \(min-width: 1256px\) \{\s*\.text-loop \{[^}]*position: fixed[^}]*z-index: 0; pointer-events: none/);
-  assert.match(css, /\.tl-front \{ stroke: var\(--accent-deep\); \}/);
-  assert.match(css, /\.tl-cross \{ stroke: var\(--accent-soft\); \}/);
+  assert.match(css, /\.text-loop \{ display: none; \}\s*@media \(min-width: 1256px\) \{\s*\.text-loop \{[^}]*position: fixed; inset: 0; z-index: 0; pointer-events: none/);
+  const loopCss = css.slice(css.indexOf('.text-loop {'), css.indexOf('.tl-text'));
+  assert.doesNotMatch(loopCss, /mask-image|gradient|blur/);
+  assert.match(css, /\.tl-a \{ stroke: var\(--accent-soft\); \}/);
+  assert.match(css, /\.tl-text \{ fill: var\(--accent-deep\)/);
 });
