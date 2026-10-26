@@ -45,7 +45,7 @@ test('project values are escaped and a bad entry stops the build', () => {
     'a button link that is not https': { actions: [{ label: '플레이하기', url: 'http://example.com' }] },
     'a page button without a page': { detail: undefined },
     'a script name outside assets/js': { detail: { ...first.detail, scripts: ['../x'] } },
-    'a page without a primary button': { actions: [{ label: '플레이 영상' }] },
+    'a page without a play link': { actions: [{ label: '플레이 영상' }] },
     'a page without a share description': { description: '' },
   };
   for (const [name, change] of Object.entries(bad)) {

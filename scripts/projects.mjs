@@ -38,7 +38,7 @@ export function validateProjects(projects) {
     const { video, scripts } = detail;
     if (!/^assets\/videos\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.mp4$/.test(video?.src) || !isCount(video.width) || !isCount(video.height) || !isText(video.label)) throw bad('detail.video');
     if (!Array.isArray(scripts) || !scripts.every(name => /^[a-z-]+$/.test(name))) throw bad('detail.scripts');
-    if (!project.actions.some(action => action.primary && action.url)) throw bad('대표 버튼(primary, url)');
+    if (!project.actions.some(action => action.url)) throw bad('플레이 링크(url이 있는 버튼)');
   }
 }
 
@@ -75,10 +75,10 @@ export function projectCards(projects) {
   }).join('\n');
 }
 
-// Values for the shared detail frame. The play link under the video repeats the project's primary button.
+// Values for the shared detail frame. The play link under the video repeats the card's first button with a url.
 export function detailValues(project) {
   const { video, scripts } = project.detail;
-  const play = project.actions.find(action => action.primary && action.url);
+  const play = project.actions.find(action => action.url);
   return {
     title: escapeHtml(project.title),
     description: escapeHtml(project.description),

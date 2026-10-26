@@ -21,7 +21,7 @@ export const homeDescription = '아이디어를 프로토타입으로 만들고,
 //   actions      home card buttons in order: no url = the project's own page; primary = green button
 //   detail       only for projects with a page (without it the project gets no page): video { src, width, height, label }, scripts
 //                (page scripts after motion-loop.js, names in assets/js/), body in src/templates/projects/<slug>.html.
-//                The play link under the video repeats the primary button; the video's aria text is "<title> <label>".
+//                The play link under the video repeats the first button with a url; the video's aria text is "<title> <label>".
 //   description  share text of the detail page (a project without a page needs none)
 export const projects = [
   {
@@ -32,7 +32,7 @@ export const projects = [
     period: { start: { datetime: '2026-08-07', text: '2026 . 8 . 7' }, end: { datetime: '2026-08-09', text: '8 . 9' } },
     awards: ['국가수리과학연구소장상'],
     image: 'assets/images/cards/reflectory-title.webp',
-    actions: [{ label: '자세히 보기' }, { label: '플레이하기', url: 'https://minari-kr.itch.io/reflectory', primary: true }],
+    actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/reflectory' }],
     detail: {
       video: { src: 'assets/videos/reflectory-gameplay.mp4', width: 1910, height: 1078, label: '플레이 영상' },
       scripts: ['reflectory-core', 'reflectory-augments', 'reflectory-systems'],
@@ -47,7 +47,7 @@ export const projects = [
     period: { start: { datetime: '2025-03', text: '2025 . 3' }, end: { datetime: '2025-10', text: '10' } },
     awards: ['2025 대전 게임 브릿지 대상', '대전콘텐츠페어·부산 BIC 전시 출품'],
     image: 'assets/images/cards/barrel-good-barrel-title.webp',
-    actions: [{ label: '자세히 보기' }, { label: '플레이하기', url: 'https://minari-kr.itch.io/barrel-good-barrel', primary: true }],
+    actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/barrel-good-barrel' }],
     detail: {
       video: { src: 'assets/videos/barrel-good-barrel-gameplay.mp4', width: 1920, height: 1080, label: '플레이 영상' },
       scripts: ['bgb-loadout', 'bgb-systems'],

@@ -58,7 +58,7 @@ test('projects open their own pages without JavaScript, and the page has no back
   const { files } = compileSite(root);
   const home = files.get('index.html');
   for (const slug of ['reflectory', 'barrel-good-barrel']) {
-    assert.ok(home.includes(`<a class="action" href="./projects/${slug}.html">자세히 보기</a>`));
+    assert.ok(home.includes(`<a class="action action-primary" href="./projects/${slug}.html">자세히 보기</a>`));
     const page = files.get(`projects/${slug}.html`);
     assert.match(page, /class="home-link" href="\.\.\/index\.html#projects"/);
     assert.match(page, /<p class="project-award">[^<]+<\/p>/);
