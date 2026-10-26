@@ -27,10 +27,10 @@ export function toolGroupsHtml(groups, hasLogo) {
 
 export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
 
-// Subculture game banner: games picked by title, in this order. A missing title fails the build.
+// The games shown in the About Me spiral: picked by title, in this order. A missing title fails the build.
 export const bannerTitles = ['블루 아카이브', '명조: 워더링 웨이브', '원신', '이터널 리턴', '젠레스 존 제로', '명일방주: 엔드필드', '몬길: STAR DIVE', '림버스 컴퍼니', '이환', '소녀전선2: 망명', '트릭컬 리바이브'];
 
-export function bannerGames(games, titles) {
+function bannerGames(games, titles) {
   return titles.map(title => {
     const game = games.find(item => item.title === title);
     if (!game || !game.image) throw new Error(`배너 게임을 games에서 찾을 수 없습니다: ${title}`);

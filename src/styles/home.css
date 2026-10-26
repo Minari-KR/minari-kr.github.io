@@ -158,7 +158,7 @@
 .action-primary:active { background: var(--accent-hover); }
 
 /* Scribbled Text Loop ribbons (src/scripts/text-loop.js): one full-viewport SVG fixed behind the white box (.page is z-index 1), so the opaque box hides them;
-   only from 1256px, where the gutters are wide enough to show them. The script draws the SVG. No edge fade, no blur. */
+   only from 1256px, where the gutters are wide enough to show them. The script draws the SVG. */
 .text-loop { display: none; }
 @media (min-width: 1256px) {
   .text-loop { display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none; }

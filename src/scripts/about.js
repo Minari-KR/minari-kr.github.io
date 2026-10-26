@@ -14,6 +14,7 @@
     // Largest on-screen size of a card (front of the helix x centre boost) is the layout size, so the texture is only scaled down.
     // The transform scale is set so that card is shown exactly 1:1: any other ratio resamples the pixels and softens the art.
     const front = k => perspective / (perspective - 90 * k);
+    const fit = () => Math.min(1, w / 300); // 300px is the PC column; phones use the same helix, scaled down only if narrower
     const edgeFade = 0.3;
     const edgeBlur = 6;
     let offset = 0;
@@ -25,7 +26,7 @@
     let loop;
 
     const draw = () => {
-      const k = Math.min(1, w / 300); // 300px is the PC column; phones use the same helix, scaled down only if narrower
+      const k = fit();
       const radius = 90 * k;
       const spacing = Math.max(56 * k, h / (count - 2)); // tall columns spread the cards so the stream still fills the height
       const half = h / 2;
@@ -48,7 +49,7 @@
     const size = () => {
       w = spiral.clientWidth;
       h = spiral.clientHeight;
-      const k = Math.min(1, w / 300);
+      const k = fit();
       spiral.style.setProperty('--card', `${Math.round(76 * k * centerScale * front(k))}px`);
       draw();
     };

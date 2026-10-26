@@ -41,7 +41,7 @@
   const finish = ms => {
     if (ending) return;
     ending = true;
-    // The cards stop where they are (no jump back to the start) and the whole layer dissolves.
+    // The cards stop where they are (no jump back to the start) and the whole layer fades out.
     for (const anim of anims) anim.pause();
     if (ms === 0 || layer.hidden) { remove(); return; }
     layer.animate({ opacity: [1, 0] }, { duration: ms, easing: 'ease', fill: 'forwards' }).finished.then(remove, remove);
@@ -86,9 +86,8 @@
     ));
     if (!await run(align)) return;
 
-    // Spread: every card flies straight out (no squash or pop, 2026-10-26 user request) from the screen centre along the line to
-    // its own cell (straight up for a card at the centre) by ~0.7 of the viewport diagonal at the same size (no zoom, 2026-10-26 user request), fading,
-    // after its own random start delay; the glass clears over the same window.
+    // Spread: every card flies straight out from the screen centre along the line to its own cell (straight up for a card at the
+    // centre) by ~0.7 of the viewport diagonal at the same size, fading, after its own random start delay; the glass clears over the same window.
     const reach = Math.hypot(W, H) * .7;
     const spread = all.map((card, i) => {
       const [x, y] = cells[i], length = Math.hypot(x, y);

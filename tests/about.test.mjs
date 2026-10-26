@@ -118,7 +118,7 @@ test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the acces
   assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
 });
 
-test('about.js drives the carousel through motionLoop and uses no timers or frame loop of its own', () => {
+test('about.js drives the spiral through motionLoop and uses no timers or frame loop of its own', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
   assert.match(source, /motionLoop\(/);
   assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia/);
