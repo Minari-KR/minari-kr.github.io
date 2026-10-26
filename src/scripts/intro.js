@@ -22,7 +22,7 @@
   }
   layer.append(...cards);
   const EASE = 'cubic-bezier(.77, 0, .175, 1)';
-  const STAGGER = 50, RISE = 850, ALIGN = 850, SPREAD = 1450, SPREAD_DELAY = 300;
+  const STAGGER = 65, RISE = 1100, ALIGN = 1100, SPREAD = 1600, SPREAD_DELAY = 350;
   let anims = [];
   let ending = false;
 
@@ -57,10 +57,10 @@
     ));
     if (!await run(rise)) return;
 
-    // Align: a grid over the whole viewport with a gap between the cards and at the edges (16px, 12px on phones), measured
+    // Align: a grid over the whole viewport with a gap between the cards and at the edges (24px, 16px on phones), measured
     // once here. Columns are picked so the cells are as close as possible to the card ratio; each card fits inside its cell.
     // Spare cells get clones of the first cards, which fade in from the centre.
-    const W = window.innerWidth, H = window.innerHeight, N = cards.length, GAP = W > 640 ? 16 : 12;
+    const W = window.innerWidth, H = window.innerHeight, N = cards.length, GAP = W > 640 ? 24 : 16;
     const cols = Math.max(1, Math.round(Math.sqrt(N * (W / H) * (336 / 352)))), rows = Math.ceil(N / cols);
     const cellW = (W - (cols + 1) * GAP) / cols, cellH = (H - (rows + 1) * GAP) / rows;
     const scale = Math.min(cellW / cards[0].offsetWidth, cellH / cards[0].offsetHeight);
@@ -80,7 +80,7 @@
     ));
     if (!await run(align)) return;
 
-    // Spread: every card squashes, pops (easeOutBack) and then flies outward from the screen centre along the line to
+    // Spread: every card flies straight out (no squash or pop, 2026-10-26 user request) from the screen centre along the line to
     // its own cell (straight up for a card at the centre) by ~0.7 of the viewport diagonal, growing and fading,
     // after its own random start delay; the glass clears over the same window.
     const reach = Math.hypot(W, H) * .7;
@@ -88,11 +88,9 @@
       const [x, y] = cells[i], length = Math.hypot(x, y);
       const [ux, uy] = length < 0.5 ? [0, -1] : [x / length, y / length];
       return card.animate([
-        { offset: 0, transform: at(x, y, scale), opacity: 1, easing: 'ease-out' },
-        { offset: .18, transform: at(x, y, scale * .92), opacity: 1, easing: 'cubic-bezier(.34, 1.56, .64, 1)' },
-        { offset: .38, transform: at(x, y, scale * 1.12), opacity: 1, easing: 'cubic-bezier(.5, 0, .75, 0)' },
-        { offset: 1, transform: at(x + ux * reach, y + uy * reach, scale * 1.25), opacity: 0 }
-      ], { duration: SPREAD, delay: Math.random() * SPREAD_DELAY, fill: 'both' });
+        { transform: at(x, y, scale), opacity: 1 },
+        { transform: at(x + ux * reach, y + uy * reach, scale * 1.25), opacity: 0 }
+      ], { duration: SPREAD, delay: Math.random() * SPREAD_DELAY, easing: 'cubic-bezier(.5, 0, .75, 0)', fill: 'both' });
     });
     if (await run([...spread, clearGlass(SPREAD, 'ease')])) { ending = true; remove(); }
   };
