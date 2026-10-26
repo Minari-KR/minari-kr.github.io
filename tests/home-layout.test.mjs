@@ -25,9 +25,11 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
-  // Awards are four plain tilt cards: icon, name, event, year tag and a decorative glare; no button, band, clip or back face.
+  // Awards are four memo cards: sheet with paper, fold and tape (decorative), icon, name, event and year tag. The empty-slot buttons
+  // are added by the script, never in the template; no glare, band, clip or back face is left.
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
-  assert.equal((template.match(/<span class="award-glare" aria-hidden="true"><\/span>/g) || []).length, 4);
+  assert.equal((template.match(/<span class="award-sheet"><span class="award-paper" aria-hidden="true"><\/span><span class="award-fold" aria-hidden="true"><\/span><span class="award-tape" aria-hidden="true"><\/span>/g) || []).length, 4);
+  assert.doesNotMatch(template, /<button[^>]*award-slot|award-glare/);
   assert.equal((template.match(/<span class="award-year">(2026|2025|2025|2020)<\/span>/g) || []).length, 4);
   assert.equal((template.match(/<span class="award-event">/g) || []).length, 4);
   assert.doesNotMatch(template, /award-flip|award-band|award-clip|award-back|award-swing|award-face/);
@@ -47,14 +49,27 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.match(phone, /\.award-event \{ font-size: \.875rem; \}/);
   // Two columns where a card keeps 296px, one column on phones; cards share a row height and the awards CSS has no lanyard left.
   assert.match(homeStyles, /\.award-list \{ display: grid; grid-template-columns: repeat\(auto-fit, minmax\(min\(100%, 296px\), 1fr\)\)/);
+  assert.match(homeStyles, /\.award-card:nth-child\(1\) \{ --rest: -1\.2deg;[\s\S]*\.award-card:nth-child\(2\) \{ --rest: \.8deg;[\s\S]*\.award-card:nth-child\(3\) \{ --rest: 1\.4deg;[\s\S]*\.award-card:nth-child\(4\) \{ --rest: -\.9deg;/);
   assert.match(homeStyles, /\.award-list \{[^}]*grid-auto-rows: 1fr;/);
-  assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 12px; \}/);
-  assert.match(phone, /\.award-card \{ padding: 16px; \}/);
-  assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|--bleed|--sheen|backface-visibility/);
-  // Before the rise-in the cards are only transparent (Tab still reaches them), and the glare shows on hover-capable pointers only.
-  assert.match(homeStyles, /\.award-list\.is-live \.award-card:not\(\.is-in\) \{ opacity: 0; \}/);
-  assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /visibility/);
-  assert.match(homeStyles, /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.award-glare \{ display: block; \}/);
+  assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 24px; \}/);
+  assert.match(phone, /\.award-sheet \{ padding: 16px; \}/);
+  assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|award-glare|--bleed|--sheen|backface-visibility/);
+  // Memo paper with a faint dot grid, a masking-tape strip, the name on the highlighter stroke, the year in the light-green pill.
+  const awardCss = homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image'));
+  assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /rgba\(31,79,67,0\.08\) 1px.*0 0\/16px 16px,#fbfaf6/);
+  assert.equal(cssRule(homeStyles, '.award-paper', '*').get('border-radius'), '8px');
+  assert.match(cssRule(homeStyles, '.award-tape', '*').get('width'), /72px/);
+  assert.match(cssRule(homeStyles, '.award-tape', '*').get('background'), /accent-soft/);
+  assert.match(cssRule(homeStyles, '.award-name', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
+  assert.match(cssRule(homeStyles, '.award-year', '*').get('background'), /accent-soft/);
+  // The empty slot is a 2px dashed outline; before sticking the card is only transparent (opacity, never visibility), so it stays
+  // in the page for screen readers and search and its cell keeps its size. Hover styles live under hover + fine pointer only.
+  assert.match(cssRule(homeStyles, '.award-slot', '*').get('border'), /^2px dashed rgba\(31,79,67,0\.28\)$/);
+  assert.equal(cssRule(homeStyles, '.award-slot', '*').get('border-radius'), '8px');
+  assert.match(homeStyles, /\.award-list\.is-live \.award-card:not\(\.is-stuck\) \.award-sheet \{ opacity: 0;/);
+  assert.doesNotMatch(awardCss, /visibility|display: none/);
+  assert.match(awardCss, /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.award-slot:hover/);
+  assert.match(homeStyles, /@property --peel[\s\S]*@property --lift/);
   assert.doesNotMatch(template, /role-list/);
   assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
 });
@@ -157,9 +172,19 @@ test('awards script loads after project-tabs, uses the shared loop and has a red
   assert.doesNotMatch(script, /requestAnimationFrame|IntersectionObserver|setTimeout|setInterval|matchMedia/);
   assert.match(script, /reduce\.matches/);
   assert.match(script, /onReduce/);
-  assert.match(script, /pointerType !== 'mouse'/);
+  assert.match(script, /pointerType === 'mouse'|pointerType !== 'mouse'/);
   assert.match(script, /\[data-intro\]/);
-  assert.match(script, /MAX_TILT = 8/);
-  assert.match(script, /PERSPECTIVE = 800/);
-  assert.doesNotMatch(script, /visibility/);
+  // The slot buttons come from the script; the 3 s quiet time is an empty Web Animation (no timers), 0.15 s apart afterwards.
+  assert.match(script, /createElement\('button'\)[\s\S]*type = 'button'[\s\S]*붙이기/);
+  assert.match(script, /new Animation\(new KeyframeEffect\(null, \[\], ms\)\)/);
+  assert.match(script, /WAIT_MS = 3000/);
+  assert.match(script, /GAP_MS = 150/);
+  assert.match(script, /PEEL_HOVER = 0\.25/);
+  assert.match(script, /PEEL_DRAG = 0\.4/);
+  assert.match(script, /DROP_MS = 320/);
+  assert.match(script, /cubic-bezier\(\.2,\.9,\.3,1\.15\)/);
+  assert.match(script, /SWING_MAX = 8/);
+  assert.doesNotMatch(script, /visibility|award-glare|MAX_TILT|PERSPECTIVE/);
+  // Reduced motion switching on later sticks everything at once.
+  assert.match(script, /onReduce: on => \{\s*if \(!on\) return;[\s\S]*classList\.remove\('is-live'\)/);
 });

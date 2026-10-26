@@ -43,30 +43,53 @@
 .marker-step-3 { border-image-source: url("../icons/marker-step-3.svg"); }
 .marker-step-4 { border-image-source: url("../icons/marker-step-4.svg"); }
 
-/* Awards (2026-10-27): four calm tilt cards (src/scripts/awards.js tilts them toward the pointer and sweeps a glare; the idea of
-   React Bits "Tilted Card" + "Glare Hover", none of their code). Each card is a white glossy plastic card: Lucide line icon,
-   award name, event and a small year tag in the site's type. 2 x 2 (a card is at least 296px wide, so the names stay on one line),
-   one column on phones. Nothing may break inside a word, so the two long single words carry <wbr> in the template. */
-.award-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
-.award-card { position: relative; display: grid; align-content: center; gap: var(--gap-tight); padding: 24px; border-radius: 12px; background: linear-gradient(160deg, #fff, #f3f4f2 55%, #e6e8e5); color: var(--ink); box-shadow: 0 8px 18px rgba(32, 33, 31, .16), 0 1px 3px rgba(32, 33, 31, .12); }
-.award-card > * { position: relative; z-index: 1; }
-.award-card::before { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(32, 33, 31, .1), inset 0 1px 0 #fff, inset 0 -2px 3px rgba(32, 33, 31, .06); pointer-events: none; }
-/* Lift: a bigger, softer shadow that fades in with the tilt (opacity only, so it costs no repaint). */
-.award-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 20px 36px rgba(32, 33, 31, .18); opacity: var(--lift, 0); pointer-events: none; }
-/* Glare: a soft white streak (30% wide, -45deg) parked off the card; the script slides it across once on pointer enter. */
-.award-glare { position: absolute; inset: 0; z-index: 2; display: none; overflow: hidden; border-radius: inherit; pointer-events: none; }
-.award-glare::before { content: ""; position: absolute; inset: -50%; background: linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, .95) 48%, rgba(31, 79, 67, .07) 53%, transparent 60%); translate: -70% 0; }
-/* On a white card a white streak alone is invisible: a faint green shadow line right behind it makes the light read as a shine. */
-.award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
+/* Awards (2026-10-27): four memo cards stuck onto the planning note (src/scripts/awards.js sticks them on a press, peels a corner on
+   mouse hover and lets a mouse move them). Memo paper with a faint dot grid, a strip of masking tape, a Lucide line icon with
+   three spark ticks, the award name on the site's highlighter stroke, the event and a year tag. 2 x 2 (a card is at least 296px
+   wide, so the names stay on one line), one column on phones. Nothing may break inside a word: the two long single words carry <wbr>.
+   Peel: --peel is the size of the folded-back corner, data-corner (tl/tr/bl/br) says which one; --lift grows the shadow. */
+@property --peel { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --lift { syntax: "<number>"; inherits: true; initial-value: 0; }
+.award-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 24px 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
+.award-card { position: relative; display: grid; }
+.award-card:nth-child(1) { --rest: -1.2deg; --tape: -3deg; }
+.award-card:nth-child(2) { --rest: .8deg; --tape: 2deg; }
+.award-card:nth-child(3) { --rest: 1.4deg; --tape: -2deg; }
+.award-card:nth-child(4) { --rest: -.9deg; --tape: 3deg; }
+.award-sheet { grid-area: 1 / 1; position: relative; display: grid; align-content: center; gap: var(--gap-tight); padding: 24px; color: var(--ink); rotate: var(--rest, 0deg); user-select: none; -webkit-user-select: none; filter: drop-shadow(0 calc(1px + var(--lift) * 12px) calc(2px + var(--lift) * 8px) rgba(32, 33, 31, calc(.16 + var(--lift) * .12))); }
+.award-sheet > * { position: relative; }
+.award-paper, .award-fold, .award-tape { position: absolute; pointer-events: none; }
+.award-paper { inset: 0; border: 1px solid rgba(32, 33, 31, .14); border-radius: 8px; background: radial-gradient(circle, rgba(31, 79, 67, .08) 1px, transparent 1.5px) 0 0 / 16px 16px, #fbfaf6; }
+/* The peeled corner: the paper is cut off along the diagonal and the folded-back triangle (the paper's back) is drawn in its place. */
+.award-fold { inset: var(--fi, 0 0 auto auto); width: var(--peel); height: var(--peel); background: linear-gradient(var(--fa, 225deg), #d3d1c7 50%, #f1efe8); clip-path: var(--flap, polygon(0 0, 100% 100%, 0 100%)); }
+.award-sheet[data-corner="tr"] { --fi: 0 0 auto auto; --fa: 225deg; --flap: polygon(0 0, 100% 100%, 0 100%); }
+.award-sheet[data-corner="tl"] { --fi: 0 auto auto 0; --fa: 135deg; --flap: polygon(100% 0, 100% 100%, 0 100%); }
+.award-sheet[data-corner="br"] { --fi: auto 0 0 auto; --fa: 315deg; --flap: polygon(0 0, 0 100%, 100% 0); }
+.award-sheet[data-corner="bl"] { --fi: auto auto 0 0; --fa: 45deg; --flap: polygon(100% 0, 100% 100%, 0 0); }
+.award-sheet[data-corner="tr"] .award-paper { clip-path: polygon(0 0, calc(100% - var(--peel)) 0, 100% var(--peel), 100% 100%, 0 100%); }
+.award-sheet[data-corner="tl"] .award-paper { clip-path: polygon(var(--peel) 0, 100% 0, 100% 100%, 0 100%, 0 var(--peel)); }
+.award-sheet[data-corner="br"] .award-paper { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--peel)), calc(100% - var(--peel)) 100%, 0 100%); }
+.award-sheet[data-corner="bl"] .award-paper { clip-path: polygon(0 0, 100% 0, 100% 100%, var(--peel) 100%, 0 calc(100% - var(--peel))); }
+/* Masking tape over the top edge. */
+.award-tape { top: -11px; left: 50%; width: 72px; height: 22px; margin-left: -36px; rotate: var(--tape, 0deg); background: color-mix(in srgb, var(--accent-soft) 78%, transparent); box-shadow: inset 0 0 0 1px rgba(31, 79, 67, .06); }
+/* Icon with three spark ticks above it: the middle one is the box's own background, the side ones are tilted pseudo-elements. */
+.award-top { display: flex; flex-direction: column; align-items: center; padding-top: 12px; margin-bottom: var(--gap-group); color: var(--accent-deep); background: linear-gradient(currentColor, currentColor) 50% 0 / 2px 8px no-repeat; }
+.award-top::before, .award-top::after { content: ""; position: absolute; top: 2px; left: 50%; width: 2px; height: 8px; margin-left: -1px; border-radius: 1px; background: currentColor; }
+.award-top::before { translate: -13px 1px; rotate: -40deg; }
+.award-top::after { translate: 13px 1px; rotate: 40deg; }
 .award-icon { display: block; width: 40px; height: 40px; pointer-events: none; -webkit-user-drag: none; }
-/* The event is the quieter line; the year closes it as a small tag. */
+/* The name sits on the same highlighter stroke as .project-award; the event is the quieter line; the year closes it as a small tag. */
+.award-name { display: block; justify-self: center; width: fit-content; max-width: 100%; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; font-size: 1.125rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .award-event { color: var(--muted); font-size: 1rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .award-year { justify-self: center; margin-top: var(--gap-group); padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
-.award-name { font-size: 1.125rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-/* Before the rise-in the cards are only transparent (never hidden), so Tab still reaches them. */
-.award-list.is-live .award-card:not(.is-in) { opacity: 0; }
+/* Before a card is stuck (script on, motion allowed) it is only transparent, never hidden, so screen readers and search still read it
+   and its cell keeps its size; the script's empty-slot button draws the dashed outline. */
+.award-list.is-live .award-card:not(.is-stuck) .award-sheet { opacity: 0; pointer-events: none; }
+.award-list:focus { outline: none; }
+.award-slot { grid-area: 1 / 1; align-self: stretch; justify-self: stretch; z-index: 1; margin: 0; padding: 0; border: 2px dashed rgba(31, 79, 67, .28); border-radius: 8px; background: transparent; cursor: pointer; }
 @media (hover: hover) and (pointer: fine) {
-  .award-glare { display: block; }
+  .award-slot:hover { background: rgba(31, 79, 67, .04); }
+  .award-sheet { transition: --peel .18s ease-out, --lift .2s ease-out; }
 }
 
 /* Projects: image / heading group (title, meta, award) / buttons */
@@ -134,8 +157,8 @@
   .release-icon { width: 112px; height: 112px; }
   /* Keep the project info line on one line on phones: text scales with the screen width. */
   .project-meta { flex-wrap: nowrap; font-size: clamp(.75rem, 3.6vw, var(--text-meta)); letter-spacing: -.02em; }
-  .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .award-card { padding: 16px; }
+  .award-list { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .award-sheet { padding: 16px; }
   .award-name { font-size: 1rem; }
   .award-event { font-size: .875rem; }
   .project-actions .action { flex: 1 1 0; }
