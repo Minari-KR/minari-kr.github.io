@@ -23,7 +23,8 @@
 .spiral { display: flex; flex-wrap: wrap; align-content: center; gap: 8px; min-width: 0; min-height: 420px; }
 .spiral-card { display: block; width: 72px; height: 72px; border: 1px solid rgba(32, 33, 31, .16); border-radius: 8px; object-fit: cover; }
 .spiral.is-live { position: relative; display: block; overflow: hidden; }
-.spiral.is-live .spiral-card { position: absolute; left: 50%; top: 50%; width: var(--card, 92px); height: var(--card, 92px); margin: calc(var(--card, 92px) / -2) 0 0 calc(var(--card, 92px) / -2); will-change: transform, opacity; }
+/* No will-change: it makes the browser paint each card once at its 92px base size and stretch that up to 1.32x, which blurs the art. */
+.spiral.is-live .spiral-card { position: absolute; left: 50%; top: 50%; width: var(--card, 92px); height: var(--card, 92px); margin: calc(var(--card, 92px) / -2) 0 0 calc(var(--card, 92px) / -2); }
 /* Character strip under the grid: two <img>s (the site forbids srcset), one row on PC and two rows on phones. */
 .taste-strip { display: block; width: 100%; height: auto; margin-top: var(--gap-actions); }
 .taste-strip-narrow { display: none; }
