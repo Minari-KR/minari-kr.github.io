@@ -63,7 +63,18 @@ test('spiral script: driven by motionLoop, no timers or frame loop of its own, m
   assert.match(js, /window\.motionLoop\(/);
   assert.match(js, /pointerType === 'mouse'/);
   assert.match(js, /onReduce/);
+  assert.doesNotMatch(js, /zIndex|z-index/);
+  assert.match(js, /translate3d\(.*rotateY\(/);
+  assert.match(js, /speed = 0\.35;/);
   assert.doesNotMatch(js, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
+});
+
+test('spiral css: perspective + clip on .spiral, a preserve-3d stage for the cards, no will-change', () => {
+  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
+  assert.match(css, /\.spiral\.is-live \{[^}]*overflow: hidden;[^}]*perspective: 1000px/);
+  assert.match(css, /\.spiral-stage \{[^}]*transform-style: preserve-3d/);
+  assert.doesNotMatch(css, /will-change/);
+  assert.match(spiralHtml(games), /<div class="spiral-stage">/);
 });
 
 test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px', () => {

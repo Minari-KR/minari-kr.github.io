@@ -3,19 +3,19 @@
 (() => {
   const spiral = document.querySelector('[data-spiral]');
   if (spiral) {
-    // Each card is a point on a helix, projected by hand to a 2D matrix every frame (no WebGL). Values follow React Bits 'Infinite Spiral'.
+    // Each card sits on a helix in real 3D (translate3d) and is turned a little (rotateY) so neighbours are not parallel planes:
+    // the browser depth-sorts per pixel and the overlap boundary slides instead of flipping z-order in one frame. Values follow React Bits 'Infinite Spiral'.
     const cards = [...spiral.querySelectorAll('.spiral-card')];
     const perTurn = 7;
-    const speed = 0.55; // cards per second, travelling up
-    const perspective = 1000;
+    const speed = 0.35; // cards per second, travelling up
     const centerScale = 1.2;
+    const tilt = 1 / 3; // card turn as a fraction of its helix angle
+    const perspective = 1000; // must match .spiral in about.css
+    // Largest on-screen size of a card (front of the helix x centre boost) is the layout size, so the texture is only scaled down.
+    // The transform scale is set so that card is shown exactly 1:1: any other ratio resamples the pixels and softens the art.
+    const front = k => perspective / (perspective - 90 * k);
     const edgeFade = 0.3;
     const edgeBlur = 6;
-    // Neighbouring cards overlap and their z-order flips the moment their depths cross. Around that moment both turn
-    // see-through and soft, so the swap reads as a dissolve instead of a one-frame pop.
-    const swapBand = 0.15; // depth gap (in radii) over which the dissolve runs, about 0.7 s at full speed
-    const swapOpacity = 0.4;
-    const swapBlur = 1.5;
     let offset = 0;
     let pace = 1; // 1 = full speed, eased to 0 while a mouse hovers
     let hover = false;
@@ -29,33 +29,27 @@
       const radius = 90 * k;
       const spacing = Math.max(56 * k, h / (count - 2)); // tall columns spread the cards so the stream still fills the height
       const half = h / 2;
-      // Slot i of a stream of count cards, wrapped so the stream never ends; depth on a unit radius.
+      // Slot i of a stream of count cards, wrapped so the stream never ends.
       const slot = cards.map((_, i) => ((((i - offset + count / 2) % count) + count) % count) - count / 2);
-      const depth = slot.map(p => Math.cos((2 * Math.PI * p) / perTurn));
       cards.forEach((card, i) => {
         const p = slot[i];
         const angle = (2 * Math.PI * p) / perTurn;
-        const z = radius * depth[i];
-        // 0 at the moment this card and a stream neighbour swap order, 1 once their depths are swapBand apart.
-        const gap = Math.min(...[i - 1, i + 1].map(j => (j + count) % count).filter(j => Math.abs(Math.abs(slot[j] - p) - 1) < 1e-6).map(j => Math.abs(depth[j] - depth[i])), swapBand) / swapBand;
-        const swap = 1 - gap * gap * (3 - 2 * gap);
+        const z = radius * Math.cos(angle);
         const y = p * spacing;
         const c = Math.max(0, 1 - Math.abs(y) / half);
-        const s = (perspective / (perspective - z)) * (1 + (centerScale - 1) * c * c * (3 - 2 * c));
+        const s = (1 + (centerScale - 1) * c * c * (3 - 2 * c)) / (centerScale * front(k));
         const edge = Math.min(1, Math.max(0, (Math.abs(y) / half - (1 - edgeFade)) / edgeFade));
-        const px = Math.round(radius * Math.sin(angle) * (perspective / (perspective - z)) * 100) / 100;
         card.style.visibility = edge >= 1 ? 'hidden' : 'visible';
-        card.style.transform = `matrix(${s}, 0, 0, ${s}, ${px}, ${y * (perspective / (perspective - z))})`;
-        card.style.zIndex = Math.round(z + radius);
-        card.style.opacity = (1 - edge) * (1 - (1 - swapOpacity) * swap);
-        const blur = edgeBlur * edge + swapBlur * swap;
-        card.style.filter = blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : 'none';
+        card.style.transform = `translate3d(${(radius * Math.sin(angle)).toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${(tilt * angle).toFixed(4)}rad) scale(${s.toFixed(4)})`;
+        card.style.opacity = 1 - edge;
+        card.style.filter = edge > 0.01 ? `blur(${(edgeBlur * edge).toFixed(2)}px)` : 'none';
       });
     };
     const size = () => {
       w = spiral.clientWidth;
       h = spiral.clientHeight;
-      spiral.style.setProperty('--card', `${Math.round(92 * Math.min(1, w / 300))}px`);
+      const k = Math.min(1, w / 300);
+      spiral.style.setProperty('--card', `${Math.round(92 * k * centerScale * front(k))}px`);
       draw();
     };
 
