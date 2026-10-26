@@ -37,7 +37,7 @@ test('intro, awards and projects follow the single-column order with the approve
   for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
   // Each card ends with its game sticker (decorative) after the year, name and event, which read in that order.
-  for (const sticker of ['cap', 'helmet', 'halo', 'creeper']) {
+  for (const sticker of ['cap', 'helmet', 'shiroko', 'creeper']) {
     assert.ok(template.includes(`<img class="award-sticker" src="./assets/images/awards/sticker-${sticker}.webp" width="360" height="360" alt="" aria-hidden="true"`), sticker);
     assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/sticker-${sticker}.webp`, import.meta.url)), sticker);
   }
