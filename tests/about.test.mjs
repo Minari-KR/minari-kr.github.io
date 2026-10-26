@@ -122,6 +122,13 @@ test('the 14 key phrases in the About Me body text are wrapped in .hl, with no m
   assert.match(css, /@media \(prefers-reduced-motion: no-preference\) \{[^@]*\.about-text\.reveal \{[^}]*blur\(8px\)/);
   assert.equal(css.split('.reveal').length - 1, css.split('@media (prefers-reduced-motion: no-preference) {').slice(1).join('').split('.reveal').length - 1);
   assert.match(fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8'), /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
+  // Strokes wait 2s (counted by motionLoop, only once no [data-intro] layer is left), gated in CSS by .hl-armed; the blur-in is not gated.
+  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
+  assert.match(js, /querySelector\('\[data-intro\]'\)\) return;\s*waited \+= dt;\s*if \(waited >= 2\) document\.documentElement\.classList\.add\('hl-armed'\)/);
+  assert.match(css, /\.hl-armed \.about-text\.reveal\.is-in \.hl \{ background-size: 100% 100%/);
+  assert.doesNotMatch(css, /^ +.about-text\.reveal\.is-in \.hl/m);
+  assert.match(css, /\.about-text\.reveal\.is-in \{ opacity: 1; filter: none; \}/);
+  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.45"/);
 });
 
 test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {

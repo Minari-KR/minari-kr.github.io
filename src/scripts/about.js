@@ -109,5 +109,16 @@
         tick: () => text.classList.add('is-in'),
       });
     });
+    // Strokes wait 2s after the page is visible (after the first-visit intro layer is gone): count it with motionLoop, then arm the CSS.
+    let waited = 0;
+    window.motionLoop({
+      target: document.body,
+      canPlay: () => !document.documentElement.classList.contains('hl-armed'),
+      tick: dt => {
+        if (document.querySelector('[data-intro]')) return;
+        waited += dt;
+        if (waited >= 2) document.documentElement.classList.add('hl-armed');
+      },
+    });
   }
 })();
