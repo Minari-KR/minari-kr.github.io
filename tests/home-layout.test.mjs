@@ -34,9 +34,9 @@ test('intro, awards and projects follow the single-column order with the approve
   for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
   for (const icon of ['book', 'trophy', 'crown', 'gem']) {
-    assert.ok(template.includes(`src="./assets/images/awards/award-${icon}.png" width="48" height="48" alt="" aria-hidden="true"`), icon);
-    assert.ok(template.includes(`src="./assets/images/awards/award-${icon}.png" width="96" height="96" alt="" aria-hidden="true"`), icon);
-    assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/award-${icon}.png`, import.meta.url)), icon);
+    assert.ok(template.includes(`src="./assets/icons/award-${icon}.svg" width="40" height="40" alt="" aria-hidden="true"`), icon);
+    assert.ok(template.includes(`src="./assets/icons/award-${icon}.svg" width="80" height="80" alt="" aria-hidden="true"`), icon);
+    assert.ok(fs.existsSync(new URL(`../public/assets/icons/award-${icon}.svg`, import.meta.url)), icon);
   }
   // Text never truncates, keeps Korean words whole and stays at the phone minimums (name 16px, event 14px).
   assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /text-overflow|line-clamp|ellipsis/);

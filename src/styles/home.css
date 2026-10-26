@@ -45,7 +45,7 @@
 
 /* Awards (2026-10-27): four badges hanging from a band, in the spirit of React Bits "Lanyard" but plain 2D (src/scripts/awards.js
    swings them). Each badge is a white glossy plastic ID card (2026-10-27 user request, after the reference's card): pixel icon,
-   award name and year + event in the site's type; the sheen slides with the swing (--sheen from awards.js). A click flips it to a
+   award name, event and a small year tag in the site's type (Lucide line icons, 2026-10-27); the sheen slides with the swing (--sheen from awards.js). A click flips it to a
    back with the big icon and "MINARI ✦ AWARD". The long band (about 1.5x the old section height, user request) hangs it low. Without the script (no .is-live) it is a plain row of cards: no band, no clip, no back, the button disabled.
    Four in a row only from 760px (a card is then at least 146px: "국가수리과학" at 18px needs 108px plus padding); below that 2 x 2.
    Nothing may break inside a word, so the two long single words carry <wbr> in the template. */
@@ -63,13 +63,13 @@
 /* Print sits above the gloss so the text keeps its contrast. */
 .award-face > * { position: relative; z-index: 1; }
 .award-back { justify-items: center; gap: var(--gap-group); color: var(--accent-deep); transform: rotateY(180deg); }
-.award-back-text { font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); letter-spacing: .08em; text-wrap: balance; }
+.award-back-text { color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: var(--line-compact); letter-spacing: .08em; text-wrap: balance; }
 .award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
-.award-icon { display: block; width: 48px; height: 48px; image-rendering: pixelated; pointer-events: none; -webkit-user-drag: none; }
-.award-icon-big { width: 96px; height: 96px; }
+.award-icon { display: block; width: 40px; height: 40px; pointer-events: none; -webkit-user-drag: none; }
+.award-icon-big { width: 80px; height: 80px; }
 /* The event is the quieter line; the year leads it in bold. */
 .award-event { color: var(--muted); font-size: 1rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-.award-year { font-weight: 800; }
+.award-year { justify-self: center; margin-top: var(--gap-group); padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
 .award-name { font-size: 1.125rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .award-band, .award-clip { display: none; }
 
@@ -84,15 +84,14 @@
 .is-live .is-dragging .award-flip { cursor: grabbing; }
 .is-live .is-flipped .award-flipper { transform: rotateY(180deg); }
 .is-live .award-flip:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
-/* Lanyard look after the React Bits reference (2026-10-27 user request): a black woven strap (fine cross ribs, darker edges) printed
-   with white ✦ marks, fading in at the top so it hangs from above and cut 8px short of its end, which sits inside the clamp. */
-.is-live .award-band { position: absolute; top: 0; left: 50%; display: block; width: 20px; height: var(--band); margin-left: -10px; overflow: hidden; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 3px), linear-gradient(90deg, #070707, #1d1d1d 50%, #070707); color: #f4f6f4; font-size: 12px; line-height: 20px; letter-spacing: 16px; text-align: center; white-space: nowrap; writing-mode: vertical-rl; user-select: none; transform-origin: 50% 0; -webkit-mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); }
-/* Metal clamp crimped on the strap end (brushed silver, a dark slot), a small ring hanging from it into the slot punched in the
-   badge. Both ride on the card (not on the flipping face), and so does the slot, so it shows on the front and the back. */
-.is-live .award-clip { position: absolute; top: -20px; left: 50%; z-index: 3; display: block; width: 24px; height: 12px; margin-left: -12px; border: 1px solid #5c625e; border-radius: 3px; background: linear-gradient(#f2f4f3, #b9bfbb 45%, #8d948f 60%, #d3d7d4); box-shadow: 0 1px 2px rgba(0, 0, 0, .35); pointer-events: none; }
-.is-live .award-clip::before { content: ""; position: absolute; top: 4px; left: 5px; width: 12px; height: 2px; border-radius: 1px; background: #2b2e2c; }
-.is-live .award-clip::after { content: ""; position: absolute; top: 9px; left: 50%; width: 8px; height: 16px; margin-left: -6px; border: 2px solid #b4bab6; border-top-color: #e6e9e7; border-radius: 50%; }
-.is-live .award-swing::before { content: ""; position: absolute; top: 10px; left: 50%; z-index: 2; width: 32px; height: 8px; margin-left: -16px; border-radius: 4px; background: #fff; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .35); pointer-events: none; }
+/* Lanyard after the React Bits reference (2026-10-27 user requests): a woven strap in the site's deep green (fine cross ribs, darker
+   edges) printed with light green ✦ marks, fading in at the top so it hangs from above and cut 8px short of its end, under the clip. */
+.is-live .award-band { position: absolute; top: 0; left: 50%; display: block; width: 20px; height: var(--band); margin-left: -10px; overflow: hidden; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .08) 0 1px, transparent 1px 3px), linear-gradient(90deg, #143a31, var(--accent-deep) 50%, #143a31); color: var(--accent-soft); font-size: 12px; line-height: 20px; letter-spacing: 16px; text-align: center; white-space: nowrap; writing-mode: vertical-rl; user-select: none; transform-origin: 50% 0; -webkit-mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 8px), transparent calc(100% - 8px)); }
+/* Badge clip (user choice B): a silver bulldog clip biting the card's top edge (press line, teeth); the band ends under it. It rides
+   on the card, not on the flipping face, so it shows on the front and the back. */
+.is-live .award-clip { position: absolute; top: -12px; left: 50%; z-index: 3; display: block; width: 28px; height: 26px; margin-left: -14px; border: 1px solid #5c625e; border-radius: 4px 4px 3px 3px; background: linear-gradient(90deg, #9aa19c, #eef1ef 35%, #c3c8c5 60%, #8d948f); box-shadow: 0 2px 3px rgba(0, 0, 0, .3); pointer-events: none; }
+.is-live .award-clip::before { content: ""; position: absolute; top: 8px; left: 3px; right: 3px; height: 3px; border-radius: 2px; background: #4a504c; box-shadow: 0 1px 0 rgba(255, 255, 255, .6); }
+.is-live .award-clip::after { content: ""; position: absolute; left: 4px; right: 4px; bottom: 3px; height: 4px; border-radius: 1px; background: repeating-linear-gradient(90deg, #6d746f 0 2px, #d5d9d6 2px 4px); }
 @media (prefers-reduced-motion: no-preference) {
   .award-flipper { transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
 }
