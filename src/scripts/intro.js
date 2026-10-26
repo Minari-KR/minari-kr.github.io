@@ -81,7 +81,7 @@
     if (!await run(align)) return;
 
     // Spread: every card flies straight out (no squash or pop, 2026-10-26 user request) from the screen centre along the line to
-    // its own cell (straight up for a card at the centre) by ~0.7 of the viewport diagonal, growing and fading,
+    // its own cell (straight up for a card at the centre) by ~0.7 of the viewport diagonal at the same size (no zoom, 2026-10-26 user request), fading,
     // after its own random start delay; the glass clears over the same window.
     const reach = Math.hypot(W, H) * .7;
     const spread = all.map((card, i) => {
@@ -89,7 +89,7 @@
       const [ux, uy] = length < 0.5 ? [0, -1] : [x / length, y / length];
       return card.animate([
         { transform: at(x, y, scale), opacity: 1 },
-        { transform: at(x + ux * reach, y + uy * reach, scale * 1.25), opacity: 0 }
+        { transform: at(x + ux * reach, y + uy * reach, scale), opacity: 0 }
       ], { duration: SPREAD, delay: Math.random() * SPREAD_DELAY, easing: 'cubic-bezier(.5, 0, .75, 0)', fill: 'both' });
     });
     if (await run([...spread, clearGlass(SPREAD, 'ease')])) { ending = true; remove(); }
