@@ -14,9 +14,15 @@
   if (seen || painted || window.motionLoop.reduce.matches) { remove(); return; }
   try { sessionStorage.setItem(KEY, '1'); } catch { /* ignore */ }
 
+  // Random order each visit (Fisher-Yates); appending in that order also fixes the stack order and each card's grid cell.
   const cards = [...layer.querySelectorAll('.intro-card')];
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  layer.append(...cards);
   const EASE = 'cubic-bezier(.77, 0, .175, 1)';
-  const STAGGER = 100, RISE = 700, ALIGN = 600, HOLD = 100, SPREAD = 600, GAP = 16;
+  const STAGGER = 40, RISE = 700, ALIGN = 700, SPREAD = 1200, SPREAD_DELAY = 250, GAP = 8;
   let anims = [];
   let ending = false;
 
@@ -50,38 +56,42 @@
     ));
     if (!await run(rise)) return;
 
-    // Align: a centred grid (4 x 3, or 3 x 4 on narrow screens; the short last row is centred), measured once here.
-    // Cells keep the card's 352/336 ratio and fit ~88% of the width and ~80% of the height.
-    const W = window.innerWidth, H = window.innerHeight;
-    const cols = W > 640 ? 4 : 3, rows = Math.ceil(cards.length / cols);
-    const cellW = Math.min((W * .88 - (cols - 1) * GAP) / cols, (H * .8 - (rows - 1) * GAP) / rows * 352 / 336);
-    const cellH = cellW * 336 / 352;
-    const scale = cellW / cards[0].offsetWidth;
-    const cells = cards.map((_, i) => {
-      const row = Math.floor(i / cols), inRow = Math.min(cols, cards.length - row * cols);
-      return [(i % cols - (inRow - 1) / 2) * (cellW + GAP), (row - (rows - 1) / 2) * (cellH + GAP)];
-    });
+    // Align: a grid that fills the viewport edge to edge (8px gaps), measured once here. Columns are picked so the cells
+    // are as close as possible to the card ratio; each card is scaled to cover its cell. Spare cells get clones of the
+    // first cards, which fade in from the centre.
+    const W = window.innerWidth, H = window.innerHeight, N = cards.length;
+    const cols = Math.max(1, Math.round(Math.sqrt(N * (W / H) * (336 / 352)))), rows = Math.ceil(N / cols);
+    const cellW = (W - (cols - 1) * GAP) / cols, cellH = (H - (rows - 1) * GAP) / rows;
+    const scale = Math.max(cellW / cards[0].offsetWidth, cellH / cards[0].offsetHeight);
+    const clones = [];
+    for (let i = N; i < cols * rows; i++) {
+      const clone = cards[i % N].cloneNode();
+      layer.append(clone);
+      clones.push(clone);
+    }
+    const all = [...cards, ...clones];
+    const cells = all.map((_, i) => [(i % cols + .5) * (cellW + GAP) - GAP / 2 - W / 2, (Math.floor(i / cols) + .5) * (cellH + GAP) - GAP / 2 - H / 2]);
     const at = (x, y, s) => `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(0deg)`;
-    const align = cards.map((card, i) => card.animate(
-      [{ transform: rests[i] }, { transform: at(...cells[i], scale) }],
+    const align = all.map((card, i) => card.animate(
+      i < N ? [{ transform: rests[i] }, { transform: at(...cells[i], scale) }]
+        : [{ transform: at(0, 0, 0), opacity: 0 }, { transform: at(...cells[i], scale), opacity: 1 }],
       { duration: ALIGN, easing: EASE, fill: 'both' }
     ));
     if (!await run(align)) return;
 
-    const hold = new Animation(new KeyframeEffect(null, [], HOLD));
-    hold.play();
-    if (!await run([hold])) return;
-
-    // Spread: every card flies outward from the screen centre along the line to its own cell (straight up for a card
-    // at the centre) by ~0.6 of the viewport diagonal, growing and fading, while the glass clears.
-    const reach = Math.hypot(W, H) * .6;
-    const spread = cards.map((card, i) => {
+    // Spread: every card squashes, pops (easeOutBack) and then flies outward from the screen centre along the line to
+    // its own cell (straight up for a card at the centre) by ~0.7 of the viewport diagonal, growing and fading,
+    // after its own random start delay; the glass clears over the same window.
+    const reach = Math.hypot(W, H) * .7;
+    const spread = all.map((card, i) => {
       const [x, y] = cells[i], length = Math.hypot(x, y);
       const [ux, uy] = length < 0.5 ? [0, -1] : [x / length, y / length];
-      return card.animate(
-        [{ transform: at(x, y, scale), opacity: 1 }, { transform: at(x + ux * reach, y + uy * reach, scale * 1.3), opacity: 0 }],
-        { duration: SPREAD, easing: 'ease-in', fill: 'both' }
-      );
+      return card.animate([
+        { offset: 0, transform: at(x, y, scale), opacity: 1, easing: 'ease-out' },
+        { offset: .18, transform: at(x, y, scale * .92), opacity: 1, easing: 'cubic-bezier(.34, 1.56, .64, 1)' },
+        { offset: .38, transform: at(x, y, scale * 1.12), opacity: 1, easing: 'cubic-bezier(.5, 0, .75, 0)' },
+        { offset: 1, transform: at(x + ux * reach, y + uy * reach, scale * 1.25), opacity: 0 }
+      ], { duration: SPREAD, delay: Math.random() * SPREAD_DELAY, fill: 'both' });
     });
     if (await run([...spread, clearGlass(SPREAD, 'ease')])) { ending = true; remove(); }
   };

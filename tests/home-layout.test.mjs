@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { bannerTitles } from '../scripts/about.mjs';
 import { games } from '../scripts/site-config.mjs';
 import { compileSite } from '../scripts/site.mjs';
 import { root, cssRule } from './fixture.mjs';
@@ -88,15 +87,15 @@ test('the home page ends projects -> games and no longer has the AI collaboratio
   assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js'));
 });
 
-test('home and About Me have a first-visit glass intro layer of the About banner games, driven by a timer-free script', () => {
+test('home and About Me have a first-visit glass intro layer of every game with an image, driven by a timer-free script', () => {
   const files = compileSite(root).files;
-  const wanted = bannerTitles.map(title => games.find(game => game.title === title).image);
+  const wanted = games.filter(game => game.image).map(game => game.image);
   for (const [name, base] of [['index.html', '\.'], ['about/index.html', '\.\.']]) {
     const page = files.get(name);
     const layer = page.match(/<div class="intro-layer" data-intro hidden>[\s\S]*?<\/div>/)[0];
     const cards = [...layer.matchAll(new RegExp(`<img class="intro-card" src="${base}/(assets/images/games/[^"]+)" width="352" height="336" alt="" decoding="async">`, 'g'))].map(match => match[1]);
     assert.deepEqual(cards, wanted, name);
-    assert.equal(cards.length, 11);
+    assert.equal(cards.length, 30);
     assert.doesNotMatch(layer, /<button|skip|aria-hidden/);
     assert.ok(page.indexOf('data-intro hidden') < page.indexOf('<main'), name);
     assert.ok(page.indexOf('assets/js/motion-loop.js') < page.indexOf('assets/js/intro.js') && page.indexOf('assets/js/intro.js') < page.indexOf('assets/js/scroll-exit.js'), name);
@@ -110,9 +109,9 @@ test('home and About Me have a first-visit glass intro layer of the About banner
   const css = fs.readFileSync(path.join(root, 'src/styles/intro.css'), 'utf8');
   assert.match(css, /backdrop-filter: blur\(24px\) saturate\(1\.4\)/);
   assert.match(css, /@supports not \(\(backdrop-filter/);
-  assert.doesNotMatch(css, /skip/);
+  assert.doesNotMatch(css, /skip|will-change/);
   const source = fs.readFileSync(path.join(root, 'src/scripts/intro.js'), 'utf8');
-  for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'stopImmediatePropagation', 'is-waiting', "'intro-seen'"]) assert.ok(source.includes(part), part);
+  for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'Math.random', 'stopImmediatePropagation', 'is-waiting', "'intro-seen'"]) assert.ok(source.includes(part), part);
   assert.match(source, /try {[^}]*sessionStorage/);
   assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval|intro-skip/);
 });

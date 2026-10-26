@@ -45,9 +45,9 @@ export function spiralHtml(games, titles = bannerTitles) {
   return `        <div class="spiral" data-spiral role="img" aria-label="서브컬처 게임 ${list.length}개: ${escapeHtml(list.map(game => game.title).join(', '))}">\n${cards}\n        </div>`;
 }
 
-// First-visit intro layer: the same games as the banner, hidden until src/scripts/intro.js shows it. `base` is the path
+// First-visit intro layer: every game with an image, in site-config order, hidden until src/scripts/intro.js shows it. `base` is the path
 // to the site root ('.' on home, '..' on About Me). The cards have empty alt text, so screen readers pass over them.
-export function introHtml(games, base = '.', titles = bannerTitles) {
-  const cards = bannerGames(games, titles).map(game => `    <img class="intro-card" src="${base}/${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
+export function introHtml(games, base = '.') {
+  const cards = games.filter(game => game.image).map(game => `    <img class="intro-card" src="${base}/${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
   return `<div class="intro-layer" data-intro hidden>\n${cards}\n  </div>\n`;
 }
