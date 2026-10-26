@@ -154,16 +154,20 @@ test('about.js leaves the scroll exit to scroll-exit.js, which the page link ask
 
 test('scroll-exit.js opens About Me on one more scroll at the top of the portfolio, with no timers or frame loop', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/scroll-exit.js'), 'utf8');
-  for (const rule of ["addEventListener('wheel'", "addEventListener('keydown'", "addEventListener('pageshow'", '.animate(', 'location.assign', 'motionLoop.reduce.matches', 'duration: 600']) assert.ok(source.includes(rule), rule);
+  for (const rule of ["addEventListener('wheel'", "addEventListener('keydown'", "addEventListener('pageshow'", '.animate(', 'location.assign', 'motionLoop.reduce.matches', 'duration: 600', 'exit-cover']) assert.ok(source.includes(rule), rule);
+  assert.doesNotMatch(source, /document\.body\.animate|body\.animate/); // only a cover layer fades, never the whole body
   assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
 
-test('a scroll exit arrives with a 0.6s fade: the fragment, one target element per page, and the :target CSS', () => {
+test('a scroll exit covers with one layer and arrives under a fading cover: the fragment, one target element per page, and the CSS', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/scroll-exit.js'), 'utf8');
   assert.ok(source.includes("href += '#from-scroll'"));
   for (const name of ['index.html', 'about/index.html']) assert.equal((files.get(name).match(/id="from-scroll"/g) || []).length, 1, name);
   const css = fs.readFileSync(path.join(root, 'src/styles/page-transitions.css'), 'utf8');
-  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*\{[^@]*body:has\(#from-scroll:target\)\s*\{\s*animation: arrive-fade 600ms ease both;/);
+  assert.match(css, /\.exit-cover \{ position: fixed; inset: 0; z-index: 2147483647; background: var\(--bg\); pointer-events: none; opacity: 0; \}/);
+  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*html:has\(#from-scroll:target\)::before \{[^}]*position: fixed; inset: 0;[^}]*background: var\(--bg\); pointer-events: none; animation: arrive-cover 600ms ease both;/);
+  assert.match(css, /@keyframes arrive-cover \{ from \{ opacity: 1; visibility: visible; \} to \{ opacity: 0; visibility: hidden; \} \}/);
+  assert.doesNotMatch(css, /body:has\(#from-scroll|arrive-fade|body\s*\{[^}]*animation/); // no body animation on arrival
 });
 
 test('the styles never transition everything', () => {
@@ -179,7 +183,9 @@ test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, 
   assert.match(page, /<div class="text-loop" data-text-loop aria-hidden="true"><\/div>/);
   assert.ok(page.indexOf('data-text-loop') < page.indexOf('<main'));
   const home = files.get('index.html');
-  assert.doesNotMatch(home + files.get('projects/reflectory.html'), /text-loop|data-text-loop/);
+  assert.match(home, /<div class="text-loop" data-text-loop aria-hidden="true"><\/div>/); // the portfolio home has the ribbons too
+  assert.ok(home.indexOf('data-text-loop') < home.indexOf('<main'));
+  assert.doesNotMatch(files.get('projects/reflectory.html'), /text-loop|data-text-loop/);
   const source = fs.readFileSync(path.join(root, 'src/scripts/text-loop.js'), 'utf8');
   assert.doesNotMatch(source, /motionLoop\(/); // after the one-time draw-in everything is still, so no frame loop
   assert.match(source, /createElementNS/);
@@ -193,7 +199,8 @@ test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, 
   assert.equal((source.match(/el\(container, 'svg'/g) || []).length, 1); // one full-viewport svg holding all ribbons
   assert.doesNotMatch(source, /feGaussianBlur|filter=|mask-image/);
   assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia|innerHTML/);
-  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
+  const css = fs.readFileSync(path.join(root, 'src/styles/home.css'), 'utf8'); // shared by home and About Me
+  assert.doesNotMatch(fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8'), /\.text-loop|\.tl-/);
   assert.match(css, /\.text-loop \{ display: none; \}\s*@media \(min-width: 1256px\) \{\s*\.text-loop \{[^}]*position: fixed; inset: 0; z-index: 0; pointer-events: none/);
   const loopCss = css.slice(css.indexOf('.text-loop {'), css.indexOf('.tl-text'));
   assert.doesNotMatch(loopCss, /mask-image|gradient|blur/);

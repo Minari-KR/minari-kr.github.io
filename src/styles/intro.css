@@ -4,3 +4,6 @@
 .intro-card { grid-area: 1 / 1; width: 240px; height: auto; aspect-ratio: 352 / 336; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 30px rgba(0, 0, 0, .1); }
 .intro-layer.is-waiting .intro-card { visibility: hidden; }
 @media (max-width: 640px) { .intro-card { width: 160px; } }
+/* Phone/touch variant (intro.js adds .is-lite): a solid layer and flat cards, nothing for the GPU to blur. */
+.intro-layer.is-lite { background: rgba(236, 238, 234, .92); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.intro-layer.is-lite .intro-card { box-shadow: none; }

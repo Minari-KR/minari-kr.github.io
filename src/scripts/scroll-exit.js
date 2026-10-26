@@ -1,6 +1,6 @@
 (() => {
-  // One more scroll past the top or bottom edge fades the page out (600ms) and opens the page named by a
-  // link marked data-scroll-exit="top" or "bottom". The fade is a Web Animation whose `finished` promise
+  // One more scroll past the top or bottom edge covers the page with a plain background-coloured layer (fades in over 600ms) and opens the page named by a
+  // link marked data-scroll-exit="top" or "bottom". The cover fade is a Web Animation whose `finished` promise
   // starts the navigation, so no timer is needed.
   const link = edge => document.querySelector(`a[data-scroll-exit="${edge}"]`);
   const top = link('top');
@@ -20,6 +20,7 @@
     let pulled = 0; // wheel distance toward the edge gathered since arming
     let touchY = null;
     let fade = null;
+    let cover = null;
     const refresh = () => {
       if (!atEdge[edge]()) since = null;
       else if (since === null) since = performance.now();
@@ -31,12 +32,16 @@
     // A local copy opened as a file has no server to turn "dir/" into dir/index.html, so it names the file.
     let href = anchor.getAttribute('href');
     if (location.protocol === 'file:' && href.endsWith('/')) href += 'index.html';
-    // The #from-scroll fragment lets the arriving page's CSS (:target) fade itself in; it also keeps the page at the top.
+    // The #from-scroll fragment lets the arriving page's CSS (:target) fade its cover out; it also keeps the page at the top.
     href += '#from-scroll';
     const leave = () => {
       if (fade) return;
       if (window.motionLoop.reduce.matches) { fade = {}; location.assign(href); return; }
-      fade = document.body.animate({ opacity: [1, 0] }, { duration: 600, easing: 'ease', fill: 'forwards' });
+      // One fixed layer fades in instead of the whole body (the 3D spiral and SVG ribbons would be re-composited every frame).
+      cover = document.createElement('div');
+      cover.className = 'exit-cover';
+      document.body.append(cover);
+      fade = cover.animate({ opacity: [0, 1] }, { duration: 600, easing: 'ease', fill: 'forwards' });
       fade.finished.then(() => location.assign(href), () => {});
     };
     window.addEventListener('scroll', refresh, { passive: true });
@@ -70,6 +75,8 @@
     window.addEventListener('pageshow', event => {
       if (!event.persisted) return;
       fade?.cancel?.();
+      cover?.remove();
+      cover = null;
       fade = null;
       pulled = 0;
       since = null;

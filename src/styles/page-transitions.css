@@ -14,8 +14,11 @@
   ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
 
-/* Arrival after a scroll exit (scroll-exit.js adds #from-scroll): fade in over 0.6s, mirroring the leaving fade. */
+/* Scroll exit (scroll-exit.js): one fixed cover in the page background colour fades in over 0.6s, so the body itself is never animated. */
+.exit-cover { position: fixed; inset: 0; z-index: 2147483647; background: var(--bg); pointer-events: none; opacity: 0; }
+
+/* Arrival after a scroll exit (scroll-exit.js adds #from-scroll): the same colour covers the new page and fades out over 0.6s, then is hidden. */
 @media (prefers-reduced-motion: no-preference) {
-  body:has(#from-scroll:target) { animation: arrive-fade 600ms ease both; }
-  @keyframes arrive-fade { from { opacity: 0; } to { opacity: 1; } }
+  html:has(#from-scroll:target)::before { content: ''; position: fixed; inset: 0; z-index: 2147483647; background: var(--bg); pointer-events: none; animation: arrive-cover 600ms ease both; }
+  @keyframes arrive-cover { from { opacity: 1; visibility: visible; } to { opacity: 0; visibility: hidden; } }
 }

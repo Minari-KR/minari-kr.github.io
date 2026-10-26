@@ -20,6 +20,13 @@
     const j = Math.floor(Math.random() * (i + 1));
     [cards[i], cards[j]] = [cards[j], cards[i]];
   }
+  // Phones and touch screens (2026-10-26 perf request): no backdrop-filter (solid layer), 16 cards in a 4x4 grid, no card shadow, and
+  // the clear step fades the layer's opacity. Desktop keeps the full effect.
+  const lite = window.matchMedia('(max-width: 640px), (pointer: coarse)').matches;
+  if (lite) {
+    for (const card of cards.splice(16)) card.remove();
+    layer.classList.add('is-lite');
+  }
   layer.append(...cards);
   const EASE = 'cubic-bezier(.77, 0, .175, 1)';
   const STAGGER = 65, RISE = 1100, ALIGN = 1100, SPREAD = 1600, SPREAD_DELAY = 350;
@@ -28,7 +35,7 @@
 
   // The page below sharpens (blur -> 0) and the white wash fades; the start values come from the CSS.
   const clearGlass = (ms, easing) => layer.animate(
-    { background: 'rgba(255, 255, 255, 0)', backdropFilter: 'blur(0px) saturate(1.4)' },
+    lite ? { opacity: [1, 0] } : { background: 'rgba(255, 255, 255, 0)', backdropFilter: 'blur(0px) saturate(1.4)' },
     { duration: ms, easing, fill: 'forwards' }
   );
 
@@ -61,7 +68,7 @@
     // once here. Columns are picked so the cells are as close as possible to the card ratio; each card fits inside its cell.
     // Spare cells get clones of the first cards, which fade in from the centre.
     const W = window.innerWidth, H = window.innerHeight, N = cards.length, GAP = W > 640 ? 24 : 16;
-    const cols = Math.max(1, Math.round(Math.sqrt(N * (W / H) * (336 / 352)))), rows = Math.ceil(N / cols);
+    const cols = lite ? 4 : Math.max(1, Math.round(Math.sqrt(N * (W / H) * (336 / 352)))), rows = Math.ceil(N / cols);
     const cellW = (W - (cols + 1) * GAP) / cols, cellH = (H - (rows + 1) * GAP) / rows;
     const scale = Math.min(cellW / cards[0].offsetWidth, cellH / cards[0].offsetHeight);
     const clones = [];

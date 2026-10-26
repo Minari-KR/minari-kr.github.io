@@ -113,5 +113,12 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   const source = fs.readFileSync(path.join(root, 'src/scripts/intro.js'), 'utf8');
   for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'Math.random', 'stopImmediatePropagation', 'is-waiting', "'intro-seen'"]) assert.ok(source.includes(part), part);
   assert.match(source, /try {[^}]*sessionStorage/);
-  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval|intro-skip/);
+  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|setTimeout|setInterval|intro-skip/);
+  // The only matchMedia is the phone/touch query (intro.js is a helper, not a motionLoop script).
+  assert.equal((source.match(/matchMedia/g) || []).length, 1);
+  assert.ok(source.includes("matchMedia('(max-width: 640px), (pointer: coarse)')"));
+  assert.ok(source.includes('cards.splice(16)') && source.includes("classList.add('is-lite')") && source.includes('lite ? 4 :'));
+  assert.match(source, /lite \? \{ opacity: \[1, 0\] \} : \{ background: [^}]*backdropFilter/); // phones fade opacity, never animate backdrop-filter
+  assert.match(css, /\.intro-layer\.is-lite \{[^}]*rgba\(236, 238, 234, \.92\)[^}]*backdrop-filter: none/);
+  assert.match(css, /\.intro-layer\.is-lite \.intro-card \{ box-shadow: none; \}/);
 });

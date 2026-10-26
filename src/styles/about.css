@@ -103,17 +103,3 @@
   .inv-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; border-radius: 24px; }
   .inv-tab { padding: 0 2px; }
 }
-
-/* Scribbled Text Loop ribbons (src/scripts/text-loop.js): one full-viewport SVG fixed behind the white box (.page is z-index 1), so the opaque box hides them;
-   only from 1256px, where the gutters are wide enough to show them. The script draws the SVG. No edge fade, no blur. */
-.text-loop { display: none; }
-@media (min-width: 1256px) {
-  .text-loop { display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-}
-.tl-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.tl-band { stroke-linecap: butt; }
-.tl-a { stroke: var(--accent-soft); }
-.tl-b { stroke: #e6efe8; }
-.tl-c { stroke: #d2e2d6; }
-.tl-shadow { stroke: #000; stroke-opacity: .07; stroke-linecap: butt; }
-.tl-text { fill: var(--accent-deep); font-weight: 800; font-family: var(--font-body); letter-spacing: 2px; text-transform: uppercase; white-space: pre; dominant-baseline: central; }
