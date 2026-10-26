@@ -12,7 +12,7 @@ test('media collection and link validation use the same attribute rules', t => {
   const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/images/awards/', "SRC='./assets/images/awards/").replace(/(SRC='[^"\n]+)"/g, "$1'");
   fs.writeFileSync(home, source.replace('src="./assets/videos/reflectory-gameplay.mp4"', "SRC='./assets/videos/reflectory-gameplay.mp4'"));
   const result = compileSite(dir);
-  for (const name of ['assets/images/awards/sticker-cap.webp', 'assets/images/awards/sticker-creeper.webp', 'assets/videos/reflectory-gameplay.mp4']) {
+  for (const name of ['assets/images/awards/sticker-paimon.webp', 'assets/images/awards/sticker-creeper.webp', 'assets/videos/reflectory-gameplay.mp4']) {
     assert.ok(result.publicFiles.get(name).equals(fs.readFileSync(path.join(dir, 'public', name))));
   }
   assert.doesNotMatch(result.publicFiles.get('index.html'), /data-full-src="\.\/assets\/images\/(?:reflectory-title|barrel-good-barrel-title)\.png"/);
