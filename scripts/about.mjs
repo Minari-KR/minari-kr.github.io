@@ -17,7 +17,7 @@ export const toolGroups = [
 export function toolGroupsHtml(groups, hasLogo) {
   return groups.map(([label, tools]) => {
     const slots = tools.map(([name, slug, role = '']) => {
-      const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
+      const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
       const hidden = `, ${label}${role ? `, ${role}` : ''}`;
       return `                <li class="inv-slot" data-slot data-group="${escapeHtml(label)}"><span class="inv-box">${logo}</span><span class="inv-name" translate="no">${escapeHtml(name)}</span><span class="inv-hide">${escapeHtml(hidden)}</span></li>`;
     }).join('\n');

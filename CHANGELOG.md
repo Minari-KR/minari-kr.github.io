@@ -14,6 +14,12 @@
 
 ## 기록
 
+### 2026-10-26 · About Me 도구 로고 192px로 다시 만듦 (Claude, 파일 처리 Sonnet)
+
+- 요청: About Me 도구 로고 13개가 고해상도 화면에서 흐려서, 원본에서 3배(192px)로 다시 만들기. 모양과 색은 그대로.
+- 변경: `public/assets/images/tools/*.png` 13개를 64×64에서 192×192 투명 PNG로 교체(마크 크기·가운데 위치는 전과 같은 3배, 도트 Aseprite는 14×15칸을 9배 확대로 칸이 네모 그대로). 원본은 공식 키트(Figma·GitHub·Claude·ComfyUI), 사용자가 준 그림(Unity 6·Photoshop·GPT·Grok·Gemini·Blender·Aseprite), 설치된 앱(Notion `resources/icon-production.png`, Unreal exe 아이콘 256px). `scripts/about.mjs`의 `<img>` 크기 속성과 `AGENTS.md` 설명을 192로 고침(화면 표시는 그대로 56px).
+- 검증: build·verify 통과(테스트 65개). 옛 64px와 새 192px 비교 그림으로 눈으로 확인(마크 크기 ±2px).
+
 ### 2026-10-26 · 홈에서 ‘AI와 일하는 방식’ 섹션 뺌 (Claude, 코드 Sonnet)
 
 - 요청: 홈에서 ‘AI와 일하는 방식’ 섹션을 빼고, 파일은 보관.
