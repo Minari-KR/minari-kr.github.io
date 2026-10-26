@@ -120,7 +120,7 @@
 ### 2026-10-26 · 홈에서 ‘AI와 일하는 방식’ 섹션 뺌 (Claude, 코드 Sonnet)
 
 - 요청: 홈에서 ‘AI와 일하는 방식’ 섹션을 빼고, 파일은 보관.
-- 변경: `home.html`에서 `#ai-party` 섹션과 `ai-party.css`·`ai-party.js` 불러오는 줄을 지움. 파일 삭제: `src/scripts/ai-party.js`, `src/styles/ai-party.css`, `public/assets/icons/ap-cursor.svg`, `pixelarticons-*.svg` 6개와 `pixelarticons-license.txt`. 액정 색 변수·도트 글꼴은 게임 화면·수상 카드가 쓰므로 `common.css`에 그대로 두고 주석만 고침. 검사(`tests/home-layout.test.mjs`·`tests/motion.test.mjs`)와 `AGENTS.md`(홈 순서, 움직이는 그림 7개, 불러오는 순서, 파일 표)를 맞춤. 보관 위치: `D:_Archive\Minari-Portfolio-AIParty\`(되살리는 법은 `ARCHIVE_INFO.txt`).
+- 변경: `home.html`에서 `#ai-party` 섹션과 `ai-party.css`·`ai-party.js` 불러오는 줄을 지움. 파일 삭제: `src/scripts/ai-party.js`, `src/styles/ai-party.css`, `public/assets/icons/ap-cursor.svg`, `pixelarticons-*.svg` 6개와 `pixelarticons-license.txt`. 액정 색 변수·도트 글꼴은 게임 화면·수상 카드가 쓰므로 `common.css`에 그대로 두고 주석만 고침. 검사(`tests/home-layout.test.mjs`·`tests/motion.test.mjs`)와 `AGENTS.md`(홈 순서, 움직이는 그림 7개, 불러오는 순서, 파일 표)를 맞춤. 보관 위치: `D:\5_Archive\Minari-Portfolio-AIParty\`(되살리는 법은 `ARCHIVE_INFO.txt`).
 - 검증: build·verify 통과(테스트 65개). 만들어진 `dist/`에 `ai-party`·`pixelarticons`·`ap-cursor`가 없음. 홈 섹션 순서는 소개 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험. 브라우저에서 눈으로 본 확인은 안 함.
 
 ### 2026-10-26 · 코드 정리(리팩터링) (Claude, 코드 Sonnet)
