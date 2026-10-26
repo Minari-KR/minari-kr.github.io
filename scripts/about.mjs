@@ -30,7 +30,7 @@ export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/
 // Subculture game banner: games picked by title, in this order. A missing title fails the build.
 export const bannerTitles = ['블루 아카이브', '명조: 워더링 웨이브', '원신', '이터널 리턴', '젠레스 존 제로', '명일방주: 엔드필드', '몬길: STAR DIVE', '림버스 컴퍼니', '이환', '소녀전선2: 망명', '트릭컬 리바이브'];
 
-function bannerGames(games, titles) {
+export function bannerGames(games, titles) {
   return titles.map(title => {
     const game = games.find(item => item.title === title);
     if (!game || !game.image) throw new Error(`배너 게임을 games에서 찾을 수 없습니다: ${title}`);
@@ -43,4 +43,11 @@ export function bannerSlidesHtml(games, titles = bannerTitles) {
   return list.map((game, i) => `            <div class="banner-slide" data-slide role="group" aria-roledescription="slide" aria-label="${i + 1} / ${list.length} ${escapeHtml(game.title)}">
               <img class="banner-art" src="../${escapeHtml(game.image)}" width="352" height="336" alt="${escapeHtml(game.title)}" decoding="async">
             </div>`).join('\n');
+}
+
+// First-visit intro layer: the same games as the banner, hidden until src/scripts/intro.js shows it. The layer is not
+// aria-hidden because the skip button lives inside it; the cards have empty alt text, so screen readers pass over them.
+export function introHtml(games, titles = bannerTitles) {
+  const cards = bannerGames(games, titles).map(game => `    <img class="intro-card" src="./${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
+  return `<div class="intro-layer" data-intro hidden>\n${cards}\n    <button type="button" class="intro-skip" data-intro-skip>건너뛰기</button>\n  </div>\n`;
 }

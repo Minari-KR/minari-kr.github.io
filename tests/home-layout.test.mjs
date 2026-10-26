@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import path from 'node:path';
+import { bannerTitles } from '../scripts/about.mjs';
+import { games } from '../scripts/site-config.mjs';
 import { compileSite } from '../scripts/site.mjs';
 import { root, cssRule } from './fixture.mjs';
 
@@ -83,4 +86,24 @@ test('the home page ends projects -> games and no longer has the AI collaboratio
   // The page loads the shared loop first (it alone knows reduced motion, the viewport and the hidden tab).
   const loopAt = built.indexOf('assets/js/motion-loop.js');
   assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js'));
+});
+
+test('the home page has a first-visit intro layer of the About banner games, driven by a timer-free script', () => {
+  const built = compileSite(root).files.get('index.html');
+  const layer = built.match(/<div class="intro-layer" data-intro hidden>[\s\S]*?<\/div>/)[0];
+  const cards = [...layer.matchAll(/<img class="intro-card" src="\.\/(assets\/images\/games\/[^"]+)" width="352" height="336" alt="" decoding="async">/g)].map(match => match[1]);
+  const wanted = bannerTitles.map(title => games.find(game => game.title === title).image);
+  assert.deepEqual(cards, wanted);
+  assert.equal(cards.length, 11);
+  assert.match(layer, /<button type="button" class="intro-skip" data-intro-skip>건너뛰기<\/button>/);
+  assert.doesNotMatch(layer, /aria-hidden/);
+  assert.ok(built.indexOf('data-scroll-exit="top"') < built.indexOf('data-intro hidden') && built.indexOf('data-intro hidden') < built.indexOf('<main'));
+  assert.ok(built.indexOf('assets/js/motion-loop.js') < built.indexOf('assets/js/intro.js') && built.indexOf('assets/js/intro.js') < built.indexOf('assets/js/scroll-exit.js'));
+  assert.ok(built.indexOf('assets/css/games.css') < built.indexOf('assets/css/intro.css') && built.indexOf('assets/css/intro.css') < built.indexOf('assets/css/page-transitions.css'));
+  const files = compileSite(root).files;
+  for (const name of ['about/index.html', 'projects/reflectory.html', 'projects/barrel-good-barrel.html']) assert.doesNotMatch(files.get(name), /data-intro|intro.(js|css)/, name);
+  const source = fs.readFileSync(path.join(root, 'src/scripts/intro.js'), 'utf8');
+  for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'stopImmediatePropagation', 'is-waiting']) assert.ok(source.includes(part), part);
+  assert.match(source, /try {[^}]*sessionStorage/);
+  assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });

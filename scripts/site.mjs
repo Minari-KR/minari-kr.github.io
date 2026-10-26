@@ -9,7 +9,7 @@ import { socialMeta } from './social.mjs';
 import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
-import { toolGroups, toolGroupsHtml, logoExists, bannerSlidesHtml } from './about.mjs';
+import { toolGroups, toolGroupsHtml, logoExists, bannerSlidesHtml, introHtml } from './about.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
@@ -26,6 +26,7 @@ export function compileSite(root) {
     page_description: escapeHtml(homeDescription),
     social: socialMeta({ title: homeTitle, description: homeDescription }),
     release_section: releaseSection(template('release.html'), release),
+    intro: introHtml(games),
     game_packs: gamePacks(games),
     project_tabs: projectTabs(projects),
     project_cards: projectCards(projects)
