@@ -3,13 +3,13 @@
 (() => {
   const spiral = document.querySelector('[data-spiral]');
   if (spiral) {
-    // Each card sits on a helix in real 3D (translate3d) and is turned a little (rotateY) so neighbours are not parallel planes:
-    // the browser depth-sorts per pixel and the overlap boundary slides instead of flipping z-order in one frame. Values follow React Bits 'Infinite Spiral'.
+    // Each card sits flat on a helix in real 3D (translate3d); the browser orders them by depth. Values follow React Bits 'Infinite Spiral'.
     const cards = [...spiral.querySelectorAll('.spiral-card')];
-    const perTurn = 7;
+    // 5 per turn keeps two neighbours apart sideways (2r·sin 36° ≈ 106px > a card) at the moment they swap front and back,
+    // so the cards can stay flat: no overlap is ever re-sorted, and no tilted planes cut through each other.
+    const perTurn = 5;
     const speed = 0.35; // cards per second, travelling up
     const centerScale = 1.2;
-    const tilt = 1 / 3; // card turn as a fraction of its helix angle
     const perspective = 1000; // must match .spiral in about.css
     // Largest on-screen size of a card (front of the helix x centre boost) is the layout size, so the texture is only scaled down.
     // The transform scale is set so that card is shown exactly 1:1: any other ratio resamples the pixels and softens the art.
@@ -40,7 +40,7 @@
         const s = (1 + (centerScale - 1) * c * c * (3 - 2 * c)) / (centerScale * front(k));
         const edge = Math.min(1, Math.max(0, (Math.abs(y) / half - (1 - edgeFade)) / edgeFade));
         card.style.visibility = edge >= 1 ? 'hidden' : 'visible';
-        card.style.transform = `translate3d(${(radius * Math.sin(angle)).toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${(tilt * angle).toFixed(4)}rad) scale(${s.toFixed(4)})`;
+        card.style.transform = `translate3d(${(radius * Math.sin(angle)).toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) scale(${s.toFixed(4)})`;
         card.style.opacity = 1 - edge;
         card.style.filter = edge > 0.01 ? `blur(${(edgeBlur * edge).toFixed(2)}px)` : 'none';
       });
@@ -49,7 +49,7 @@
       w = spiral.clientWidth;
       h = spiral.clientHeight;
       const k = Math.min(1, w / 300);
-      spiral.style.setProperty('--card', `${Math.round(92 * k * centerScale * front(k))}px`);
+      spiral.style.setProperty('--card', `${Math.round(76 * k * centerScale * front(k))}px`);
       draw();
     };
 

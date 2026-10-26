@@ -64,7 +64,10 @@ test('spiral script: driven by motionLoop, no timers or frame loop of its own, m
   assert.match(js, /pointerType === 'mouse'/);
   assert.match(js, /onReduce/);
   assert.doesNotMatch(js, /zIndex|z-index/);
-  assert.match(js, /translate3d\(.*rotateY\(/);
+  // Flat cards on a 5-per-turn helix: tilted cards cut through each other, and 7 per turn re-sorts overlapping neighbours.
+  assert.match(js, /translate3d\(/);
+  assert.doesNotMatch(js, /rotateY\(/);
+  assert.match(js, /const perTurn = 5;/);
   assert.match(js, /speed = 0\.35;/);
   assert.doesNotMatch(js, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
