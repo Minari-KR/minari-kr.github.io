@@ -1,8 +1,8 @@
 Lucide Icons
 
 The icons in this directory are from Lucide, an open-source icon library.
-Bundled icons: house (project page home button), calendar (project page development period), and book-open, trophy, crown, gem (home award badges, saved as award-book/trophy/crown/gem.svg).
-The house and calendar icons are from https://github.com/lucide-icons/lucide/tree/main/icons (house.svg, calendar.svg); only their stroke color was changed. The award icons come from the same folder (book-open.svg, trophy.svg, crown.svg, gem.svg, downloaded 2026-10-27); only their stroke color (#1f4f43) and width (1.75) were changed.
+Bundled icons: house (project page home button) and calendar (project page development period).
+The house and calendar icons are from https://github.com/lucide-icons/lucide/tree/main/icons (house.svg, calendar.svg); only their stroke color was changed.
 marker.svg (the highlighter stroke behind section titles) and marker-step-1.svg to marker-step-4.svg (its colour steps for the intro sentence) are not Lucide icons; they were drawn for this site.
 Lucide is licensed under the ISC License. Some Lucide icons are derived from Feather Icons and are also covered by the MIT License below.
 

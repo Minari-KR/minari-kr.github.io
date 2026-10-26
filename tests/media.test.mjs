@@ -9,10 +9,10 @@ import { root, fixture, copyFixtureTree, imageBytes } from './fixture.mjs';
 test('media collection and link validation use the same attribute rules', t => {
   const dir = fixture(t);
   const home = path.join(dir, 'src/templates/home.html');
-  const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/icons/award-', "SRC='./assets/icons/award-").replace(/(SRC='[^"\n]+)"/g, "$1'");
+  const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/images/awards/', "SRC='./assets/images/awards/").replace(/(SRC='[^"\n]+)"/g, "$1'");
   fs.writeFileSync(home, source.replace('src="./assets/videos/reflectory-gameplay.mp4"', "SRC='./assets/videos/reflectory-gameplay.mp4'"));
   const result = compileSite(dir);
-  for (const name of ['assets/icons/award-book.svg', 'assets/icons/award-gem.svg', 'assets/videos/reflectory-gameplay.mp4']) {
+  for (const name of ['assets/images/awards/sticker-cap.webp', 'assets/images/awards/sticker-creeper.webp', 'assets/videos/reflectory-gameplay.mp4']) {
     assert.ok(result.publicFiles.get(name).equals(fs.readFileSync(path.join(dir, 'public', name))));
   }
   assert.doesNotMatch(result.publicFiles.get('index.html'), /data-full-src="\.\/assets\/images\/(?:reflectory-title|barrel-good-barrel-title)\.png"/);

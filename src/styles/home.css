@@ -56,7 +56,7 @@
 .award-card:nth-child(2) { --rest: .8deg; --tape: 2deg; }
 .award-card:nth-child(3) { --rest: 1.4deg; --tape: -2deg; }
 .award-card:nth-child(4) { --rest: -.9deg; --tape: 3deg; }
-.award-sheet { grid-area: 1 / 1; position: relative; display: grid; align-content: center; gap: var(--gap-tight); padding: 24px; color: var(--ink); rotate: var(--rest, 0deg); user-select: none; -webkit-user-select: none; filter: drop-shadow(0 calc(1px + var(--lift) * 12px) calc(2px + var(--lift) * 8px) rgba(32, 33, 31, calc(.16 + var(--lift) * .12))); }
+.award-sheet { grid-area: 1 / 1; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: center; align-items: center; column-gap: 16px; row-gap: var(--gap-tight); padding: 24px; text-align: left; color: var(--ink); rotate: var(--rest, 0deg); user-select: none; -webkit-user-select: none; filter: drop-shadow(0 calc(1px + var(--lift) * 12px) calc(2px + var(--lift) * 8px) rgba(32, 33, 31, calc(.16 + var(--lift) * .12))); }
 .award-sheet > * { position: relative; }
 .award-paper, .award-fold, .award-tape { position: absolute; pointer-events: none; }
 .award-paper { inset: 0; border: 1px solid rgba(32, 33, 31, .14); border-radius: 8px; background: radial-gradient(circle, rgba(31, 79, 67, .08) 1px, transparent 1.5px) 0 0 / 16px 16px, #fbfaf6; }
@@ -73,15 +73,12 @@
 /* Masking tape over the top edge. */
 .award-tape { top: -11px; left: 50%; width: 72px; height: 22px; margin-left: -36px; rotate: var(--tape, 0deg); background: color-mix(in srgb, var(--accent-soft) 78%, transparent); box-shadow: inset 0 0 0 1px rgba(31, 79, 67, .06); }
 /* Icon with three spark ticks above it: the middle one is the box's own background, the side ones are tilted pseudo-elements. */
-.award-top { display: flex; flex-direction: column; align-items: center; padding-top: 12px; margin-bottom: var(--gap-group); color: var(--accent-deep); background: linear-gradient(currentColor, currentColor) 50% 0 / 2px 8px no-repeat; }
-.award-top::before, .award-top::after { content: ""; position: absolute; top: 2px; left: 50%; width: 2px; height: 8px; margin-left: -1px; border-radius: 1px; background: currentColor; }
-.award-top::before { translate: -13px 1px; rotate: -40deg; }
-.award-top::after { translate: 13px 1px; rotate: 40deg; }
-.award-icon { display: block; width: 40px; height: 40px; pointer-events: none; -webkit-user-drag: none; }
+/* Game sticker on the right (Codex art, die-cut white border): it spans the three text lines and sits a little askew. */
+.award-sticker { grid-column: 2; grid-row: 1 / 4; display: block; width: 120px; height: 120px; rotate: var(--sticker-tilt, -6deg); filter: drop-shadow(0 2px 3px rgba(32, 33, 31, .22)); pointer-events: none; -webkit-user-drag: none; }
 /* The name sits on the same highlighter stroke as .project-award; the event is the quieter line; the year closes it as a small tag. */
-.award-name { display: block; justify-self: center; width: fit-content; max-width: 100%; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; font-size: 1.125rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-.award-event { color: var(--muted); font-size: 1rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-.award-year { justify-self: center; margin-top: var(--gap-group); padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-deep); font-size: .875rem; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
+.award-name { display: block; grid-column: 1; justify-self: start; margin-inline-start: -.4em; width: fit-content; max-width: 100%; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; font-size: 1.5rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
+.award-event { grid-column: 1; color: var(--muted); font-size: 1.125rem; font-weight: 500; line-height: var(--line-compact); word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
+.award-year { grid-column: 1; grid-row: 1; justify-self: start; color: var(--accent-deep); font-size: 1rem; font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
 /* Before a card is stuck (script on, motion allowed) it is only transparent, never hidden, so screen readers and search still read it
    and its cell keeps its size; the script's empty-slot button draws the dashed outline. */
 .award-list.is-live .award-card:not(.is-stuck) .award-sheet { opacity: 0; pointer-events: none; }
@@ -159,8 +156,9 @@
   .project-meta { flex-wrap: nowrap; font-size: clamp(.75rem, 3.6vw, var(--text-meta)); letter-spacing: -.02em; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .award-sheet { padding: 16px; }
-  .award-name { font-size: 1rem; }
-  .award-event { font-size: .875rem; }
+  .award-name { font-size: 1.25rem; }
+  .award-event { font-size: 1rem; }
+  .award-sticker { width: 88px; height: 88px; }
   .project-actions .action { flex: 1 1 0; }
 }
 @media (prefers-reduced-motion: no-preference) {

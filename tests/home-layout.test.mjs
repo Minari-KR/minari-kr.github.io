@@ -36,17 +36,19 @@ test('intro, awards and projects follow the single-column order with the approve
   // Names and events stay readable text; the two single long words may break only at the <wbr>.
   for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
-  for (const icon of ['book', 'trophy', 'crown', 'gem']) {
-    assert.ok(template.includes(`src="./assets/icons/award-${icon}.svg" width="40" height="40" alt="" aria-hidden="true"`), icon);
-    assert.ok(fs.existsSync(new URL(`../public/assets/icons/award-${icon}.svg`, import.meta.url)), icon);
+  // Each card ends with its game sticker (decorative) after the year, name and event, which read in that order.
+  for (const sticker of ['cap', 'helmet', 'halo', 'creeper']) {
+    assert.ok(template.includes(`<img class="award-sticker" src="./assets/images/awards/sticker-${sticker}.webp" width="360" height="360" alt="" aria-hidden="true"`), sticker);
+    assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/sticker-${sticker}.webp`, import.meta.url)), sticker);
   }
+  assert.match(template, /<span class="award-year">2026<\/span><strong class="award-name">국가수리과학<wbr>연구소장상<\/strong><span class="award-event">/);
   // Text never truncates, keeps Korean words whole and stays at the phone minimums (name 16px, event 14px).
   assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /text-overflow|line-clamp|ellipsis/);
   assert.equal(cssRule(homeStyles, '.award-name', '*').get('word-break'), 'keep-all');
   assert.equal(cssRule(homeStyles, '.award-event', '*').get('word-break'), 'keep-all');
   const phone = homeStyles.slice(homeStyles.indexOf('@media (max-width: 640px)'));
-  assert.match(phone, /\.award-name \{ font-size: 1rem; \}/);
-  assert.match(phone, /\.award-event \{ font-size: \.875rem; \}/);
+  assert.match(phone, /\.award-name \{ font-size: 1\.25rem; \}/);
+  assert.match(phone, /\.award-event \{ font-size: 1rem; \}/);
   // Two columns where a card keeps 296px, one column on phones; cards share a row height and the awards CSS has no lanyard left.
   assert.match(homeStyles, /\.award-list \{ display: grid; grid-template-columns: repeat\(auto-fit, minmax\(min\(100%, 296px\), 1fr\)\)/);
   assert.match(homeStyles, /\.award-card:nth-child\(1\) \{ --rest: -1\.2deg;[\s\S]*\.award-card:nth-child\(2\) \{ --rest: \.8deg;[\s\S]*\.award-card:nth-child\(3\) \{ --rest: 1\.4deg;[\s\S]*\.award-card:nth-child\(4\) \{ --rest: -\.9deg;/);
@@ -61,7 +63,9 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('width'), /72px/);
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('background'), /accent-soft/);
   assert.match(cssRule(homeStyles, '.award-name', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
-  assert.match(cssRule(homeStyles, '.award-year', '*').get('background'), /accent-soft/);
+  // Text on the left (year, name, event), the game sticker on the right across the three lines.
+  assert.equal(cssRule(homeStyles, '.award-year', '*').get('grid-row'), '1');
+  assert.equal(cssRule(homeStyles, '.award-sticker', '*').get('grid-column'), '2');
   // The empty slot is a 2px dashed outline; before sticking the card is only transparent (opacity, never visibility), so it stays
   // in the page for screen readers and search and its cell keeps its size. Hover styles live under hover + fine pointer only.
   assert.match(cssRule(homeStyles, '.award-slot', '*').get('border'), /^2px dashed rgba\(31,79,67,0\.28\)$/);
