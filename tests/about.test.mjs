@@ -26,7 +26,7 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/about.js']);
+  assert.deepEqual(scripts, ['../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/about.js', '../assets/js/text-loop.js']);
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
   assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);
@@ -169,4 +169,25 @@ test('the styles never transition everything', () => {
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
   assert.doesNotMatch(css, /transition:\s*all/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*transition: none/);
+});
+
+test('side Text Loop ribbons: an empty aria-hidden container outside main, built by text-loop.js through motionLoop, shown only from 1256px', () => {
+  const containers = tags.filter(({ attributes }) => 'data-text-loop' in attributes);
+  assert.equal(containers.length, 1);
+  assert.equal(containers[0].attributes['aria-hidden'], 'true');
+  assert.match(page, /<div class="text-loop" data-text-loop aria-hidden="true"><\/div>/);
+  assert.ok(page.indexOf('data-text-loop') < page.indexOf('<main'));
+  const home = files.get('index.html');
+  assert.doesNotMatch(home + files.get('projects/reflectory.html'), /text-loop|data-text-loop/);
+  const source = fs.readFileSync(path.join(root, 'src/scripts/text-loop.js'), 'utf8');
+  assert.match(source, /motionLoop\(/);
+  assert.match(source, /createElementNS/);
+  assert.match(source, /querySelector\('\[data-intro\]'\)\) return;/);
+  assert.match(source, /DRAW = 1600, EASE = 'cubic-bezier\(\.77, 0, \.175, 1\)'/);
+  assert.match(source, /SPEED = 60/);
+  assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia|innerHTML/);
+  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
+  assert.match(css, /\.text-loop \{ display: none; \}\s*@media \(min-width: 1256px\) \{\s*\.text-loop \{[^}]*position: fixed[^}]*z-index: 0; pointer-events: none/);
+  assert.match(css, /\.tl-front \{ stroke: var\(--accent-deep\); \}/);
+  assert.match(css, /\.tl-cross \{ stroke: var\(--accent-soft\); \}/);
 });
