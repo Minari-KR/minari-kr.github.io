@@ -61,6 +61,18 @@
   .inv-slot:hover { transform: translateY(-2px); }
 }
 
+/* Key phrases in the body text: the same highlighter stroke as .marker, but as a background layer (marker-body.svg, the same shape
+   with preserveAspectRatio none) so its width can sweep from 0 to 100%. The padding is cancelled by the margin, so the text does not move. */
+.hl { margin: 0 -.2em; padding: 0 .2em; background: url("../icons/marker-body.svg") 0 0 / 100% 100% no-repeat; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* about.js adds .reveal only after it runs (never under reduced motion), then .is-in when the paragraph enters the viewport:
+   the paragraph clears from blur(8px) / .3 in .8s, then each phrase's stroke sweeps left to right in 1s (--d = .4s + .15s per earlier phrase). */
+@media (prefers-reduced-motion: no-preference) {
+  .about-text.reveal { opacity: .3; filter: blur(8px); transition: opacity .8s ease, filter .8s ease; }
+  .about-text.reveal .hl { background-size: 0 100%; transition: background-size 1s ease var(--d, .4s); }
+  .about-text.reveal.is-in { opacity: 1; filter: none; }
+  .about-text.reveal.is-in .hl { background-size: 100% 100%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .spiral-card { transition: none; }
 }

@@ -14,6 +14,24 @@
 
 ## 기록
 
+### 2026-10-26 · About Me 핵심 단어 형광펜(흐림→또렷 + 왼쪽→오른쪽) (Claude, 코드 Sonnet)
+
+- 요청: About Me 본문의 핵심 단어에 사이트의 초록 형광펜을 React Bits “Blur Highlight”처럼 드러내기.
+- 변경: `about.html`의 본문 문단 5곳에서 핵심 단어 14곳을 `<span class="hl">`로 감쌈. `about.css`의 `.hl`은 새 `marker-body.svg`(`marker.svg`와 같은 자국, 늘어나는 배경용)를 `background-size 0→100%`로 그음(줄이 바뀌면 줄마다 따로, `box-decoration-break: clone`). 문단은 `blur(8px)`·투명도 .3→또렷 0.8초, 자국은 그 시작 0.4초 뒤부터 1.0초(단어 사이 0.15초 간격), 한 번만 재생(레퍼런스 측정값). `about.js`가 `motionLoop`로 화면 진입을 보고 `.reveal`→`.is-in`을 붙이며, 동작 줄이기·스크립트 실패에서는 `.reveal`이 붙지 않아 다 칠해져 선명함. 이전의 커밋 안 된 About Me 글 수정(소개 3·방향 문장 등)도 이 변경에 함께 들어 있음.
+- 검증: `npm run build`·`npm run verify` 통과, 핵심 단어 14곳·모션 규칙 검사 추가.
+
+### 2026-10-25 · About Me 소개 셋째 문단: ‘팀원들과 함께 바라보는 방향’ (Claude, 다시 쓰기는 Gemini)
+
+- 요청: ‘개발 방향을 맞춘다’ 대신 ‘팀원들과 바라보는 방향’을 맞춘다는 뜻으로.
+- 변경: `about.html` 소개 셋째 문단을 Gemini 안 2(사용자 선택)로 바꿈. 기록 `D:\GPT_생성물\글\2026-10-25_AboutMe좋아하는게임\프롬프트_소개3방향.txt`.
+- 검증: `npm run build`·`npm run verify` 통과(테스트 63개), 생성된 페이지에 새 문장 확인.
+
+### 2026-10-25 · About Me 글 점검 뒤 네 곳 다듬음 (Claude, 다듬기는 Gemini)
+
+- 요청: About Me 글 점검 → 찾은 곳을 Gemini로 한 번에 다듬어 모두 넣기.
+- 변경: `about.html` 네 곳을 Gemini 결과로 바꿈. 소개 1(‘자기 작업물’ → ‘자신이 만든 것’ 등), 소개 3(제목 문장과 겹치던 ‘프로토타입·재미 확인’을 빼고 팀 소통 중심으로 한 문장), 좋아하는 게임 끝 문장(‘게임을 사랑하고’ → 서브컬처 게임을 좋아하는 이유로 마무리), AI는 이렇게 씁니다 둘째 문장(‘역할에 맞는 AI를 활용’). 기록 `D:\GPT_생성물\글\2026-10-25_AboutMe좋아하는게임\프롬프트_점검다듬기.txt`.
+- 검증: `npm run build`·`npm run verify` 통과(테스트 63개). 생성된 페이지에 네 문장 확인, 320px 가로 스크롤 없음.
+
 ### 2026-10-26 · About Me 게임 배너를 무한 나선으로 (Claude, 코드 Sonnet)
 
 - **요청:** About Me ‘게임 취향’의 자동 넘김 배너를, 같은 게임 11장이 나선을 따라 끝없이 올라가는 ‘무한 나선’으로 바꾸기(레퍼런스 React Bits ‘Infinite Spiral’의 값과 기법만 참고).
