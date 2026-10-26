@@ -1,4 +1,6 @@
 /* Optional cross-document fade. Unsupported browsers keep normal navigation. */
+/* The scroll-exit arrival target sits at the very top of the document, so arriving at #from-scroll keeps the page at scrollY 0. */
+#from-scroll { position: absolute; top: 0; left: 0; }
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
   ::view-transition-group(root) { animation-duration: 200ms; }
@@ -10,4 +12,10 @@
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
   ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* Arrival after a scroll exit (scroll-exit.js adds #from-scroll): fade in over 0.6s, mirroring the leaving fade. */
+@media (prefers-reduced-motion: no-preference) {
+  body:has(#from-scroll:target) { animation: arrive-fade 600ms ease both; }
+  @keyframes arrive-fade { from { opacity: 0; } to { opacity: 1; } }
 }

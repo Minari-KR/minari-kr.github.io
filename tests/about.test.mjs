@@ -136,6 +136,14 @@ test('scroll-exit.js opens About Me on one more scroll at the top of the portfol
   assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
 
+test('a scroll exit arrives with a 0.6s fade: the fragment, one target element per page, and the :target CSS', () => {
+  const source = fs.readFileSync(path.join(root, 'src/scripts/scroll-exit.js'), 'utf8');
+  assert.ok(source.includes("href += '#from-scroll'"));
+  for (const name of ['index.html', 'about/index.html']) assert.equal((files.get(name).match(/id="from-scroll"/g) || []).length, 1, name);
+  const css = fs.readFileSync(path.join(root, 'src/styles/page-transitions.css'), 'utf8');
+  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*\{[^@]*body:has\(#from-scroll:target\)\s*\{\s*animation: arrive-fade 600ms ease both;/);
+});
+
 test('the styles never transition everything', () => {
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
   assert.doesNotMatch(css, /transition:\s*all/);

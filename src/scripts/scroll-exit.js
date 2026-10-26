@@ -31,6 +31,8 @@
     // A local copy opened as a file has no server to turn "dir/" into dir/index.html, so it names the file.
     let href = anchor.getAttribute('href');
     if (location.protocol === 'file:' && href.endsWith('/')) href += 'index.html';
+    // The #from-scroll fragment lets the arriving page's CSS (:target) fade itself in; it also keeps the page at the top.
+    href += '#from-scroll';
     const leave = () => {
       if (fade) return;
       if (window.motionLoop.reduce.matches) { fade = {}; location.assign(href); return; }
