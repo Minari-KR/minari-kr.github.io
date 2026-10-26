@@ -116,7 +116,7 @@
   // The record closes with a press anywhere on the screen, Esc, Enter or Space.
   detail.addEventListener('click', close);
   screen.addEventListener('keydown', event => {
-    if (screen.dataset.state === 'detail' && ['Escape', 'Enter', ' '].includes(event.key)) {
+    if (screen.dataset.state === 'detail' && !event.repeat && ['Escape', 'Enter', ' '].includes(event.key)) {
       event.preventDefault();
       close();
     }
@@ -194,15 +194,11 @@
     onReduce: layout
   });
   // Lay the rows out again once the pixel font is ready and after the window is resized.
-  let resizeTimer;
   let width = rows.clientWidth;
-  window.addEventListener('resize', () => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => {
-      if (rows.clientWidth === width) return;
-      width = rows.clientWidth;
-      layout();
-    }, 200);
+  motionLoop.onResize(() => {
+    if (rows.clientWidth === width) return;
+    width = rows.clientWidth;
+    layout();
   });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   else layout();

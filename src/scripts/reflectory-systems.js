@@ -33,31 +33,12 @@
     const xs = rooms.map(r => r[0] * RW), ys = rooms.map(r => r[1] * RH);
     return { floor, wall, bounds: { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs) + RW, y1: Math.max(...ys) + RH } };
   };
-  const hitSeg = (p, d, len, w) => {
-    const ex = w.b.x - w.a.x, ey = w.b.y - w.a.y, den = d.x * ey - d.y * ex;
-    if (Math.abs(den) < 1e-9) return null;
-    const ax = w.a.x - p.x, ay = w.a.y - p.y;
-    const t = (ax * ey - ay * ex) / den, u = (ax * d.y - ay * d.x) / den;
-    if (t <= 1e-6 || t > len || u < 0 || u > 1) return null;
-    const n = Math.hypot(ex, ey);
-    return { t, nx: -ey / n, ny: ex / n };
-  };
-  const reflect = (d, h) => { const k = d.x * h.nx + d.y * h.ny; return { x: d.x - 2 * k * h.nx, y: d.y - 2 * k * h.ny }; };
-  const nearest = (p, d, walls, len) => { let best = null; for (const w of walls) { const h = hitSeg(p, d, len, w); if (h && (!best || h.t < best.t)) best = h; } return best; };
+  const { nearest, reflect, along } = canvasKit;
   // A ball lives on floor that isn't a block wall, or in the launcher spot under the gap.
   const open = (tiles, x, y) => {
     if (y < tiles.bounds.y0 && y > tiles.bounds.y0 - 2 && x >= RW / 2 - 1 && x < RW / 2 + 1) return true;
     const k = key(Math.floor(x), Math.floor(y));
     return tiles.floor.has(k) && !tiles.wall.has(k);
-  };
-  const along = (path, dist) => {
-    let s = dist;
-    for (let i = 1; i < path.length; i++) {
-      const a = path[i - 1], b = path[i], seg = Math.hypot(b.x - a.x, b.y - a.y);
-      if (s <= seg) return { x: a.x + (b.x - a.x) * s / seg, y: a.y + (b.y - a.y) * s / seg, done: false };
-      s -= seg;
-    }
-    return { ...path[path.length - 1], done: true };
   };
   let seed = 7;
   const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -322,8 +303,7 @@
     }
   };
   motion.addEventListener('change', update);
-  let resizeTimer;
-  window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(update, 120); });
+  motionLoop.onResize(update);
   // The pixel font is drawn into the canvas (stage names), so the first picture waits for it.
   canvasKit.fontReady(font(16)).then(update);
 })();

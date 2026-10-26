@@ -119,7 +119,9 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   assert.ok(source.includes("matchMedia('(max-width: 640px), (pointer: coarse)')"));
   // Phones keep all cards and the full-screen grid (4x8 at 390x844, 2026-10-26 user request); only the blur and shadows go.
   assert.ok(source.includes("classList.add('is-lite')") && !source.includes('splice(16)') && !source.includes('lite ? 4 :'));
-  assert.match(source, /lite \? \{ opacity: \[1, 0\] \} : \{ background: [^}]*backdropFilter/); // phones fade opacity, never animate backdrop-filter
+  assert.match(source, /lite \? \{ opacity: \['1', '0'\] \}\s*: \{ background: [^}]*backdropFilter/); // phones fade opacity, never animate backdrop-filter
+  // Animated end values are also set as plain style, so a dropped last frame cannot flash the layer or a card back (phone flicker).
+  assert.ok(source.includes("for (const card of all) card.style.opacity = '0';") && source.includes("layer.style.opacity = '0';"));
   assert.match(css, /\.intro-layer\.is-lite \{[^}]*rgba\(236, 238, 234, \.92\)[^}]*backdrop-filter: none/);
   assert.match(css, /\.intro-layer\.is-lite \.intro-card \{ box-shadow: none; \}/);
 });

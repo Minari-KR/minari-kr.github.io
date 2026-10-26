@@ -77,10 +77,6 @@
   .hl-armed .about-text.reveal.is-in .hl { background-size: 100% 100%; transition: background-size 1s ease var(--d, .4s); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .spiral-card { transition: none; }
-}
-
 @media (max-width: 640px) {
   .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
   .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }

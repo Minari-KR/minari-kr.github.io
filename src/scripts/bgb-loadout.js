@@ -597,7 +597,7 @@
   };
 
   const motion = motionLoop.reduce;
-  let view = fit(screen), clock = 0;
+  let view = null, clock = 0;
   const loop = motionLoop({
     target: screen,
     tick: dt => { clock += dt; if (clock >= LOOP) clock -= LOOP; draw(view, clock); setHud(clock); },
@@ -605,16 +605,13 @@
   });
   const update = () => {
     canvasKit.ready(root, motion.matches);
+    // Fit after is-ready: a screen that is still display:none has no width to fit to.
     if (motion.matches) stills();
-    else { draw(view, clock); setHud(clock); loop.update(); }
+    else { view = fit(screen); draw(view, clock); setHud(clock); loop.update(); }
   };
 
-  if (document.fonts && document.fonts.ready)
-    document.fonts.ready.then(() => { if (motion.matches) stills(); else draw(view, clock); });
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => { view = fit(screen); update(); }, 120);
-  });
+  motionLoop.onResize(update);
   update();
+  // The pixel font is drawn into the canvas, so redraw once it has loaded.
+  canvasKit.fontReady(`16px ${FONT}`).then(() => { if (motion.matches) stills(); else draw(view, clock); });
 })();

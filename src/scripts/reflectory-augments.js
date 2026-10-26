@@ -37,26 +37,8 @@
   // The room: block walls round the edge and a two-tile gap in the floor's middle for the launcher.
   const isBlock = (x, y) => x < 1 || x >= RW - 1 || y >= RH - 1 || (y < 1 && !(x >= 5 && x < 7));
   const open = (x, y) => (y < 0 ? y > -2 && x >= 5 && x < 7 : x >= 0 && x < RW && y < RH && !isBlock(x, y));
-  const hitSeg = (p, d, len, w) => {
-    const ex = w.b.x - w.a.x, ey = w.b.y - w.a.y, den = d.x * ey - d.y * ex;
-    if (Math.abs(den) < 1e-9) return null;
-    const ax = w.a.x - p.x, ay = w.a.y - p.y, t = (ax * ey - ay * ex) / den, u = (ax * d.y - ay * d.x) / den;
-    if (t <= 1e-6 || t > len || u < 0 || u > 1) return null;
-    const n = Math.hypot(ex, ey);
-    return { t, nx: -ey / n, ny: ex / n };
-  };
-  const nearest = (p, d, walls, len) => { let best = null; for (const w of walls) { const h = hitSeg(p, d, len, w); if (h && (!best || h.t < best.t)) best = h; } return best; };
-  const reflect = (d, h) => { const k = d.x * h.nx + d.y * h.ny; return { x: d.x - 2 * k * h.nx, y: d.y - 2 * k * h.ny }; };
+  const { nearest, reflect, along } = canvasKit;
   const turn = (d, q) => ({ x: d.x * Math.cos(q) - d.y * Math.sin(q), y: d.x * Math.sin(q) + d.y * Math.cos(q) });
-  const along = (path, dist) => {
-    let s = dist;
-    for (let i = 1; i < path.length; i++) {
-      const a = path[i - 1], b = path[i], L = Math.hypot(b.x - a.x, b.y - a.y);
-      if (s <= L) return { x: a.x + (b.x - a.x) * s / L, y: a.y + (b.y - a.y) * s / L, done: false };
-      s -= L;
-    }
-    return { ...path[path.length - 1], done: true };
-  };
   const toSegment = (p, w) => {
     const ex = w.b.x - w.a.x, ey = w.b.y - w.a.y, t = Math.max(0, Math.min(1, ((p.x - w.a.x) * ex + (p.y - w.a.y) * ey) / (ex * ex + ey * ey)));
     return Math.hypot(p.x - (w.a.x + ex * t), p.y - (w.a.y + ey * t));
@@ -280,8 +262,7 @@
   // Pressing a card shows that augment and stops the automatic turn.
   buttons.forEach((b, n) => b.addEventListener('click', () => { auto = false; choose(n); loop.update(); }));
   const update = () => { canvasKit.ready(root); fit(); choose(current); loop.update(); };
-  let resizeTimer;
-  window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { fit(); paint(); }, 120); });
+  motionLoop.onResize(() => { fit(); paint(); });
   // The pixel font is drawn into the canvas (the -2 and the 거대 벽 labels), so the first picture waits for it.
   canvasKit.fontReady(font(16)).then(update);
 })();

@@ -53,6 +53,8 @@
       const now = performance.now();
       if (now - lastWheel > 250) gestureStart = now;
       lastWheel = now;
+      // A trackpad pinch (and Ctrl+wheel) zooms the page; it arrives as a wheel with ctrlKey and must not leave it.
+      if (event.ctrlKey) return;
       if (!armed() || event.deltaY * dir <= 0 || gestureStart <= since) { pulled = 0; return; }
       pulled += Math.abs(event.deltaY);
       if (pulled >= 40) leave();
@@ -67,7 +69,7 @@
       }, { passive: true });
     }
     window.addEventListener('keydown', event => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (!KEYS[edge].includes(event.key) || event.target.closest?.('input, textarea, select, button, [contenteditable]')) return;
       if (armed()) leave();
     });

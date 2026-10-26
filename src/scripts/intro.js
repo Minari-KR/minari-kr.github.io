@@ -4,7 +4,12 @@
   // promises, so no timer or frame loop is needed.
   const layer = document.querySelector('[data-intro]');
   if (!layer) return;
-  const remove = () => layer.remove();
+  // Removing the layer also drops its window listeners (a non-passive wheel listener slows scrolling for the whole visit).
+  const remove = () => {
+    layer.remove();
+    window.removeEventListener('keydown', swallow);
+    window.removeEventListener('wheel', swallow);
+  };
   const KEY = 'intro-seen';
   let seen = false;
   try { seen = sessionStorage.getItem(KEY) !== null; } catch { /* storage blocked: still play once */ }
@@ -32,19 +37,27 @@
   let anims = [];
   let ending = false;
 
-  // The page below sharpens (blur -> 0) and the white wash fades; the start values come from the CSS.
-  const clearGlass = (ms, easing) => layer.animate(
-    lite ? { opacity: [1, 0] } : { background: 'rgba(255, 255, 255, 0)', backdropFilter: 'blur(0px) saturate(1.4)' },
-    { duration: ms, easing, fill: 'forwards' }
-  );
+  // The page below sharpens (blur -> 0) and the white wash fades; the start values are read from the CSS, and the end
+  // values become the plain style (see finish()).
+  const clearGlass = (ms, easing) => {
+    const css = getComputedStyle(layer);
+    const keys = lite ? { opacity: ['1', '0'] }
+      : { background: [css.backgroundColor, 'rgba(255, 255, 255, 0)'], backdropFilter: [css.backdropFilter, 'blur(0px) saturate(1.4)'] };
+    for (const [key, [, end]] of Object.entries(keys)) layer.style[key] = end;
+    return layer.animate(keys, { duration: ms, easing });
+  };
 
   const finish = ms => {
     if (ending) return;
     ending = true;
-    // The cards stop where they are (no jump back to the start) and the whole layer fades out.
+    // The cards stop where they are (no jump back to the start) and the whole layer fades out. The end value is also set
+    // as the plain style, so the frame where a finished animation is dropped (seen on phones as a flicker) shows nothing.
     for (const anim of anims) anim.pause();
     if (ms === 0 || layer.hidden) { remove(); return; }
-    layer.animate({ opacity: [1, 0] }, { duration: ms, easing: 'ease', fill: 'forwards' }).finished.then(remove, remove);
+    // From the opacity it has now: on phones a skip during the clear step must not jump back to fully covered.
+    const from = getComputedStyle(layer).opacity;
+    layer.style.opacity = '0';
+    layer.animate({ opacity: [from, 0] }, { duration: ms, easing: 'ease' }).finished.then(remove, remove);
   };
 
   // Keeps the animations so a skip can cancel them; resolves true only if they all ran to the end.
@@ -89,6 +102,8 @@
     // Spread: every card flies straight out from the screen centre along the line to its own cell (straight up for a card at the
     // centre) by ~0.7 of the viewport diagonal at the same size, fading, after its own random start delay; the glass clears over the same window.
     const reach = Math.hypot(W, H) * .7;
+    // Same end-value-as-plain-style rule as finish(): every card ends invisible, so nothing can flash back when the spread ends.
+    for (const card of all) card.style.opacity = '0';
     const spread = all.map((card, i) => {
       const [x, y] = cells[i], length = Math.hypot(x, y);
       const [ux, uy] = length < 0.5 ? [0, -1] : [x / length, y / length];
@@ -115,12 +130,11 @@
   layer.addEventListener('pointerdown', () => finish(500));
   // While the layer is up, a key or wheel only skips it: it must not also scroll the page or reach scroll-exit.js
   // (loaded after this file, so stopping here keeps the "one more scroll at the top" from firing).
-  const swallow = event => {
-    if (!layer.isConnected) return;
+  function swallow(event) {
     event.preventDefault();
     event.stopImmediatePropagation();
     finish(500);
-  };
+  }
   window.addEventListener('keydown', swallow);
   window.addEventListener('wheel', swallow, { passive: false });
   window.addEventListener('pageshow', event => { if (event.persisted) finish(0); });

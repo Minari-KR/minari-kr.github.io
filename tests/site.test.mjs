@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
+import { fillTemplate } from '../scripts/content.mjs';
 import { projects } from '../scripts/site-config.mjs';
 import { root, fixture } from './fixture.mjs';
 
@@ -42,4 +43,9 @@ test('CSS and script versions follow file contents and reject stale or arbitrary
     changed.set('index.html', changed.get('index.html').replace(/home\.css\?v=[a-f0-9]{12}/, 'home.css' + query));
     assert.throws(() => validateFiles(changed));
   }
+});
+
+test('a template placeholder that is not a known value stops the build instead of being published as text', () => {
+  assert.equal(fillTemplate('<h1>{{title}}</h1>', { title: 'Minari' }), '<h1>Minari</h1>');
+  assert.throws(() => fillTemplate('<h1>{{title2}}</h1>', { title: 'Minari' }), /title2/);
 });

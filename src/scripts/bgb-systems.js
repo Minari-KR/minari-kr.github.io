@@ -844,8 +844,7 @@
     }
   };
   motion.addEventListener('change', update);
-  let resizeTimer;
-  window.addEventListener('resize', () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(update, 120); });
+  motionLoop.onResize(update);
   // The pixel font is drawn into the canvas, so the first picture waits for it.
   canvasKit.fontReady(`16px ${FONT}`).then(update);
 })();

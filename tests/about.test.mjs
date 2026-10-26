@@ -173,7 +173,10 @@ test('a scroll exit covers with one layer and arrives under a fading cover: the 
 test('the styles never transition everything', () => {
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
   assert.doesNotMatch(css, /transition:\s*all/);
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*transition: none/);
+  // Every transition lives inside a no-preference block, so reduced motion never gets one.
+  const inside = (css.match(/prefers-reduced-motion: no-preference\) \{[\s\S]*?\n\}/g) || []).join('');
+  assert.ok(inside.includes('transition:'));
+  assert.equal((css.match(/transition:/g) || []).length, (inside.match(/transition:/g) || []).length);
 });
 
 test('scribbled Text Loop ribbons: an empty aria-hidden container outside main, built by text-loop.js (one-time draw-in, no motion loop), shown only from 1256px', () => {

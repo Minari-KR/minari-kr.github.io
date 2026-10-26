@@ -36,23 +36,9 @@
   const ENEMY_R = 13, ENEMY_SPEED = 34, ENEMY_HP = 3;
   const SPAWNS = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-  const hitWall = (p, d, len, w) => {
-    const ex = w.b.x - w.a.x, ey = w.b.y - w.a.y, den = d.x * ey - d.y * ex;
-    if (Math.abs(den) < 1e-9) return null;
-    const ax = w.a.x - p.x, ay = w.a.y - p.y;
-    const t = (ax * ey - ay * ex) / den, u = (ax * d.y - ay * d.x) / den;
-    if (t <= 1e-6 || t > len || u < 0 || u > 1) return null;
-    const n = Math.hypot(ex, ey);
-    return { t, nx: -ey / n, ny: ex / n };
-  };
-  const reflect = (d, h) => { const k = d.x * h.nx + d.y * h.ny; return { x: d.x - 2 * k * h.nx, y: d.y - 2 * k * h.ny }; };
+  const { nearest, reflect } = canvasKit;
   const inRoom = (x, y) => (y >= ROOM.y1 && Math.abs(x - GAP_X) < CELL / 2
     ? y < H + 20 : x > ROOM.x0 && x < ROOM.x1 && y > ROOM.y0 && y < ROOM.y1);
-  const nearest = (p, d, walls, len) => {
-    let best = null;
-    for (const w of walls) { const h = hitWall(p, d, len, w); if (h && (!best || h.t < best.t)) best = h; }
-    return best;
-  };
 
   // A fixed seed keeps every loop, and the still pictures, the same.
   let seed = 7;
@@ -252,7 +238,7 @@
   };
 
   const motion = motionLoop.reduce;
-  let view = fit(screen), state = fresh();
+  let view = null, state = fresh();
   const loop = motionLoop({
     target: screen,
     tick: dt => {
@@ -265,14 +251,11 @@
   });
   const update = () => {
     canvasKit.ready(root, motion.matches);
+    // Fit after is-ready: a screen that is still display:none has no width to fit to.
     if (motion.matches) stills();
-    else { draw(view.ctx, state, view.k); setHud(state); loop.update(); }
+    else { view = fit(screen); draw(view.ctx, state, view.k); setHud(state); loop.update(); }
   };
 
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => { view = fit(screen); update(); }, 120);
-  });
+  motionLoop.onResize(update);
   update();
 })();

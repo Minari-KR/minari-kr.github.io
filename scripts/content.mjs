@@ -4,7 +4,7 @@ export function escapeHtml(value) {
 }
 
 export function fillTemplate(template, values) {
-  return template.replace(/\{\{([a-z_]+)\}\}/g, (_, key) => {
+  return template.replace(/\{\{([^{}]*)\}\}/g, (_, key) => {
     if (!Object.hasOwn(values, key)) throw new Error(`템플릿 값이 없습니다: ${key}`);
     return values[key];
   });

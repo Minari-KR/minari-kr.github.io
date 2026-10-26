@@ -24,15 +24,10 @@
 
     const lane = flowRow({ row: list, track, scrollPull: true });
     let current = 0;
-    // A chosen tab half out of a still row slides fully into view (without moving the page); a flowing row that stopped
-    // for keyboard focus is moved so the tab sits in the middle.
+    // A chosen tab half out of a still row slides fully into view (without moving the page); a flowing row moves it to the
+    // middle (flow-row.js; focus() on a tab that already has focus fires no focusin, so show() asks too).
     const reveal = tab => {
-      if (lane.half) {
-        const at = (list.clientWidth - tab.offsetWidth) / 2 - tab.offsetLeft;
-        lane.x = (((at + lane.half) % lane.half) + lane.half) % lane.half;
-        lane.place();
-        return;
-      }
+      if (lane.half) { lane.reveal(tab); return; }
       const left = tab.offsetLeft - list.offsetLeft;
       if (left < list.scrollLeft || left + tab.offsetWidth > list.scrollLeft + list.clientWidth) {
         list.scrollTo({ left: left - (list.clientWidth - tab.offsetWidth) / 2, behavior: motion.matches ? 'auto' : 'smooth' });
@@ -68,10 +63,6 @@
       if (!(event.key in moves)) return;
       event.preventDefault();
       show(moves[event.key], { focus: true });
-    });
-    // A flowing row stops while a tab in it has keyboard focus.
-    list.addEventListener('focusin', event => {
-      if (lane.focused && lane.half) reveal(event.target.closest('.ptabs-tab') || tabs[current]);
     });
     list.addEventListener('focusout', event => {
       if (!list.contains(event.relatedTarget)) lane.focused = false;
@@ -134,15 +125,11 @@
     };
     // Only a flowing row moves, and only while it is on screen and the tab is visible (motion-loop.js).
     const loop = motionLoop({ target: list, tick: step, canPlay: () => Boolean(lane.half), cancelAtOnce: true, onReduce: layout });
-    let resizeTimer;
     let width = 0;
-    window.addEventListener('resize', () => {
-      window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => {
-        if (list.clientWidth === width) return;
-        width = list.clientWidth;
-        layout();
-      }, 200);
+    motionLoop.onResize(() => {
+      if (list.clientWidth === width) return;
+      width = list.clientWidth;
+      layout();
     });
     cards.forEach(card => card.setAttribute('role', 'tabpanel'));
     root.classList.add('is-ready');

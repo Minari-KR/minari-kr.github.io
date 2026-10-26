@@ -3,7 +3,7 @@
 // Every animation used to copy this; now they all call window.motionLoop({ target, tick, ... }) and keep only their own drawing.
 //   target     the element watched with an IntersectionObserver (required)
 //   threshold  how much of it must show to count as on screen (default 0 = any part)
-//   tick(dt)   called every frame with the seconds since the last one, at most maxDt (default 0.05); the first frame after a
+//   tick(dt)   called every frame with the seconds since the last one, at most 0.05; the first frame after a
 //              start gets 0, so a pause never makes the animation jump
 //   canPlay()  optional extra condition, e.g. the project card is not hidden behind another tab
 //   onSeen(on) optional, when the target enters or leaves the screen
@@ -13,9 +13,11 @@
 //              coming back in the same moment doesn't skip a frame. A hidden tab always cancels at once.
 // It returns { update }: call it after the script's own events change canPlay() (it starts or stops the loop as needed).
 // window.motionLoop.reduce is the shared reduced-motion query, so scripts read .matches from one place.
+// window.motionLoop.onResize(fn) registers fn to run 120 ms after the window stops resizing: one resize listener and one
+// debounce timer for every script (this file is the only place that owns timers).
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const motionLoop = ({ target, threshold = 0, tick, maxDt = 0.05, canPlay, onSeen, onReduce, cancelAtOnce = false }) => {
+  const motionLoop = ({ target, threshold = 0, tick, canPlay, onSeen, onReduce, cancelAtOnce = false }) => {
     let seen = !('IntersectionObserver' in window);
     let raf = 0;
     let last = null;
@@ -23,7 +25,7 @@
     const frame = now => {
       raf = 0;
       if (!should()) return;
-      const dt = last === null ? 0 : Math.min(maxDt, (now - last) / 1000);
+      const dt = last === null ? 0 : Math.min(0.05, (now - last) / 1000);
       last = now;
       tick(dt);
       if (!raf) raf = window.requestAnimationFrame(frame);
@@ -41,7 +43,7 @@
     };
     if (!seen) {
       new IntersectionObserver(entries => {
-        seen = entries[0].isIntersecting;
+        seen = entries[entries.length - 1].isIntersecting;
         if (onSeen) onSeen(seen);
         update();
       }, { threshold }).observe(target);
@@ -54,5 +56,16 @@
     return { update };
   };
   motionLoop.reduce = reduce;
+  const resizers = [];
+  let resizeTimer = 0;
+  motionLoop.onResize = fn => {
+    if (!resizers.length) {
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => resizers.forEach(run => run()), 120);
+      });
+    }
+    resizers.push(fn);
+  };
   window.motionLoop = motionLoop;
 })();

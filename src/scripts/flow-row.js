@@ -1,5 +1,6 @@
 // Shared "flowing row" for the cartridge rows (games.js) and the project tab row (project-tabs.js) (2026-10-22): the lane maths,
-// the wrap-around copies, grab / drag / throw with pointer events, and the keyboard-focus stop. Each script keeps its own look
+// the wrap-around copies, grab / drag / throw with pointer events, and the keyboard-focus stop
+// (a flowing row also moves the focused item to its middle, so Tab never lands on something off screen). Each script keeps its own look
 // and feel (tilt, tab selection...) and calls window.flowRow(...) from its own motionLoop tick.
 //   row         the element that is grabbed (gets .is-dragging while dragged)
 //   track       the element that moves (one translate3d per frame)
@@ -10,6 +11,7 @@
 //                   speed `flow` (px/s); wraps x and writes the transform
 //   place()         writes the transform from x (e.g. after the script moves x itself)
 //   clear()         removes the copies, resets the transform and sets half to 0
+//   reveal(item)    a flowing row moves an item that is not fully on screen to its middle (also done on keyboard focus)
 //   fill(items, setWidth, view, decorate)  appends copies of `items` until half the row is wider than `view`, doubles that
 //                   half so it wraps without a seam, and sets half; decorate(copy) adds the script's own changes to each copy
 // Copies get data-clone, tabIndex -1 and aria-hidden. Only transforms are written per frame; sizes are read by the script's layout.
@@ -62,7 +64,23 @@
     };
 
     // A flowing row stops while something in it has keyboard focus.
-    row.addEventListener('focusin', () => { lane.focused = keyboard; });
+    // reveal(item): in a flowing row, an item that is not fully on screen is moved to the middle (no jump for one that is).
+    // The browser may have scrolled this overflow:hidden row to reach a focused item; the track moves by transform, so undo
+    // that first. Items are measured on screen because packs and tabs have different offset parents. x is clamped, not
+    // wrapped: only the originals take focus and they sit in the first half of the track.
+    lane.reveal = element => {
+      if (!lane.half) return;
+      row.scrollLeft = 0;
+      const item = element.getBoundingClientRect(), box = row.getBoundingClientRect();
+      if (item.left >= box.left && item.right <= box.right) return;
+      lane.x = Math.max(0, Math.min(lane.half - 0.5, lane.x + (box.left + box.right - item.left - item.right) / 2));
+      lane.v = 0;
+      place();
+    };
+    row.addEventListener('focusin', event => {
+      lane.focused = keyboard;
+      if (keyboard) lane.reveal(event.target);
+    });
     row.addEventListener('focusout', event => {
       if (!row.contains(event.relatedTarget)) lane.focused = false;
     });
@@ -83,6 +101,8 @@
     row.addEventListener('pointermove', event => {
       const grab = lane.grab || pull;
       if (!grab) return;
+      // The button went up outside the row before the grab was captured: no pointerup ever came here.
+      if (!event.buttons) { end(); return; }
       const dx = event.clientX - grab.x;
       if (!grab.moved) {
         if (Math.abs(dx) < 6) return;
