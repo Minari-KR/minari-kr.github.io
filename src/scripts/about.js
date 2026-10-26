@@ -11,6 +11,11 @@
     const centerScale = 1.2;
     const edgeFade = 0.3;
     const edgeBlur = 6;
+    // Neighbouring cards overlap and their z-order flips the moment their depths cross. Around that moment both turn
+    // see-through and soft, so the swap reads as a dissolve instead of a one-frame pop.
+    const swapBand = 0.15; // depth gap (in radii) over which the dissolve runs, about 0.7 s at full speed
+    const swapOpacity = 0.4;
+    const swapBlur = 1.5;
     let offset = 0;
     let pace = 1; // 1 = full speed, eased to 0 while a mouse hovers
     let hover = false;
@@ -24,11 +29,16 @@
       const radius = 90 * k;
       const spacing = Math.max(56 * k, h / (count - 2)); // tall columns spread the cards so the stream still fills the height
       const half = h / 2;
+      // Slot i of a stream of count cards, wrapped so the stream never ends; depth on a unit radius.
+      const slot = cards.map((_, i) => ((((i - offset + count / 2) % count) + count) % count) - count / 2);
+      const depth = slot.map(p => Math.cos((2 * Math.PI * p) / perTurn));
       cards.forEach((card, i) => {
-        // Slot i of a stream of count cards, wrapped so the stream never ends.
-        const p = ((((i - offset + count / 2) % count) + count) % count) - count / 2;
+        const p = slot[i];
         const angle = (2 * Math.PI * p) / perTurn;
-        const z = radius * Math.cos(angle);
+        const z = radius * depth[i];
+        // 0 at the moment this card and a stream neighbour swap order, 1 once their depths are swapBand apart.
+        const gap = Math.min(...[i - 1, i + 1].map(j => (j + count) % count).filter(j => Math.abs(Math.abs(slot[j] - p) - 1) < 1e-6).map(j => Math.abs(depth[j] - depth[i])), swapBand) / swapBand;
+        const swap = 1 - gap * gap * (3 - 2 * gap);
         const y = p * spacing;
         const c = Math.max(0, 1 - Math.abs(y) / half);
         const s = (perspective / (perspective - z)) * (1 + (centerScale - 1) * c * c * (3 - 2 * c));
@@ -37,8 +47,9 @@
         card.style.visibility = edge >= 1 ? 'hidden' : 'visible';
         card.style.transform = `matrix(${s}, 0, 0, ${s}, ${px}, ${y * (perspective / (perspective - z))})`;
         card.style.zIndex = Math.round(z + radius);
-        card.style.opacity = 1 - edge;
-        card.style.filter = edge > 0 ? `blur(${(edgeBlur * edge).toFixed(2)}px)` : 'none';
+        card.style.opacity = (1 - edge) * (1 - (1 - swapOpacity) * swap);
+        const blur = edgeBlur * edge + swapBlur * swap;
+        card.style.filter = blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : 'none';
       });
     };
     const size = () => {
