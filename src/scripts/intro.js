@@ -22,7 +22,7 @@
   }
   layer.append(...cards);
   const EASE = 'cubic-bezier(.77, 0, .175, 1)';
-  const STAGGER = 40, RISE = 700, ALIGN = 700, SPREAD = 1200, SPREAD_DELAY = 250, GAP = 8;
+  const STAGGER = 50, RISE = 850, ALIGN = 850, SPREAD = 1450, SPREAD_DELAY = 300;
   let anims = [];
   let ending = false;
 
@@ -35,9 +35,10 @@
   const finish = ms => {
     if (ending) return;
     ending = true;
-    for (const anim of anims) anim.cancel();
+    // The cards stop where they are (no jump back to the start) and the whole layer dissolves.
+    for (const anim of anims) anim.pause();
     if (ms === 0 || layer.hidden) { remove(); return; }
-    clearGlass(ms, 'ease').finished.then(remove, remove);
+    layer.animate({ opacity: [1, 0] }, { duration: ms, easing: 'ease', fill: 'forwards' }).finished.then(remove, remove);
   };
 
   // Keeps the animations so a skip can cancel them; resolves true only if they all ran to the end.
@@ -56,13 +57,13 @@
     ));
     if (!await run(rise)) return;
 
-    // Align: a grid that fills the viewport edge to edge (8px gaps), measured once here. Columns are picked so the cells
-    // are as close as possible to the card ratio; each card is scaled to cover its cell. Spare cells get clones of the
-    // first cards, which fade in from the centre.
-    const W = window.innerWidth, H = window.innerHeight, N = cards.length;
+    // Align: a grid over the whole viewport with a gap between the cards and at the edges (16px, 12px on phones), measured
+    // once here. Columns are picked so the cells are as close as possible to the card ratio; each card fits inside its cell.
+    // Spare cells get clones of the first cards, which fade in from the centre.
+    const W = window.innerWidth, H = window.innerHeight, N = cards.length, GAP = W > 640 ? 16 : 12;
     const cols = Math.max(1, Math.round(Math.sqrt(N * (W / H) * (336 / 352)))), rows = Math.ceil(N / cols);
-    const cellW = (W - (cols - 1) * GAP) / cols, cellH = (H - (rows - 1) * GAP) / rows;
-    const scale = Math.max(cellW / cards[0].offsetWidth, cellH / cards[0].offsetHeight);
+    const cellW = (W - (cols + 1) * GAP) / cols, cellH = (H - (rows + 1) * GAP) / rows;
+    const scale = Math.min(cellW / cards[0].offsetWidth, cellH / cards[0].offsetHeight);
     const clones = [];
     for (let i = N; i < cols * rows; i++) {
       const clone = cards[i % N].cloneNode();
@@ -70,7 +71,7 @@
       clones.push(clone);
     }
     const all = [...cards, ...clones];
-    const cells = all.map((_, i) => [(i % cols + .5) * (cellW + GAP) - GAP / 2 - W / 2, (Math.floor(i / cols) + .5) * (cellH + GAP) - GAP / 2 - H / 2]);
+    const cells = all.map((_, i) => [(i % cols - (cols - 1) / 2) * (cellW + GAP), (Math.floor(i / cols) - (rows - 1) / 2) * (cellH + GAP)]);
     const at = (x, y, s) => `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(0deg)`;
     const align = all.map((card, i) => card.animate(
       i < N ? [{ transform: rests[i] }, { transform: at(...cells[i], scale) }]
@@ -104,18 +105,18 @@
   deadline.play();
   const timedOut = deadline.finished.then(() => false);
   Promise.race([Promise.all(cards.map(card => card.decode())).then(() => true), timedOut]).then(
-    ready => { deadline.cancel(); if (ready) play(); else finish(200); },
-    () => { deadline.cancel(); finish(200); }
+    ready => { deadline.cancel(); if (ready) play(); else finish(500); },
+    () => { deadline.cancel(); finish(500); }
   );
 
-  layer.addEventListener('pointerdown', () => finish(200));
+  layer.addEventListener('pointerdown', () => finish(500));
   // While the layer is up, a key or wheel only skips it: it must not also scroll the page or reach scroll-exit.js
   // (loaded after this file, so stopping here keeps the "one more scroll at the top" from firing).
   const swallow = event => {
     if (!layer.isConnected) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    finish(200);
+    finish(500);
   };
   window.addEventListener('keydown', swallow);
   window.addEventListener('wheel', swallow, { passive: false });
