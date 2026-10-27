@@ -10,6 +10,12 @@
 - **남은 일(사용자 자료 대기):** Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장(사용자가 직접 쓸 한두 문장).
 - **확인 못 한 것:** 실제 휴대폰에서 인트로 끝 깜빡임이 사라졌는지, 링크트리 앱 안에서 보기, 휴대폰 손가락 밀기(About Me 넘어가기·프로젝트 카드).
 
+## 2026-10-27 — About Me 도구 분류: ‘협업’, Figma는 그래픽으로 (Claude)
+
+- 요청: 도구 섹션의 ‘기획·협업’을 ‘협업’으로, Figma는 협업에서 빼서 그래픽으로.
+- 변경: `scripts/about.mjs` 묶음(협업 = Notion·GitHub, 그래픽 = Figma·Photoshop·Aseprite·Blender·ComfyUI)과 필터 버튼 이름, 검사.
+- 검증: build·verify 통과(74개), 생성된 About Me에서 카드 13장의 묶음 확인.
+
 ## 2026-10-27 — 형광펜 밝기 낮춤 (Claude)
 
 - 요청: 형광펜이 진해 글자가 가려 보여서 밝기 낮추기.

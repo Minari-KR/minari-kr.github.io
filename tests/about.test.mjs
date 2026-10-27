@@ -101,8 +101,8 @@ test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px',
 test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the accessible name, no detail panel', () => {
   const slots = tags.filter(({ attributes }) => 'data-slot' in attributes);
   assert.equal(slots.length, 13);
-  assert.deepEqual([...page.matchAll(/<p class="inv-label">([^<]+)</g)].map(match => match[1]), ['개발', '기획·협업', '그래픽', 'AI']);
-  assert.deepEqual([...page.matchAll(/data-filter="([^"]+)" aria-pressed/g)].map(match => match[1]), ['전체', '개발', '기획·협업', '그래픽', 'AI']);
+  assert.deepEqual([...page.matchAll(/<p class="inv-label">([^<]+)</g)].map(match => match[1]), ['개발', '협업', '그래픽', 'AI']);
+  assert.deepEqual([...page.matchAll(/data-filter="([^"]+)" aria-pressed/g)].map(match => match[1]), ['전체', '개발', '협업', '그래픽', 'AI']);
   assert.match(page, /data-filters role="group" aria-label="[^"]+" hidden/);
   assert.deepEqual([...page.matchAll(/<span class="inv-hide">([^<]*)</g)].map(match => match[1]).filter(text => text.split(', ').length > 2), [', AI, 그림', ', AI, 작업 계획과 코드', ', AI, 영상', ', AI, 문장 다듬기']);
   assert.doesNotMatch(page, /inv-detail|data-detail|<button[^>]*inv-slot/);

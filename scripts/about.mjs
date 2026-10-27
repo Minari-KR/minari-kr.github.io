@@ -8,8 +8,8 @@ import { escapeHtml } from './content.mjs';
 // The role is the AI paragraph's own wording; no other tool gets usage text.
 export const toolGroups = [
   ['개발', [['Unity', 'unity'], ['Unreal', 'unreal']]],
-  ['기획·협업', [['Figma', 'figma'], ['Notion', 'notion'], ['GitHub', 'github']]],
-  ['그래픽', [['Photoshop', 'photoshop'], ['Aseprite', 'aseprite'], ['Blender', 'blender'], ['ComfyUI', 'comfyui']]],
+  ['협업', [['Notion', 'notion'], ['GitHub', 'github']]],
+  ['그래픽', [['Figma', 'figma'], ['Photoshop', 'photoshop'], ['Aseprite', 'aseprite'], ['Blender', 'blender'], ['ComfyUI', 'comfyui']]],
   ['AI', [['GPT', 'chatgpt', '그림'], ['Claude', 'claude', '작업 계획과 코드'], ['Grok', 'grok', '영상'], ['Gemini', 'gemini', '문장 다듬기']]],
 ];
 
