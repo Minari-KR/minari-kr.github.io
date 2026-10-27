@@ -4,7 +4,7 @@
   --bg: #eceeea;
   --ink: #20211f;
   --muted: #4f544d;
-  --body-ink: #363b35;
+  --body-ink: #1a1a1a;
   --line: rgba(32, 33, 31, .12);
   --accent-deep: #1f4f43;
   /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #2f6f5e: SVG pictures cannot read CSS values). */
