@@ -86,6 +86,7 @@
     const clones = [];
     for (let i = N; i < cols * rows; i++) {
       const clone = cards[i % N].cloneNode();
+      clone.style.visibility = ''; // a card whose picture is still decoding must not hand its hidden state to its clone
       layer.append(clone);
       clones.push(clone);
     }
@@ -115,14 +116,30 @@
     if (await run([...spread, clearGlass(SPREAD, 'ease')])) { ending = true; remove(); }
   };
 
-  // The glass goes up at once (so the page never flashes before it); the cards wait, hidden, until their pictures
-  // are decoded. An empty animation on no element is the 1.5s deadline: past it the glass just clears away.
+  // The glass goes up at once (so the page never flashes before it); the cards wait, hidden, until the pictures of the
+  // first ones to rise are decoded. The rest decode while those rise, each staying invisible until its own picture is ready,
+  // so the start does not decode all 30 at once (2026-10-27 phone hitch). An empty animation on no element is the 1.5s
+  // deadline: past it the glass just clears away.
+  const FIRST = 6;
+  for (const card of cards.slice(FIRST)) {
+    card.style.visibility = 'hidden';
+    const show = () => { card.style.visibility = ''; };
+    card.decode().then(show, show);
+  }
+  // Resolves on the next frame: two of them let the page's first layout and paint pass under the still glass, so the
+  // cards never start moving inside that heavy frame.
+  const nextFrame = () => {
+    const tick = new Animation(new KeyframeEffect(null, [], 1));
+    tick.play();
+    return tick.ready;
+  };
   layer.classList.add('is-waiting');
   layer.hidden = false;
   const deadline = new Animation(new KeyframeEffect(null, [], 1500));
   deadline.play();
   const timedOut = deadline.finished.then(() => false);
-  Promise.race([Promise.all(cards.map(card => card.decode())).then(() => true), timedOut]).then(
+  const firstReady = Promise.all(cards.slice(0, FIRST).map(card => card.decode())).then(nextFrame).then(nextFrame).then(() => true);
+  Promise.race([firstReady, timedOut]).then(
     ready => { deadline.cancel(); if (ready) play(); else finish(500); },
     () => { deadline.cancel(); finish(500); }
   );
