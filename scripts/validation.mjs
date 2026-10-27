@@ -40,13 +40,13 @@ export function validateFiles(files) {
       const clean = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/"[^"\n]*"|'[^'\n]*'/g, '');
       if ((clean.match(/{/g) || []).length !== (clean.match(/}/g) || []).length) throw new Error(`CSS 괄호 오류: ${name}`);
       if (/@import\b|expression\s*\(/i.test(text)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
-      // The only url() allowed is a reviewed local font (assets/fonts/*.woff2) or a local decorative SVG (assets/icons/*.svg,
-      // checked below) next to the stylesheets.
+      // The only url() allowed is a reviewed local font (assets/fonts/*.woff2), a local decorative SVG (assets/icons/*.svg,
+      // checked below) or a local WebP texture (assets/images/**/*.webp, signature checked in media.mjs) next to the stylesheets.
       const code = text.replace(/\/\*[\s\S]*?\*\//g, '');
       const urls = [...code.matchAll(/url\s*\(\s*(["']?)([^"')]*)\1\s*\)/gi)].map(match => match[2]);
       if ((code.match(/url\s*\(/gi) || []).length !== urls.length) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
       for (const ref of urls) {
-        if (!/^\.\.\/(?:fonts\/[a-z0-9_-]+\.woff2|icons\/[a-z0-9_-]+\.svg)$/.test(ref)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+        if (!/^\.\.\/(?:fonts\/[a-z0-9_-]+\.woff2|icons\/[a-z0-9_-]+\.svg|images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.webp)$/.test(ref)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
         const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), ref));
         if (!files.has(target)) throw new Error(`연결 대상이 없습니다: ${name} → ${target}`);
       }

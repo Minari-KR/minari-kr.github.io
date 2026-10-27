@@ -1,6 +1,6 @@
 // Home awards: four memo cards stuck onto the planning note (the feel of React Bits "Sticker Peel", none of its code).
-// Start: each cell shows only an empty dashed slot (a real <button> added here); pressing it, or the auto-stick (1.3 s of quiet, then
-// one card every 0.4 s), drops the card on like a sticker. A mouse can drag a stuck card inside the list, swinging around the held
+// Start: each cell shows only an empty dashed slot (a real <button> added here); pressing it, or the auto-stick (0.6 s of quiet, then
+// one card every 0.7 s), drops the card on like a sticker. A mouse can drag a stuck card inside the list, swinging around the held
 // point; its corners never curl (2026-10-27 user request). Touch: press to stick only. Positions are not saved.
 // Per frame only the dragged card's translate/rotate are written; rects are read on press and resize.
 // Reduced motion and no script: plain stuck cards (the empty state exists only with .is-live).
@@ -16,8 +16,8 @@
     DROP_SCALE = 1.12,
     DROP_TILT = 4, // degrees on top of the resting angle
     DROP_RISE = 12, // px above the slot
-    WAIT_MS = 1300, // quiet time before the rest stick themselves
-    GAP_MS = 400, // one by one, so each landing is seen
+    WAIT_MS = 600, // quiet time before the rest stick themselves
+    GAP_MS = 700, // one by one, so each landing is seen
     SWING_MAX = 8, // degrees
     SWING_PER = 0.01, // degrees per px/s of horizontal drag speed
     K = 120, // swing spring stiffness and damping (a little wobble)

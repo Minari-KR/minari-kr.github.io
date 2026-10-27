@@ -27,6 +27,11 @@ export function addReferencedMedia(root, files) {
       if (target.startsWith('assets/videos/')) referencedVideos.add(target);
     }
   }
+  // Stylesheets may use a WebP texture as a background (validation.mjs allows only ../images/**/*.webp in CSS url()).
+  for (const [name, value] of files) {
+    if (!name.endsWith('.css')) continue;
+    for (const match of value.toString().matchAll(/url\(\s*["']?(\.\.\/images\/[^"')]+)/g)) referencedImages.add(path.posix.normalize(path.posix.join(path.posix.dirname(name), match[1])));
+  }
   for (const file of walk(path.join(root, 'public/assets/images'))) {
     const name = 'assets/images/' + path.relative(path.join(root, 'public/assets/images'), file).replaceAll('\\', '/');
     if (!/^assets\/images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.(png|jpe?g|webp|gif|avif)$/.test(name)) throw new Error(`이미지 파일명 또는 확장자를 확인하세요: ${name}`);

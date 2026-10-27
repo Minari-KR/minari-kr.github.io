@@ -54,12 +54,13 @@ test('the game-play section closes the page: a small game screen of cartridges a
   assert.match(files.get('projects/reflectory.html'), /<title>Reflectory \| 박종찬<\/title>/);
 });
 
-test('stylesheets may only load reviewed local fonts and local SVG icons', () => {
+test('stylesheets may only load reviewed local fonts, local SVG icons and local WebP textures', () => {
   const { files } = compileSite(root);
   const withCss = css => new Map(files).set('assets/css/fonts-check.css', css);
   assert.doesNotThrow(() => validateFiles(withCss('@font-face { font-family: "A"; src: url("../fonts/neodgm.woff2"); }')));
   assert.doesNotThrow(() => validateFiles(withCss('a { border-image: url("../icons/marker.svg") 0 20 fill; }')));
-  for (const css of ['a { background: url("https://example.com/a.png"); }', 'a { background: url(../images/packs/shell-gray.webp); }', '@font-face { src: url("../fonts/missing.woff2"); }', '@font-face { src: url(\'../fonts/a"b.woff2\'); }', '@import "x.css";', 'a { background: url("../icons/missing.svg"); }', 'a { background: url("../icons/house.png"); }']) {
+  assert.doesNotThrow(() => validateFiles(withCss('a { background: url("../images/awards/paper.webp"); }')));
+  for (const css of ['a { background: url("https://example.com/a.png"); }', 'a { background: url(../images/awards/missing.webp); }', 'a { background: url("../images/awards/paper.png"); }', 'a { background: url("../images/../css/home.css"); }', '@font-face { src: url("../fonts/missing.woff2"); }', '@font-face { src: url(\'../fonts/a"b.woff2\'); }', '@import "x.css";', 'a { background: url("../icons/missing.svg"); }', 'a { background: url("../icons/house.png"); }']) {
     assert.throws(() => validateFiles(withCss(css)), /외부 리소스|연결 대상/, css);
   }
   // An SVG is only a picture: anything that could run code or load something else is refused.

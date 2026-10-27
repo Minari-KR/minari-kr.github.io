@@ -24,7 +24,7 @@ test('intro, awards and projects follow the single-column order with the approve
   const positions = order.map(marker => built.indexOf(marker));
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
-  assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
+  assert.equal((template.match(/<strong class="award-name"><span class="marker">/g) || []).length, 4);
   // Awards are four memo cards: sheet with paper and tape (decorative), year, name, event and a game sticker. The empty-slot buttons
   // are added by the script, never in the template; no glare, band, clip or back face is left.
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
@@ -33,46 +33,48 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.equal((template.match(/<span class="award-year">(2026|2025|2025|2020)<\/span>/g) || []).length, 4);
   assert.equal((template.match(/<span class="award-event">/g) || []).length, 4);
   assert.doesNotMatch(template, /award-flip|award-band|award-clip|award-back|award-swing|award-face/);
-  // Names and events stay readable text; the two single long words may break only at the <wbr>.
-  for (const text of ['국가수리과학<wbr>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
+  // Names and events stay readable text; the longest name is split into two lines by a <br>.
+  for (const text of ['국가수리과학<br>연구소장상', '대상', '베스트 리더상', '우수상', '대전 인디(inD) 게임잼', '대전 게임 브릿지', '스토브 크루 2기', '넷마블<wbr>게임아카데미 5기']) assert.ok(template.includes(text), text);
   assert.doesNotMatch(template, /is-best/);
   // Each card ends with its game sticker (decorative) after the year, name and event, which read in that order.
   for (const sticker of ['paimon', 'helmet', 'shiroko', 'creeper']) {
     assert.ok(template.includes(`<img class="award-sticker" src="./assets/images/awards/sticker-${sticker}.webp" width="360" height="360" alt="" aria-hidden="true"`), sticker);
     assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/sticker-${sticker}.webp`, import.meta.url)), sticker);
   }
-  assert.match(template, /<span class="award-year">2026<\/span><strong class="award-name">국가수리과학<wbr>연구소장상<\/strong><span class="award-event">/);
-  // Text never truncates, keeps Korean words whole and stays at the phone minimums (name 16px, event 14px).
+  assert.match(template, /<span class="award-year">2026<\/span><strong class="award-name"><span class="marker">국가수리과학<br>연구소장상<\/span><\/strong><span class="award-event">/);
+  // Text never truncates, keeps Korean words whole and stays on one line (the longest name is split by a <br>), sized from the card width (never under 12px).
   assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /text-overflow|line-clamp|ellipsis/);
   assert.equal(cssRule(homeStyles, '.award-name', '*').get('word-break'), 'keep-all');
   assert.equal(cssRule(homeStyles, '.award-event', '*').get('word-break'), 'keep-all');
   const phone = homeStyles.slice(homeStyles.indexOf('@media (max-width: 640px)'));
-  assert.match(phone, /\.award-name \{ font-size: 1\.25rem; \}/);
-  assert.match(phone, /\.award-event \{ font-size: 1rem; \}/);
+  for (const sel of ['.award-name', '.award-event']) assert.equal(cssRule(homeStyles, sel, '*').get('white-space'), 'nowrap', sel);
+  assert.match(homeStyles, /--fs: clamp\(12px, /);
+  assert.match(cssRule(homeStyles, '.award-event', '*').get('font-size'), /^max\(12px,/);
   // Two columns where a card keeps 296px, one column on phones; cards share a row height and the awards CSS has no lanyard left.
   assert.match(homeStyles, /\.award-list \{ display: grid; grid-template-columns: repeat\(auto-fit, minmax\(min\(100%, 296px\), 1fr\)\)/);
   assert.match(homeStyles, /\.award-card:nth-child\(1\) \{ --rest: -1\.2deg;[\s\S]*\.award-card:nth-child\(2\) \{ --rest: \.8deg;[\s\S]*\.award-card:nth-child\(3\) \{ --rest: 1\.4deg;[\s\S]*\.award-card:nth-child\(4\) \{ --rest: -\.9deg;/);
   assert.match(homeStyles, /\.award-list \{[^}]*grid-auto-rows: 1fr;/);
   assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 24px; \}/);
-  assert.match(phone, /\.award-sheet \{ padding: 16px; \}/);
+  assert.match(phone, /\.award-sheet \{ --sticker: 88px; \}/);
   assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|award-glare|--bleed|--sheen|backface-visibility/);
-  // Memo paper with a faint dot grid, a masking-tape strip, the name on the highlighter stroke, the year in deep green.
+  // Memo paper with a seamless paper-fibre texture, a masking-tape strip, the name on the highlighter stroke, the year in deep green.
   const awardCss = homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image'));
-  assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /rgba\(31,79,67,0\.08\) 1px.*0 0\/16px 16px,#fbfaf6/);
+  assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /^#fbfaf6 url\(["']?\.\.\/images\/awards\/paper\.webp["']?\) 0 0\/256px 256px$/);
+  assert.ok(fs.existsSync(new URL('../public/assets/images/awards/paper.webp', import.meta.url)));
   assert.equal(cssRule(homeStyles, '.award-paper', '*').get('border-radius'), '8px');
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('width'), /72px/);
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('background'), /accent-soft/);
-  assert.match(cssRule(homeStyles, '.award-name', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
+  assert.match(cssRule(homeStyles, '.marker', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/); // the name sits on the section-title stroke, line by line
   // Text on the left (year, name, event), the game sticker on the right across the three lines.
   assert.equal(cssRule(homeStyles, '.award-year', '*').get('grid-row'), '1');
   assert.equal(cssRule(homeStyles, '.award-sticker', '*').get('grid-column'), '2');
-  // The empty slot is a 2px dashed outline; before sticking the card is only transparent (opacity, never visibility), so it stays
-  // in the page for screen readers and search and its cell keeps its size. Hover styles live under hover + fine pointer only.
-  assert.match(cssRule(homeStyles, '.award-slot', '*').get('border'), /^2px dashed rgba\(31,79,67,0\.28\)$/);
+  // The empty slot draws nothing (no outline); before sticking the card is only transparent (opacity, never visibility), so it stays
+  // in the page for screen readers and search and its cell keeps its size. 
+  assert.equal(cssRule(homeStyles, '.award-slot', '*').get('border'), '0');
   assert.equal(cssRule(homeStyles, '.award-slot', '*').get('border-radius'), '8px');
   assert.match(homeStyles, /\.award-list\.is-live \.award-card:not\(\.is-stuck\) \.award-sheet \{ opacity: 0;/);
   assert.doesNotMatch(awardCss, /visibility|display: none/);
-  assert.match(awardCss, /@media \(hover: hover\) and \(pointer: fine\) \{\s*\.award-slot:hover/);
+  assert.doesNotMatch(awardCss, /\.award-slot:hover/);
   assert.match(homeStyles, /@property --lift/);
   // The corners never curl any more (2026-10-27 user request): no fold element, no peel variable.
   assert.doesNotMatch(homeStyles + template, /--peel|award-fold|data-corner/);
@@ -180,11 +182,11 @@ test('awards script loads after project-tabs, uses the shared loop and has a red
   assert.match(script, /onReduce/);
   assert.match(script, /pointerType === 'mouse'|pointerType !== 'mouse'/);
   assert.match(script, /\[data-intro\]/);
-  // The slot buttons come from the script; the 3 s quiet time is an empty Web Animation (no timers), 0.15 s apart afterwards.
+  // The slot buttons come from the script; the 0.6 s quiet time is an empty Web Animation (no timers), 0.7 s apart afterwards.
   assert.match(script, /createElement\('button'\)[\s\S]*type = 'button'[\s\S]*붙이기/);
   assert.match(script, /new Animation\(new KeyframeEffect\(null, \[\], ms\)\)/);
-  assert.match(script, /WAIT_MS = 1300/);
-  assert.match(script, /GAP_MS = 400/);
+  assert.match(script, /WAIT_MS = 600/);
+  assert.match(script, /GAP_MS = 700/);
   assert.doesNotMatch(script, /PEEL|--peel|dataset\.corner/);
   assert.match(script, /DROP_MS = 320/);
   assert.match(script, /cubic-bezier\(\.2,\.9,\.3,1\.15\)/);
