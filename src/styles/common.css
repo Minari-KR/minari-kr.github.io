@@ -1,17 +1,27 @@
 /* Shared design tokens and reading rules. Keep the established portfolio design. */
 :root {
-  /* Page background color for every page (the white content sheet sits on top of it). */
+  /* Palette (every colour on the site comes from here; the LCD greens below and the game drawings in src/scripts are the only exceptions).
+     Surfaces: --bg page grey, --paper white sheets/cards/buttons, --paper-warm memo and game-screen paper.
+     Text: --ink (one dark text colour, --body-ink is its alias), --muted secondary, --on-accent text on green.
+     Greens: --accent-deep main, --accent-hover pressed, --accent-soft light fill, --marker highlighter, --tap tap flash.
+     Ink lines: --line rules and borders, --line-strong dashed rules and emphasised borders, --shadow drop shadows (--shadow-rgb for calc alpha). */
   --bg: #eceeea;
-  --ink: #20211f;
+  --paper: #fff;
+  --paper-warm: #f7f5ef;
+  --ink: #1a1a1a;
+  --body-ink: var(--ink);
   --muted: #4f544d;
-  --body-ink: #1a1a1a;
-  --line: rgba(32, 33, 31, .12);
+  --on-accent: #fff;
+  --shadow-rgb: 26, 26, 26;
+  --line: rgba(var(--shadow-rgb), .12);
+  --line-strong: rgba(var(--shadow-rgb), .28);
+  --shadow: rgba(var(--shadow-rgb), .16);
   --accent-deep: #1f4f43;
-  /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #2f6f5e: SVG pictures cannot read CSS values). */
+  /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #1f4f43: SVG pictures cannot read CSS values). */
   --accent-hover: #163b32;
   --accent-soft: #dce8df;
-  --marker: #2f6f5e;
-  --tap: rgba(47, 111, 94, .12);
+  --marker: #1f4f43;
+  --tap: rgba(31, 79, 67, .12);
   --text-meta: .84rem;
   --text-small: .94rem;
   --text-body: .98rem;
@@ -34,7 +44,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: var(--tap); }
 a, button, video { touch-action: manipulation; }
-.skip-link { position: absolute; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-small); font-weight: 800; line-height: 1.5; transform: translateY(calc(-100% - 16px)); }
+.skip-link { position: absolute; z-index: 10; top: 8px; left: 8px; display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; background: var(--accent-deep); color: var(--on-accent); font-size: var(--text-small); font-weight: 800; line-height: 1.5; transform: translateY(calc(-100% - 16px)); }
 .skip-link:focus-visible { transform: none; outline-color: var(--accent-deep); text-decoration: none; }
 [hidden] { display: none !important; }
 body {

@@ -21,7 +21,7 @@
    Without script the cards are a wrapping row of thumbnails; with it (.is-live) about.js places each card by transform. */
 .taste-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--gap-actions); align-items: stretch; }
 .spiral { display: flex; flex-wrap: wrap; align-content: center; gap: 8px; min-width: 0; min-height: 420px; }
-.spiral-card { display: block; width: 72px; height: 72px; border: 1px solid rgba(32, 33, 31, .16); border-radius: 8px; object-fit: cover; }
+.spiral-card { display: block; width: 72px; height: 72px; border: 1px solid var(--line); border-radius: 8px; object-fit: cover; }
 .spiral-stage { display: contents; }
 /* overflow:hidden flattens preserve-3d, so the clip and perspective live on .spiral and the cards sit in the inner 3D stage. */
 .spiral.is-live { position: relative; display: block; overflow: hidden; perspective: 1000px; perspective-origin: 50% 50%; }
@@ -38,11 +38,11 @@
 .inventory [hidden] { display: none; }
 .inv-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; width: fit-content; max-width: 100%; margin: 0 auto; padding: 4px; border-radius: 999px; background: var(--bg); }
 .inv-tab { min-height: 44px; padding: 0 16px; border: 1.5px solid transparent; border-radius: 999px; background: transparent; color: var(--muted); font: 800 max(1rem, var(--text-meta))/1 var(--font-body); white-space: nowrap; cursor: pointer; }
-.inv-tab[aria-pressed="true"] { border-color: var(--accent-deep); background: #fff; color: var(--accent-deep); }
+.inv-tab[aria-pressed="true"] { border-color: var(--accent-deep); background: var(--paper); color: var(--accent-deep); }
 .inv-groups { display: grid; gap: var(--gap-block); }
 .inv-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
 .inv-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
-.inv-slot { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; min-width: 0; padding: 16px 8px 12px; border: 1px solid rgba(32, 33, 31, .16); border-radius: 16px; background: #fff; text-align: center; }
+.inv-slot { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; min-width: 0; padding: 16px 8px 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); text-align: center; }
 .inv-box { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; margin-bottom: 4px; border-radius: 20px; background: var(--bg); }
 .inv-logo { display: block; width: 56px; height: 56px; }
 .inv-name { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); white-space: nowrap; }
@@ -59,7 +59,7 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .inv-tab[aria-pressed="false"]:hover { color: var(--ink); }
-  .inv-slot:hover { border-color: rgba(32, 33, 31, .32); }
+  .inv-slot:hover { border-color: var(--line-strong); }
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .inv-slot:hover { transform: translateY(-2px); }

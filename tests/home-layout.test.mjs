@@ -60,7 +60,7 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|award-glare|--bleed|--sheen|backface-visibility/);
   // Memo paper with a seamless paper-fibre texture, a masking-tape strip, the name on the highlighter stroke, the year in deep green.
   const awardCss = homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image'));
-  assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /^#fbfaf6 url\(["']?\.\.\/images\/awards\/paper\.webp["']?\) 0 0\/256px 256px$/);
+  assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /^var\(--paper-warm\) url\(["']?\.\.\/images\/awards\/paper\.webp["']?\) 0 0\/256px 256px$/);
   assert.ok(fs.existsSync(new URL('../public/assets/images/awards/paper.webp', import.meta.url)));
   assert.equal(cssRule(homeStyles, '.award-paper', '*').get('border-radius'), '8px');
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('width'), /72px/);
@@ -193,7 +193,7 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   assert.match(source, /lite \? \{ opacity: \['1', '0'\] \}\s*: \{ background: [^}]*backdropFilter/); // phones fade opacity, never animate backdrop-filter
   // Animated end values are also set as plain style, so a dropped last frame cannot flash the layer or a card back (phone flicker).
   assert.ok(source.includes("for (const card of all) card.style.opacity = '0';") && source.includes("layer.style.opacity = '0';"));
-  assert.match(css, /\.intro-layer\.is-lite \{[^}]*rgba\(236, 238, 234, \.92\)[^}]*backdrop-filter: none/);
+  assert.match(css, /\.intro-layer\.is-lite \{[^}]*color-mix\(in srgb, var\(--bg\) 92%, transparent\)[^}]*backdrop-filter: none/);
   assert.match(css, /\.intro-layer\.is-lite \.intro-card \{ box-shadow: none; \}/);
 });
 
