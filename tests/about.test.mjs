@@ -143,7 +143,7 @@ test('the 14 key phrases in the About Me body text are wrapped in .hl, with no m
   assert.match(css, /\.hl-armed \.about-text\.reveal\.is-in \.hl \{ background-size: 100% 100%/);
   assert.doesNotMatch(css, /^ +.about-text\.reveal\.is-in \.hl/m);
   assert.match(css, /\.about-text\.reveal\.is-in \{ opacity: 1; filter: none; \}/);
-  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.45"/);
+  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.25"/);
 });
 
 test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {
