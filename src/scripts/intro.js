@@ -13,10 +13,14 @@
   const KEY = 'intro-seen';
   let seen = false;
   try { seen = sessionStorage.getItem(KEY) !== null; } catch { /* storage blocked: still play once */ }
-  // On a slow connection the page may already be on screen before this script runs; covering it then would flash,
-  // so the intro only plays when nothing has been painted yet.
-  const painted = performance.getEntriesByType('paint').some(entry => entry.name === 'first-contentful-paint');
-  if (seen || painted || window.motionLoop.reduce.matches) { remove(); return; }
+  // Normally intro-gate.js has already put the glass up from the first frame (html.intro-on). Without it (blocked) and on a slow
+  // connection the page may be on screen before this script runs; covering it then would flash, so it only plays when nothing
+  // has been painted yet.
+  const gated = document.documentElement.classList.contains('intro-on');
+  const painted = !gated && performance.getEntriesByType('paint').some(entry => entry.name === 'first-contentful-paint');
+  // The CSS safety net (intro-giveup) already cleared the layer after 3 s: this script came far too late, so no late intro.
+  const gaveUp = layer.getAnimations().some(anim => anim.animationName === 'intro-giveup' && anim.playState === 'finished');
+  if (seen || painted || gaveUp || window.motionLoop.reduce.matches) { remove(); return; }
   try { sessionStorage.setItem(KEY, '1'); } catch { /* ignore */ }
 
   // Random order each visit (Fisher-Yates); appending in that order also fixes the stack order and each card's grid cell.

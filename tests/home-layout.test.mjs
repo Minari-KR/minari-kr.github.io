@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { games } from '../scripts/site-config.mjs';
 import { compileSite } from '../scripts/site.mjs';
 import { root, cssRule } from './fixture.mjs';
@@ -159,6 +160,30 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   const source = fs.readFileSync(path.join(root, 'src/scripts/intro.js'), 'utf8');
   for (const part of ['.animate(', 'motionLoop.reduce', 'pageshow', 'decode()', 'first-contentful-paint', 'Math.random', 'stopImmediatePropagation', 'is-waiting', "'intro-seen'"]) assert.ok(source.includes(part), part);
   assert.match(source, /try {[^}]*sessionStorage/);
+  // The gate: one render-blocking script in <head> right after the CSP, before the first paint; CSS shows the glass from then on.
+  for (const [name, folder] of [['index.html', './'], ['about/index.html', '../']]) {
+    const page = compileSite(root).files.get(name);
+    const gate = page.indexOf(`<script src="${folder}assets/js/intro-gate.js`);
+    assert.ok(page.indexOf('Content-Security-Policy') < gate && gate < page.indexOf('<link') && gate < page.indexOf('data-intro'), name);
+    assert.doesNotMatch(page.slice(gate, page.indexOf('>', gate)), /defer|async/, name);
+  }
+  assert.match(css, /html\.intro-on \.intro-layer\[hidden\] \{ display: grid !important; animation: intro-giveup \.3s 3s forwards; \}/);
+  assert.ok(source.includes("anim.animationName === 'intro-giveup'"));
+  assert.match(css, /html\.intro-on \.intro-layer\[hidden\] \.intro-card \{ visibility: hidden; \}/);
+  const gateSource = fs.readFileSync(path.join(root, 'src/scripts/intro-gate.js'), 'utf8');
+  const runGate = (seenValue, reduce, blocked) => {
+    const added = [];
+    vm.runInNewContext(gateSource, {
+      sessionStorage: { getItem: () => { if (blocked) throw new Error('blocked'); return seenValue; } },
+      window: { matchMedia: () => ({ matches: reduce }) },
+      document: { documentElement: { classList: { add: name => added.push(name) } } },
+    });
+    return added;
+  };
+  assert.deepEqual(runGate(null, false, false), ['intro-on']);
+  assert.deepEqual(runGate('1', false, false), []);
+  assert.deepEqual(runGate(null, true, false), []);
+  assert.deepEqual(runGate(null, false, true), ['intro-on']); // blocked storage still plays once, like intro.js
   assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|setTimeout|setInterval|intro-skip/);
   // The only matchMedia is the phone/touch query (intro.js is a helper, not a motionLoop script).
   assert.equal((source.match(/matchMedia/g) || []).length, 1);
