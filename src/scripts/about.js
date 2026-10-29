@@ -5,6 +5,11 @@
   if (spiral) {
     // Each card sits flat on a helix in real 3D (translate3d); the browser orders them by depth. Values follow React Bits 'Infinite Spiral'.
     const cards = [...spiral.querySelectorAll('.spiral-card')];
+    // Random order each visit (Fisher-Yates, as in intro.js); a card's slot is its array index, so no DOM reordering is needed.
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
     // 5 per turn keeps two neighbours apart sideways (2r·sin 36° ≈ 106px > a card) at the moment they swap front and back,
     // so the cards can stay flat: no overlap is ever re-sorted, and no tilted planes cut through each other.
     const perTurn = 5;
@@ -20,7 +25,7 @@
     let offset = 0;
     let pace = 1; // 1 = full speed, eased to 0 while a mouse hovers
     let hover = false;
-    const count = cards.length; // the 11 games; a card that leaves at the top comes back at the bottom
+    const count = cards.length; // every game; a card that leaves at the top comes back at the bottom
     let w = 0;
     let h = 0;
     let loop;

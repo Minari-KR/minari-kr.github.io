@@ -142,7 +142,7 @@ test('home and About Me have a first-visit glass intro layer of every game with 
     const layer = page.match(/<div class="intro-layer" data-intro hidden>[\s\S]*?<\/div>/)[0];
     const cards = [...layer.matchAll(new RegExp(`<img class="intro-card" src="${base}/(assets/images/games/[^"]+)" width="352" height="336" alt="" decoding="async">`, 'g'))].map(match => match[1]);
     assert.deepEqual(cards, wanted, name);
-    assert.equal(cards.length, 30);
+    assert.equal(cards.length, wanted.length);
     assert.doesNotMatch(layer, /<button|skip|aria-hidden/);
     assert.ok(page.indexOf('data-intro hidden') < page.indexOf('<main'), name);
     assert.ok(page.indexOf('assets/js/motion-loop.js') < page.indexOf('assets/js/intro.js') && page.indexOf('assets/js/intro.js') < page.indexOf('assets/js/scroll-exit.js'), name);

@@ -61,3 +61,25 @@ test('every animation runs through the shared motion loop, which the pages load 
     }
   }
 });
+
+test('PC inner pages load only their own scripts; neither has a frame loop', () => {
+  const { files } = compileSite(root);
+  const expected = {
+    'pc/index.html': ['pc-slider', 'pc-segment'],
+    'pc/about/index.html': ['pc-segment']
+  };
+  for (const [page, names] of Object.entries(expected)) {
+    const up = page === 'pc/index.html' ? '..' : '../..';
+    const tags = [...files.get(page).matchAll(/<script src="([^"]+)" defer><\/script>/g)].map(match => match[1].replace(/\?v=[a-f0-9]{12}$/, ''));
+    assert.deepEqual(tags, names.map(name => `${up}/assets/js/${name}.js`), page);
+    assert.equal((files.get(page).match(/<script/g) || []).length, names.length + 1, page);
+    // The blocking gate sits in <head> right after the security metas, without defer.
+    const head = files.get(page).split('</head>')[0];
+    assert.match(head, new RegExp('<meta name="referrer"[^>]*>\\s*<script src="' + up.replaceAll('.', '\\.') + '/assets/js/pc-gate\\.js(\\?v=[a-f0-9]{12})?"></script>'), page);
+  }
+  for (const name of ['pc-gate', 'pc-segment', 'pc-slider']) {
+    assert.doesNotMatch(read(`src/scripts/${name}.js`), /requestAnimationFrame|IntersectionObserver|visibilitychange|setTimeout|setInterval/, name);
+  }
+  assert.ok(!fs.existsSync(new URL('../src/scripts/pc-profile.js', import.meta.url))); // the tilting card was replaced by the still status window
+  assert.ok(!fs.existsSync(new URL('../src/scripts/pc-chroma.js', import.meta.url)));
+});

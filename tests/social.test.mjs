@@ -17,11 +17,11 @@ test('home and project pages share their own URLs and titles with a published 12
     if (!name.endsWith('.html')) continue;
     const meta = Object.fromEntries(readHtmlTags(html.toString()).filter(tag => tag.tag === 'meta')
       .map(({ attributes: a }) => [a.property ?? a.name, a.content]));
-    assert.equal(meta['og:url'], siteUrl + (name === 'index.html' ? '' : name === 'about/index.html' ? 'about/' : name));
+    assert.equal(meta['og:url'], siteUrl + (name === 'index.html' ? '' : name.endsWith('/index.html') ? name.slice(0, -'index.html'.length) : name));
     assert.equal(meta['og:image'], siteUrl + shareImage);
     assert.equal(meta['twitter:image'], meta['og:image']);
     assert.equal(meta['twitter:title'], meta['og:title']);
-    assert.equal(meta['og:type'], name === 'index.html' || name === 'about/index.html' ? 'website' : 'article');
+    assert.equal(meta['og:type'], name === 'index.html' || name.endsWith('/index.html') ? 'website' : 'article');
     if (name.startsWith('projects/')) {
       const project = projects.find(project => name === `projects/${project.slug}.html`);
       assert.equal(meta['og:title'], `${project.title} | 박종찬`);

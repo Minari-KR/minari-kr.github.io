@@ -5,8 +5,8 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
-import { toolGroups, toolGroupsHtml, bannerTitles, spiralHtml } from '../scripts/about.mjs';
-import { games } from '../scripts/site-config.mjs';
+import { toolGroups, toolGroupsHtml, spiralHtml } from '../scripts/about.mjs';
+import { games, hiddenGameTitles } from '../scripts/site-config.mjs';
 import { root } from './fixture.mjs';
 
 const { files, publicFiles } = compileSite(root);
@@ -37,26 +37,32 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
 });
 
 test('the games list includes Tomb Raider', () => {
-  assert.equal(games.length, 30);
+  assert.equal(games.length, 30 - hiddenGameTitles.length);
   assert.ok(games.some(game => game.title === '툼 레이더 시리즈' && game.image === 'assets/images/games/tomb-raider.webp' && game.hours === ''));
 });
 
-test('spiral: 11 cards in order, empty alt, one aria-label with all 11 titles', () => {
-  assert.deepEqual(bannerTitles, ['블루 아카이브', '명조: 워더링 웨이브', '원신', '이터널 리턴', '젠레스 존 제로', '명일방주: 엔드필드', '몬길: STAR DIVE', '림버스 컴퍼니', '이환', '소녀전선2: 망명', '트릭컬 리바이브']);
+test('hidden games appear in no generated page', () => {
+  assert.equal(hiddenGameTitles.length, 4);
+  for (const [name, html] of files) {
+    if (name.endsWith('.html')) for (const title of hiddenGameTitles) assert.ok(!html.includes(title), `${name}: ${title}`);
+  }
+});
+
+test('spiral: every visible game with an image as a card in config order, empty alt, one aria-label with all titles', () => {
+  const shown = games.filter(game => game.image);
   const spiral = tags.filter(({ attributes }) => 'data-spiral' in attributes);
   assert.equal(spiral.length, 1);
   assert.equal(spiral[0].attributes.role, 'img');
-  assert.equal(spiral[0].attributes['aria-label'], `서브컬처 게임 11개: ${bannerTitles.join(', ')}`);
+  assert.equal(spiral[0].attributes['aria-label'], `게임 ${shown.length}개: ${shown.map(game => game.title).join(', ')}`);
   const cards = tags.filter(({ tag, attributes }) => tag === 'img' && /spiral-card/.test(attributes.class));
-  assert.equal(cards.length, 11);
+  assert.equal(cards.length, shown.length);
   for (const [i, { attributes }] of cards.entries()) {
-    const game = games.find(item => item.title === bannerTitles[i]);
+    const game = shown[i];
     assert.equal(attributes.alt, '');
     assert.equal(attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''), `../${game.image}`);
     assert.ok(fs.statSync(path.join(root, 'public', game.image)).size > 1000, game.image);
   }
   assert.doesNotMatch(page, /banner|data-(slide|track|view|prev|next)/);
-  assert.throws(() => spiralHtml(games, ['없는 게임']), /없는 게임/);
 });
 
 test('spiral script: driven by motionLoop, no timers or frame loop of its own, mouse-only hover', () => {
@@ -69,6 +75,7 @@ test('spiral script: driven by motionLoop, no timers or frame loop of its own, m
   assert.match(js, /translate3d\(/);
   assert.doesNotMatch(js, /rotateY\(/);
   assert.match(js, /const perTurn = 5;/);
+  assert.match(js, /Math\.random\(\)/); // the card order is shuffled once per visit
   assert.match(js, /speed = 0\.35;/);
   assert.doesNotMatch(js, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
@@ -159,15 +166,17 @@ test('scroll-exit.js opens About Me on one more scroll at the top of the portfol
   assert.doesNotMatch(source, /requestAnimationFrame|IntersectionObserver|matchMedia|setTimeout|setInterval/);
 });
 
-test('a scroll exit covers with one layer and arrives under a fading cover: the fragment, one target element per page, and the CSS', () => {
+test('a scroll exit covers with one layer and arrives under a fading cover: the fragment, the head gate class, and the CSS', () => {
   const source = fs.readFileSync(path.join(root, 'src/scripts/scroll-exit.js'), 'utf8');
   assert.ok(source.includes("href += '#from-scroll'"));
-  for (const name of ['index.html', 'about/index.html']) assert.equal((files.get(name).match(/id="from-scroll"/g) || []).length, 1, name);
+  for (const name of ['index.html', 'about/index.html']) assert.doesNotMatch(files.get(name), /id="from-scroll"/, name); // :target is applied after the first paint, so no target element
+  const gate = fs.readFileSync(path.join(root, 'src/scripts/intro-gate.js'), 'utf8');
+  for (const part of ["location.hash !== '#from-scroll'", "classList.add('from-scroll')", 'history.replaceState']) assert.ok(gate.includes(part), part);
   const css = fs.readFileSync(path.join(root, 'src/styles/page-transitions.css'), 'utf8');
   assert.match(css, /\.exit-cover \{ position: fixed; inset: 0; z-index: 2147483647; background: var\(--bg\); pointer-events: none; opacity: 0; \}/);
-  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*html:has\(#from-scroll:target\)::before \{[^}]*position: fixed; inset: 0;[^}]*background: var\(--bg\); pointer-events: none; animation: arrive-cover 600ms ease both;/);
+  assert.match(css, /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*html\.from-scroll::before \{[^}]*position: fixed; inset: 0;[^}]*background: var\(--bg\); pointer-events: none; animation: arrive-cover 600ms ease both;/);
   assert.match(css, /@keyframes arrive-cover \{ from \{ opacity: 1; visibility: visible; \} to \{ opacity: 0; visibility: hidden; \} \}/);
-  assert.doesNotMatch(css, /body:has\(#from-scroll|arrive-fade|body\s*\{[^}]*animation/); // no body animation on arrival
+  assert.doesNotMatch(css, /:target|body:has\(#from-scroll|arrive-fade|body\s*\{[^}]*animation/); // no body animation on arrival
 });
 
 test('the styles never transition everything', () => {

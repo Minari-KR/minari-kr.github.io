@@ -83,6 +83,8 @@ export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴
 // so every game has ''; a line break in the text starts a new line on the screen) and the one-line review,
 // which comes from the user later, stay '' (hidden on the screen) when empty.
 const shells = ['gray', 'yellow', 'purple', 'black'];
+// Temporarily hidden everywhere (data and images stay): delete a title from this list to bring the game back.
+export const hiddenGameTitles = ['명일방주: 엔드필드', '이환', '소녀전선2: 망명', '트릭컬 리바이브'];
 export const games = [
   ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6],
   ['몬길: STAR DIVE', 'PC, 모바일', '액션 RPG', 'mongil-star-dive', 60.1],
@@ -124,7 +126,7 @@ export const games = [
   note: '',
   image: image ? `assets/images/games/${image}.webp` : undefined,
   shell: shells[Math.floor(i / 2) % shells.length],
-}));
+})).filter(game => !hiddenGameTitles.includes(game.title));
 
 // "출시 앱" section on the home page (shown between the awards and the projects).
 // Keep null until the real information is ready; null means the section is not generated at all.

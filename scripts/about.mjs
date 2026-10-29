@@ -27,22 +27,12 @@ export function toolGroupsHtml(groups, hasLogo) {
 
 export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
 
-// The games shown in the About Me spiral: picked by title, in this order. A missing title fails the build.
-export const bannerTitles = ['블루 아카이브', '명조: 워더링 웨이브', '원신', '이터널 리턴', '젠레스 존 제로', '명일방주: 엔드필드', '몬길: STAR DIVE', '림버스 컴퍼니', '이환', '소녀전선2: 망명', '트릭컬 리바이브'];
-
-function bannerGames(games, titles) {
-  return titles.map(title => {
-    const game = games.find(item => item.title === title);
-    if (!game || !game.image) throw new Error(`배너 게임을 games에서 찾을 수 없습니다: ${title}`);
-    return game;
-  });
-}
-
-// Infinite spiral: the games as cards on a helix (src/scripts/about.js). Screen readers get the 11 titles once; the cards have empty alt text.
-export function spiralHtml(games, titles = bannerTitles) {
-  const list = bannerGames(games, titles);
+// Infinite spiral: every game with an image as a card on a helix, in config order (src/scripts/about.js shuffles them per visit).
+// Screen readers get the titles once; the cards have empty alt text.
+export function spiralHtml(games) {
+  const list = games.filter(game => game.image);
   const cards = list.map(game => `            <img class="spiral-card" src="../${escapeHtml(game.image)}" width="352" height="336" alt="" decoding="async">`).join('\n');
-  return `        <div class="spiral" data-spiral role="img" aria-label="서브컬처 게임 ${list.length}개: ${escapeHtml(list.map(game => game.title).join(', '))}">
+  return `        <div class="spiral" data-spiral role="img" aria-label="게임 ${list.length}개: ${escapeHtml(list.map(game => game.title).join(', '))}">
           <div class="spiral-stage">\n${cards}\n          </div>
         </div>`;
 }

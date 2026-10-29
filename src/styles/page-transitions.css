@@ -1,6 +1,4 @@
 /* Optional cross-document fade. Unsupported browsers keep normal navigation. */
-/* The scroll-exit arrival target sits at the very top of the document, so arriving at #from-scroll keeps the page at scrollY 0. */
-#from-scroll { position: absolute; top: 0; left: 0; }
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
   ::view-transition-group(root) { animation-duration: 200ms; }
@@ -17,8 +15,8 @@
 /* Scroll exit (scroll-exit.js): one fixed cover in the page background colour fades in over 0.6s, so the body itself is never animated. */
 .exit-cover { position: fixed; inset: 0; z-index: 2147483647; background: var(--bg); pointer-events: none; opacity: 0; }
 
-/* Arrival after a scroll exit (scroll-exit.js adds #from-scroll): the same colour covers the new page and fades out over 0.6s, then is hidden. */
+/* Arrival after a scroll exit (intro-gate.js adds html.from-scroll before the first paint): the same colour covers the new page and fades out over 0.6s, then is hidden. */
 @media (prefers-reduced-motion: no-preference) {
-  html:has(#from-scroll:target)::before { content: ''; position: fixed; inset: 0; z-index: 2147483647; background: var(--bg); pointer-events: none; animation: arrive-cover 600ms ease both; }
+  html.from-scroll::before { content: ''; position: fixed; inset: 0; z-index: 2147483647; background: var(--bg); pointer-events: none; animation: arrive-cover 600ms ease both; }
   @keyframes arrive-cover { from { opacity: 1; visibility: visible; } to { opacity: 0; visibility: hidden; } }
 }

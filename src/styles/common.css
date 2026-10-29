@@ -20,6 +20,8 @@
   /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #1f4f43: SVG pictures cannot read CSS values). */
   --accent-hover: #163b32;
   --accent-soft: #dce8df;
+  /* One step deeper than --accent-soft, for the hover of a soft-green area (text --accent-deep stays above 6:1). */
+  --accent-soft-deep: #cddccf;
   --marker: #1f4f43;
   --tap: rgba(31, 79, 67, .12);
   --text-meta: .84rem;

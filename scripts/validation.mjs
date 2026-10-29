@@ -59,7 +59,8 @@ export function validateFiles(files) {
     for (const { tag, attributes } of tags) {
       if (Object.hasOwn(attributes, 'srcset')) throw new Error(`srcset 리소스는 별도 검토가 필요합니다: ${name}`);
       // Pages at the root load ./assets/js; project detail pages, one folder down, load the same folder through ../ only.
-      const scriptPath = /^(?:projects|about)\//.test(name) ? /^\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/;
+      // pc/index.html is one folder down (../); pages under pc/<page>/ are two folders down (../../).
+      const scriptPath = /^(?:projects|about|pc)\/[^/]+$/.test(name) ? /^\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^pc\/[a-z]+\/index\.html$/.test(name) ? /^\.\.\/\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/;
       if (tag === 'script' && !scriptPath.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
     }
     for (const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)) {

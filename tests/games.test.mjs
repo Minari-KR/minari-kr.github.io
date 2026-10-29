@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
 import { gamePacks } from '../scripts/games.mjs';
+import { games } from '../scripts/site-config.mjs';
 import { root, parseCss, cssRule, cssDeclared, between } from './fixture.mjs';
 
 const read = name => fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
@@ -41,7 +42,7 @@ test('the game-play section closes the page: a small game screen of cartridges a
   assert.ok(home.indexOf('id="games"') < home.indexOf('</main>'));
   assert.match(home, /<h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험<\/span><\/h2>/);
   assert.match(home, /<div class="gs" data-game-screen data-state="select">/);
-  assert.equal((home.match(/<button class="pack" /g) || []).length, 30);
+  assert.equal((home.match(/<button class="pack" /g) || []).length, games.length);
   assert.match(home, /assets\/css\/games\.css\?v=[a-f0-9]{12}/);
   assert.match(home, /<script src="\.\/assets\/js\/games\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   for (const name of ['portfolio.html', 'assets/js/prologue.js', 'assets/js/veil.js', 'assets/js/three.js']) assert.ok(!publicFiles.has(name), name);

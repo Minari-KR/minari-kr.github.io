@@ -1,0 +1,27 @@
+    <div class="pc-portfolio">
+      <!-- The four awards are copied from home.html, but the order (oldest first) and the body lines differ from it; change the awards in both places. -->
+      <section class="pc-awards" aria-labelledby="pc-awards-title">
+        <h2 id="pc-awards-title">Awards</h2>
+        <!-- The "본문 — 내용 준비 중" lines are placeholders the user will write; do not ship them as-is. -->
+        <!-- Hover/focus detail: the "자료 준비 중" slots and the note lines are waiting for the user's material (photos, and the two other awards' images/videos). -->
+        <ul>
+          <li tabindex="0" aria-label="2020 우수상 자세히"><span class="pc-year">2020</span><div><strong>우수상</strong><span>넷마블<wbr>게임아카데미 5기</span></div><p class="pc-award-note">본문 — 내용 준비 중</p><section class="pc-award-detail"><div class="pc-award-detail-in"><div class="pc-award-slot">자료 준비 중</div><div class="pc-award-slot">자료 준비 중</div><div class="pc-award-slot">자료 준비 중</div></div></section></li>
+          <li tabindex="0" aria-label="2025 베스트 리더상 자세히"><span class="pc-year">2025</span><div><strong>베스트 리더상</strong><span>스토브 크루 2기</span></div><p class="pc-award-note">본문 — 내용 준비 중</p><section class="pc-award-detail"><div class="pc-award-detail-in"><div class="pc-award-slot">자료 준비 중</div><div class="pc-award-slot">자료 준비 중</div><div class="pc-award-slot">자료 준비 중</div></div></section></li>
+          <li tabindex="0" aria-label="2025 대상 자세히"><span class="pc-year">2025</span><div><strong>대상</strong><span>대전 게임 브릿지</span></div><p class="pc-award-note">본문 — 내용 준비 중</p><section class="pc-award-detail"><div class="pc-award-detail-in"><div class="pc-award-slot"><img src="{{base}}/assets/images/cards/barrel-good-barrel-title.webp" alt="Barrel Good Barrel 게임 화면" width="960" height="540" loading="lazy"></div><div class="pc-award-slot"><video controls preload="none" playsinline poster="{{base}}/assets/images/cards/barrel-good-barrel-title.webp" aria-label="Barrel Good Barrel 플레이 영상" width="1920" height="1080"><source src="{{base}}/assets/videos/barrel-good-barrel-gameplay.mp4" type="video/mp4"></video></div><div class="pc-award-slot">자료 준비 중</div></div></section></li>
+          <li tabindex="0" aria-label="2026 국가수리과학연구소장상 자세히"><span class="pc-year">2026</span><div><strong>국가수리과학<wbr>연구소장상</strong><span>대전 인디(inD) 게임잼</span></div><p class="pc-award-note">본문 — 내용 준비 중</p><section class="pc-award-detail"><div class="pc-award-detail-in"><div class="pc-award-slot"><img src="{{base}}/assets/images/cards/reflectory-title.webp" alt="Reflectory 게임 화면" width="960" height="540" loading="lazy"></div><div class="pc-award-slot"><video controls preload="none" playsinline poster="{{base}}/assets/images/cards/reflectory-title.webp" aria-label="Reflectory 플레이 영상" width="1910" height="1078"><source src="{{base}}/assets/videos/reflectory-gameplay.mp4" type="video/mp4"></video></div><div class="pc-award-slot">자료 준비 중</div></div></section></li>
+        </ul>
+      </section>
+      <section class="pc-projects" aria-labelledby="pc-projects-title">
+        <h2 id="pc-projects-title">Projects</h2>
+        <div class="pc-slider" data-pc-slider>
+          <div class="pc-slides">
+{{projects}}
+{{release}}
+          </div>
+        </div>
+        <!-- One summary per slide (same order), filled from src/templates/projects/<slug>.html; pc-slider.js shows the current one. -->
+        <div class="pc-details" data-pc-details>
+{{details}}
+        </div>
+      </section>
+    </div>

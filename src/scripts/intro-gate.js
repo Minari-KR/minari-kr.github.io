@@ -6,3 +6,13 @@
   try { seen = sessionStorage.getItem('intro-seen') !== null; } catch { /* storage blocked: still play once */ }
   if (!seen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro-on');
 })();
+
+// Arrival after a scroll exit (scroll-exit.js appends #from-scroll): the browser applies :target only after the first paint, so the
+// arrival cover is keyed on a class set here instead, and the hash is dropped so a reload does not replay it.
+(() => {
+  try {
+    if (location.hash !== '#from-scroll') return;
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('from-scroll');
+    history.replaceState(null, '', location.pathname + location.search);
+  } catch { /* blocked: the page still works, just without the cover fade */ }
+})();

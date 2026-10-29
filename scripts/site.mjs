@@ -10,6 +10,7 @@ import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, rel
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
 import { toolGroups, toolGroupsHtml, logoExists, spiralHtml, introHtml } from './about.mjs';
+import { pcTools, pcProjects, pcRelease, pcDetails } from './pc.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
@@ -40,7 +41,26 @@ export function compileSite(root) {
     spiral: spiralHtml(games),
     intro: introHtml(games, '..')
   }));
-  // Only a project with `detail` gets a page: the shared frame plus that project's own body.
+  // PC-only pages on one shared frame: /pc/ is Portfolio, /pc/about/ is About Me; menu links name index.html so they also open from a local file.
+  const current = ' aria-current="page"';
+  const script = (base, name) => `  <script src="${base}/assets/js/${name}.js" defer></script>`;
+  const pcPages = [
+    { page: 'pc/', base: '..', aboutHref: 'about/index.html', portfolioHref: 'index.html', portfolioCurrent: current,
+      scripts: ['pc-slider', 'pc-segment'],
+      body: base => fillTemplate(template('pc-portfolio-body.html'), { base, projects: pcProjects(projects, base), release: pcRelease(release, base), details: pcDetails(projects, release, base, slug => template(`projects/${slug}.html`)) }) },
+    { page: 'pc/about/', base: '../..', aboutHref: 'index.html', portfolioHref: '../index.html', aboutCurrent: current,
+      scripts: ['pc-segment'],
+      body: base => fillTemplate(template('pc-about-body.html'), { base, tools: pcTools(toolGroups, logoExists(root), base) }) }
+  ];
+  for (const { page, base, aboutHref, portfolioHref, aboutCurrent = '', portfolioCurrent = '', scripts, body } of pcPages) {
+    files.set(`${page}index.html`, fillTemplate(template('pc.html'), {
+      security: securityMeta(),
+      page_title: escapeHtml(homeTitle),
+      page_description: escapeHtml(homeDescription),
+      social: socialMeta({ title: homeTitle, description: homeDescription, page }),
+      base, scripts: scripts.map(name => script(base, name)).join('\n'), body: body(base), about_href: aboutHref, portfolio_href: portfolioHref, about_current: aboutCurrent, portfolio_current: portfolioCurrent
+    }));
+  }  // Only a project with `detail` gets a page: the shared frame plus that project's own body.
   const pages = projects.filter(project => project.detail);
   for (const project of pages) {
     files.set(`projects/${project.slug}.html`, fillTemplate(template('project-detail.html'), {

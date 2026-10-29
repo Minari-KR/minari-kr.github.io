@@ -12,7 +12,7 @@ export function versionAssets(files) {
     if (!name.endsWith('.html')) continue;
     const html = value.toString().replace(/<(?:link|script)\b(?:"[^"]*"|'[^']*'|[^'">])*>/gi, tag => tag.replace(/(\s(?:href|src)\s*=\s*)(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/gi, (attribute, prefix, double, single, bare) => {
       const ref = double ?? single ?? bare;
-      if (!/^(?:\.\.?\/)?assets\/(?:css|js)\/[a-z0-9_./-]+\.(?:css|js)$/.test(ref)) return attribute;
+      if (!/^(?:\.\.?\/)*assets\/(?:css|js)\/[a-z0-9_./-]+\.(?:css|js)$/.test(ref)) return attribute;
       const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), ref));
       const version = versions.get(target);
       return version ? `${prefix}"${ref}?v=${version}"` : attribute;

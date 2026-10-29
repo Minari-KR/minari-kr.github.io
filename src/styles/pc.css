@@ -1,0 +1,189 @@
+/* PC-only pages (/pc/ and /pc/about/), built from scratch step by step; colours and type come from common.css. */
+
+/* The h1 is the page name for screen readers; there is no visible wordmark. Its size only keeps the heading order right (nothing below it is larger); it is never shown. */
+.pc-page h1 { position: absolute; margin: 0; font-size: 3rem; font-weight: 800; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* One page = one screen: the frame is exactly the viewport and the areas inside share its height (min-height: 0), so nothing scrolls. */
+.pc-page { overflow-x: clip; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; height: 100vh; height: 100dvh; max-width: 1920px; margin: 0 auto; padding: 16px 32px 24px; font-size: 1rem; line-height: 1.5; }
+.pc-page h2, .pc-page h3 { margin: 0; font-weight: 800; letter-spacing: var(--tracking-heading); line-height: var(--line-heading); }
+.pc-page p { margin: 0; line-height: 1.5; }
+.pc-page ul { margin: 0; padding: 0; list-style: none; }
+.pc-page .pc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pc-page :focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; }
+.meta-sep { margin: 0 8px; color: var(--muted); }
+
+.pc-top { flex: none; display: flex; justify-content: center; margin-bottom: 32px; } /* + the 16px page gap = 48px between the menu and the content */
+/* Rubber Segment: a pill track. At rest the current link is the filled pill (a real background, so contrast checkers see its text on it); pc-segment.js plays the stretch in-page, then follows the link. */
+.pc-nav { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(100%, 368px); padding: 8px; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--paper); } /* 8px leaves room for the thumb's 5px overshoot; anything beyond is clipped by the track */
+.pc-nav a { display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 999px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; }
+.pc-nav a { position: relative; z-index: 1; color: var(--ink); transition: color 160ms ease, background-color 160ms ease; }
+.pc-nav a:hover { color: var(--accent-deep); } /* text only: a hover fill looked like a leftover thumb */
+.pc-nav a[aria-current="page"] { background: var(--accent-deep); color: var(--on-accent); }
+
+/* The moving thumb sits behind the link text and is three parts so only transform is animated (compositor-friendly): two round caps that only slide, and a middle bar that slides and stretches between the cap centres, so the rounded ends never distort. */
+.pc-thumb-cap, .pc-thumb-bar { position: absolute; top: 8px; bottom: 8px; left: 0; z-index: 0; visibility: hidden; pointer-events: none; background: var(--accent-deep); }
+.pc-thumb-cap { border-radius: 50%; }
+.pc-thumb-bar { width: 1px; transform-origin: 0 50%; }
+.pc-nav.is-moving .pc-thumb-cap, .pc-nav.is-moving .pc-thumb-bar { visibility: visible; }
+/* While moving the link fills fade out (the thumb replaces them) and the labels swap colour on a delay-timed CSS transition: the destination turns on-accent at once, the origin turns ink once the trailing edge has left. */
+.pc-nav.is-moving a { background-color: transparent; transition: color 150ms ease, background-color 150ms ease; }
+.pc-nav.is-moving a.is-dest { color: var(--on-accent); }
+.pc-nav.is-moving a.is-origin { color: var(--ink); transition: color 150ms ease 150ms, background-color 150ms ease; }
+
+/* Leaving: the page content (everything but the menu) dissolves while the thumb moves; the next page fades it back in when it was reached through the menu (pc-gate.js sets .pc-arrive before the first paint). Only `from` is keyed so the end state is the default style. */
+.pc-page.is-leaving > :not(.pc-top) { opacity: 0; transition: opacity 400ms ease; }
+@keyframes pc-arrive { from { opacity: 0; } }
+.pc-arrive .pc-page > :not(.pc-top) { animation: pc-arrive 400ms ease backwards; }
+
+/* ---- Portfolio: awards on top, a one-slide-at-a-time project slider below. ---- */
+/* Unlike About Me, the Portfolio page is not one screen: its heights come from the content and the page scrolls. */
+.pc-page:has(.pc-portfolio), .pc-page:has(.pc-about) { height: auto; min-height: 100vh; } /* both pages scroll now */
+.pc-portfolio { display: flex; flex-direction: column; gap: 48px; zoom: .8; } /* the whole Portfolio below the top menu at 80% (user: everything felt too big) */
+.pc-portfolio .action { min-height: calc(44px / .8); } /* still a 44px touch target after the zoom */
+.pc-awards, .pc-projects { display: flex; flex-direction: column; gap: 12px; }
+/* Section titles stay one step above the award names and project titles they introduce. */
+.pc-portfolio h2 { font-size: clamp(1.75rem, 2.4vw, 2.5rem); color: var(--accent-deep); }
+/* Timeline: one column of four rows, each [very large year | award name + organiser | detail text] in equal thirds so the name sits toward the centre, thin rules between rows. */
+.pc-awards li { --year-size: clamp(4rem, min(18vh, 10vw), 11rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 48px; align-items: center; padding: 24px 0; word-break: keep-all; }
+.pc-awards li + li { border-top: 1px solid var(--line); }
+.pc-awards li > div { display: flex; flex-direction: column; gap: 12px; }
+/* The award name is the biggest text beside the year, larger than the project titles. */
+.pc-awards strong { font-size: clamp(1.75rem, 2.8vw, 3rem); font-weight: 800; line-height: 1.2; letter-spacing: var(--tracking-heading); }
+.pc-awards { zoom: .9; } /* awards another 10% smaller, on top of the page's 80% (= 72% in all) */
+.pc-award-note { color: var(--muted); font-weight: 500; font-size: calc(12px / .72); } /* stays 12px on screen after both zooms */
+.pc-awards li > div > span { font-size: clamp(1.25rem, 1.9vw, 2rem); font-weight: 800; } /* organiser: readable at a glance, still a step below the award name */
+.pc-year { font-size: var(--year-size); color: var(--accent-deep); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+/* The digits sit low in their line box, so the boxes centre about 0.055em of the year above the digits' visual middle: nudge the text down by that. */
+.pc-awards li > div, .pc-award-note { translate: 0 calc(var(--year-size) * .055); }
+/* Hover/focus detail, CSS only: a full-width row that opens with the 0fr -> 1fr trick. Opening waits 150ms so a mouse passing over rows does not make them bounce; closing is immediate. */
+.pc-awards li { outline-offset: -3px; }
+.pc-award-detail { grid-column: 1 / -1; margin: 0; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 300ms ease; }
+.pc-awards li:hover .pc-award-detail, .pc-awards li:focus-within .pc-award-detail { grid-template-rows: 1fr; transition-delay: 150ms; }
+.pc-award-detail-in { min-height: 0; overflow: hidden; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.pc-award-slot { aspect-ratio: 16 / 9; margin: 24px 0; overflow: hidden; border-radius: 8px; display: grid; place-items: center; box-sizing: border-box; border: 1px solid var(--line); background: var(--paper); color: var(--muted); font-weight: 500; text-align: center; }
+.pc-award-slot img, .pc-award-slot video { width: 100%; height: 100%; object-fit: cover; }
+/* The slot clips its overflow, so the ring sits inside the video; plain :focus because Chrome does not match :focus-visible on a video with controls. */
+.pc-award-slot video:focus { outline: 3px solid var(--accent-deep); outline-offset: -3px; }
+
+/* Without script the slides sit in a row that scrolls and snaps. pc-gate.js adds .js before the first paint, so with script the stacked
+   layout (first slide only until pc-slider.js marks the current one with .is-ready) never flashes the row; .is-init keeps the setup instant. */
+.pc-slider { position: relative; container-type: inline-size; }
+.pc-slides { display: flex; gap: 32px; overflow-x: auto; scroll-snap-type: x mandatory; }
+.pc-slide { flex: 0 0 100%; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; scroll-snap-align: start; }
+.js .pc-slider { padding: 0 64px; }
+.js .pc-slides { display: grid; overflow: hidden; }
+.js .pc-slide { grid-area: 1 / 1; }
+.js .pc-slider:not(.is-ready) .pc-slide:not(:first-child) { opacity: 0; visibility: hidden; }
+.is-ready .pc-slide:not(.is-current) { opacity: 0; visibility: hidden; }
+.is-ready:not(.is-init) .pc-slide { transition: opacity 200ms ease, visibility 0s; }
+.is-ready:not(.is-init) .pc-slide:not(.is-current) { transition: opacity 200ms ease, visibility 0s 200ms; }
+.pc-media { flex: none; width: min(100%, 720px); aspect-ratio: 16 / 9; overflow: hidden; border-radius: 16px; background: var(--accent-soft-deep); }
+.pc-media img { width: 100%; height: 100%; object-fit: cover; }
+.pc-media-icon { display: grid; place-items: center; background: var(--accent-soft); }
+.pc-media-icon img { width: auto; height: 60%; aspect-ratio: 1; border-radius: 22.5%; }
+.pc-plate { flex: 1 1 0; min-width: 0; }
+.pc-genre { display: inline-block; padding: 0 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-deep); font-weight: 800; }
+.pc-plate h3 { margin-top: 8px; font-size: 1.5rem; line-height: 1.2; }
+.pc-meta { margin-top: 4px; color: var(--muted); }
+.pc-award { margin-top: 4px; font-weight: 800; color: var(--accent-deep); }
+.pc-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+.action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 4px 16px; border: 2px solid var(--accent-deep); border-radius: 999px; background: var(--paper); color: var(--accent-deep); font-weight: 800; line-height: 1.5; transition: background-color 160ms ease, color 160ms ease; }
+.action-primary { background: var(--accent-deep); color: var(--on-accent); }
+.action:hover { background: var(--accent-soft); }
+.action-primary:hover { background: var(--accent-hover); }
+/* 24px beside the picture (which is min(100cqw, 720px) wide and centred), never past the slider's edge; top = middle of the 16:9 picture. */
+.pc-arrow { --gap: calc(50% - min(100cqw, 720px) / 2 - 24px - 56px); position: absolute; top: calc(min(100cqw, 720px) * 9 / 32); display: grid; place-items: center; width: 56px; height: 56px; margin-top: -28px; padding: 0; border: 2px solid var(--accent-deep); border-radius: 50%; background: var(--paper); color: var(--accent-deep); cursor: pointer; transition: background-color 160ms ease; }
+.pc-arrow::before { content: ''; width: 12px; height: 12px; border: solid currentColor; border-width: 0 0 3px 3px; }
+.pc-prev::before { transform: translateX(2px) rotate(45deg); }
+.pc-next::before { transform: translateX(-2px) rotate(-135deg); }
+.pc-arrow:hover { background: var(--accent-soft); }
+.pc-prev { left: max(0px, var(--gap)); }
+.pc-next { right: max(0px, var(--gap)); }
+.pc-dots { flex: none; display: flex; justify-content: center; gap: 8px; }
+.pc-dots span { width: 12px; height: 12px; border-radius: 999px; background: var(--line-strong); }
+.pc-dots span.is-current { width: 24px; background: var(--accent-deep); }
+
+/* Summary of the current slide, under the dots (pc-slider.js marks the current one). Hidden summaries leave the flow so the height follows the current one; the text comes from the detail page bodies at build time. */
+.pc-details { position: relative; margin-top: 16px; padding-top: 48px; border-top: var(--note-rule, 1px dashed var(--line-strong)); word-break: keep-all; }
+.pc-detail { display: flex; flex-direction: column; gap: 32px; }
+.pc-detail + .pc-detail { margin-top: 48px; } /* without script the summaries just stack */
+.js .pc-detail + .pc-detail { margin-top: 0; }
+.js .pc-details { overflow: clip; } /* hidden summaries are absolute and tall: clip them so they add no scroll height */
+.js .pc-details:not(.is-ready) .pc-detail:not(:first-child) { display: none; }
+.is-ready .pc-detail:not(.is-current) { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; visibility: hidden; }
+.is-ready:not(.is-init) .pc-detail { transition: opacity 200ms ease, visibility 0s; }
+.is-ready:not(.is-init) .pc-detail:not(.is-current) { transition: opacity 200ms ease, visibility 0s 200ms; }
+.pc-detail video { display: block; width: 100%; max-width: 720px; height: auto; aspect-ratio: 16 / 9; margin: 0 auto; border-radius: 16px; background: var(--ink); }
+.pc-detail-line { text-align: center; font-weight: 500; }
+.pc-core { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 32px; align-items: start; }
+.pc-core > img { display: block; width: 100%; height: auto; justify-self: end; }
+.pc-core-text { display: flex; flex-direction: column; gap: 12px; }
+.pc-core-text h4 { margin: 0; font-size: 1.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); color: var(--accent-deep); }
+.pc-core-text .core-line { display: block; text-wrap: balance; }
+
+/* ---- About Me: the profile card on the left, story and tools on the right. ---- */
+.pc-about { display: grid; align-items: start; grid-template-columns: minmax(440px, 5fr) 7fr; gap: 32px; }
+.pc-left { display: flex; flex-direction: column; min-height: 0; }
+/* Status window: cut-corner pixel frame like the main site's game screen, pixel font NeoDunggeunmo (one weight, 400). */
+.pc-status { --step: 8px; width: min(360px, 100%); margin: 0 auto; box-sizing: border-box; border: 4px solid var(--ink); background: var(--paper); font-family: "NeoDunggeunmo", var(--font-body); font-weight: 400; clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0, calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step), 100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)), calc(100% - var(--step)) 100%, var(--step) 100%, var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step))); }
+.pc-status-bar { display: flex; justify-content: space-between; padding: 8px 16px; background: var(--accent-deep); color: var(--on-accent); letter-spacing: .1em; }
+.pc-status-portrait { margin: 16px; aspect-ratio: 1; border: 4px solid var(--ink); background: var(--accent-soft); }
+.pc-status-portrait img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pc-story { display: grid; gap: 24px; padding: 24px 32px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper-warm); }
+.pc-story p { line-height: 1.6; }
+.pc-about-me .pc-sr h2 { font-size: 2rem; } /* hidden, but sized above the visible h3s like the hidden h1 */
+.pc-side .pc-story h3 { margin: 0; font-size: 1.75rem; color: var(--ink); } /* beats the .pc-side h3 Tools style */
+.pc-story-part { display: grid; gap: 8px; }
+.pc-story h4 { margin: 0; font-size: 1.125rem; font-weight: 800; color: var(--accent-deep); } /* not above the Tools title (h3, 1.125rem) */
+.pc-placeholder { color: var(--muted); }
+.pc-info { display: grid; gap: 12px; margin: 0; padding: 0 24px 24px; }
+.pc-info div { display: grid; grid-template-columns: 5em minmax(0, 1fr); gap: 12px; }
+.pc-info dt { color: var(--accent-deep); letter-spacing: .06em; }
+.pc-info div:first-child dt::before { content: "▶ "; } /* the game-menu cursor on the first line */
+.pc-info dd { margin: 0; color: var(--ink); word-break: keep-all; }
+.pc-side { display: flex; flex-direction: column; gap: 32px; }
+.pc-side h3 { margin-bottom: 16px; font-size: 1.125rem; color: var(--accent-deep); }
+.pc-tools { display: flex; flex-wrap: wrap; gap: 12px; }
+.pc-tools li { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 20px 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 800; }
+.pc-tools img { width: 36px; height: 36px; border-radius: 8px; }
+
+@media (min-width: 1600px) {
+  .pc-page { gap: 24px; padding: 24px 48px 32px; font-size: 1.125rem; }
+  .pc-top { margin-bottom: 24px; } /* keeps 48px with the 24px gap */
+  .pc-awards li > div, .pc-award-note { font-size: 1.125rem; }
+  .pc-side h3 { font-size: 1.25rem; }
+  .pc-plate h3 { font-size: 1.75rem; }
+  .pc-about { gap: 48px; }
+  .pc-tools img { width: 44px; height: 44px; }
+  .pc-tools li { min-height: 64px; font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-page *, .pc-page *::before, .pc-page *::after { animation: none !important; transition: none !important; }
+}
+
+/* Narrow windows and 200% zoom (1280px at 200% = 640px): everything stacks and the page scrolls, so nothing is pushed sideways. */
+@media (max-width: 1023px) {
+  .pc-page { height: auto; min-height: 100vh; padding: 16px; }
+  .pc-about { grid-template-columns: minmax(0, 1fr); }
+  .pc-awards li { grid-template-columns: auto minmax(0, 1fr); column-gap: 24px; }
+  .pc-award-detail { grid-column: 1 / -1; }
+  .pc-award-note { grid-column: 2; margin-top: 8px; } /* detail drops under the name, beside the year */
+  .pc-awards li { --year-size: 4rem; }
+  .pc-about { flex: none; }
+  .js .pc-slider { padding: 0 56px; }
+  .pc-arrow { top: calc(100cqw * 9 / 32); }
+  .pc-slide { flex-direction: column; align-items: stretch; gap: 16px; }
+  .pc-media { width: auto; max-width: none; }
+  .pc-media-icon img { height: 128px; margin: 32px 0; }
+  .pc-core { grid-template-columns: minmax(0, 1fr); }
+  .pc-core > img { justify-self: stretch; }
+}
+
+@media (max-width: 639px) {
+  .pc-awards li { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .pc-awards li > .pc-year, .pc-awards li > div { margin-bottom: 8px; } /* spacing as margins so the collapsed detail row adds no gap */
+  .pc-award-detail-in { grid-template-columns: minmax(0, 1fr); }
+  .pc-award-note { grid-column: auto; margin-top: 0; }
+  .pc-awards li > div, .pc-award-note { translate: none; } /* stacked: nothing to line up with */
+}
