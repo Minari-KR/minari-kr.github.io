@@ -4,14 +4,6 @@ import { escapeHtml } from './content.mjs';
 const NEW_TAB = 'target="_blank" rel="noopener noreferrer"';
 const SEPARATOR = '<span class="meta-sep" aria-hidden="true">/</span>';
 
-// All tools in one flat grid (no group labels or filters); a logo shows only when its file exists.
-export function pcTools(groups, hasLogo, base) {
-  return groups.flatMap(([, tools]) => tools).map(([name, slug]) => {
-    const logo = hasLogo(slug) ? `<img src="${base}/assets/images/tools/${escapeHtml(slug)}.png" width="192" height="192" alt="">` : '';
-    return `            <li>${logo}<span translate="no">${escapeHtml(name)}</span></li>`;
-  }).join('\n');
-}
-
 const metaLine = meta => `<p class="pc-meta">${meta.map(part => `<span>${escapeHtml(part)}</span>`).join(SEPARATOR)}</p>`;
 
 // One slide per project, in site-config order.

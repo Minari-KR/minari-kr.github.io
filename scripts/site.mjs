@@ -10,7 +10,7 @@ import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, rel
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
 import { toolGroups, toolGroupsHtml, logoExists, spiralHtml, introHtml } from './about.mjs';
-import { pcTools, pcProjects, pcRelease, pcDetails } from './pc.mjs';
+import { pcProjects, pcRelease, pcDetails } from './pc.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
@@ -50,7 +50,7 @@ export function compileSite(root) {
       body: base => fillTemplate(template('pc-portfolio-body.html'), { base, projects: pcProjects(projects, base), release: pcRelease(release, base), details: pcDetails(projects, release, base, slug => template(`projects/${slug}.html`)) }) },
     { page: 'pc/about/', base: '../..', aboutHref: 'index.html', portfolioHref: '../index.html', aboutCurrent: current,
       scripts: ['pc-segment'],
-      body: base => fillTemplate(template('pc-about-body.html'), { base, tools: pcTools(toolGroups, logoExists(root), base) }) }
+      body: base => template('pc-about-body.html') }
   ];
   for (const { page, base, aboutHref, portfolioHref, aboutCurrent = '', portfolioCurrent = '', scripts, body } of pcPages) {
     files.set(`${page}index.html`, fillTemplate(template('pc.html'), {

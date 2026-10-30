@@ -18,3 +18,11 @@ test('Barrel Good Barrel summary has four blocks; a body without blocks or a bro
   assert.throws(() => coreBlocks('<p>none</p>', 'x'), /핵심 블록/);
   assert.throws(() => coreBlocks('<div class="core"><h2 class="core-title">A</h2><figure class="core-flow"><img src="../assets/a.svg" width="1"></figure></div>', 'x'), /순서도 이미지/);
 });
+
+test('/pc/about/ is an empty skeleton of five panels with the expected column structure', () => {
+  const html = fs.readFileSync(new URL('../src/templates/pc-about-body.html', import.meta.url), 'utf8');
+  assert.equal(html.match(/<section class="pca-panel/g).length, 5);
+  for (const cols of ['pca-cols-hero', 'pca-cols-three', 'pca-cols-split']) assert.ok(html.includes(cols));
+  assert.equal(html.match(/pca-strip/g).length, 4);
+  assert.ok(!/{{/.test(html));
+});
