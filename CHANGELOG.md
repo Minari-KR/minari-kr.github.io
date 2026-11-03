@@ -7,10 +7,16 @@
 ## 지금 상황 (2026-10-29, Claude)
 
 - **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험, 그리고 `/about/`(링크트리 ‘어필’). 홈 맨 위와 About Me 맨 아래에서 한 번 더 스크롤하면 서로 넘어감.
-- **진행 중(2026-10-29 작업 멈춤, 사용자 ‘작업은 여기까지’):** PC용 페이지(틀 `src/templates/pc.html`, 모양 `src/styles/pc.css`). 지금은 `/pc/` = Portfolio(80% 크기, 큰 연도 수상 타임라인 한 열·줄마다 호버 확장 + 프로젝트 슬라이더(그림 가운데·글 아래) + 그 아래 상세 요약 자동 표시), `/pc/about/` = About Me(RPG 상태창 프로필 + 제목·소제목 글 틀 + 도구), 위 가운데 Rubber Segment 메뉴(아래 48px) + 디졸브 전환. 아직 커밋 안 함(사용자 ‘나중에’).
 - **배포 전에 채울 임시 문구:** 수상 본문 4개·펼침 칸 ‘자료 준비 중’, About Me 제목·소제목·본문 2개. 도트 초상화 시안 3장(`D:\GPT_생성물\이미지\2026-10-29_도트초상화\`)은 사용자가 쓰지 않기로 함.
 - **남은 일(사용자 자료 대기):** Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장(사용자가 직접 쓸 한두 문장).
 - **확인 못 한 것:** 실제 휴대폰에서 인트로 끝 깜빡임이 사라졌는지, 링크트리 앱 안에서 보기, 휴대폰 손가락 밀기(About Me 넘어가기·프로젝트 카드).
+
+## 2026-11-03 — PC 전용 페이지 삭제 (Claude, 코드 Sonnet)
+
+- 요청: PC 전용 페이지(/pc/, /pc/about/) 모두 삭제.
+- 변경: `/pc/`(Portfolio)와 `/pc/about/`(About Me) 생성을 없앰. 지운 파일: `scripts/pc.mjs`, `src/scripts/pc-gate.js`·`pc-segment.js`·`pc-slider.js`, `src/styles/pc.css`, `src/templates/pc.html`·`pc-portfolio-body.html`·`pc-about-body.html`, `tests/pc.test.mjs`. `scripts/site.mjs`의 PC 쪽 생성, `scripts/validation.mjs`·`scripts/social.mjs`의 `pc` 허용 경로, `tests/motion.test.mjs`의 PC 시험, `.gitignore`의 `/pc/`, `AGENTS.md`의 ‘PC용 페이지 보기’ 줄도 지움. 게임 4개 숨기기(`hiddenGameTitles`)는 그대로.
+- 보관: `D:\5_Archive\Minari-Portfolio-PC\` (Git 기록에도 남아 있음).
+- 검증: build·verify 통과(75개, 실패 0), 배포 파일 111개, dist와 루트에 `pc/` 폴더 없음.
 
 ## 2026-10-30 — PC About Me를 빈 판 5개 틀로 (Claude, 코드 Sonnet)
 
