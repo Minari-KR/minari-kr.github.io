@@ -40,6 +40,11 @@ export function fixture(t) {
 
 // No page shows a video for now (taken out 2026-11-12), so tests of the video rules put one on the fixture's home page.
 export function addVideo(dir, attribute = 'src="./assets/videos/reflectory-gameplay.mp4"') {
+  const video = Buffer.alloc(24); // the smallest file that passes the MP4 header check
+  video.writeUInt32BE(video.length, 0);
+  video.write('ftypisom', 4, 'ascii');
+  fs.mkdirSync(path.join(dir, 'public/assets/videos'), { recursive: true });
+  fs.writeFileSync(path.join(dir, 'public/assets/videos/reflectory-gameplay.mp4'), video);
   const home = path.join(dir, 'src/templates/home.html');
   fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', `<video ${attribute}></video>
 </main>`));

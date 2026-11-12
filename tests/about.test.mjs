@@ -6,7 +6,7 @@ import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
 import { toolGroups, toolGroupsHtml, spiralHtml } from '../scripts/about.mjs';
-import { games, hiddenGameTitles } from '../scripts/site-config.mjs';
+import { games } from '../scripts/site-config.mjs';
 import { root } from './fixture.mjs';
 
 const { files, publicFiles } = compileSite(root);
@@ -37,15 +37,8 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
 });
 
 test('the games list includes Tomb Raider', () => {
-  assert.equal(games.length, 30 - hiddenGameTitles.length);
+  assert.equal(games.length, 26);
   assert.ok(games.some(game => game.title === '툼 레이더 시리즈' && game.image === 'assets/images/games/tomb-raider.webp' && game.hours === ''));
-});
-
-test('hidden games appear in no generated page', () => {
-  assert.equal(hiddenGameTitles.length, 4);
-  for (const [name, html] of files) {
-    if (name.endsWith('.html')) for (const title of hiddenGameTitles) assert.ok(!html.includes(title), `${name}: ${title}`);
-  }
 });
 
 test('spiral: every visible game with an image as a card in config order, empty alt, one aria-label with all titles', () => {

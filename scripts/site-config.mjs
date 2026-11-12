@@ -34,7 +34,6 @@ export const projects = [
     image: 'assets/images/cards/reflectory-title.webp',
     actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/reflectory' }],
     detail: {
-      // video taken out 2026-11-12 (user request); the MP4 stays in public/assets/videos: { src: 'assets/videos/reflectory-gameplay.mp4', width: 1910, height: 1078, label: '플레이 영상' }
       scripts: ['reflectory-core', 'reflectory-augments', 'reflectory-systems'],
     },
     description: '2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.',
@@ -49,7 +48,6 @@ export const projects = [
     image: 'assets/images/cards/barrel-good-barrel-title.webp',
     actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/barrel-good-barrel' }],
     detail: {
-      // video taken out 2026-11-12 (user request): { src: 'assets/videos/barrel-good-barrel-gameplay.mp4', width: 1920, height: 1080, label: '플레이 영상' }
       scripts: ['bgb-loadout', 'bgb-systems'],
     },
     description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탄막 슈팅 로그라이크 게임입니다.',
@@ -89,8 +87,8 @@ export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴
 // shell: 'gray' | 'yellow' | 'purple' | 'black' (cartridge colour).
 // image (optional): 'assets/images/games/<name>.webp', a 352×336 picture shown in the label window (without it the window shows
 // the title). The pictures are official art cropped to the window (2026-10-14/15 user choices): games released on mobile use
-// their Google Play app icon (Blue Archive, MONGIL, Slay the Spire, Life is Strange, Genshin, Wuthering Waves, Endfield, ZZZ,
-// Limbus Company, NTE, GFL2, Trickcal); ten PC games use their Steam PC icon (Apex Legends, ARC Raiders, DJMAX RESPECT V,
+// their Google Play app icon (Blue Archive, MONGIL, Slay the Spire, Life is Strange, Genshin, Wuthering Waves, ZZZ,
+// Limbus Company); ten PC games use their Steam PC icon (Apex Legends, ARC Raiders, DJMAX RESPECT V,
 // ELDEN RING, Escape from Tarkov, Eternal Return, Marathon, PRAGMATA, PUBG, Stellar Blade); three without a usable PC icon use their
 // PlayStation Store square art (Battlefield 6, Clair Obscur, The First Descendant); the rest use Steam library or store art.
 // Names, platforms (where the game is released) and genres were checked against official sources on 2026-10-14; hours,
@@ -99,8 +97,6 @@ export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴
 // so every game has ''; a line break in the text starts a new line on the screen) and the one-line review,
 // which comes from the user later, stay '' (hidden on the screen) when empty.
 const shells = ['gray', 'yellow', 'purple', 'black'];
-// Temporarily hidden everywhere (data and images stay): delete a title from this list to bring the game back.
-export const hiddenGameTitles = ['명일방주: 엔드필드', '이환', '소녀전선2: 망명', '트릭컬 리바이브'];
 export const games = [
   ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6],
   ['몬길: STAR DIVE', 'PC, 모바일', '액션 RPG', 'mongil-star-dive', 60.1],
@@ -124,13 +120,9 @@ export const games = [
   ['라이프 이즈 스트레인지', 'PC, 콘솔, 모바일', '어드벤처', 'life-is-strange', 18.9],
   ['원신', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'genshin-impact', 216.4],
   ['명조: 워더링 웨이브', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'wuthering-waves', 45.6],
-  ['명일방주: 엔드필드', 'PC, 모바일, 콘솔', '전략 RPG', 'arknights-endfield', 23.6],
   ['젠레스 존 제로', 'PC, 모바일, 콘솔', '액션 RPG', 'zenless-zone-zero', 112.3],
   ['배틀필드 6', 'PC, 콘솔', 'FPS', 'battlefield-6', 20.8],
   ['림버스 컴퍼니', 'PC, 모바일', '턴제 RPG', 'limbus-company', 17.1],
-  ['이환', 'PC, 모바일, 콘솔', '오픈월드 RPG', 'nte', 21.4],
-  ['소녀전선2: 망명', 'PC, 모바일', '턴제 전략 RPG', 'girls-frontline-2', 24.9],
-  ['트릭컬 리바이브', '모바일', '수집형 RPG', 'trickcal-revive', 32.6],
   // No play time yet for the last one.
   ['툼 레이더 시리즈', 'PC, 콘솔, 모바일', '액션 어드벤처', 'tomb-raider'],
 ].map(([title, platform, genre, image, hours, achievements = ''], i) => ({
@@ -142,7 +134,7 @@ export const games = [
   note: '',
   image: image ? `assets/images/games/${image}.webp` : undefined,
   shell: shells[Math.floor(i / 2) % shells.length],
-})).filter(game => !hiddenGameTitles.includes(game.title));
+}));
 
 // "출시 앱" section on the home page (shown between the awards and the projects).
 // Keep null until the real information is ready; null means the section is not generated at all.

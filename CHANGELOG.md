@@ -7,7 +7,7 @@
 ## 지금 상황 (2026-11-12, Claude)
 
 - **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험. About Me(`/about/`)는 배포에서 빠져 있음(로컬에만).
-- **아직 푸시 안 한 것:** 만든 게임 페이지(`/games/`)와 홈 버튼, 상세 페이지 영상 빼기.
+- **아직 푸시 안 한 것:** 만든 게임 페이지(`/games/`)와 홈 버튼, 상세 페이지 영상 빼기, 안 쓰는 것 정리.
 - **남은 일(사용자 자료 대기):** 만든 게임 페이지의 유튜브 링크(쭉쭉냥·ERZZ·Rio Idle)와 썸네일 교체, 넣을 게임 목록 확정, Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장.
 - **확인 못 한 것:** 실제 휴대폰에서 유튜브 재생, 인트로 끝 깜빡임, 링크트리 앱 안에서 보기.
 
@@ -18,8 +18,9 @@
   - About Me: 배포본에서만 `about/index.html`과 홈의 About Me 링크를 뺌(`scripts/site.mjs`, 커밋 4e4e3b8, 푸시함).
   - `/games/` 새 페이지(소스 이름 `works`): 카드 7개(Reflectory, Barrel Good Barrel, 쭉쭉냥, Aiden & Magnus KartRider, ERZZ, Rio Idle, Chicken Fire), 썸네일을 누르면 `youtube-nocookie` iframe으로 그 자리 재생. 이 페이지만 CSP `frame-src` 허용. 홈 소개 아래 ‘만든 게임 모아 보기’ 버튼.
   - 상세 페이지(Reflectory·Barrel Good Barrel)의 MP4 영상을 뺌: `detail.video`를 없어도 되는 값으로, 틀의 영상 칸은 `{{media}}`로. MP4 파일은 그대로 둠.
+  - 안 쓰는 것 정리(사용자가 고름): 상세 영상 MP4 2개(약 20MB), 숨긴 게임 4개의 데이터·그림·`hiddenGameTitles`, 지운 `/pc/` 페이지의 경로 허용 규칙(`build.mjs`)을 지움. 게임 4개가 목록에서 빠지며 팩 색 순서가 밀려 배틀필드 6(회색→검정)·툼 레이더(보라→회색) 팩 색이 바뀜.
 - 사용자 선택: 영상은 ‘페이지 안에서 바로 재생’, 들어오는 길은 ‘홈 맨 위에 버튼 하나’.
-- 검증: build·verify 통과(81개, 실패 0), 배포 파일 115개. 로컬 서버 + 헤드리스 Chrome으로 KartRider 카드를 눌러 그 자리 재생 확인. 320·390(틀 안)·1280px 캡처 확인.
+- 검증: build·verify 통과(80개, 실패 0; 숨긴 게임 검사 1개는 기능과 함께 지움), 배포 파일 115개. 로컬 서버 + 헤드리스 Chrome으로 KartRider 카드를 눌러 그 자리 재생 확인. 320·390(틀 안)·1280px 캡처 확인.
 - 남은 일: 영상 링크는 KartRider 하나만 연결됨(쭉쭉냥·ERZZ·Rio Idle 링크 대기). 쭉쭉냥·ERZZ·Rio Idle·Chicken Fire 썸네일은 보관 폴더 캡처로 넣은 임시 그림. 실제 휴대폰 재생은 확인 못 함.
 
 ## 2026-11-03 — PC 전용 페이지 삭제 (Claude, 코드 Sonnet)
