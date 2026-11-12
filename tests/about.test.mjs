@@ -5,7 +5,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
-import { toolGroups, toolGroupsHtml, spiralHtml, stickers } from '../scripts/about.mjs';
+import { spiralHtml, stickers } from '../scripts/about.mjs';
 import { games } from '../scripts/site-config.mjs';
 import { root } from './fixture.mjs';
 
@@ -17,7 +17,7 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.ok(publicFiles.has('about/index.html'));
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
   assert.match(page, /<header class="intro about-intro" id="intro">\s*<h1 id="intro-title" tabindex="-1"><span class="about-title">About Me<\/span> <span class="about-role">박종찬 /);
-  const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
+  const order = ['intro-title', 'about-title', 'taste-title', 'ai-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
   assert.deepEqual(hrefs, ['#main', '../assets/images/about/ai-workflow.webp', '../']); // the picture link opens the full picture
@@ -82,7 +82,7 @@ test('spiral css: perspective + clip on .spiral, a preserve-3d stage for the car
 });
 
 test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px', () => {
-  const taste = page.slice(page.indexOf('id="taste"'), page.indexOf('id="tools"'));
+  const taste = page.slice(page.indexOf('id="taste"'), page.indexOf('id="ai"'));
   const strips = tags.filter(({ tag, attributes }) => tag === 'img' && /\btaste-strip\b/.test(attributes.class));
   assert.equal(strips.length, 2);
   assert.ok(taste.indexOf('taste-strip') > taste.indexOf('spiral-card'));
@@ -98,26 +98,6 @@ test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px',
   assert.match(css, /@media \(max-width: 640px\) \{[^@]*\.taste-strip-wide \{ display: none; \}\s*\.taste-strip-narrow \{ display: block; \}/);
 });
 
-test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the accessible name, no detail panel', () => {
-  const slots = tags.filter(({ attributes }) => 'data-slot' in attributes);
-  assert.equal(slots.length, 13);
-  assert.deepEqual([...page.matchAll(/<p class="inv-label">([^<]+)</g)].map(match => match[1]), ['개발', '협업', '그래픽', 'AI']);
-  assert.deepEqual([...page.matchAll(/data-filter="([^"]+)" aria-pressed/g)].map(match => match[1]), ['전체', '개발', '협업', '그래픽', 'AI']);
-  assert.match(page, /data-filters role="group" aria-label="[^"]+" hidden/);
-  assert.deepEqual([...page.matchAll(/<span class="inv-hide">([^<]*)</g)].map(match => match[1]).filter(text => text.split(', ').length > 2), [', AI, 그림', ', AI, 작업 계획과 코드', ', AI, 영상', ', AI, 문장 다듬기']);
-  assert.doesNotMatch(page, /inv-detail|data-detail|<button[^>]*inv-slot/);
-  const slugs = toolGroups.flatMap(([, tools]) => tools.map(([, slug]) => slug));
-  assert.equal(slugs.length, 13);
-  const logos = tags.filter(({ tag, attributes }) => tag === 'img' && /\binv-logo\b/.test(attributes.class));
-  assert.equal(logos.length, 13);
-  assert.ok(slugs.every(slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`))));
-  assert.ok(logos.every(({ attributes }) => attributes.alt === '' && attributes['aria-hidden'] === 'true'));
-  // A made-up file list: only those slots carry an <img>.
-  const html = toolGroupsHtml(toolGroups, slug => ['unity', 'claude'].includes(slug));
-  assert.deepEqual(readHtmlTags(html).filter(({ tag }) => tag === 'img').map(({ attributes }) => attributes.src), ['../assets/images/tools/unity.png', '../assets/images/tools/claude.png']);
-  assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
-});
-
 test('소개 is keyword stickers: the eight facts, three game icons with text names, no paragraphs', () => {
   const about = page.slice(page.indexOf('id="about"'), page.indexOf('id="taste"'));
   assert.doesNotMatch(about, /about-text/);
@@ -130,8 +110,9 @@ test('소개 is keyword stickers: the eight facts, three game icons with text na
   assert.equal((about.match(/class="sticker-name" translate="no"/g) || []).length, 3);
 });
 
-test('AI section shows the workflow picture (linked to the full picture), not an animation', () => {
-  assert.match(page, /<h3 class="about-sub">AI는 이렇게 씁니다<\/h3>\s*<a class="ai-workflow" href="\.\.\/assets\/images\/about\/ai-workflow\.webp"[^>]*><img src="\.\.\/assets\/images\/about\/ai-workflow\.webp" width="1672" height="941" alt="AI 작업 워크플로우: [^"]+"/);
+test('AI section shows the workflow picture (linked to the full picture), not an animation; the tools part is gone', () => {
+  assert.doesNotMatch(page, /inv-|assets\/images\/tools\//);
+  assert.match(page, /<h2 class="section-title" id="ai-title">AI는 이렇게 씁니다<\/h2>\s*<a class="ai-workflow" href="\.\.\/assets\/images\/about\/ai-workflow\.webp"[^>]*><img src="\.\.\/assets\/images\/about\/ai-workflow\.webp" width="1672" height="941" alt="AI 작업 워크플로우: [^"]+"/);
   assert.ok(publicFiles.has('assets/images/about/ai-workflow.webp'));
   assert.ok(!page.includes('ai-flow') && !files.get('assets/js/about.js').toString().includes('ai-flow'));
 });

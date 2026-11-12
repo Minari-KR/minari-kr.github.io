@@ -1,17 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import { escapeHtml } from './content.mjs';
 
 // Pieces of the standalone /about/ page that are built from data. Every value is escaped; paths are seen from about/index.html.
-
-// Tool groups: [label, [[name, logo slug, role?]]]. A logo shows only when public/assets/images/tools/<slug>.png exists.
-// The role is the AI flow's own wording; no other tool gets usage text.
-export const toolGroups = [
-  ['개발', [['Unity', 'unity'], ['Unreal', 'unreal']]],
-  ['협업', [['Notion', 'notion'], ['GitHub', 'github']]],
-  ['그래픽', [['Figma', 'figma'], ['Photoshop', 'photoshop'], ['Aseprite', 'aseprite'], ['Blender', 'blender'], ['ComfyUI', 'comfyui']]],
-  ['AI', [['GPT', 'chatgpt', '그림'], ['Claude', 'claude', '작업 계획과 코드'], ['Grok', 'grok', '영상'], ['Gemini', 'gemini', '문장 다듬기']]],
-];
 
 // 소개 stickers: [label, word, reason?]; a word that is a list of game titles becomes picture stickers (icons come from `games`).
 export const stickers = [
@@ -35,21 +24,6 @@ export function stickersHtml(items, games) {
   }).join('\n');
   return `        <ul class="sticker-board">\n${lis}\n        </ul>`;
 }
-
-// "AI는 이렇게 씁니다": five steps [title, line]; step 03 adds the AI tool chips from toolGroups, step 04 the retry hint.
-// Tool cards, grouped so the page still reads as four labelled lists without JavaScript.
-export function toolGroupsHtml(groups, hasLogo) {
-  return groups.map(([label, tools]) => {
-    const slots = tools.map(([name, slug, role = '']) => {
-      const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
-      const hidden = `, ${label}${role ? `, ${role}` : ''}`;
-      return `                <li class="inv-slot" data-slot data-group="${escapeHtml(label)}"><span class="inv-box">${logo}</span><span class="inv-name" translate="no">${escapeHtml(name)}</span><span class="inv-hide">${escapeHtml(hidden)}</span></li>`;
-    }).join('\n');
-    return `            <div class="inv-group">\n              <p class="inv-label">${escapeHtml(label)}</p>\n              <ul class="inv-list">\n${slots}\n              </ul>\n            </div>`;
-  }).join('\n');
-}
-
-export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
 
 // Infinite spiral: every game with an image as a card on a helix, in config order (src/scripts/about.js shuffles them per visit).
 // Screen readers get the titles once; the cards have empty alt text.

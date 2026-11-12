@@ -1,4 +1,4 @@
-// /about/ page: the game spiral, the tool inventory filter and the AI flow loop. Without this file the page still shows every image and slot.
+// /about/ page: the game spiral and the text/sticker reveal. Without this file the page still shows every image.
 // The spiral's clock runs inside window.motionLoop (motion-loop.js), which also stops it off-screen, in a hidden tab and under reduced motion.
 (() => {
   const spiral = document.querySelector('[data-spiral]');
@@ -79,21 +79,6 @@
     });
   }
 
-  const inventory = document.querySelector('[data-inventory]');
-  if (inventory) {
-    const tabs = [...inventory.querySelectorAll('[data-filter]')];
-    const slots = [...inventory.querySelectorAll('[data-slot]')];
-    const status = inventory.querySelector('[data-filter-status]');
-    inventory.classList.add('is-live');
-    inventory.querySelector('[data-filters]').hidden = false;
-    tabs.forEach(tab => tab.addEventListener('click', () => {
-      tabs.forEach(other => other.setAttribute('aria-pressed', String(other === tab)));
-      const picked = slots.filter(slot => tab.dataset.filter === '전체' || slot.dataset.group === tab.dataset.filter);
-      slots.forEach(slot => slot.classList.toggle('is-dim', !picked.includes(slot)));
-      // Dimming is only visual, so the result is also read out: "AI 4개: GPT, Claude, Grok, Gemini".
-      status.textContent = `${tab.dataset.filter} ${picked.length}개: ${picked.map(slot => slot.querySelector('.inv-name').textContent).join(', ')}`;
-    }));
-  }
   // Body text: blur and fade each paragraph in once it enters the viewport (CSS transitions, see about.css).
   // Stickers pop in the same way. .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
   if (!window.motionLoop.reduce.matches) {
