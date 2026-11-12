@@ -37,24 +37,6 @@ export function stickersHtml(items, games) {
 }
 
 // "AI는 이렇게 씁니다": five steps [title, line]; step 03 adds the AI tool chips from toolGroups, step 04 the retry hint.
-const aiSteps = [
-  ['문제 정의', '해결할 문제를 먼저 정합니다'],
-  ['목표 설정', '도달할 목표를 분명히 세웁니다'],
-  ['AI와 제작', '기획은 직접, AI는 수단으로'],
-  ['직접 확인', '결과가 목표에 맞는지 끝까지 확인합니다'],
-  ['최종 결정', '제 기준으로 마무리합니다'],
-];
-
-export function aiFlowHtml(groups, hasLogo) {
-  const chips = groups.find(([label]) => label === 'AI')[1].map(([name, slug, role]) => {
-    const logo = hasLogo(slug) ? `<img class="ai-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
-    return `<li class="ai-tool">${logo}<span class="ai-tool-text"><span class="ai-tool-name" translate="no">${escapeHtml(name)}</span><span class="ai-tool-role">${escapeHtml(role)}</span></span></li>`;
-  }).join('');
-  const extra = [, , `<ul class="ai-tools">${chips}</ul>`, '<span class="ai-retry"><span class="ai-retry-arrow" aria-hidden="true"></span>맞지 않으면 다시</span>'];
-  const steps = aiSteps.map(([title, line], i) => `        <li class="ai-step"><span class="ai-num" aria-hidden="true">0${i + 1}</span><div class="ai-body"><strong class="ai-title">${escapeHtml(title)}</strong><span class="ai-line">${escapeHtml(line)}</span>${extra[i] ?? ''}</div></li>`).join('\n');
-  return `        <ol class="ai-flow" data-ai-flow>\n${steps}\n        </ol>`;
-}
-
 // Tool cards, grouped so the page still reads as four labelled lists without JavaScript.
 export function toolGroupsHtml(groups, hasLogo) {
   return groups.map(([label, tools]) => {

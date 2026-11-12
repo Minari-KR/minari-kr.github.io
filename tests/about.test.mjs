@@ -20,7 +20,7 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
-  assert.deepEqual(hrefs, ['#main', '../']);
+  assert.deepEqual(hrefs, ['#main', '../assets/images/about/ai-workflow.webp', '../']); // the picture link opens the full picture
   // The only way out is a link at the very end of <main> that stays hidden until it gets keyboard focus.
   assert.match(page, /<a class="skip-link about-exit" href="\.\.\/" data-scroll-exit="bottom">포트폴리오로 이동<\/a>\s*<\/main>/);
   assert.equal([...files.get('index.html').matchAll(/<a [^>]*href="about\/"[^>]*>/g)].filter(match => match[0].includes('data-scroll-exit="top"')).length, 1);
@@ -130,18 +130,10 @@ test('소개 is keyword stickers: the eight facts, three game icons with text na
   assert.equal((about.match(/class="sticker-name" translate="no"/g) || []).length, 3);
 });
 
-test('AI flow: five ordered steps, the four AI tools from toolGroups inside step 03, retry hint in step 04, no svg', () => {
-  const steps = [...page.matchAll(/<li class="ai-step">(.*?)<\/div><\/li>/g)].map(match => match[1]);
-  assert.equal(steps.length, 5);
-  assert.match(page, /<h3 class="about-sub">AI는 이렇게 씁니다<\/h3>\s*<ol class="ai-flow" data-ai-flow>/);
-  const titles = steps.map(step => step.match(/class="ai-title">([^<]+)</)[1]);
-  assert.deepEqual(titles, ['문제 정의', '목표 설정', 'AI와 제작', '직접 확인', '최종 결정']);
-  assert.deepEqual(steps.map(step => step.match(/class="ai-num"[^>]*>(\d+)</)[1]), ['01', '02', '03', '04', '05']);
-  const ai = toolGroups.find(([label]) => label === 'AI')[1];
-  assert.deepEqual([...steps[2].matchAll(/class="ai-tool-name" translate="no">([^<]+)<\/span><span class="ai-tool-role">([^<]+)</g)].map(match => [match[1], match[2]]), ai.map(([name, , role]) => [name, role]));
-  assert.equal((steps[2].match(/class="ai-logo"/g) || []).length, 4);
-  assert.ok(steps[3].includes('맞지 않으면 다시') && steps[3].includes('aria-hidden="true"'));
-  assert.equal((page.match(/ai-tool"/g) || []).length, 4);
+test('AI section shows the workflow picture (linked to the full picture), not an animation', () => {
+  assert.match(page, /<h3 class="about-sub">AI는 이렇게 씁니다<\/h3>\s*<a class="ai-workflow" href="\.\.\/assets\/images\/about\/ai-workflow\.webp"[^>]*><img src="\.\.\/assets\/images\/about\/ai-workflow\.webp" width="1672" height="941" alt="AI 작업 워크플로우: [^"]+"/);
+  assert.ok(publicFiles.has('assets/images/about/ai-workflow.webp'));
+  assert.ok(!page.includes('ai-flow') && !files.get('assets/js/about.js').toString().includes('ai-flow'));
 });
 
 test('about.js drives the spiral through motionLoop and uses no timers or frame loop of its own', () => {

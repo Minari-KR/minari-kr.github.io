@@ -94,36 +94,6 @@
       status.textContent = `${tab.dataset.filter} ${picked.length}개: ${picked.map(slot => slot.querySelector('.inv-name').textContent).join(', ')}`;
     }));
   }
-  const flow = document.querySelector('[data-ai-flow]');
-  if (flow) {
-    // [step index, state, seconds]: 03 builds, 04 says retry, back to 03, 04 passes the check, 05 decides (12s in all). Tune here.
-    const schedule = [[0, 'on', 1.5], [1, 'on', 1.5], [2, 'on', 3], [3, 'retry', 1.5], [2, 'on', 1.5], [3, 'check', 1.5], [4, 'on', 1.5]];
-    const toolSeconds = 0.5; // each AI tool chip stays lit this long while step 03 is on
-    const steps = [...flow.children];
-    const chips = [...flow.querySelectorAll('.ai-tool')];
-    const total = schedule.reduce((sum, entry) => sum + entry[2], 0);
-    let clock = 0;
-    let shown = '';
-    // Attributes are written only when the picture changes, never per frame; cur -1 = every step done (the still picture).
-    const show = (cur, state, hot) => {
-      if (shown === `${cur}${state}${hot}`) return;
-      shown = `${cur}${state}${hot}`;
-      steps.forEach((step, i) => { step.dataset.state = i < cur || cur < 0 ? 'done' : i === cur ? state : 'wait'; });
-      chips.forEach((chip, i) => chip.classList.toggle('is-hot', i === hot));
-    };
-    window.motionLoop({
-      target: flow,
-      threshold: 0.1,
-      onReduce: matches => { if (matches) show(-1, '', -1); },
-      tick: dt => {
-        clock = (clock + dt) % total;
-        let left = clock;
-        const [step, state, length] = schedule.find(entry => (left -= entry[2]) < 0);
-        const tool = Math.floor((left + length) / toolSeconds);
-        show(step, state, step === 2 && tool < chips.length ? tool : -1);
-      },
-    });
-  }
   // Body text: blur and fade each paragraph in once it enters the viewport (CSS transitions, see about.css).
   // Stickers pop in the same way. .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
   if (!window.motionLoop.reduce.matches) {
