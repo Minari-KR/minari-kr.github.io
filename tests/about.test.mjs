@@ -20,7 +20,8 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
-  assert.deepEqual(hrefs, ['#main', '../']);
+  assert.deepEqual(hrefs, ['#main', '../assets/images/about/ai-workflow.webp', '../']); // the workflow picture under the AI text opens the full picture
+  assert.ok(publicFiles.has('assets/images/about/ai-workflow.webp'));
   // The only way out is a link at the very end of <main> that stays hidden until it gets keyboard focus.
   assert.match(page, /<a class="skip-link about-exit" href="\.\.\/" data-scroll-exit="bottom">포트폴리오로 이동<\/a>\s*<\/main>/);
   assert.equal([...files.get('index.html').matchAll(/<a [^>]*href="about\/"[^>]*>/g)].filter(match => match[0].includes('data-scroll-exit="top"')).length, 1);
