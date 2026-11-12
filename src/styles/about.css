@@ -6,13 +6,25 @@
 .about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
 /* The keyboard way out: the skip-link look (hidden above the screen until focused), fixed so it appears in view from the page end. */
 .about-exit { position: fixed; }
-/* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
-.about-flow, .about-stack { display: grid; text-align: left; }
-.about-flow { gap: 16px; }
-/* 소개: text on the left, the 280px square profile illustration on the right (about as tall as the three paragraphs); on phones the picture goes above the text. */
+/* Rhythm: sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
+.about-stack { display: grid; align-content: center; text-align: left; }
+/* 소개: the sticker board on the left, the 280px square profile illustration on the right; on phones the picture goes above the board. */
 .about-intro-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--gap-block); align-items: center; }
 .about-profile { grid-column: 2; grid-row: 1; width: 280px; height: 280px; object-fit: cover; }
-.about-intro-body > .about-flow { grid-column: 1; grid-row: 1; }
+.about-intro-body > .sticker-board { grid-column: 1; grid-row: 1; }
+/* Stickers wrap like labels stuck on a notebook page: warm paper, thin border, a small tilt (--rest) and masking tape on every third one, echoing the award memos. */
+.sticker-board { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin: 0; padding: 12px 0; list-style: none; text-align: left; }
+.sticker { position: relative; display: grid; gap: var(--gap-tight); max-width: 100%; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper-warm); rotate: var(--rest); }
+.sticker:nth-child(odd) { --rest: -1.5deg; }
+.sticker:nth-child(even) { --rest: 1.2deg; --delay: 100ms; }
+.sticker:nth-child(3n+1)::before { content: ""; position: absolute; top: -9px; left: 50%; width: 48px; height: 14px; margin-left: -24px; rotate: 3deg; background: color-mix(in srgb, var(--accent-soft) 78%, transparent); }
+.sticker-label, .sticker-reason { color: var(--muted); font-size: var(--text-meta); line-height: var(--line-compact); }
+.sticker-word { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
+.sticker-games { display: flex; flex-wrap: wrap; gap: 12px; }
+.sticker-game { display: grid; justify-items: center; align-content: start; gap: var(--gap-tight); min-width: 84px; text-align: center; white-space: nowrap; }
+/* White die-cut edge plus a thin outline, like a printed sticker. */
+.sticker-game img { width: 64px; height: 64px; border: 3px solid var(--paper); border-radius: 8px; box-shadow: 0 0 0 1px var(--line); object-fit: cover; }
+.sticker-name { color: var(--ink); font-size: var(--text-meta); line-height: var(--line-compact); }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 .about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
@@ -65,16 +77,55 @@
   .inv-slot:hover { transform: translateY(-2px); }
 }
 
-/* about.js adds .reveal only after it runs (never under reduced motion), then .is-in when the paragraph enters the viewport:
-   the paragraph clears from blur(8px) / .3 in .8s. */
+/* AI flow: a vertical timeline. Without script (or under reduced motion) every step looks done; about.js sets data-state
+   (done / wait / on / retry / check) on each step while the loop runs. Each step draws the line down to the next bubble. */
+.ai-flow { display: grid; margin: 0; padding: 0; list-style: none; text-align: left; }
+.ai-step { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding-bottom: var(--gap-block); }
+.ai-step:last-child { padding-bottom: 0; }
+.ai-step:not(:last-child)::before { content: ""; position: absolute; left: 19px; top: 20px; bottom: -20px; width: 2px; background: linear-gradient(var(--accent-deep), var(--accent-deep)) no-repeat top, var(--line-strong); background-size: 100% 100%; }
+.ai-num { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border: 2px solid var(--accent-soft); border-radius: 50%; background: var(--accent-soft); color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: 1; }
+.ai-body { display: grid; justify-items: start; gap: var(--gap-tight); min-width: 0; padding-top: 8px; }
+.ai-title { color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
+.ai-line { color: var(--body-ink); font-size: var(--text-body); line-height: var(--line-text); word-break: keep-all; }
+.ai-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.ai-tool { display: flex; align-items: center; gap: 8px; padding: 8px 12px 8px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.ai-logo { width: 36px; height: 36px; }
+.ai-tool-text { display: grid; }
+.ai-tool-name { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
+.ai-tool-role { color: var(--muted); font-size: var(--text-meta); line-height: var(--line-compact); }
+.ai-retry { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 12px; border: 1px dashed var(--line-strong); border-radius: 8px; color: var(--muted); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); }
+/* A circular arrow made of borders: a ring with a gap at the top and a triangle head at the gap. */
+.ai-retry-arrow { position: relative; width: 16px; height: 16px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; }
+.ai-retry-arrow::after { content: ""; position: absolute; top: -5px; left: -1px; border: 4px solid transparent; border-left: 6px solid currentColor; }
+.ai-step[data-state="wait"]::before, .ai-step[data-state="on"]::before, .ai-step[data-state="retry"]::before, .ai-step[data-state="check"]::before { background-size: 100% 0; }
+.ai-step[data-state="wait"] .ai-num { border-color: var(--line-strong); background: var(--paper); color: var(--muted); }
+.ai-step[data-state="wait"] .ai-title, .ai-step[data-state="wait"] .ai-line { color: var(--muted); }
+.ai-step[data-state="on"] .ai-num, .ai-step[data-state="retry"] .ai-num, .ai-step[data-state="check"] .ai-num { border-color: var(--accent-deep); background: var(--accent-deep); color: var(--on-accent); }
+.ai-step[data-state="on"] .ai-title, .ai-step[data-state="retry"] .ai-title, .ai-step[data-state="check"] .ai-title { color: var(--accent-deep); }
+.ai-tool.is-hot { border-color: var(--accent-deep); background: var(--accent-soft); }
+.ai-step[data-state="retry"] .ai-retry { border-color: var(--accent-deep); background: var(--accent-soft); color: var(--accent-deep); }
+/* The check replaces the number: a rotated corner of two borders. */
+.ai-step[data-state="check"] .ai-num { color: transparent; }
+.ai-step[data-state="check"] .ai-num::after { content: ""; position: absolute; left: 14px; top: 8px; width: 7px; height: 14px; border: solid var(--on-accent); border-width: 0 3px 3px 0; rotate: 45deg; }
+
+/* about.js adds .reveal only after it runs (never under reduced motion), then .is-in when the item enters the viewport:
+   a paragraph clears from blur(8px) / .3 in .8s; a sticker pops up from a small drop, staggered by --delay. */
 @media (prefers-reduced-motion: no-preference) {
   .about-text.reveal { opacity: .3; filter: blur(8px); transition: opacity .8s ease, filter .8s ease; }
   .about-text.reveal.is-in { opacity: 1; filter: none; }
+  .sticker.reveal { opacity: 0; translate: 0 8px; scale: .92; transition: opacity .3s ease var(--delay, 0ms), translate .3s ease var(--delay, 0ms), scale .3s ease var(--delay, 0ms); }
+  .sticker.reveal.is-in { opacity: 1; translate: none; scale: none; }
+  .ai-step::before { transition: background-size .3s ease; }
+  .ai-num, .ai-tool, .ai-retry { transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+  .ai-title { transition: color .2s ease; }
+  .ai-retry-arrow { transition: rotate .3s ease; }
+  .ai-step[data-state="retry"] .ai-retry-arrow { rotate: -360deg; }
 }
 
 @media (max-width: 640px) {
   .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
-  .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
+  .about-profile, .about-intro-body > .sticker-board { grid-column: 1; grid-row: auto; }
+  .about-intro-body > .sticker-board { justify-self: stretch; }
   .about-profile { width: 160px; height: 160px; }
   .taste-grid { grid-template-columns: minmax(0, 1fr); }
   .spiral, .spiral.is-live { min-height: 0; height: 360px; }

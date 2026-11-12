@@ -5,7 +5,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
-import { toolGroups, toolGroupsHtml, spiralHtml } from '../scripts/about.mjs';
+import { toolGroups, toolGroupsHtml, spiralHtml, stickers } from '../scripts/about.mjs';
 import { games } from '../scripts/site-config.mjs';
 import { root } from './fixture.mjs';
 
@@ -108,7 +108,7 @@ test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the acces
   assert.doesNotMatch(page, /inv-detail|data-detail|<button[^>]*inv-slot/);
   const slugs = toolGroups.flatMap(([, tools]) => tools.map(([, slug]) => slug));
   assert.equal(slugs.length, 13);
-  const logos = tags.filter(({ tag, attributes }) => tag === 'img' && /images\/tools\//.test(attributes.src));
+  const logos = tags.filter(({ tag, attributes }) => tag === 'img' && /\binv-logo\b/.test(attributes.class));
   assert.equal(logos.length, 13);
   assert.ok(slugs.every(slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`))));
   assert.ok(logos.every(({ attributes }) => attributes.alt === '' && attributes['aria-hidden'] === 'true'));
@@ -116,6 +116,32 @@ test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the acces
   const html = toolGroupsHtml(toolGroups, slug => ['unity', 'claude'].includes(slug));
   assert.deepEqual(readHtmlTags(html).filter(({ tag }) => tag === 'img').map(({ attributes }) => attributes.src), ['../assets/images/tools/unity.png', '../assets/images/tools/claude.png']);
   assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
+});
+
+test('소개 is keyword stickers: the eight facts, three game icons with text names, no paragraphs', () => {
+  const about = page.slice(page.indexOf('id="about"'), page.indexOf('id="taste"'));
+  assert.doesNotMatch(about, /about-text/);
+  const items = [...about.matchAll(/<li class="sticker">(.*?)<\/li>/g)].map(match => match[1].replace(/<[^>]+>/g, '|').replace(/\|+/g, '|'));
+  assert.deepEqual(items, ['|학교|우송대학교 게임멀티미디어학과 3학년|', '|지망|게임 시스템 디자이너|', '|꿈의 시작|중2 때 찾은 부산 지스타|', '|취미|산책|머리 환기|', '|취미|대화|게임 인사이트 · 개발 · AI|', '|취향|서브컬처|캐릭터의 매력|', '|최애 게임|이터널 리턴|몬길: STAR DIVE|블루 아카이브|', '|최애 애니|장송의 프리렌|']);
+  assert.equal(stickers.length, 8);
+  const icons = tags.filter(({ tag, attributes }) => tag === 'img' && /assets\/images\/games\//.test(attributes.src) && !/spiral-card|intro-card/.test(attributes.class || ''));
+  assert.deepEqual(icons.map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, '').split('/').pop()), ['eternal-return.webp', 'mongil-star-dive.webp', 'blue-archive.webp']);
+  assert.ok(icons.every(({ attributes }) => attributes.alt === '' && publicFiles.has(attributes.src.replace('../', '').replace(/\?v=[a-f0-9]{12}$/, ''))));
+  assert.equal((about.match(/class="sticker-name" translate="no"/g) || []).length, 3);
+});
+
+test('AI flow: five ordered steps, the four AI tools from toolGroups inside step 03, retry hint in step 04, no svg', () => {
+  const steps = [...page.matchAll(/<li class="ai-step">(.*?)<\/div><\/li>/g)].map(match => match[1]);
+  assert.equal(steps.length, 5);
+  assert.match(page, /<h3 class="about-sub">AI는 이렇게 씁니다<\/h3>\s*<ol class="ai-flow" data-ai-flow>/);
+  const titles = steps.map(step => step.match(/class="ai-title">([^<]+)</)[1]);
+  assert.deepEqual(titles, ['문제 정의', '목표 설정', 'AI와 제작', '직접 확인', '최종 결정']);
+  assert.deepEqual(steps.map(step => step.match(/class="ai-num"[^>]*>(\d+)</)[1]), ['01', '02', '03', '04', '05']);
+  const ai = toolGroups.find(([label]) => label === 'AI')[1];
+  assert.deepEqual([...steps[2].matchAll(/class="ai-tool-name" translate="no">([^<]+)<\/span><span class="ai-tool-role">([^<]+)</g)].map(match => [match[1], match[2]]), ai.map(([name, , role]) => [name, role]));
+  assert.equal((steps[2].match(/class="ai-logo"/g) || []).length, 4);
+  assert.ok(steps[3].includes('맞지 않으면 다시') && steps[3].includes('aria-hidden="true"'));
+  assert.equal((page.match(/ai-tool"/g) || []).length, 4);
 });
 
 test('about.js drives the spiral through motionLoop and uses no timers or frame loop of its own', () => {
