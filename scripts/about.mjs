@@ -1,29 +1,31 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { escapeHtml } from './content.mjs';
 
 // Pieces of the standalone /about/ page that are built from data. Every value is escaped; paths are seen from about/index.html.
 
-// 소개 stickers: [label, word, reason?]; a word that is a list of game titles becomes picture stickers (icons come from `games`).
-export const stickers = [
-  ['학교', '우송대학교 게임멀티미디어학과 3학년'],
-  ['지망', '게임 시스템 디자이너'],
-  ['꿈의 시작', '중2 때 찾은 부산 지스타'],
-  ['취미', '산책', '머리 환기'],
-  ['취미', '대화', '게임 인사이트 · 개발 · AI'],
-  ['취향', '서브컬처', '캐릭터의 매력'],
-  ['최애 게임', ['이터널 리턴', '몬길: STAR DIVE', '블루 아카이브']],
-  ['최애 애니', '장송의 프리렌'],
+// Tool groups: [label, [[name, logo slug, role?]]]. A logo shows only when public/assets/images/tools/<slug>.png exists.
+// The role is the AI paragraph's own wording; no other tool gets usage text.
+export const toolGroups = [
+  ['개발', [['Unity', 'unity'], ['Unreal', 'unreal']]],
+  ['협업', [['Notion', 'notion'], ['GitHub', 'github']]],
+  ['그래픽', [['Figma', 'figma'], ['Photoshop', 'photoshop'], ['Aseprite', 'aseprite'], ['Blender', 'blender'], ['ComfyUI', 'comfyui']]],
+  ['AI', [['GPT', 'chatgpt', '그림'], ['Claude', 'claude', '작업 계획과 코드'], ['Grok', 'grok', '영상'], ['Gemini', 'gemini', '문장 다듬기']]],
 ];
 
-export function stickersHtml(items, games) {
-  const game = title => `<span class="sticker-game"><img src="../${escapeHtml(games.find(item => item.title === title).image)}" width="352" height="336" alt="" decoding="async"><span class="sticker-name" translate="no">${escapeHtml(title)}</span></span>`;
-  const lis = items.map(([label, word, reason]) => {
-    const body = Array.isArray(word)
-      ? `<span class="sticker-games">${word.map(game).join('')}</span>`
-      : `<span class="sticker-word">${escapeHtml(word)}</span>${reason ? `<span class="sticker-reason">${escapeHtml(reason)}</span>` : ''}`;
-    return `          <li class="sticker"><span class="sticker-label">${escapeHtml(label)}</span>${body}</li>`;
+// Tool cards, grouped so the page still reads as four labelled lists without JavaScript.
+export function toolGroupsHtml(groups, hasLogo) {
+  return groups.map(([label, tools]) => {
+    const slots = tools.map(([name, slug, role = '']) => {
+      const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
+      const hidden = `, ${label}${role ? `, ${role}` : ''}`;
+      return `                <li class="inv-slot" data-slot data-group="${escapeHtml(label)}"><span class="inv-box">${logo}</span><span class="inv-name" translate="no">${escapeHtml(name)}</span><span class="inv-hide">${escapeHtml(hidden)}</span></li>`;
+    }).join('\n');
+    return `            <div class="inv-group">\n              <p class="inv-label">${escapeHtml(label)}</p>\n              <ul class="inv-list">\n${slots}\n              </ul>\n            </div>`;
   }).join('\n');
-  return `        <ul class="sticker-board">\n${lis}\n        </ul>`;
 }
+
+export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
 
 // Infinite spiral: every game with an image as a card on a helix, in config order (src/scripts/about.js shuffles them per visit).
 // Screen readers get the titles once; the cards have empty alt text.

@@ -1,4 +1,4 @@
-// /about/ page: the game spiral and the text/sticker reveal. Without this file the page still shows every image.
+// /about/ page: the game spiral and the tool inventory filter. Without this file the page still shows every image and slot.
 // The spiral's clock runs inside window.motionLoop (motion-loop.js), which also stops it off-screen, in a hidden tab and under reduced motion.
 (() => {
   const spiral = document.querySelector('[data-spiral]');
@@ -79,10 +79,28 @@
     });
   }
 
-  // Body text: blur and fade each paragraph in once it enters the viewport (CSS transitions, see about.css).
-  // Stickers pop in the same way. .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
+  const inventory = document.querySelector('[data-inventory]');
+  if (inventory) {
+    const tabs = [...inventory.querySelectorAll('[data-filter]')];
+    const slots = [...inventory.querySelectorAll('[data-slot]')];
+    const status = inventory.querySelector('[data-filter-status]');
+    inventory.classList.add('is-live');
+    inventory.querySelector('[data-filters]').hidden = false;
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(other => other.setAttribute('aria-pressed', String(other === tab)));
+      const picked = slots.filter(slot => tab.dataset.filter === '전체' || slot.dataset.group === tab.dataset.filter);
+      slots.forEach(slot => slot.classList.toggle('is-dim', !picked.includes(slot)));
+      // Dimming is only visual, so the result is also read out: "AI 4개: GPT, Claude, Grok, Gemini".
+      status.textContent = `${tab.dataset.filter} ${picked.length}개: ${picked.map(slot => slot.querySelector('.inv-name').textContent).join(', ')}`;
+    }));
+  }
+  // Key phrases (.hl) in the body text: blur and fade the paragraph in once it enters the viewport, then sweep each phrase's stroke
+  // (CSS transitions, see about.css). .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
   if (!window.motionLoop.reduce.matches) {
-    document.querySelectorAll('.about-text, .sticker').forEach(text => {
+    document.querySelectorAll('.about-text').forEach(text => {
+      const phrases = text.querySelectorAll('.hl');
+      if (!phrases.length) return;
+      phrases.forEach((phrase, i) => phrase.style.setProperty('--d', `${0.4 + i * 0.15}s`));
       text.classList.add('reveal');
       window.motionLoop({
         target: text,
@@ -90,6 +108,17 @@
         canPlay: () => !text.classList.contains('is-in'),
         tick: () => text.classList.add('is-in'),
       });
+    });
+    // Strokes wait 0.7s after the page is visible (after the first-visit intro layer is gone): count it with motionLoop, then arm the CSS.
+    let waited = 0;
+    window.motionLoop({
+      target: document.body,
+      canPlay: () => !document.documentElement.classList.contains('hl-armed'),
+      tick: dt => {
+        if (document.querySelector('[data-intro]')) return;
+        waited += dt;
+        if (waited >= 0.7) document.documentElement.classList.add('hl-armed');
+      },
     });
   }
 })();

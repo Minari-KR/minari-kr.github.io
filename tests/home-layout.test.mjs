@@ -25,7 +25,7 @@ test('intro, awards and projects follow the single-column order with the approve
   const positions = order.map(marker => built.indexOf(marker));
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
-  assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
+  assert.equal((template.match(/<strong class="award-name"><span class="marker">/g) || []).length, 4);
   // Awards are four memo cards: sheet with paper and tape (decorative), year, name, event and a game sticker. The empty-slot buttons
   // are added by the script, never in the template; no glare, band, clip or back face is left.
   assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
@@ -42,7 +42,7 @@ test('intro, awards and projects follow the single-column order with the approve
     assert.ok(template.includes(`<img class="award-sticker" src="./assets/images/awards/sticker-${sticker}.webp" width="360" height="360" alt="" aria-hidden="true"`), sticker);
     assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/sticker-${sticker}.webp`, import.meta.url)), sticker);
   }
-  assert.match(template, /<span class="award-year">2026<\/span><strong class="award-name">국가수리과학<br>연구소장상<\/strong><span class="award-event">/);
+  assert.match(template, /<span class="award-year">2026<\/span><strong class="award-name"><span class="marker">국가수리과학<br>연구소장상<\/span><\/strong><span class="award-event">/);
   // Text never truncates, keeps Korean words whole and stays on one line (the longest name is split by a <br>), sized from the card width (never under 12px).
   assert.doesNotMatch(homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image')), /text-overflow|line-clamp|ellipsis/);
   assert.equal(cssRule(homeStyles, '.award-name', '*').get('word-break'), 'keep-all');
@@ -58,13 +58,14 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.match(phone, /\.award-list \{ grid-template-columns: minmax\(0, 1fr\); gap: 24px; \}/);
   assert.match(phone, /\.award-sheet \{ --sticker: 88px; \}/);
   assert.doesNotMatch(homeStyles, /award-band|award-clip|award-flip|award-face|award-glare|--bleed|--sheen|backface-visibility/);
-  // Memo paper with a seamless paper-fibre texture, a masking-tape strip, the year in deep green.
+  // Memo paper with a seamless paper-fibre texture, a masking-tape strip, the name on the highlighter stroke, the year in deep green.
   const awardCss = homeStyles.slice(homeStyles.indexOf('.award-list'), homeStyles.indexOf('/* Projects: image'));
   assert.match(cssRule(homeStyles, '.award-paper', '*').get('background'), /^var\(--paper-warm\) url\(["']?\.\.\/images\/awards\/paper\.webp["']?\) 0 0\/256px 256px$/);
   assert.ok(fs.existsSync(new URL('../public/assets/images/awards/paper.webp', import.meta.url)));
   assert.equal(cssRule(homeStyles, '.award-paper', '*').get('border-radius'), '8px');
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('width'), /72px/);
   assert.match(cssRule(homeStyles, '.award-tape', '*').get('background'), /accent-soft/);
+  assert.match(cssRule(homeStyles, '.marker', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/); // the name sits on the section-title stroke, line by line
   // Text on the left (year, name, event), the game sticker on the right across the three lines.
   assert.equal(cssRule(homeStyles, '.award-year', '*').get('grid-row'), '1');
   assert.equal(cssRule(homeStyles, '.award-sticker', '*').get('grid-column'), '2');

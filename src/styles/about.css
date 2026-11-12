@@ -1,4 +1,4 @@
-/* /about/ page. Sections reuse the portfolio's home.css (sheet, section titles). */
+/* /about/ page. Sections reuse the portfolio's home.css (sheet, marker titles). */
 
 /* Header: the h1 holds "About Me" and the name/role line, which is sized (in em of the h1) to run as wide as "About Me".
    Headings stay centred like the home page, running text reads left-aligned. */
@@ -6,25 +6,13 @@
 .about-role { display: flex; align-items: center; gap: 12px; color: var(--ink); font-size: .51em; line-height: var(--line-heading); white-space: nowrap; }
 /* The keyboard way out: the skip-link look (hidden above the screen until focused), fixed so it appears in view from the page end. */
 .about-exit { position: fixed; }
-/* Rhythm: sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
-.about-stack { display: grid; align-content: center; text-align: left; }
-/* 소개: the sticker board on the left, the 280px square profile illustration on the right; on phones the picture goes above the board. */
+/* Rhythm: paragraphs 16px apart; sub-blocks (sub-heading + text, tools, AI) --gap-actions apart. */
+.about-flow, .about-stack { display: grid; text-align: left; }
+.about-flow { gap: 16px; }
+/* 소개: text on the left, the 280px square profile illustration on the right (about as tall as the three paragraphs); on phones the picture goes above the text. */
 .about-intro-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--gap-block); align-items: center; }
 .about-profile { grid-column: 2; grid-row: 1; width: 280px; height: 280px; object-fit: cover; }
-.about-intro-body > .sticker-board { grid-column: 1; grid-row: 1; }
-/* Stickers wrap like labels stuck on a notebook page: warm paper, thin border, a small tilt (--rest) and masking tape on every third one, echoing the award memos. */
-.sticker-board { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin: 0; padding: 12px 0; list-style: none; text-align: left; }
-.sticker { position: relative; display: grid; gap: var(--gap-tight); max-width: 100%; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper-warm); rotate: var(--rest); }
-.sticker:nth-child(odd) { --rest: -1.5deg; }
-.sticker:nth-child(even) { --rest: 1.2deg; --delay: 100ms; }
-.sticker:nth-child(3n+1)::before { content: ""; position: absolute; top: -9px; left: 50%; width: 48px; height: 14px; margin-left: -24px; rotate: 3deg; background: color-mix(in srgb, var(--accent-soft) 78%, transparent); }
-.sticker-label, .sticker-reason { color: var(--muted); font-size: var(--text-meta); line-height: var(--line-compact); }
-.sticker-word { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
-.sticker-games { display: flex; flex-wrap: wrap; gap: 12px; }
-.sticker-game { display: grid; justify-items: center; align-content: start; gap: var(--gap-tight); min-width: 84px; text-align: center; white-space: nowrap; }
-/* White die-cut edge plus a thin outline, like a printed sticker. */
-.sticker-game img { width: 64px; height: 64px; border: 3px solid var(--paper); border-radius: 8px; box-shadow: 0 0 0 1px var(--line); object-fit: cover; }
-.sticker-name { color: var(--ink); font-size: var(--text-meta); line-height: var(--line-compact); }
+.about-intro-body > .about-flow { grid-column: 1; grid-row: 1; }
 .about-stack { gap: var(--gap-actions); }
 .about-text { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-text); word-break: keep-all; }
 .about-sub { margin: 0 0 var(--gap-group); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
@@ -44,26 +32,70 @@
 .taste-strip { display: block; width: 100%; height: auto; margin-top: var(--gap-actions); }
 .taste-strip-narrow { display: none; }
 
-/* The AI workflow picture: the link opens the full picture so its small text can be zoomed on a phone. */
-.ai-workflow { display: block; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.ai-workflow img { display: block; width: 100%; height: auto; }
+/* Tools: a card collection (references: Raycast Store pill filter and logo tiles, StackShare group labels).
+   A pill filter on top, a centred grid of logo cards below; the filter dims the cards that do not match. */
+.inventory { display: grid; gap: var(--gap-block); }
+.inventory [hidden] { display: none; }
+.inv-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; width: fit-content; max-width: 100%; margin: 0 auto; padding: 4px; border-radius: 999px; background: var(--bg); }
+.inv-tab { min-height: 44px; padding: 0 16px; border: 1.5px solid transparent; border-radius: 999px; background: transparent; color: var(--muted); font: 800 max(1rem, var(--text-meta))/1 var(--font-body); white-space: nowrap; cursor: pointer; }
+.inv-tab[aria-pressed="true"] { border-color: var(--accent-deep); background: var(--paper); color: var(--accent-deep); }
+.inv-groups { display: grid; gap: var(--gap-block); }
+.inv-label { margin: 0 0 var(--gap-group); color: var(--accent-deep); font-size: max(1rem, var(--text-meta)); font-weight: 800; line-height: var(--line-compact); }
+.inv-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.inv-slot { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; min-width: 0; padding: 16px 8px 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); text-align: center; }
+.inv-box { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; margin-bottom: 4px; border-radius: 20px; background: var(--bg); }
+.inv-logo { display: block; width: 56px; height: 56px; }
+.inv-name { color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); white-space: nowrap; }
+.inv-hide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Script on: the four groups flow into one centred row of --cols (labels hidden); the filter dims. */
+.inventory.is-live .inv-groups { --cols: 5; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.inventory.is-live .inv-slot { width: calc((100% - (var(--cols) - 1) * 16px) / var(--cols)); }
+.inventory.is-live .inv-group, .inventory.is-live .inv-list { display: contents; }
+.inventory.is-live .inv-label { display: none; }
+.inventory.is-live .inv-slot.is-dim { opacity: .3; }
+@media (prefers-reduced-motion: no-preference) {
+  .inv-tab { transition: background-color .2s cubic-bezier(.4, 0, .2, 1), border-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1); }
+  .inv-slot { transition: opacity .2s cubic-bezier(.4, 0, .2, 1), transform .3s cubic-bezier(0, 0, .2, 1), border-color .2s ease; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .inv-tab[aria-pressed="false"]:hover { color: var(--ink); }
+  .inv-slot:hover { border-color: var(--line-strong); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .inv-slot:hover { transform: translateY(-2px); }
+}
 
-/* about.js adds the reveal class only after it runs (never under reduced motion), then is-in when the item enters the viewport:
-   a paragraph clears from blur(8px) / .3 in .8s; a sticker pops up from a small drop, staggered by --delay. */
+/* Key phrases in the body text: the same highlighter stroke as .marker, but as a background layer (marker-body.svg, the same shape
+   with preserveAspectRatio none) so its width can sweep from 0 to 100%. The padding is cancelled by the margin, so the text does not move. */
+.hl { margin: 0 -.2em; padding: 0 .2em; background: url("../icons/marker-body.svg") 0 0 / 100% 100% no-repeat; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* about.js adds .reveal only after it runs (never under reduced motion), then .is-in when the paragraph enters the viewport:
+   the paragraph clears from blur(8px) / .3 in .8s, then each phrase's stroke sweeps left to right in 1s (--d = .4s + .15s per earlier phrase). */
 @media (prefers-reduced-motion: no-preference) {
   .about-text.reveal { opacity: .3; filter: blur(8px); transition: opacity .8s ease, filter .8s ease; }
+  .about-text.reveal .hl { background-size: 0 100%; }
   .about-text.reveal.is-in { opacity: 1; filter: none; }
-  .sticker.reveal { opacity: 0; translate: 0 8px; scale: .92; transition: opacity .3s ease var(--delay, 0ms), translate .3s ease var(--delay, 0ms), scale .3s ease var(--delay, 0ms); }
-  .sticker.reveal.is-in { opacity: 1; translate: none; scale: none; }
+  .hl-armed .about-text.reveal.is-in .hl { background-size: 100% 100%; transition: background-size 1s ease var(--d, .4s); }
 }
 
 @media (max-width: 640px) {
   .about-intro-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
-  .about-profile, .about-intro-body > .sticker-board { grid-column: 1; grid-row: auto; }
-  .about-intro-body > .sticker-board { justify-self: stretch; }
+  .about-profile, .about-intro-body > .about-flow { grid-column: 1; grid-row: auto; }
   .about-profile { width: 160px; height: 160px; }
   .taste-grid { grid-template-columns: minmax(0, 1fr); }
   .spiral, .spiral.is-live { min-height: 0; height: 360px; }
   .taste-strip-wide { display: none; }
   .taste-strip-narrow { display: block; }
+  .inv-tabs { border-radius: 24px; }
+  .inv-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .inventory.is-live .inv-groups { --cols: 3; gap: 12px; }
+  .inventory.is-live .inv-slot { width: calc((100% - (var(--cols) - 1) * 12px) / var(--cols)); }
+}
+
+/* Narrow phones: two cards a row so even "Photoshop" stays on one line. */
+@media (max-width: 520px) {
+  .inv-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .inventory.is-live .inv-groups { --cols: 2; }
+  /* The pill bar becomes an even 3 + 2 grid instead of leaving one pill alone on a second row. */
+  .inv-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; border-radius: 24px; }
+  .inv-tab { padding: 0 2px; }
 }

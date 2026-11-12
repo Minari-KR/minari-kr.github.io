@@ -10,7 +10,7 @@ import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, rel
 import { worksHtml } from './works.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
-import { spiralHtml, stickers, stickersHtml, introHtml } from './about.mjs';
+import { toolGroups, toolGroupsHtml, logoExists, spiralHtml, introHtml } from './about.mjs';
 import { validateProjects, projectTabs, projectCards, detailValues } from './projects.mjs';
 
 export { walk } from './files.mjs';
@@ -37,8 +37,8 @@ export function compileSite(root) {
     page_title: escapeHtml(aboutTitle),
     page_description: escapeHtml(aboutDescription),
     social: socialMeta({ title: aboutTitle, description: aboutDescription, page: 'about/' }),
+    tool_groups: toolGroupsHtml(toolGroups, logoExists(root)),
     spiral: spiralHtml(games),
-    stickers: stickersHtml(stickers, games),
     intro: introHtml(games, '..')
   }));
   // The page is games/ but its source names say "works": games.* already belongs to the "games I played" feature.

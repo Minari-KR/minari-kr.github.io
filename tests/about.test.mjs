@@ -5,7 +5,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { compileSite } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
-import { spiralHtml, stickers } from '../scripts/about.mjs';
+import { toolGroups, toolGroupsHtml, spiralHtml } from '../scripts/about.mjs';
 import { games } from '../scripts/site-config.mjs';
 import { root } from './fixture.mjs';
 
@@ -17,10 +17,10 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.ok(publicFiles.has('about/index.html'));
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
   assert.match(page, /<header class="intro about-intro" id="intro">\s*<h1 id="intro-title" tabindex="-1"><span class="about-title">About Me<\/span> <span class="about-role">박종찬 /);
-  const order = ['intro-title', 'about-title', 'taste-title', 'ai-title'].map(id => page.indexOf(`id="${id}"`));
+  const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));
   assert.ok(order.every((at, i) => at > (order[i - 1] ?? -1)), order.join());
   const hrefs = tags.filter(({ tag }) => tag === 'a').map(({ attributes }) => attributes.href);
-  assert.deepEqual(hrefs, ['#main', '../assets/images/about/ai-workflow.webp', '../']); // the picture link opens the full picture
+  assert.deepEqual(hrefs, ['#main', '../']);
   // The only way out is a link at the very end of <main> that stays hidden until it gets keyboard focus.
   assert.match(page, /<a class="skip-link about-exit" href="\.\.\/" data-scroll-exit="bottom">포트폴리오로 이동<\/a>\s*<\/main>/);
   assert.equal([...files.get('index.html').matchAll(/<a [^>]*href="about\/"[^>]*>/g)].filter(match => match[0].includes('data-scroll-exit="top"')).length, 1);
@@ -82,7 +82,7 @@ test('spiral css: perspective + clip on .spiral, a preserve-3d stage for the car
 });
 
 test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px', () => {
-  const taste = page.slice(page.indexOf('id="taste"'), page.indexOf('id="ai"'));
+  const taste = page.slice(page.indexOf('id="taste"'), page.indexOf('id="tools"'));
   const strips = tags.filter(({ tag, attributes }) => tag === 'img' && /\btaste-strip\b/.test(attributes.class));
   assert.equal(strips.length, 2);
   assert.ok(taste.indexOf('taste-strip') > taste.indexOf('spiral-card'));
@@ -98,23 +98,24 @@ test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px',
   assert.match(css, /@media \(max-width: 640px\) \{[^@]*\.taste-strip-wide \{ display: none; \}\s*\.taste-strip-narrow \{ display: block; \}/);
 });
 
-test('소개 is keyword stickers: the eight facts, three game icons with text names, no paragraphs', () => {
-  const about = page.slice(page.indexOf('id="about"'), page.indexOf('id="taste"'));
-  assert.doesNotMatch(about, /about-text/);
-  const items = [...about.matchAll(/<li class="sticker">(.*?)<\/li>/g)].map(match => match[1].replace(/<[^>]+>/g, '|').replace(/\|+/g, '|'));
-  assert.deepEqual(items, ['|학교|우송대학교 게임멀티미디어학과 3학년|', '|지망|게임 시스템 디자이너|', '|꿈의 시작|중2 때 찾은 부산 지스타|', '|취미|산책|머리 환기|', '|취미|대화|게임 인사이트 · 개발 · AI|', '|취향|서브컬처|캐릭터의 매력|', '|최애 게임|이터널 리턴|몬길: STAR DIVE|블루 아카이브|', '|최애 애니|장송의 프리렌|']);
-  assert.equal(stickers.length, 8);
-  const icons = tags.filter(({ tag, attributes }) => tag === 'img' && /assets\/images\/games\//.test(attributes.src) && !/spiral-card|intro-card/.test(attributes.class || ''));
-  assert.deepEqual(icons.map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, '').split('/').pop()), ['eternal-return.webp', 'mongil-star-dive.webp', 'blue-archive.webp']);
-  assert.ok(icons.every(({ attributes }) => attributes.alt === '' && publicFiles.has(attributes.src.replace('../', '').replace(/\?v=[a-f0-9]{12}$/, ''))));
-  assert.equal((about.match(/class="sticker-name" translate="no"/g) || []).length, 3);
-});
-
-test('AI section shows the workflow picture (linked to the full picture), not an animation; the tools part is gone', () => {
-  assert.doesNotMatch(page, /inv-|assets\/images\/tools\//);
-  assert.match(page, /<h2 class="section-title" id="ai-title">AI는 이렇게 씁니다<\/h2>\s*<a class="ai-workflow" href="\.\.\/assets\/images\/about\/ai-workflow\.webp"[^>]*><img src="\.\.\/assets\/images\/about\/ai-workflow\.webp" width="1672" height="941" alt="AI 작업 워크플로우: [^"]+"/);
-  assert.ok(publicFiles.has('assets/images/about/ai-workflow.webp'));
-  assert.ok(!page.includes('ai-flow') && !files.get('assets/js/about.js').toString().includes('ai-flow'));
+test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the accessible name, no detail panel', () => {
+  const slots = tags.filter(({ attributes }) => 'data-slot' in attributes);
+  assert.equal(slots.length, 13);
+  assert.deepEqual([...page.matchAll(/<p class="inv-label">([^<]+)</g)].map(match => match[1]), ['개발', '협업', '그래픽', 'AI']);
+  assert.deepEqual([...page.matchAll(/data-filter="([^"]+)" aria-pressed/g)].map(match => match[1]), ['전체', '개발', '협업', '그래픽', 'AI']);
+  assert.match(page, /data-filters role="group" aria-label="[^"]+" hidden/);
+  assert.deepEqual([...page.matchAll(/<span class="inv-hide">([^<]*)</g)].map(match => match[1]).filter(text => text.split(', ').length > 2), [', AI, 그림', ', AI, 작업 계획과 코드', ', AI, 영상', ', AI, 문장 다듬기']);
+  assert.doesNotMatch(page, /inv-detail|data-detail|<button[^>]*inv-slot/);
+  const slugs = toolGroups.flatMap(([, tools]) => tools.map(([, slug]) => slug));
+  assert.equal(slugs.length, 13);
+  const logos = tags.filter(({ tag, attributes }) => tag === 'img' && /images\/tools\//.test(attributes.src));
+  assert.equal(logos.length, 13);
+  assert.ok(slugs.every(slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`))));
+  assert.ok(logos.every(({ attributes }) => attributes.alt === '' && attributes['aria-hidden'] === 'true'));
+  // A made-up file list: only those slots carry an <img>.
+  const html = toolGroupsHtml(toolGroups, slug => ['unity', 'claude'].includes(slug));
+  assert.deepEqual(readHtmlTags(html).filter(({ tag }) => tag === 'img').map(({ attributes }) => attributes.src), ['../assets/images/tools/unity.png', '../assets/images/tools/claude.png']);
+  assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
 });
 
 test('about.js drives the spiral through motionLoop and uses no timers or frame loop of its own', () => {
@@ -124,15 +125,25 @@ test('about.js drives the spiral through motionLoop and uses no timers or frame 
   assert.doesNotMatch(source, /innerHTML/);
 });
 
-test('About Me body text has no highlighter: no .hl spans, and the paragraphs still blur in on scroll', () => {
-  assert.doesNotMatch(page, /class="(hl|marker)/);
+test('the 14 key phrases in the About Me body text are wrapped in .hl, with no markup beyond the span', () => {
+  const phrases = ['부산 지스타', '자부심', '즐거움을 전하는 일', '구상을 빠르게 구현', '함께 바라보는 방향', '세계관에 더 깊이 몰입', '다채로운 세계를 직접 경험하는 즐거움', '시각 요소', '같은 결로 맞물리는지', '깊은 몰입', '해결할 문제를 먼저 정의', '목표를 분명히', '끝까지 직접 확인', '최종 결정'];
+  assert.deepEqual([...page.matchAll(/<span class="hl">([^<]+)<\/span>/g)].map(match => match[1]), phrases);
+  assert.equal((page.match(/class="hl"/g) || []).length, phrases.length);
+  // Only body paragraphs carry them; the school sentence has none and the section titles keep their static .marker.
+  assert.equal([...page.matchAll(/<p class="about-text">((?:(?!<\/p>)[\s\S])*?class="hl"[\s\S]*?)<\/p>/g)].length, 5);
+  assert.doesNotMatch(page, /우송대학교[^<]*<span class="hl"/);
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
-  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
-  assert.doesNotMatch(css + js, /\.hl|hl-armed|marker/);
+  assert.match(css, /\.hl \{[^}]*marker-body\.svg[^}]*box-decoration-break: clone/);
   assert.match(css, /@media \(prefers-reduced-motion: no-preference\) \{[^@]*\.about-text\.reveal \{[^}]*blur\(8px\)/);
   assert.equal(css.split('.reveal').length - 1, css.split('@media (prefers-reduced-motion: no-preference) {').slice(1).join('').split('.reveal').length - 1);
-  assert.match(js, /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
+  assert.match(fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8'), /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
+  // Strokes wait 0.7s (counted by motionLoop, only once no [data-intro] layer is left), gated in CSS by .hl-armed; the blur-in is not gated.
+  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
+  assert.match(js, /querySelector\('\[data-intro\]'\)\) return;\s*waited \+= dt;\s*if \(waited >= 0\.7\) document\.documentElement\.classList\.add\('hl-armed'\)/);
+  assert.match(css, /\.hl-armed \.about-text\.reveal\.is-in \.hl \{ background-size: 100% 100%/);
+  assert.doesNotMatch(css, /^ +.about-text\.reveal\.is-in \.hl/m);
   assert.match(css, /\.about-text\.reveal\.is-in \{ opacity: 1; filter: none; \}/);
+  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.25"/);
 });
 
 test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {
