@@ -125,25 +125,15 @@ test('about.js drives the spiral through motionLoop and uses no timers or frame 
   assert.doesNotMatch(source, /innerHTML/);
 });
 
-test('the 14 key phrases in the About Me body text are wrapped in .hl, with no markup beyond the span', () => {
-  const phrases = ['부산 지스타', '자부심', '즐거움을 전하는 일', '구상을 빠르게 구현', '함께 바라보는 방향', '세계관에 더 깊이 몰입', '다채로운 세계를 직접 경험하는 즐거움', '시각 요소', '같은 결로 맞물리는지', '깊은 몰입', '해결할 문제를 먼저 정의', '목표를 분명히', '끝까지 직접 확인', '최종 결정'];
-  assert.deepEqual([...page.matchAll(/<span class="hl">([^<]+)<\/span>/g)].map(match => match[1]), phrases);
-  assert.equal((page.match(/class="hl"/g) || []).length, phrases.length);
-  // Only body paragraphs carry them; the school sentence has none and the section titles keep their static .marker.
-  assert.equal([...page.matchAll(/<p class="about-text">((?:(?!<\/p>)[\s\S])*?class="hl"[\s\S]*?)<\/p>/g)].length, 5);
-  assert.doesNotMatch(page, /우송대학교[^<]*<span class="hl"/);
+test('About Me body text has no highlighter: no .hl spans, and the paragraphs still blur in on scroll', () => {
+  assert.doesNotMatch(page, /class="(hl|marker)/);
   const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
-  assert.match(css, /\.hl \{[^}]*marker-body\.svg[^}]*box-decoration-break: clone/);
+  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
+  assert.doesNotMatch(css + js, /\.hl|hl-armed|marker/);
   assert.match(css, /@media \(prefers-reduced-motion: no-preference\) \{[^@]*\.about-text\.reveal \{[^}]*blur\(8px\)/);
   assert.equal(css.split('.reveal').length - 1, css.split('@media (prefers-reduced-motion: no-preference) {').slice(1).join('').split('.reveal').length - 1);
-  assert.match(fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8'), /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
-  // Strokes wait 0.7s (counted by motionLoop, only once no [data-intro] layer is left), gated in CSS by .hl-armed; the blur-in is not gated.
-  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
-  assert.match(js, /querySelector\('\[data-intro\]'\)\) return;\s*waited \+= dt;\s*if \(waited >= 0\.7\) document\.documentElement\.classList\.add\('hl-armed'\)/);
-  assert.match(css, /\.hl-armed \.about-text\.reveal\.is-in \.hl \{ background-size: 100% 100%/);
-  assert.doesNotMatch(css, /^ +.about-text\.reveal\.is-in \.hl/m);
+  assert.match(js, /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
   assert.match(css, /\.about-text\.reveal\.is-in \{ opacity: 1; filter: none; \}/);
-  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.25"/);
 });
 
 test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {

@@ -40,7 +40,7 @@ test('the game-play section closes the page: a small game screen of cartridges a
   // the intro: release.test.mjs); the site is still the portfolio alone.
   for (const earlier of ['</header>', 'id="projects"', 'id="awards"']) assert.ok(home.indexOf(earlier) < home.indexOf('id="games"'), earlier);
   assert.ok(home.indexOf('id="games"') < home.indexOf('</main>'));
-  assert.match(home, /<h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험<\/span><\/h2>/);
+  assert.match(home, /<h2 class="section-title" id="games-title">게임 플레이 경험<\/h2>/);
   assert.match(home, /<div class="gs" data-game-screen data-state="select">/);
   assert.equal((home.match(/<button class="pack" /g) || []).length, games.length);
   assert.match(home, /assets\/css\/games\.css\?v=[a-f0-9]{12}/);
@@ -59,32 +59,28 @@ test('stylesheets may only load reviewed local fonts, local SVG icons and local 
   const { files } = compileSite(root);
   const withCss = css => new Map(files).set('assets/css/fonts-check.css', css);
   assert.doesNotThrow(() => validateFiles(withCss('@font-face { font-family: "A"; src: url("../fonts/neodgm.woff2"); }')));
-  assert.doesNotThrow(() => validateFiles(withCss('a { border-image: url("../icons/marker.svg") 0 20 fill; }')));
+  assert.doesNotThrow(() => validateFiles(withCss('a { border-image: url("../icons/house.svg") 0 20 fill; }')));
   assert.doesNotThrow(() => validateFiles(withCss('a { background: url("../images/awards/paper.webp"); }')));
   for (const css of ['a { background: url("https://example.com/a.png"); }', 'a { background: url(../images/awards/missing.webp); }', 'a { background: url("../images/awards/paper.png"); }', 'a { background: url("../images/../css/home.css"); }', '@font-face { src: url("../fonts/missing.woff2"); }', '@font-face { src: url(\'../fonts/a"b.woff2\'); }', '@import "x.css";', 'a { background: url("../icons/missing.svg"); }', 'a { background: url("../icons/house.png"); }']) {
     assert.throws(() => validateFiles(withCss(css)), /외부 리소스|연결 대상/, css);
   }
   // An SVG is only a picture: anything that could run code or load something else is refused.
   for (const svg of ['<svg><script>alert(1)</script></svg>', '<svg onload="x()"/>', '<svg><a href="https://example.com"/></svg>', '<svg><foreignObject/></svg>', '<svg><image xlink:href="a.png"/></svg>']) {
-    assert.throws(() => validateFiles(new Map(files).set('assets/icons/marker.svg', svg)), /SVG에 허용되지 않는/, svg);
+    assert.throws(() => validateFiles(new Map(files).set('assets/icons/house.svg', svg)), /SVG에 허용되지 않는/, svg);
   }
 });
 
-test('section titles and award lines use the drawn highlighter stroke, not a flat band', () => {
+test('no highlighter stroke: no marker/hl markup or marker SVGs, and the award line keeps its text styling only', () => {
   const styles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
-  const stroke = fs.readFileSync(new URL('../public/assets/icons/marker.svg', import.meta.url), 'utf8');
-  assert.match(cssRule(styles, '.marker', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\) .*\bfill\b/);
-  assert.match(cssRule(styles, '.project-award', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
-  assert.doesNotMatch(styles, /var\(--marker\)/);
-  assert.match(stroke, /width="120" height="40"/);
-  // The intro's four key words get the same stroke in four colour steps, in sentence order.
-  const home = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
-  const words = ['아이디어', '프로토타입', '플레이', '재미'];
-  words.forEach((word, i) => {
-    assert.match(home, new RegExp(`<span class="marker marker-step-${i + 1}">${word}</span>`));
-    assert.match(cssRule(styles, `.marker-step-${i + 1}`, '*').get('border-image-source'), new RegExp(`^url\\(["']?\\.\\./icons/marker-step-${i + 1}\\.svg["']?\\)$`), word);
-    assert.ok(fs.existsSync(new URL(`../public/assets/icons/marker-step-${i + 1}.svg`, import.meta.url)));
-  });
+  const { files } = compileSite(root);
+  for (const [name, content] of files) {
+    if (name.endsWith('.html')) assert.doesNotMatch(String(content), /class="(marker|hl)/, name);
+    assert.doesNotMatch(name, /marker/, name);
+  }
+  assert.doesNotMatch(styles, /\.marker|border-image|marker.*\.svg/);
+  const award = cssRule(styles, '.project-award', '*');
+  assert.equal(award.get('border-image'), undefined);
+  assert.equal(award.get('font-weight'), '800');
 });
 
 test('the game screen moves only without a reduced-motion preference and goes back with a press, Esc, Enter or Space', () => {

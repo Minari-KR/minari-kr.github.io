@@ -33,20 +33,10 @@
 /* Sections: the largest gap separates sections; the title sits close to its content. */
 .section { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .section-title { margin: 0 0 var(--gap-actions); color: var(--ink); font-size: var(--text-project); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
-/* Highlighter stroke (assets/icons/marker.svg): border-image keeps the slanted pen ends (20 units, drawn .7em wide) and stretches
-   only the straight middle, so short and long titles get the same ends. One stroke per line if a title ever wraps. */
-.marker { padding: 0 .3em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-/* Key words inside the intro sentence: no padding so the particles stay attached; the stroke reaches past the word instead. */
-.intro-statement .marker { padding: 0; border-image-outset: 0 .15em; }
-/* The four key words step in the site green from lighter to deeper, in sentence order (아이디어 → 재미). */
-.marker-step-1 { border-image-source: url("../icons/marker-step-1.svg"); }
-.marker-step-2 { border-image-source: url("../icons/marker-step-2.svg"); }
-.marker-step-3 { border-image-source: url("../icons/marker-step-3.svg"); }
-.marker-step-4 { border-image-source: url("../icons/marker-step-4.svg"); }
 
 /* Awards (2026-10-27): four memo cards stuck onto the planning note (src/scripts/awards.js sticks them on a press or after a short
    quiet, one by one, and lets a mouse move them; the corners never curl). Memo paper with a faint dot grid and a strip of masking
-   tape; on the left the year, the award name on the site's highlighter stroke and the event, on the right a game sticker. 2 x 2
+   tape; on the left the year, the award name and the event, on the right a game sticker. 2 x 2
    (a card is at least 296px wide), one column on phones. The two long single words carry <wbr>. --lift grows the shadow. */
 @property --lift { syntax: "<number>"; inherits: true; initial-value: 0; }
 .award-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 296px), 1fr)); grid-auto-rows: 1fr; gap: 24px 16px; margin: 0; padding: 0; list-style: none; text-align: center; }
@@ -67,8 +57,8 @@
 /* Icon with three spark ticks above it: the middle one is the box's own background, the side ones are tilted pseudo-elements. */
 /* Game sticker on the right (Codex art, die-cut white border): it spans the three text lines and sits a little askew. */
 .award-sticker { grid-column: 2; grid-row: 1 / 4; display: block; width: var(--sticker); height: var(--sticker); rotate: var(--sticker-tilt, -6deg); filter: drop-shadow(0 2px 3px var(--shadow)); pointer-events: none; -webkit-user-drag: none; }
-/* The name sits on the same highlighter stroke as .project-award; the event is the quieter line; the year closes it as a small tag. */
-.award-name { display: block; grid-column: 1; justify-self: start; margin-inline-start: -.3em; max-width: 100%; font-size: var(--fs); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); white-space: nowrap; word-break: keep-all; }
+/* The event is the quieter line; the year closes it as a small tag. */
+.award-name { display: block; grid-column: 1; justify-self: start; max-width: 100%; font-size: var(--fs); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); white-space: nowrap; word-break: keep-all; }
 .award-event { grid-column: 1; color: var(--body-ink); font-size: max(12px, calc(var(--fs) * .85)); font-weight: 500; line-height: var(--line-compact); white-space: nowrap; word-break: keep-all; }
 .award-year { grid-column: 1; grid-row: 1; justify-self: start; color: var(--accent-deep); font-size: max(12px, calc(var(--fs) * .8)); font-weight: 800; line-height: 1.5; letter-spacing: .04em; }
 /* Before a card is stuck (script on, motion allowed) it is only transparent, never hidden, so screen readers and search still read it
@@ -91,7 +81,7 @@
 .project-meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .project-meta > span:not(.meta-sep) { white-space: nowrap; }
 .meta-sep { margin: 0 12px; color: var(--muted); font-weight: 500; } /* about 4.6:1 on white (2026-10-22, was .3 = 1.9:1) */
-.project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
+.project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
 /* The detail pages use the next two rules (their other core-* rules are in detail.css). */

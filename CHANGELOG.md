@@ -17,6 +17,7 @@
   - About Me: 배포본에서만 `about/index.html`과 홈의 About Me 링크를 뺌(`scripts/site.mjs`, 커밋 4e4e3b8, 푸시함).
   - `/games/` 새 페이지(소스 이름 `works`): 카드 7개(Reflectory, Barrel Good Barrel, 쭉쭉냥, Aiden & Magnus KartRider, ERZZ, Rio Idle, Chicken Fire), 썸네일을 누르면 `youtube-nocookie` iframe으로 그 자리 재생. 이 페이지만 CSP `frame-src` 허용. 홈 소개 아래 ‘만든 게임 모아 보기’ 버튼.
   - 상세 페이지(Reflectory·Barrel Good Barrel)의 MP4 영상을 뺌: `detail.video`를 없어도 되는 값으로, 틀의 영상 칸은 `{{media}}`로. MP4 파일은 그대로 둠.
+  - 형광펜 지우기(사용자 요청): 홈·About Me·상세·만든 게임 페이지의 모든 글에서 형광펜 자국과 그 코드·SVG 6개를 지움. 글과 배치는 그대로, About Me 글 흐림→또렷 효과는 남김. 검증 80개 통과, 500px 캡처로 홈·About Me 확인.
   - About Me 다시 공개(사용자 요청): 배포본에서 빼던 두 줄을 지움.
   - 안 쓰는 것 정리(사용자가 고름): 상세 영상 MP4 2개(약 20MB), 숨긴 게임 4개의 데이터·그림·`hiddenGameTitles`, 지운 `/pc/` 페이지의 경로 허용 규칙(`build.mjs`)을 지움. 게임 4개가 목록에서 빠지며 팩 색 순서가 밀려 배틀필드 6(회색→검정)·툼 레이더(보라→회색) 팩 색이 바뀜.
 - 사용자 선택: 영상은 ‘페이지 안에서 바로 재생’, 들어오는 길은 ‘홈 맨 위에 버튼 하나’.

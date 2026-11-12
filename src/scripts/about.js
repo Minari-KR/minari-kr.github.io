@@ -94,13 +94,10 @@
       status.textContent = `${tab.dataset.filter} ${picked.length}개: ${picked.map(slot => slot.querySelector('.inv-name').textContent).join(', ')}`;
     }));
   }
-  // Key phrases (.hl) in the body text: blur and fade the paragraph in once it enters the viewport, then sweep each phrase's stroke
-  // (CSS transitions, see about.css). .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
+  // Body text: blur and fade each paragraph in once it enters the viewport (CSS transitions, see about.css).
+  // .reveal is added here, so a failed script or reduced motion leaves everything finished and visible.
   if (!window.motionLoop.reduce.matches) {
     document.querySelectorAll('.about-text').forEach(text => {
-      const phrases = text.querySelectorAll('.hl');
-      if (!phrases.length) return;
-      phrases.forEach((phrase, i) => phrase.style.setProperty('--d', `${0.4 + i * 0.15}s`));
       text.classList.add('reveal');
       window.motionLoop({
         target: text,
@@ -108,17 +105,6 @@
         canPlay: () => !text.classList.contains('is-in'),
         tick: () => text.classList.add('is-in'),
       });
-    });
-    // Strokes wait 0.7s after the page is visible (after the first-visit intro layer is gone): count it with motionLoop, then arm the CSS.
-    let waited = 0;
-    window.motionLoop({
-      target: document.body,
-      canPlay: () => !document.documentElement.classList.contains('hl-armed'),
-      tick: dt => {
-        if (document.querySelector('[data-intro]')) return;
-        waited += dt;
-        if (waited >= 0.7) document.documentElement.classList.add('hl-armed');
-      },
     });
   }
 })();

@@ -1,4 +1,4 @@
-// /about/ scribbled ribbons ("Text Loop"): 5 long marker-stroke bands with text written along them, drawn across the whole screen BEHIND the white page box.
+// /about/ scribbled ribbons ("Text Loop"): 5 long brush-stroke bands with text written along them, drawn across the whole screen BEHIND the white page box.
 // Values follow the React Bits Text Loop idea (text on an SVG path that scrolls forever); the code is our own. The SVG is built here from fixed strings; without
 // this file the container stays empty. Layout is random per page load (one seed, reused on resize). Entry: each ribbon is drawn from its start to its end over
 // 1.6 s (Web Animations, no timers), 0.25 s apart, once the intro layer is gone. After that everything is still (the text does not move), so no motionLoop.

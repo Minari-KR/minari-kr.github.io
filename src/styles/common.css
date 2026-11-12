@@ -3,7 +3,7 @@
   /* Palette (every colour on the site comes from here; the LCD greens below and the game drawings in src/scripts are the only exceptions).
      Surfaces: --bg page grey, --paper white sheets/cards/buttons, --paper-warm memo and game-screen paper.
      Text: --ink (one dark text colour, --body-ink is its alias), --muted secondary, --on-accent text on green.
-     Greens: --accent-deep main, --accent-hover pressed, --accent-soft light fill, --marker highlighter, --tap tap flash.
+     Greens: --accent-deep main, --accent-hover pressed, --accent-soft light fill, --tap tap flash.
      Ink lines: --line rules and borders, --line-strong dashed rules and emphasised borders, --shadow drop shadows (--shadow-rgb for calc alpha). */
   --bg: #eceeea;
   --paper: #fff;
@@ -17,12 +17,11 @@
   --line-strong: rgba(var(--shadow-rgb), .28);
   --shadow: rgba(var(--shadow-rgb), .16);
   --accent-deep: #1f4f43;
-  /* Button press/hover tones of the accent, and the highlighter green (the marker*.svg files repeat #1f4f43: SVG pictures cannot read CSS values). */
+  /* Button press/hover tones of the accent. */
   --accent-hover: #163b32;
   --accent-soft: #dce8df;
   /* One step deeper than --accent-soft, for the hover of a soft-green area (text --accent-deep stays above 6:1). */
   --accent-soft-deep: #cddccf;
-  --marker: #1f4f43;
   --tap: rgba(31, 79, 67, .12);
   --text-meta: .84rem;
   --text-small: .94rem;
