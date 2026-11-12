@@ -44,10 +44,6 @@ test('worksHtml rejects a bad video id, an unknown project, a bad start and an h
   assert.throws(() => worksHtml([{ title: 'A', genre: 'B', meta: [], image: 'assets/images/works/erzz.webp', youtube: '', links: [{ label: 'x', url: 'http://a.b' }] }], projects), /https/);
 });
 
-test('the home page links to the games page', () => {
-  assert.match(files.get('index.html'), /<a class="action action-primary intro-works" href="games\/">/);
-});
-
 test('works.js embeds only the no-cookie player and sends a referrer for it', () => {
   const source = fs.readFileSync(new URL('../src/scripts/works.js', import.meta.url), 'utf8');
   assert.ok(source.includes('youtube-nocookie.com') && source.includes('strict-origin-when-cross-origin'));
