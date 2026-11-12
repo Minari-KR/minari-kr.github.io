@@ -10,7 +10,7 @@ import { root, cssRule } from './fixture.mjs';
 const template = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
 const homeStyles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
 const detailStyles = fs.readFileSync(new URL('../src/styles/detail.css', import.meta.url), 'utf8');
-const scripts = ['games.js', 'project-tabs.js', 'awards.js'].map(name => fs.readFileSync(new URL(`../src/scripts/${name}`, import.meta.url), 'utf8')).join('\n');
+const scripts = ['project-tabs.js', 'awards.js'].map(name => fs.readFileSync(new URL(`../src/scripts/${name}`, import.meta.url), 'utf8')).join('\n');
 
 test('intro has no contact buttons or clipboard code', () => {
   assert.doesNotMatch(template, /mailto:|minari-kr\.itch\.io\/"|intro-actions|email-copy|copy-status|email-actions/);
@@ -20,7 +20,7 @@ test('intro has no contact buttons or clipboard code', () => {
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
   assert.doesNotMatch(template, /class="intro"|intro-statement|intro-role|intro-school/); // the visible intro block was removed (2026-11-12)
-  const order = ['<h1 class="sr-only" id="intro-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="games-title"'];
+  const order = ['<h1 class="sr-only" id="intro-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"'];
   // The project cards are generated, so the order is read from the built page.
   const built = compileSite(root).files.get('index.html');
   const positions = order.map(marker => built.indexOf(marker));
@@ -125,16 +125,14 @@ test('projects open their own pages without JavaScript, and the page has no back
   assert.doesNotMatch(template, /back-to-top|home-actions|circle-arrow-up/);
 });
 
-test('the home page ends projects -> games and no longer has the AI collaboration section', () => {
-  const order = ['id="projects-title"', 'id="games-title"'].map(marker => template.indexOf(marker));
-  assert.ok(order.every(position => position >= 0) && order[0] < order[1], String(order));
+test('the home page ends with the projects and no longer has the AI collaboration section', () => {
   const built = compileSite(root).files.get('index.html');
-  assert.doesNotMatch(built, /id="ai-party|ai-party\.(css|js)|pixelarticons|ap-cursor/);
+  assert.ok(built.indexOf('id="projects-title"') > 0);
+  assert.doesNotMatch(built, /id="ai-party|ai-party\.(css|js)|pixelarticons|ap-cursor|id="games-title"/);
   // The page loads the shared loop first (it alone knows reduced motion, the viewport and the hidden tab).
   const loopAt = built.indexOf('assets/js/motion-loop.js');
-  assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/games.js'));
+  assert.ok(loopAt > 0 && loopAt < built.indexOf('assets/js/project-tabs.js'));
 });
-
 test('home and About Me have a first-visit glass intro layer of every game with an image, driven by a timer-free script', () => {
   const files = compileSite(root).files;
   const wanted = games.filter(game => game.image).map(game => game.image);
@@ -151,7 +149,7 @@ test('home and About Me have a first-visit glass intro layer of every game with 
   }
   const home = files.get('index.html'), about = files.get('about/index.html');
   assert.ok(home.indexOf('data-scroll-exit="top"') < home.indexOf('data-intro hidden'));
-  assert.ok(home.indexOf('assets/css/games.css') < home.indexOf('assets/css/intro.css'));
+  assert.ok(about.indexOf('assets/css/games.css') < about.indexOf('assets/css/intro.css'));
   assert.ok(about.indexOf('assets/css/about.css') < about.indexOf('assets/css/intro.css'));
   for (const name of ['projects/reflectory.html', 'projects/barrel-good-barrel.html']) assert.doesNotMatch(files.get(name), /data-intro|intro.(js|css)/, name);
   const css = fs.readFileSync(path.join(root, 'src/styles/intro.css'), 'utf8');

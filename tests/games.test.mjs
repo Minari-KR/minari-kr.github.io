@@ -33,25 +33,26 @@ test('game packs reject a missing title, an unknown shell, non-text fields and p
   }
 });
 
-test('the game-play section closes the page: a small game screen of cartridges and a record view', () => {
+test('the game-play section sits on About Me between the taste and the tools: a small game screen of cartridges and a record view', () => {
   const { files, publicFiles } = compileSite(root);
-  const home = files.get('index.html');
+  const home = files.get('about/index.html');
+  assert.doesNotMatch(files.get('index.html'), /id="games"|games\.(css|js)/); // moved off the home page (2026-11-13)
   // It is the last section, after the projects and the awards (the release app, when there is one, sits right under
   // the intro: release.test.mjs); the site is still the portfolio alone.
-  for (const earlier of ['</header>', 'id="projects"', 'id="awards"']) assert.ok(home.indexOf(earlier) < home.indexOf('id="games"'), earlier);
-  assert.ok(home.indexOf('id="games"') < home.indexOf('</main>'));
+  assert.ok(home.indexOf('id="taste"') < home.indexOf('id="games"') && home.indexOf('id="games"') < home.indexOf('id="tools"'));
+  assert.match(home, /<img class="pack-shell is-gray" src="\.\.\/assets\/images\/packs\/shell-gray\.webp"/);
   assert.match(home, /<h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험<\/span><\/h2>/);
   assert.match(home, /<div class="gs" data-game-screen data-state="select">/);
   assert.equal((home.match(/<button class="pack" /g) || []).length, games.length);
   assert.match(home, /assets\/css\/games\.css\?v=[a-f0-9]{12}/);
-  assert.match(home, /<script src="\.\/assets\/js\/games\.js\?v=[a-f0-9]{12}" defer><\/script>/);
+  assert.match(home, /<script src="\.\.\/assets\/js\/games\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   for (const name of ['portfolio.html', 'assets/js/prologue.js', 'assets/js/veil.js', 'assets/js/three.js']) assert.ok(!publicFiles.has(name), name);
   // The cartridge shells, the pixel font and its licence are published with the page.
   for (const color of ['gray', 'yellow', 'purple', 'black']) assert.ok(publicFiles.has(`assets/images/packs/shell-${color}.webp`), color);
   assert.ok(publicFiles.has('assets/fonts/neodgm.woff2') && publicFiles.has('assets/fonts/neodgm-ofl.txt'));
   assert.match(home, /font-src 'self' https:\/\/fonts\.gstatic\.com;/);
   // Tab titles: the portfolio's and each project's.
-  assert.match(home, /<title>박종찬 \| Game Designer Portfolio<\/title>/);
+  assert.match(files.get('index.html'), /<title>박종찬 \| Game Designer Portfolio<\/title>/);
   assert.match(files.get('projects/reflectory.html'), /<title>Reflectory \| 박종찬<\/title>/);
 });
 
@@ -91,7 +92,7 @@ test('the game screen moves only without a reduced-motion preference and goes ba
   const styles = read('src/styles/games.css');
   const script = read('src/scripts/games.js');
   const flow = read('src/scripts/flow-row.js');
-  const template = read('src/templates/home.html');
+  const template = read('src/templates/about.html');
   const rules = parseCss(styles);
   const calm = rule => rule.context.includes('prefers-reduced-motion: no-preference');
   for (const name of ['gs-blink', 'gs-fade', 'gs-bob']) {
@@ -106,7 +107,7 @@ test('the game screen moves only without a reduced-motion preference and goes ba
   // No back button: a press anywhere on the record, Esc, Enter or Space returns.
   assert.match(script, /detail\.addEventListener\(\s*['"]click['"]\s*,\s*close\b/);
   assert.match(script, /\[\s*['"]Escape['"]\s*,\s*['"]Enter['"]\s*,\s*['"] ['"]\s*\]\.includes\(\s*event\.key/);
-  assert.match(compileSite(root).files.get('index.html'), /<p class="gs-exit">화면을 누르면 돌아가요<\/p>/);
+  assert.match(compileSite(root).files.get('about/index.html'), /<p class="gs-exit">화면을 누르면 돌아가요<\/p>/);
   // Rows never stop on hover. "탄성 카트리지": a caught row brakes, a thrown one glides back into its flow and never rests;
   // cartridges lean while a row runs off its flow and wobble back on a spring. Only keyboard focus eases a row to a stop.
   assert.ok(!parseCss(styles).some(rule => /\.pack-row:hover \.pack-track|:focus-within \.pack-track|gs-flow/.test(rule.selector + rule.context)));

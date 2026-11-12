@@ -28,7 +28,6 @@ export function compileSite(root) {
     social: socialMeta({ title: homeTitle, description: homeDescription }),
     release_section: releaseSection(template('release.html'), release),
     intro: introHtml(games),
-    game_packs: gamePacks(games),
     project_tabs: projectTabs(projects),
     project_cards: projectCards(projects)
   }));
@@ -39,6 +38,7 @@ export function compileSite(root) {
     social: socialMeta({ title: aboutTitle, description: aboutDescription, page: 'about/' }),
     tool_groups: toolGroupsHtml(toolGroups, logoExists(root)),
     spiral: spiralHtml(games),
+    game_packs: gamePacks(games, '..'),
     intro: introHtml(games, '..')
   }));
   // The page is games/ but its source names say "works": games.* already belongs to the "games I played" feature.

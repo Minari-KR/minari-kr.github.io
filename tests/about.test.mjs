@@ -28,9 +28,10 @@ test('about page is standalone: one h1, sections in order, one hidden way to the
   assert.equal(files.get('index.html').match(/href="[^"]*about\//g).length, 1);
   assert.doesNotMatch(page, /index\.html|projects\/|mailto:|tel:|https:\/\/(?!fonts\.g|minari-kr\.github\.io\/)/);
   const scripts = tags.filter(({ tag }) => tag === 'script').map(({ attributes }) => attributes.src.replace(/\?v=[a-f0-9]{12}$/, ''));
-  assert.deepEqual(scripts, ['../assets/js/intro-gate.js', '../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/text-loop.js', '../assets/js/about.js']);
+  assert.deepEqual(scripts, ['../assets/js/intro-gate.js', '../assets/js/motion-loop.js', '../assets/js/intro.js', '../assets/js/scroll-exit.js', '../assets/js/text-loop.js', '../assets/js/flow-row.js', '../assets/js/games.js', '../assets/js/about.js']);
   // Specific skills live in the portfolio, so the stat window, the work cards and the game packs are gone.
-  assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games|class="pack/);
+  assert.doesNotMatch(page, /id="(stats|work)-title"|data-about-stats|data-work|data-top-games/);
+  assert.doesNotMatch(page, /class="hl"|hl-armed|marker-body/); // no highlighter in the body text (2026-11-13); section titles keep theirs
   assert.doesNotMatch(page, /마스터즈|이터니티|7,000시간/);
   // The profile illustration sits in the 소개 section, with its words as alt text.
   assert.match(page, /id="about-title"[\s\S]*<img class="about-profile" src="\.\.\/assets\/images\/about\/profile\.webp" width="400" height="400" alt="[^"]+">[\s\S]*id="taste-title"/);
@@ -126,27 +127,6 @@ test('about.js drives the spiral through motionLoop and uses no timers or frame 
   assert.match(source, /motionLoop\(/);
   assert.doesNotMatch(source, /setTimeout|setInterval|requestAnimationFrame|IntersectionObserver|visibilitychange|matchMedia/);
   assert.doesNotMatch(source, /innerHTML/);
-});
-
-test('the 14 key phrases in the About Me body text are wrapped in .hl, with no markup beyond the span', () => {
-  const phrases = ['부산 지스타', '자부심', '즐거움을 전하는 일', '구상을 빠르게 구현', '함께 바라보는 방향', '세계관에 더 깊이 몰입', '다채로운 세계를 직접 경험하는 즐거움', '시각 요소', '같은 결로 맞물리는지', '깊은 몰입', '해결할 문제를 먼저 정의', '목표를 분명히', '끝까지 직접 확인', '최종 결정'];
-  assert.deepEqual([...page.matchAll(/<span class="hl">([^<]+)<\/span>/g)].map(match => match[1]), phrases);
-  assert.equal((page.match(/class="hl"/g) || []).length, phrases.length);
-  // Only body paragraphs carry them; the school sentence has none and the section titles keep their static .marker.
-  assert.equal([...page.matchAll(/<p class="about-text">((?:(?!<\/p>)[\s\S])*?class="hl"[\s\S]*?)<\/p>/g)].length, 5);
-  assert.doesNotMatch(page, /우송대학교[^<]*<span class="hl"/);
-  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
-  assert.match(css, /\.hl \{[^}]*marker-body\.svg[^}]*box-decoration-break: clone/);
-  assert.match(css, /@media \(prefers-reduced-motion: no-preference\) \{[^@]*\.about-text\.reveal \{[^}]*blur\(8px\)/);
-  assert.equal(css.split('.reveal').length - 1, css.split('@media (prefers-reduced-motion: no-preference) {').slice(1).join('').split('.reveal').length - 1);
-  assert.match(fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8'), /motionLoop\.reduce\.matches[\s\S]*classList\.add\('reveal'\)[\s\S]*motionLoop\(/);
-  // Strokes wait 0.7s (counted by motionLoop, only once no [data-intro] layer is left), gated in CSS by .hl-armed; the blur-in is not gated.
-  const js = fs.readFileSync(path.join(root, 'src/scripts/about.js'), 'utf8');
-  assert.match(js, /querySelector\('\[data-intro\]'\)\) return;\s*waited \+= dt;\s*if \(waited >= 0\.7\) document\.documentElement\.classList\.add\('hl-armed'\)/);
-  assert.match(css, /\.hl-armed \.about-text\.reveal\.is-in \.hl \{ background-size: 100% 100%/);
-  assert.doesNotMatch(css, /^ +.about-text\.reveal\.is-in \.hl/m);
-  assert.match(css, /\.about-text\.reveal\.is-in \{ opacity: 1; filter: none; \}/);
-  assert.match(fs.readFileSync(path.join(root, 'public/assets/icons/marker-body.svg'), 'utf8'), /fill-opacity="\.25"/);
 });
 
 test('about.js leaves the scroll exit to scroll-exit.js, which the page link asks for with data-scroll-exit="bottom"', () => {
