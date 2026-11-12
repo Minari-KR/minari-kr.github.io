@@ -14,7 +14,7 @@ const page = files.get('about/index.html');
 const tags = readHtmlTags(page);
 
 test('about page is standalone: one h1, sections in order, one hidden way to the portfolio, only its own scripts', () => {
-  assert.ok(publicFiles.has('about/index.html'));
+  assert.ok(!publicFiles.has('about/index.html')); // About Me is not published for now
   assert.equal(tags.filter(({ tag }) => tag === 'h1').length, 1);
   assert.match(page, /<header class="intro about-intro" id="intro">\s*<h1 id="intro-title" tabindex="-1"><span class="about-title">About Me<\/span> <span class="about-role">박종찬 /);
   const order = ['intro-title', 'about-title', 'taste-title', 'tools-title'].map(id => page.indexOf(`id="${id}"`));

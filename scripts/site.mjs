@@ -75,7 +75,9 @@ export function compileSite(root) {
   }
   versionAssets(files);
   files.set('.nojekyll', '');
-  const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/css/preview-frame.css', 'assets/js/preview.js'].includes(name)));
+  // About Me is kept locally but not published for now: drop its page and the home link to it (scroll-exit.js does nothing without the link).
+  const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/css/preview-frame.css', 'assets/js/preview.js', 'about/index.html'].includes(name)));
+  publicFiles.set('index.html', files.get('index.html').replace(/^.*data-scroll-exit="top".*\n/m, ''));
   validateFiles(files);
   validateFiles(publicFiles);
   return { files, publicFiles };
