@@ -4,13 +4,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
-import { root, fixture, copyFixtureTree, imageBytes } from './fixture.mjs';
+import { root, fixture, copyFixtureTree, imageBytes, addVideo } from './fixture.mjs';
 
 test('media collection and link validation use the same attribute rules', t => {
   const dir = fixture(t);
   const home = path.join(dir, 'src/templates/home.html');
   const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/images/awards/', "SRC='./assets/images/awards/").replace(/(SRC='[^"\n]+)"/g, "$1'");
-  fs.writeFileSync(home, source.replace('src="./assets/videos/reflectory-gameplay.mp4"', "SRC='./assets/videos/reflectory-gameplay.mp4'"));
+  fs.writeFileSync(home, source);
+  addVideo(dir, "SRC='./assets/videos/reflectory-gameplay.mp4'");
   const result = compileSite(dir);
   for (const name of ['assets/images/awards/sticker-paimon.webp', 'assets/images/awards/sticker-creeper.webp', 'assets/videos/reflectory-gameplay.mp4']) {
     assert.ok(result.publicFiles.get(name).equals(fs.readFileSync(path.join(dir, 'public', name))));
@@ -26,8 +27,8 @@ test('removed photos stay unpublished and full-size paths are validated', () => 
     assert.equal(publicFiles.has(`assets/images/${removed}`), false);
   }
   for (const replaced of ['cards/reflectory-gameplay.webp', 'barrel-good-barrel-poster.webp']) assert.equal(publicFiles.has(`assets/images/${replaced}`), false);
-  assert.match(publicFiles.get('projects/reflectory.html'), /poster="\.\.\/assets\/images\/cards\/reflectory-title\.webp"/);
-  assert.match(publicFiles.get('projects/barrel-good-barrel.html'), /poster="\.\.\/assets\/images\/cards\/barrel-good-barrel-title\.webp"/);
+  // The detail pages' videos were taken out on 2026-11-12 (user request).
+  for (const slug of ['reflectory', 'barrel-good-barrel']) assert.doesNotMatch(publicFiles.get(`projects/${slug}.html`), /<video/);
   assert.ok(publicFiles.has('assets/images/cards/reflectory-title.webp'));
   assert.ok(publicFiles.has('assets/images/cards/barrel-good-barrel-title.webp'));
   for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/project-tabs.js']) {
@@ -49,6 +50,7 @@ test('missing image and fake raster file fail before output is written', t => {
 
 test('published video is copied unchanged and unreferenced video is excluded', t => {
   const dir = fixture(t);
+  addVideo(dir);
   const videos = path.join(dir, 'public/assets/videos');
   const original = fs.readFileSync(path.join(videos, 'reflectory-gameplay.mp4'));
   fs.writeFileSync(path.join(videos, 'unused.mp4'), original);
@@ -61,6 +63,7 @@ test('published video is copied unchanged and unreferenced video is excluded', t
 
 test('video type and size are checked before publishing', t => {
   const dir = fixture(t);
+  addVideo(dir);
   const video = path.join(dir, 'public/assets/videos/reflectory-gameplay.mp4');
   fs.writeFileSync(video, 'version https://git-lfs.github.com/spec/v1\noid sha256:' + '0'.repeat(64) + '\nsize 1000\n');
   assert.throws(() => compileSite(dir), /LFS 실제 영상/);

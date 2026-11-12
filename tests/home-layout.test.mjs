@@ -109,7 +109,7 @@ test('projects open their own pages without JavaScript, and the page has no back
     const page = files.get(`projects/${slug}.html`);
     assert.match(page, /class="home-link" href="\.\.\/index\.html#projects"/);
     assert.match(page, /<p class="project-award">[^<]+<\/p>/);
-    assert.match(page, /<video controls playsinline preload="none"/);
+    assert.doesNotMatch(page, /<video/); // the page videos were taken out on 2026-11-12 (user request)
     assert.match(page, /class="play-link" href="https:\/\/minari-kr\.itch\.io\/[a-z-]+" target="_blank" rel="noopener noreferrer"/);
   }
   // The solo fan game (2026-10-16) has no page of its own: its only button, the primary one, opens the YouTube video in a new

@@ -38,6 +38,13 @@ export function fixture(t) {
   return directory;
 }
 
+// No page shows a video for now (taken out 2026-11-12), so tests of the video rules put one on the fixture's home page.
+export function addVideo(dir, attribute = 'src="./assets/videos/reflectory-gameplay.mp4"') {
+  const home = path.join(dir, 'src/templates/home.html');
+  fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', `<video ${attribute}></video>
+</main>`));
+}
+
 export const imageBytes = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3i8AAAAASUVORK5CYII=', 'base64');
 
 const squash = text => text.replace(/\s+/g, ' ').trim();

@@ -24,12 +24,7 @@
       <p class="project-genre">{{genre}}</p>
       <h1 translate="no">{{title}}</h1>
       <p class="project-meta">{{meta}}</p>
-{{awards}}      <figure class="project-media">
-        <video controls playsinline preload="none" width="{{video_width}}" height="{{video_height}}" poster="../{{poster}}" src="../{{video_src}}" aria-label="{{video_label}}">
-          <a href="../{{video_src}}">{{video_label}} 열기</a>
-        </video>
-      </figure>
-      <a class="play-link" href="{{play_url}}" target="_blank" rel="noopener noreferrer"><span translate="no">{{title}}</span> {{play_label}}</a>
+{{awards}}{{media}}      <a class="play-link" href="{{play_url}}" target="_blank" rel="noopener noreferrer"><span translate="no">{{title}}</span> {{play_label}}</a>
 {{body}}    </article>
   </main>
   <script src="../assets/js/motion-loop.js" defer></script>

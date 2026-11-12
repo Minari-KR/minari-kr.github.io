@@ -4,8 +4,9 @@ import { readHtmlTags, resourceReferences } from './html.mjs';
 import { assetVersion } from './assets.mjs';
 import { socialTarget } from './social.mjs';
 
-export function securityMeta(preview = false) {
-  const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (preview ? "'self'" : "'none'");
+// preview: the mobile preview frames the site itself; youtube: only the /games/ page embeds the (no-cookie) YouTube player.
+export function securityMeta(preview = false, youtube = false) {
+  const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (youtube ? 'https://www.youtube-nocookie.com' : preview ? "'self'" : "'none'");
   return `<meta http-equiv="Content-Security-Policy" content="${policy}">\n  <meta name="referrer" content="no-referrer">` + (preview ? '\n  <meta name="robots" content="noindex, nofollow">' : '');
 }
 
@@ -59,13 +60,13 @@ export function validateFiles(files) {
     for (const { tag, attributes } of tags) {
       if (Object.hasOwn(attributes, 'srcset')) throw new Error(`srcset 리소스는 별도 검토가 필요합니다: ${name}`);
       // Pages at the root load ./assets/js; project detail pages, one folder down, load the same folder through ../ only.
-      const scriptPath = /^(?:projects|about)\/[^/]+$/.test(name) ? /^\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/;
+      const scriptPath = /^(?:projects|about|games)\/[^/]+$/.test(name) ? /^\.\.\/assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/ : /^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/;
       if (tag === 'script' && !scriptPath.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
     }
     for (const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)) {
       if (m[2].trim()) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
     }
-    if (!html.includes(securityMeta(name === 'mobile-preview.html'))) throw new Error(`보안 정책이 누락되었거나 변경됐습니다: ${name}`);
+    if (!html.includes(securityMeta(name === 'mobile-preview.html', name === 'games/index.html'))) throw new Error(`보안 정책이 누락되었거나 변경됐습니다: ${name}`);
     if (html.indexOf('Content-Security-Policy') > html.indexOf('<link')) throw new Error(`보안 정책은 리소스보다 먼저 선언해야 합니다: ${name}`);
     for (const { tag, attributes, attribute, ref } of resourceReferences(pages.get(name))) {
       if (tag === 'meta') {

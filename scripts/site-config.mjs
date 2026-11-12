@@ -19,7 +19,7 @@ export const homeDescription = '아이디어를 프로토타입으로 만들고,
 //   awards       highlighted lines under the info line (0-2)
 //   image        card and tab picture (960×540), also the poster of the detail page video
 //   actions      home card buttons in order: no url = the project's own page; primary = green button
-//   detail       only for projects with a page (without it the project gets no page): video { src, width, height, label }, scripts
+//   detail       only for projects with a page (without it the project gets no page): optional video { src, width, height, label }, scripts
 //                (page scripts after motion-loop.js, names in assets/js/), body in src/templates/projects/<slug>.html.
 //                The play link under the video repeats the first button with a url; the video's aria text is "<title> <label>".
 //   description  share text of the detail page (a project without a page needs none)
@@ -34,7 +34,7 @@ export const projects = [
     image: 'assets/images/cards/reflectory-title.webp',
     actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/reflectory' }],
     detail: {
-      video: { src: 'assets/videos/reflectory-gameplay.mp4', width: 1910, height: 1078, label: '플레이 영상' },
+      // video taken out 2026-11-12 (user request); the MP4 stays in public/assets/videos: { src: 'assets/videos/reflectory-gameplay.mp4', width: 1910, height: 1078, label: '플레이 영상' }
       scripts: ['reflectory-core', 'reflectory-augments', 'reflectory-systems'],
     },
     description: '2026 대전 인디(inD) 게임잼 국가수리과학연구소장상 수상작으로, 4인 팀에서 기획과 팀장을 맡은 퍼즐 디펜스 게임입니다.',
@@ -49,7 +49,7 @@ export const projects = [
     image: 'assets/images/cards/barrel-good-barrel-title.webp',
     actions: [{ label: '자세히 보기', primary: true }, { label: '플레이하기', url: 'https://minari-kr.itch.io/barrel-good-barrel' }],
     detail: {
-      video: { src: 'assets/videos/barrel-good-barrel-gameplay.mp4', width: 1920, height: 1080, label: '플레이 영상' },
+      // video taken out 2026-11-12 (user request): { src: 'assets/videos/barrel-good-barrel-gameplay.mp4', width: 1920, height: 1080, label: '플레이 영상' }
       scripts: ['bgb-loadout', 'bgb-systems'],
     },
     description: '2025 대전 게임 브릿지 대상 수상작으로, 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탄막 슈팅 로그라이크 게임입니다.',
@@ -64,6 +64,22 @@ export const projects = [
     image: 'assets/images/cards/aiden-magnus-kartrider-title.webp',
     actions: [{ label: '플레이 영상', url: 'https://www.youtube.com/watch?v=RrdQxWXoZO4&t=35s', primary: true }],
   },
+];
+// The standalone /games/ page: the games the owner made, one card each (names say "works" because games.* is the "games I played" feature).
+// An entry is { project, youtube, start? } (title, genre, meta, awards, image and links come from that `projects` entry) or
+// { title, genre, meta, image, youtube, start?, links? } for a game without one (links: [{ label, url }], https only).
+//   youtube  11-character video id, or '' while there is no video (the card then shows only its picture)
+//   start    optional second to start the video at
+export const worksTitle = '만든 게임 | 박종찬';
+export const worksDescription = '박종찬이 만든 게임을 플레이 영상과 함께 모았습니다.';
+export const works = [
+  { project: 'reflectory', youtube: '' },
+  { project: 'barrel-good-barrel', youtube: '' },
+  { title: '쭉쭉냥 : 고양이 퍼즐', genre: '퍼즐', meta: ['Android', '1인 개발'], image: 'assets/images/works/zzukzzuk-nyang.webp', youtube: '', links: [{ label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang' }] },
+  { project: 'aiden-magnus-kartrider', youtube: 'RrdQxWXoZO4', start: 35 },
+  { title: 'ERZZ', genre: '3인칭 액션', meta: ['2차 창작 팬게임'], image: 'assets/images/works/erzz.webp', youtube: '' },
+  { title: 'Rio Idle', genre: '방치형', meta: ['2차 창작 팬게임'], image: 'assets/images/works/rio-idle.webp', youtube: '' },
+  { title: 'Chicken Fire', genre: '생존 액션', meta: [], image: 'assets/images/works/chicken-fire.webp', youtube: '' },
 ];
 export const shareImageAlt = '게임 디자이너 박종찬(Minari)의 포트폴리오입니다. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
 

@@ -24,6 +24,7 @@
 .intro-school { margin: var(--gap-tight) 0 0; color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); }
 .intro-statement { max-width: 30em; margin: 16px auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
 .summary-line { display: block; }
+.intro-works { margin-top: var(--gap-block); }
 
 /* Buttons used for play links */
 .action { display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-group); min-height: 52px; padding: 0 24px; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--paper); color: var(--ink); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); text-decoration: none; white-space: nowrap; }
@@ -147,6 +148,7 @@
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .award-sheet { --sticker: 88px; }
   .project-actions .action { flex: 1 1 0; }
+  .intro-works { display: flex; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .action, .release-link { transition: var(--action-transition); }

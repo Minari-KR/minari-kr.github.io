@@ -6,7 +6,8 @@ import { addReferencedMedia } from './media.mjs';
 import { versionAssets } from './assets.mjs';
 import { checkSecrets, securityMeta, validateFiles } from './validation.mjs';
 import { socialMeta } from './social.mjs';
-import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
+import { aboutTitle, aboutDescription, homeTitle, homeDescription, projects, release, games, works, worksTitle, worksDescription } from './site-config.mjs';
+import { worksHtml } from './works.mjs';
 import { releaseSection } from './release.mjs';
 import { gamePacks } from './games.mjs';
 import { toolGroups, toolGroupsHtml, logoExists, spiralHtml, introHtml } from './about.mjs';
@@ -39,6 +40,14 @@ export function compileSite(root) {
     tool_groups: toolGroupsHtml(toolGroups, logoExists(root)),
     spiral: spiralHtml(games),
     intro: introHtml(games, '..')
+  }));
+  // The page is games/ but its source names say "works": games.* already belongs to the "games I played" feature.
+  files.set('games/index.html', fillTemplate(template('works.html'), {
+    security: securityMeta(false, true),
+    page_title: escapeHtml(worksTitle),
+    page_description: escapeHtml(worksDescription),
+    social: socialMeta({ title: worksTitle, description: worksDescription, page: 'games/' }),
+    works: worksHtml(works, projects)
   }));
   // Only a project with `detail` gets a page: the shared frame plus that project's own body.
   const pages = projects.filter(project => project.detail);

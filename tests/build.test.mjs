@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { root, fixture, copyFixtureTree } from './fixture.mjs';
+import { root, fixture, copyFixtureTree, addVideo } from './fixture.mjs';
 
 test('unknown output files stop build and check without deleting files or overwriting pages', t => {
   for (const name of ['projects/old.html', 'assets/css/manual.css', 'dist/private.txt']) {
@@ -55,6 +55,7 @@ test('generated-file manifest cannot delete source through a parent path', t => 
 
 test('rebuilding preserves unchanged file timestamps and repairs changed output', t => {
   const dir = fixture(t);
+  addVideo(dir);
   copyFixtureTree(path.join(root, 'scripts'), path.join(dir, 'scripts'));
   const build = (...args) => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs'), ...args], { stdio: 'pipe' });
   build();

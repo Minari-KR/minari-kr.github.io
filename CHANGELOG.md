@@ -4,12 +4,23 @@
 
 2026-10-19 이전 항목은 [`docs/CHANGELOG-2026-10-19까지.md`](docs/CHANGELOG-2026-10-19까지.md)로 옮겼습니다(내용은 그대로).
 
-## 지금 상황 (2026-10-29, Claude)
+## 지금 상황 (2026-11-12, Claude)
 
-- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험, 그리고 `/about/`(링크트리 ‘어필’). 홈 맨 위와 About Me 맨 아래에서 한 번 더 스크롤하면 서로 넘어감.
-- **배포 전에 채울 임시 문구:** 수상 본문 4개·펼침 칸 ‘자료 준비 중’, About Me 제목·소제목·본문 2개. 도트 초상화 시안 3장(`D:\GPT_생성물\이미지\2026-10-29_도트초상화\`)은 사용자가 쓰지 않기로 함.
-- **남은 일(사용자 자료 대기):** Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장(사용자가 직접 쓸 한두 문장).
-- **확인 못 한 것:** 실제 휴대폰에서 인트로 끝 깜빡임이 사라졌는지, 링크트리 앱 안에서 보기, 휴대폰 손가락 밀기(About Me 넘어가기·프로젝트 카드).
+- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험. About Me(`/about/`)는 배포에서 빠져 있음(로컬에만).
+- **아직 푸시 안 한 것:** 만든 게임 페이지(`/games/`)와 홈 버튼, 상세 페이지 영상 빼기.
+- **남은 일(사용자 자료 대기):** 만든 게임 페이지의 유튜브 링크(쭉쭉냥·ERZZ·Rio Idle)와 썸네일 교체, 넣을 게임 목록 확정, Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장.
+- **확인 못 한 것:** 실제 휴대폰에서 유튜브 재생, 인트로 끝 깜빡임, 링크트리 앱 안에서 보기.
+
+## 2026-11-12 — 만든 게임 페이지 추가, About Me 비공개, 상세 영상 빼기 (Claude, 코드 Sonnet)
+
+- 요청: (1) About Me를 GitHub에서 못 보게. (2) 내일 행사에서 휴대폰으로 보여 줄 ‘만든 게임 목록’ 페이지, 유튜브 영상이 페이지 안에서 바로 재생. (3) 영상 파일로 직접 넣은 것들은 일단 빼기.
+- 변경:
+  - About Me: 배포본에서만 `about/index.html`과 홈의 About Me 링크를 뺌(`scripts/site.mjs`, 커밋 4e4e3b8, 푸시함).
+  - `/games/` 새 페이지(소스 이름 `works`): 카드 7개(Reflectory, Barrel Good Barrel, 쭉쭉냥, Aiden & Magnus KartRider, ERZZ, Rio Idle, Chicken Fire), 썸네일을 누르면 `youtube-nocookie` iframe으로 그 자리 재생. 이 페이지만 CSP `frame-src` 허용. 홈 소개 아래 ‘만든 게임 모아 보기’ 버튼.
+  - 상세 페이지(Reflectory·Barrel Good Barrel)의 MP4 영상을 뺌: `detail.video`를 없어도 되는 값으로, 틀의 영상 칸은 `{{media}}`로. MP4 파일은 그대로 둠.
+- 사용자 선택: 영상은 ‘페이지 안에서 바로 재생’, 들어오는 길은 ‘홈 맨 위에 버튼 하나’.
+- 검증: build·verify 통과(81개, 실패 0), 배포 파일 115개. 로컬 서버 + 헤드리스 Chrome으로 KartRider 카드를 눌러 그 자리 재생 확인. 320·390(틀 안)·1280px 캡처 확인.
+- 남은 일: 영상 링크는 KartRider 하나만 연결됨(쭉쭉냥·ERZZ·Rio Idle 링크 대기). 쭉쭉냥·ERZZ·Rio Idle·Chicken Fire 썸네일은 보관 폴더 캡처로 넣은 임시 그림. 실제 휴대폰 재생은 확인 못 함.
 
 ## 2026-11-03 — PC 전용 페이지 삭제 (Claude, 코드 Sonnet)
 

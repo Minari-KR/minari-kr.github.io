@@ -36,13 +36,13 @@ export function validateProjects(projects) {
     if (!detail) continue;
     if (!isText(project.description)) throw bad('description');
     const { video, scripts } = detail;
-    if (!/^assets\/videos\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.mp4$/.test(video?.src) || !isCount(video.width) || !isCount(video.height) || !isText(video.label)) throw bad('detail.video');
+    if (video !== undefined && (!/^assets\/videos\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.mp4$/.test(video?.src) || !isCount(video.width) || !isCount(video.height) || !isText(video.label))) throw bad('detail.video');
     if (!Array.isArray(scripts) || !scripts.every(name => /^[a-z-]+$/.test(name))) throw bad('detail.scripts');
     if (!project.actions.some(action => action.url)) throw bad('플레이 링크(url이 있는 버튼)');
   }
 }
 
-const metaLine = (project, period) => [
+export const metaLine = (project, period) => [
   ...project.meta.map(part => `<span>${escapeHtml(part)}</span>`),
   ...(period ? [`<span class="project-period"><span class="period-badge"><img src="../assets/icons/calendar.svg" width="16" height="16" alt="" aria-hidden="true"><span class="period-label">개발 기간</span><time datetime="${escapeHtml(period.start.datetime)}">${escapeHtml(period.start.text)}</time> ~ <time datetime="${escapeHtml(period.end.datetime)}">${escapeHtml(period.end.text)}</time></span></span>`] : []),
 ].join(SEPARATOR);
@@ -85,11 +85,13 @@ export function detailValues(project) {
     genre: escapeHtml(project.genre),
     meta: metaLine(project, project.period),
     awards: project.awards.map(award => `      <p class="project-award">${escapeHtml(award)}</p>\n`).join(''),
-    video_width: String(video.width),
-    video_height: String(video.height),
-    video_src: escapeHtml(video.src),
-    video_label: escapeHtml(`${project.title} ${video.label}`),
-    poster: escapeHtml(project.image),
+    // A project without a video shows no player; the card picture is the poster.
+    media: video ? `      <figure class="project-media">
+        <video controls playsinline preload="none" width="${video.width}" height="${video.height}" poster="../${escapeHtml(project.image)}" src="../${escapeHtml(video.src)}" aria-label="${escapeHtml(`${project.title} ${video.label}`)}">
+          <a href="../${escapeHtml(video.src)}">${escapeHtml(`${project.title} ${video.label}`)} 열기</a>
+        </video>
+      </figure>
+` : '',
     play_url: escapeHtml(play.url),
     play_label: escapeHtml(play.label),
     scripts: scripts.map(name => `  <script src="../assets/js/${escapeHtml(name)}.js" defer></script>\n`).join(''),

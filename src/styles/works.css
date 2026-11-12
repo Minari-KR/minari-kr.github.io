@@ -1,0 +1,18 @@
+/* The /games/ page (works): one card per game in a single column; the thumbnail plays its video in place (works.js).
+   Genre, title, info line, award and buttons reuse the home page's classes. */
+.project-page .section-title { margin: var(--gap-block) 0 0; }
+.work-list { margin: 0; padding: 0; list-style: none; }
+.work { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
+.work .project-genre { margin-top: var(--gap-block); }
+.work-media { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.work-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.work-frame { border: 0; width: 100%; height: 100%; }
+/* Play badge: a round green disc with a triangle; the whole thumbnail is the tap target. */
+.work-play { position: absolute; top: 50%; left: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; box-sizing: border-box; border: 3px solid rgba(255, 255, 255, .85); border-radius: 50%; background: var(--accent-deep); }
+.work-play::after { content: ''; position: absolute; top: 50%; left: 50%; border: solid transparent; border-width: 12px 0 12px 20px; border-left-color: var(--on-accent); transform: translate(-35%, -50%); }
+@media (prefers-reduced-motion: no-preference) {
+  .work-play { transition: transform 160ms ease; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .work-video:hover .work-play { transform: scale(1.08); }
+}
