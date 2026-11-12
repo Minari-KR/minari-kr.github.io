@@ -19,7 +19,8 @@ test('intro has no contact buttons or clipboard code', () => {
 
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
-  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"','id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="games-title"'];
+  assert.doesNotMatch(template, /class="intro"|intro-statement|intro-role|intro-school/); // the visible intro block was removed (2026-11-12)
+  const order = ['<h1 class="sr-only" id="intro-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"', 'id="games-title"'];
   // The project cards are generated, so the order is read from the built page.
   const built = compileSite(root).files.get('index.html');
   const positions = order.map(marker => built.indexOf(marker));

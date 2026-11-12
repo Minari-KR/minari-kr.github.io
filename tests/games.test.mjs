@@ -77,8 +77,8 @@ test('section titles and award lines use the drawn highlighter stroke, not a fla
   assert.match(cssRule(styles, '.project-award', '*').get('border-image'), /^url\(["']?\.\.\/icons\/marker\.svg["']?\)/);
   assert.doesNotMatch(styles, /var\(--marker\)/);
   assert.match(stroke, /width="120" height="40"/);
-  // The intro's four key words get the same stroke in four colour steps, in sentence order.
-  const home = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
+  // The About Me intro's four key words get the same stroke in four colour steps, in sentence order (the home page has no visible intro).
+  const home = fs.readFileSync(new URL('../src/templates/about.html', import.meta.url), 'utf8');
   const words = ['아이디어', '프로토타입', '플레이', '재미'];
   words.forEach((word, i) => {
     assert.match(home, new RegExp(`<span class="marker marker-step-${i + 1}">${word}</span>`));

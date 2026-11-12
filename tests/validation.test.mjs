@@ -16,7 +16,7 @@ test('deployment output excludes preview, original Markdown and management files
 
 test('missing local links, duplicate IDs, inline handlers and external scripts fail', () => {
   const result = compileSite(root);
-  for (const injection of ['<a href="missing.html">링크</a>', '<div id="intro"></div>', '<a onclick="alert(1)">클릭</a>', '<script src="https://example.com/evil.js"></script>']) {
+  for (const injection of ['<a href="missing.html">링크</a>', '<div id="awards"></div>', '<a onclick="alert(1)">클릭</a>', '<script src="https://example.com/evil.js"></script>']) {
     const changed = new Map(result.files);
     changed.set('index.html', changed.get('index.html').replace('</main>', injection + '</main>'));
     assert.throws(() => validateFiles(changed));
@@ -47,10 +47,10 @@ test('resource validation handles alternate quotes, case, entities and duplicate
   const withMarkup = markup => new Map(files).set('index.html', files.get('index.html').replace('</main>', markup + '</main>'));
   for (const markup of [
     "<a href='missing.html'>link</a>", '<A HREF=missing.html>link</A>',
-    "<img SRC='https://example.com/picture.png'>", "<div ID='intro'></div>",
+    "<img SRC='https://example.com/picture.png'>", "<div ID='awards'></div>",
     "<a HREF='java&#115;cript:evil'>link</a>",
     "<a href='https://example.com' TARGET='_blank'>link</a>",
-    "<a href='#intro' HREF='missing.html'>link</a>",
+    "<a href='#awards' HREF='missing.html'>link</a>",
     "<script data-src='assets/js/project-tabs.js'></script>",
     "<img srcset='https://example.com/picture.png 2x'>"
   ]) assert.throws(() => validateFiles(withMarkup(markup)), markup);
