@@ -99,23 +99,25 @@ test('character strip: two lazy imgs after the spiral, swapped by CSS at 640px',
   assert.match(css, /@media \(max-width: 640px\) \{[^@]*\.taste-strip-wide \{ display: none; \}\s*\.taste-strip-narrow \{ display: block; \}/);
 });
 
-test('tool inventory: 13 slots with logos, 5 filters, AI roles only in the accessible name, no detail panel', () => {
-  const slots = tags.filter(({ attributes }) => 'data-slot' in attributes);
-  assert.equal(slots.length, 13);
-  assert.deepEqual([...page.matchAll(/<p class="inv-label">([^<]+)</g)].map(match => match[1]), ['개발', '협업', '그래픽', 'AI']);
-  assert.deepEqual([...page.matchAll(/data-filter="([^"]+)" aria-pressed/g)].map(match => match[1]), ['전체', '개발', '협업', '그래픽', 'AI']);
-  assert.match(page, /data-filters role="group" aria-label="[^"]+" hidden/);
+test('tool marquee: 13 logo cards written twice (the copy hidden from screen readers), no filter, AI roles only as hidden text', () => {
+  const slots = tags.filter(({ attributes }) => attributes.class === 'inv-slot');
+  assert.equal(slots.length, 26);
+  assert.equal(slots.filter(({ attributes }) => attributes['aria-hidden'] === 'true').length, 13);
+  assert.match(page, /<div class="tool-marquee">\s*<ul class="tool-track">/);
+  assert.doesNotMatch(page, /data-filter|inv-tab|inv-label|data-inventory/);
   assert.deepEqual([...page.matchAll(/<span class="inv-hide">([^<]*)</g)].map(match => match[1]).filter(text => text.split(', ').length > 2), [', AI, 그림', ', AI, 작업 계획과 코드', ', AI, 영상', ', AI, 문장 다듬기']);
-  assert.doesNotMatch(page, /inv-detail|data-detail|<button[^>]*inv-slot/);
+  const css = fs.readFileSync(path.join(root, 'src/styles/about.css'), 'utf8');
+  assert.match(css, /@keyframes tool-flow \{ from \{ transform: translateX\(-50%\); \} to \{ transform: none; \} \}/); // left to right, half the doubled track
+  assert.match(css, /prefers-reduced-motion: reduce\) \{\s*\.tool-marquee \{ overflow-x: auto;/);
   const slugs = toolGroups.flatMap(([, tools]) => tools.map(([, slug]) => slug));
   assert.equal(slugs.length, 13);
   const logos = tags.filter(({ tag, attributes }) => tag === 'img' && /images\/tools\//.test(attributes.src));
-  assert.equal(logos.length, 13);
+  assert.equal(logos.length, 26);
   assert.ok(slugs.every(slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`))));
   assert.ok(logos.every(({ attributes }) => attributes.alt === '' && attributes['aria-hidden'] === 'true'));
   // A made-up file list: only those slots carry an <img>.
   const html = toolGroupsHtml(toolGroups, slug => ['unity', 'claude'].includes(slug));
-  assert.deepEqual(readHtmlTags(html).filter(({ tag }) => tag === 'img').map(({ attributes }) => attributes.src), ['../assets/images/tools/unity.png', '../assets/images/tools/claude.png']);
+  assert.deepEqual(readHtmlTags(html).filter(({ tag }) => tag === 'img').map(({ attributes }) => attributes.src), ['../assets/images/tools/unity.png', '../assets/images/tools/claude.png', '../assets/images/tools/unity.png', '../assets/images/tools/claude.png']);
   assert.doesNotMatch(toolGroupsHtml(toolGroups, () => false), /<img/);
 });
 

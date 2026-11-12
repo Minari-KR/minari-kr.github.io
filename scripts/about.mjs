@@ -13,16 +13,15 @@ export const toolGroups = [
   ['AI', [['GPT', 'chatgpt', '그림'], ['Claude', 'claude', '작업 계획과 코드'], ['Grok', 'grok', '영상'], ['Gemini', 'gemini', '문장 다듬기']]],
 ];
 
-// Tool cards, grouped so the page still reads as four labelled lists without JavaScript.
+// Tool cards for the marquee: one flat list written twice so the row loops without a seam. The copy is aria-hidden;
+// the first set carries each tool's group (and the AI role) as hidden text for screen readers.
 export function toolGroupsHtml(groups, hasLogo) {
-  return groups.map(([label, tools]) => {
-    const slots = tools.map(([name, slug, role = '']) => {
-      const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
-      const hidden = `, ${label}${role ? `, ${role}` : ''}`;
-      return `                <li class="inv-slot" data-slot data-group="${escapeHtml(label)}"><span class="inv-box">${logo}</span><span class="inv-name" translate="no">${escapeHtml(name)}</span><span class="inv-hide">${escapeHtml(hidden)}</span></li>`;
-    }).join('\n');
-    return `            <div class="inv-group">\n              <p class="inv-label">${escapeHtml(label)}</p>\n              <ul class="inv-list">\n${slots}\n              </ul>\n            </div>`;
-  }).join('\n');
+  const set = copy => groups.flatMap(([label, tools]) => tools.map(([name, slug, role = '']) => {
+    const logo = hasLogo(slug) ? `<img class="inv-logo" src="../assets/images/tools/${slug}.png" width="192" height="192" alt="" aria-hidden="true" loading="lazy" decoding="async">` : '';
+    const hidden = copy ? '' : `<span class="inv-hide">${escapeHtml(`, ${label}${role ? `, ${role}` : ''}`)}</span>`;
+    return `            <li class="inv-slot"${copy ? ' aria-hidden="true"' : ''}><span class="inv-box">${logo}</span><span class="inv-name" translate="no">${escapeHtml(name)}</span>${hidden}</li>`;
+  }));
+  return [...set(false), ...set(true)].join('\n');
 }
 
 export const logoExists = root => slug => fs.existsSync(path.join(root, 'public/assets/images/tools', `${slug}.png`));
