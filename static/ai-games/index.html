@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; frame-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark">
+  <title>AI Game Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="games.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <h1>AI Game Gallery</h1>
+  </header>
+  <main>
+    <ul class="grid" id="grid"></ul>
+    <noscript><p class="empty">게임 목록을 보려면 JavaScript가 필요합니다.</p></noscript>
+  </main>
+
+  <dialog class="player game" id="game" aria-label="게임 플레이">
+    <button class="close" type="button" aria-label="닫기">×</button>
+    <iframe title="게임" allow="fullscreen; autoplay; gamepad"></iframe>
+  </dialog>
+
+  <dialog class="player" id="player" aria-label="플레이 영상">
+    <button class="close" type="button" aria-label="닫기">×</button>
+    <video controls playsinline preload="none"></video>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,562 @@
+{
+ "lines": {
+  "firstMeet": [
+   {
+    "clip": "Rio_selected_1_ko",
+    "text": "화살은 그 어떤 거짓도 통하지 않아.",
+    "emotion": "focused"
+   }
+  ],
+  "touchBody": [
+   {
+    "clip": "Rio_setting5_1_ko",
+    "text": "아, 잠깐만!",
+    "emotion": "surprised"
+   },
+   {
+    "clip": "Rio_communicationPing_ok_1_ko",
+    "text": "그래 알았어",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_communicationPing_waiting_1_ko",
+    "text": "잠깐 기다리자",
+    "emotion": "neutral"
+   }
+  ],
+  "longPress": [
+   {
+    "clip": "Rio_setting5_1_ko",
+    "text": "아, 잠깐만!",
+    "emotion": "surprised"
+   },
+   {
+    "clip": "Rio_communicationPing_waiting_1_ko",
+    "text": "잠깐 기다리자",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_communicationPing_ok_1_ko",
+    "text": "그래 알았어",
+    "emotion": "neutral"
+   }
+  ],
+  "zoomIn": [
+   {
+    "clip": "Rio_communicationPing_whatyouneed_1_ko",
+    "text": "필요한 거 있어?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_communicationPing_goal_1_ko",
+    "text": "어디가 좋을 것 같아?",
+    "emotion": "neutral"
+   }
+  ],
+  "greetAfternoon": [
+   {
+    "clip": "Rio_communicationPing_food_1_ko",
+    "text": "조금 배고파졌어",
+    "emotion": "troubled"
+   }
+  ],
+  "greetNight": [
+   {
+    "clip": "Rio_rest_1_ko",
+    "text": "눈 좀 붙이고 싶어",
+    "emotion": "shy"
+   }
+  ],
+  "idleMonologue": [
+   {
+    "clip": "Rio_rest_1_ko",
+    "text": "눈 좀 붙이고 싶어",
+    "emotion": "shy",
+    "mood": "sleepy"
+   }
+  ],
+  "levelUp": [
+   {
+    "clip": "Rio_communicationPing_thankyou_1_ko",
+    "text": "정말 고마워",
+    "emotion": "happy"
+   }
+  ],
+  "tasks_all_done": [
+   {
+    "clip": "Rio_victory_1_ko",
+    "text": "당연한 결과야, 전력을 다했으니까.",
+    "emotion": "confident"
+   },
+   {
+    "clip": "Rio_victory_2_ko",
+    "text": "내 활은 절대 흔들리지 않아.",
+    "emotion": "confident"
+   }
+  ],
+  "attendance_day7": [
+   {
+    "clip": "Rio_victory_2_ko",
+    "text": "내 활은 절대 흔들리지 않아.",
+    "emotion": "confident"
+   }
+  ],
+  "rioWon": [
+   {
+    "clip": "Rio_victory_1_ko",
+    "text": "당연한 결과야, 전력을 다했으니까.",
+    "emotion": "confident"
+   },
+   {
+    "clip": "Rio_victory_2_ko",
+    "text": "내 활은 절대 흔들리지 않아.",
+    "emotion": "confident"
+   }
+  ],
+  "rioLost": [
+   {
+    "clip": "Rio_highlyPlaced_1_ko",
+    "text": "후회하지는 않아. 최선을 다했으니까.",
+    "emotion": "focused"
+   }
+  ],
+  "archeryIntro": [
+   {
+    "clip": "Rio_learnweaponskill_Bow_1_ko",
+    "text": "좋아, 제대로 된 사법을 보여줄게.",
+    "emotion": "focused"
+   },
+   {
+    "clip": "Rio_firstMove_1_ko",
+    "text": "내 화살을 실망할 일은 없을 거야.",
+    "emotion": "focused"
+   }
+  ],
+  "archeryRioHit": [
+   {
+    "clip": "Rio_PlaySkill1031300seq0_2_ko",
+    "text": "내 화살을 속일 수는 없어.",
+    "emotion": "confident"
+   },
+   {
+    "clip": "Rio_PlaySkill1031300seq0_3_ko",
+    "text": "막을 수 없을 거야.",
+    "emotion": "confident"
+   },
+   {
+    "clip": "Rio_PlaySkill1031400seq0_2_ko",
+    "text": "놓치지 않아.",
+    "emotion": "focused"
+   },
+   {
+    "clip": "Rio_PlaySkill1031510seq0_1_ko",
+    "text": "이게 진심이 담긴 화살이야.",
+    "emotion": "focused"
+   },
+   {
+    "clip": "Rio_PlaySkill1031510seq0_3_ko",
+    "text": "단 한 발도 놓치지 않아.",
+    "emotion": "confident"
+   }
+  ],
+  "archeryPlayerHit": [
+   {
+    "clip": "Rio_communicationPing_goodjob_1_ko",
+    "text": "방금 좋았어",
+    "emotion": "happy"
+   }
+  ],
+  "request_done": [
+   {
+    "clip": "Rio_communicationPing_thankyou_1_ko",
+    "text": "정말 고마워",
+    "emotion": "happy"
+   },
+   {
+    "clip": "Rio_communicationPing_goodjob_1_ko",
+    "text": "방금 좋았어",
+    "emotion": "happy"
+   }
+  ],
+  "request_ignored": [
+   {
+    "clip": "Rio_communicationPing_ok_1_ko",
+    "text": "그래 알았어",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_communicationPing_waiting_1_ko",
+    "text": "잠깐 기다리자",
+    "emotion": "neutral"
+   }
+  ],
+  "request_furniture": [
+   {
+    "clip": "Rio_communicationPing_goal_1_ko",
+    "text": "어디가 좋을 것 같아?",
+    "emotion": "neutral"
+   }
+  ],
+  "gift_receive": [
+   {
+    "clip": "Rio_communicationPing_thankyou_1_ko",
+    "text": "정말 고마워",
+    "emotion": "happy"
+   }
+  ],
+  "gift_force_core": [
+   {
+    "clip": "Rio_craftLegend_1_ko",
+    "text": "내 노력보다 더 큰 결과를 얻은 것 같아.",
+    "emotion": "surprised"
+   },
+   {
+    "clip": "Rio_craftLegend_3_ko",
+    "text": "이제 실망할 일은 없을 거야.",
+    "emotion": "happy"
+   }
+  ],
+  "gift_blood_pack": [
+   {
+    "clip": "Rio_craftLegend_1_ko",
+    "text": "내 노력보다 더 큰 결과를 얻은 것 같아.",
+    "emotion": "surprised"
+   },
+   {
+    "clip": "Rio_craftLegend_2_ko",
+    "text": "더는 망설일 이유가 없겠네.",
+    "emotion": "focused"
+   }
+  ],
+  "gift_flower": [
+   {
+    "clip": "Rio_collectflower_1_ko",
+    "text": "꽃도 아픔을 느낀다고 하던데.",
+    "emotion": "shy"
+   }
+  ],
+  "moveInAlley": [
+   {
+    "clip": "Rio_moveInAlley_1_ko",
+    "text": "꽤 좁은 길이네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInAlley_2_ko",
+    "text": "활이 벽에 부딪히는 건 아니겠지?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInAlley_3_ko",
+    "text": "조심스럽게 움직여야겠어.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInArchery": [
+   {
+    "clip": "Rio_moveInArchery_1_ko",
+    "text": "양궁장은 이렇게 생겼구나.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInArchery_2_ko",
+    "text": "연습해도 되는 거겠지?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInArchery_3_ko",
+    "text": "화살 정도는 얻어갈 수 있을지도 모르겠네.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInCemetery": [
+   {
+    "clip": "Rio_moveInCemetery_1_ko",
+    "text": "시끄럽게 굴지 않는 게 좋겠어",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInCemetery_2_ko",
+    "text": "다들 편히 잠들었기를.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInCemetery_3_ko",
+    "text": "조금 추운 것 같은데 기분 탓이겠지?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInChurch": [
+   {
+    "clip": "Rio_moveInChurch_1_ko",
+    "text": "명상이랑 기도는 비슷한 걸까?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInChurch_2_ko",
+    "text": "여기서 지켜야 할 예법을 알고 싶은데.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInChurch_3_ko",
+    "text": "마음이 차분해지는 것 같네",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInFactory": [
+   {
+    "clip": "Rio_moveInFactory_1_ko",
+    "text": "날카로운 것 투성이야.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInFactory_2_ko",
+    "text": "조심하는 게 좋겠어",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInFactory_3_ko",
+    "text": "작동은 안 하는 걸까?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInFireStation": [
+   {
+    "clip": "Rio_moveInFireStation_1_ko",
+    "text": "이 섬에도 소방서가 있구나",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInFireStation_2_ko",
+    "text": "누가 있는 것 같진 않네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInFireStation_3_ko",
+    "text": "텅 비어있네? 조용해",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInForest": [
+   {
+    "clip": "Rio_moveInForest_1_ko",
+    "text": "숲을 싫어하진 않아",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInForest_2_ko",
+    "text": "나무 위로 올라가는 건 힘들겠지?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInForest_3_ko",
+    "text": "나무 사이에 숨어 있을 수도 있겠구나.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInGasStation": [
+   {
+    "clip": "Rio_moveInGasStation_1_ko",
+    "text": "주유할 차가 있을까?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInGasStation_2_ko",
+    "text": "기름 냄새 때문에 조금 어지럽네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInGasStation_3_ko",
+    "text": "조심히 움직이자.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInHospital": [
+   {
+    "clip": "Rio_moveInHospital_1_ko",
+    "text": "아직 아픈 곳은 없어",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInHospital_2_ko",
+    "text": "의료진은 없겠구나.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInHospital_3_ko",
+    "text": "구급약은 없으려나?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInHotel": [
+   {
+    "clip": "Rio_moveInHotel_1_ko",
+    "text": "이런 곳도 호텔이 있었구나.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInHotel_2_ko",
+    "text": "잠깐 쉬는 건 안 되려나?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInHotel_3_ko",
+    "text": "멋대로 들어가면 안 되겠지?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInPond": [
+   {
+    "clip": "Rio_moveInPond_1_ko",
+    "text": "습기가 느껴져",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInPond_2_ko",
+    "text": "물고기가 있을까?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInPond_3_ko",
+    "text": "물은 깨끗하겠지?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInPoliceStation": [
+   {
+    "clip": "Rio_moveInPoliceStation_1_ko",
+    "text": "궁도를 익힌 경찰관도 많아",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInPoliceStation_2_ko",
+    "text": "경찰이 보이진 않네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInPoliceStation_3_ko",
+    "text": "얼마나 방치되어 있던 걸까?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInSandyBeach": [
+   {
+    "clip": "Rio_moveInSandyBeach_1_ko",
+    "text": "모래가 신발 안에 들어오네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInSandyBeach_2_ko",
+    "text": "움직이기 힘드네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInSandyBeach_3_ko",
+    "text": "바다는 좋아.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInSchool": [
+   {
+    "clip": "Rio_moveInSchool_1_ko",
+    "text": "궁도부는 어떻게 되었을까?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInSchool_2_ko",
+    "text": "시오는 잘 지내겠지?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInSchool_3_ko",
+    "text": "학교로 돌아가고 싶어",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInStream": [
+   {
+    "clip": "Rio_moveInStream_1_ko",
+    "text": "흐르는 물이라 깨끗한 것 같네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInStream_2_ko",
+    "text": "내 마음까지 깨끗해지는 것 같아.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInStream_3_ko",
+    "text": "여기서 잠시 쉬었다 갈까?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInTemple": [
+   {
+    "clip": "Rio_moveInTemple_1_ko",
+    "text": "향냄새",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInTemple_2_ko",
+    "text": "내가 봤던 절이랑은 좀 다른 것 같네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInTemple_3_ko",
+    "text": "명상하기 좋은 것 같아.",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInUptown": [
+   {
+    "clip": "Rio_moveInUptown_1_ko",
+    "text": "상대적으로 깔끔한 곳이네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInUptown_2_ko",
+    "text": "우리 집보다 좋은 집도 많네.",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInUptown_3_ko",
+    "text": "이곳에 살던 사람들은 어디 간 거지?",
+    "emotion": "neutral"
+   }
+  ],
+  "moveInWarehouse": [
+   {
+    "clip": "Rio_moveInWarehouse_1_ko",
+    "text": "창고엔 쓸만한 게 있으려나?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInWarehouse_2_ko",
+    "text": "뭘 보관하던 곳이었을까?",
+    "emotion": "neutral"
+   },
+   {
+    "clip": "Rio_moveInWarehouse_3_ko",
+    "text": "들 고양이는 없으려나?",
+    "emotion": "neutral"
+   }
+  ],
+  "makeFood": [
+   {
+    "clip": "Rio_makeFood_1_ko",
+    "text": "자신은 없지만",
+    "emotion": "troubled"
+   },
+   {
+    "clip": "Rio_makeFood_2_ko",
+    "text": "할 수밖에 없겠지",
+    "emotion": "troubled"
+   },
+   {
+    "clip": "Rio_makeFood_3_ko",
+    "text": "맛없다고 불평하지마.",
+    "emotion": "troubled"
+   }
+  ]
+ }
+}

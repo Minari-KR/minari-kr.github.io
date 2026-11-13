@@ -14,7 +14,7 @@ test('home and project pages share their own URLs and titles with a published 12
   assert.equal(image.readUInt32BE(16), 1200);
   assert.equal(image.readUInt32BE(20), 630);
   for (const [name, html] of publicFiles) {
-    if (!name.endsWith('.html')) continue;
+    if (!name.endsWith('.html') || name.startsWith('ai-games/')) continue; // the AI game gallery is a separate static site
     const meta = Object.fromEntries(readHtmlTags(html.toString()).filter(tag => tag.tag === 'meta')
       .map(({ attributes: a }) => [a.property ?? a.name, a.content]));
     assert.equal(meta['og:url'], siteUrl + (name === 'index.html' ? '' : name.endsWith('/index.html') ? name.slice(0, -'index.html'.length) : name));

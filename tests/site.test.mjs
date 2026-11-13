@@ -49,3 +49,17 @@ test('a template placeholder that is not a known value stops the build instead o
   assert.equal(fillTemplate('<h1>{{title}}</h1>', { title: 'Minari' }), '<h1>Minari</h1>');
   assert.throws(() => fillTemplate('<h1>{{title2}}</h1>', { title: 'Minari' }), /title2/);
 });
+
+test('AI game gallery: static/ai-games is published as-is under ai-games/, outside the checked pages and the root preview', t => {
+  const dir = fixture(t);
+  fs.mkdirSync(path.join(dir, 'static/ai-games/games/demo/TemplateData'), { recursive: true });
+  // Inline script on purpose: Unity pages need it and the portfolio validator would reject it.
+  fs.writeFileSync(path.join(dir, 'static/ai-games/index.html'), '<script>1</script>');
+  fs.writeFileSync(path.join(dir, 'static/ai-games/games/demo/TemplateData/Logo.png'), 'x');
+  const { files, publicFiles } = compileSite(dir);
+  assert.equal(publicFiles.get('ai-games/index.html').toString(), '<script>1</script>');
+  assert.ok(publicFiles.has('ai-games/games/demo/TemplateData/Logo.png'));
+  assert.ok(![...files.keys()].some(name => name.startsWith('ai-games/')));
+  fs.writeFileSync(path.join(dir, 'static/ai-games/bad name.txt'), 'x');
+  assert.throws(() => compileSite(dir), /AI 게임 갤러리 파일명/);
+});

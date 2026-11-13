@@ -87,5 +87,21 @@ export function compileSite(root) {
   const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/css/preview-frame.css', 'assets/js/preview.js'].includes(name)));
   validateFiles(files);
   validateFiles(publicFiles);
+  addStaticSite(root, publicFiles);
   return { files, publicFiles };
+}
+
+// AI Game Gallery (/ai-games/): a self-contained static site with Unity web builds, published as-is.
+// It is kept out of validateFiles on purpose: Unity's pages need inline scripts and WebAssembly, which the
+// portfolio's CSP forbids. It sits outside public/ so test fixtures do not copy ~150 MB of game files.
+function addStaticSite(root, publicFiles) {
+  const base = path.join(root, 'static/ai-games');
+  for (const file of walk(base)) {
+    const relative = path.relative(base, file).replaceAll('\\', '/');
+    if (!/^[A-Za-z0-9_-][A-Za-z0-9_.-]*(?:\/[A-Za-z0-9_-][A-Za-z0-9_.-]*)*$/.test(relative)) throw new Error(`AI 게임 갤러리 파일명을 확인하세요: ${relative}`);
+    const bytes = fs.readFileSync(file);
+    if (bytes.length > 95 * 1024 * 1024) throw new Error(`GitHub 파일 크기 제한(100MB)에 가깝습니다: ${relative}`);
+    if (/\.(?:html|css|js|json)$/.test(relative)) checkSecrets(bytes.toString(), `static/ai-games/${relative}`);
+    publicFiles.set(`ai-games/${relative}`, bytes);
+  }
 }

@@ -1,0 +1,300 @@
+{
+  "archery": {
+    "intro": [
+      { "text": "궁도 대결이야? 좋아, 상대해 줄게.", "emotion": "focused" },
+      { "text": "과녁 앞에선 봐주지 않아. 각오해.", "emotion": "wink" },
+      { "text": "활은 자신 있어. 너도 한번 쏴 봐.", "emotion": "happy" },
+      { "text": "먼저 쏠게. 잘 보고 배워.", "emotion": "confident" }
+    ],
+    "rioShotGood": [
+      { "text": "...좋아. 시위가 깔끔하게 놓였어.", "emotion": "confident" },
+      { "text": "정중앙이야. 평정심의 결과지.", "emotion": "confident" },
+      { "text": "이 정도는 기본이야.", "emotion": "confident" },
+      { "text": "화살이 곧게 날아갔네.", "emotion": "neutral" }
+    ],
+    "rioShotBad": [
+      { "text": "...빗나갔네. 손이 흔들렸어.", "emotion": "troubled" },
+      { "text": "아, 아니야. 방금은 바람 탓이야.", "emotion": "shy" },
+      { "text": "호흡이 흐트러졌어. 다시 가다듬을게.", "emotion": "troubled" },
+      { "text": "...보지 마. 집중이 안 되잖아.", "emotion": "shy" }
+    ],
+    "playerTurn": [
+      { "text": "이제 네 차례야. 숨을 천천히 쉬어.", "emotion": "focused" },
+      { "text": "시위를 당기고, 놓을 때를 기다려.", "emotion": "focused" },
+      { "text": "서두르지 마. 과녁은 도망 안 가.", "emotion": "happy" },
+      { "text": "긴장했어? 마음을 고요하게 해 봐.", "emotion": "happy" }
+    ],
+    "playerBullseye": [
+      { "text": "정중앙...! 대단해, 진짜로.", "emotion": "surprised" },
+      { "text": "잠깐, 방금 그거 나보다 좋은데?", "emotion": "surprised" },
+      { "text": "...멋졌어. 인정할게.", "emotion": "shy" },
+      { "text": "완벽한 한 발이야. 소름 돋았어.", "emotion": "happy" }
+    ],
+    "playerGood": [
+      { "text": "잘 맞췄네. 자세가 좋아.", "emotion": "happy" },
+      { "text": "과녁 안이야. 그대로만 해.", "emotion": "neutral" },
+      { "text": "좋아. 조금만 더 중앙으로.", "emotion": "neutral" },
+      { "text": "감이 오나 봐. 꽤 하는데.", "emotion": "wink" }
+    ],
+    "playerMiss": [
+      { "text": "아깝다. 팔에 힘이 들어갔어.", "emotion": "troubled" },
+      { "text": "괜찮아. 누구나 빗나갈 때가 있어.", "emotion": "neutral" },
+      { "text": "눈을 과녁에서 떼지 마.", "emotion": "focused" },
+      { "text": "...다음엔 맞출 수 있어. 믿어.", "emotion": "happy" }
+    ],
+    "playerWin": [
+      { "text": "...내가 졌네. 분하지만 멋졌어.", "emotion": "shy" },
+      { "text": "축하해. 오늘은 네 화살이 더 곧았어.", "emotion": "happy" },
+      { "text": "져도 기분이 나쁘지 않아. 이상하네.", "emotion": "surprised" },
+      { "text": "다, 다음엔 안 질 거야.", "emotion": "focused" }
+    ],
+    "rioWin": [
+      { "text": "내 승리야. 그래도 좋은 승부였어.", "emotion": "confident" },
+      { "text": "이겼네. 너무 낙심하지는 마.", "emotion": "neutral" },
+      { "text": "연습하면 금방 늘어. 내가 알려 줄게.", "emotion": "wink" },
+      { "text": "후... 이번엔 내가 한 끗 위였어.", "emotion": "confident" }
+    ],
+    "draw": [
+      { "text": "무승부네. 실력이 비슷하다니.", "emotion": "surprised" },
+      { "text": "...같은 점수라니. 재미있네.", "emotion": "happy" },
+      { "text": "결판이 안 났네. 한 판 더 할까?", "emotion": "wink" },
+      { "text": "팽팽했어. 마지막까지 떨렸어.", "emotion": "shy" }
+    ],
+    "again": [
+      { "text": "한 번 더 할래? 나는 좋아.", "emotion": "happy" },
+      { "text": "다시 겨루자. 이번엔 진심이야.", "emotion": "focused" },
+      { "text": "아직 시위가 따뜻해. 한 판 더.", "emotion": "wink" },
+      { "text": "...조금 더 같이 쏘고 싶어.", "emotion": "shy" }
+    ]
+  },
+  "rps": {
+    "intro": [
+      { "text": "가위바위보? ...의외로 자신 있어.", "emotion": "confident" },
+      { "text": "운에 맡기는 승부는 서툴지만 해 볼게.", "emotion": "troubled" },
+      { "text": "좋아. 거짓말 없이 정정당당하게.", "emotion": "happy" },
+      { "text": "내가 먼저 낼 거 아니야. 같이 내자.", "emotion": "wink" }
+    ],
+    "countdown": [
+      { "text": "가위, 바위...!", "emotion": "neutral" },
+      { "text": "자, 간다. 가위, 바위...!", "emotion": "neutral" },
+      { "text": "숨 고르고... 가위, 바위...!", "emotion": "surprised" },
+      { "text": "준비됐지? 가위, 바위...!", "emotion": "happy" }
+    ],
+    "playerWin": [
+      { "text": "...졌네. 손이 먼저 나갔어.", "emotion": "troubled" },
+      { "text": "네가 이겼어. 읽힌 건가.", "emotion": "surprised" },
+      { "text": "으, 분해. 한 번 더 하자.", "emotion": "angry" },
+      { "text": "잘했어. 인정할게.", "emotion": "shy" }
+    ],
+    "rioWin": [
+      { "text": "내가 이겼어. 후후.", "emotion": "happy" },
+      { "text": "아, 이겼다. ...기쁜 건 아니야.", "emotion": "shy" },
+      { "text": "시선을 읽었어. 사법의 기본이지.", "emotion": "wink" },
+      { "text": "이번엔 내 차례였네.", "emotion": "happy" }
+    ],
+    "draw": [
+      { "text": "비겼네. 생각이 같았나 봐.", "emotion": "surprised" },
+      { "text": "...또 같아? 신기하네.", "emotion": "neutral" },
+      { "text": "다시 내자. 이번엔 안 읽혀.", "emotion": "wink" },
+      { "text": "마음이 통한 건가. 아, 그냥 한 말.", "emotion": "shy" }
+    ],
+    "streakPlayer3": [
+      {
+        "text": "세 번 연속...? 혹시 내 손 보고 있어?",
+        "emotion": "surprised"
+      },
+      {
+        "text": "자, 잠깐만...! 너무 잘하는 거 아니야?",
+        "emotion": "surprised"
+      },
+      { "text": "연승이야? 이제부터는 진심이야.", "emotion": "focused" },
+      { "text": "...대단하네. 정말 운이 좋은 거야?", "emotion": "troubled" }
+    ],
+    "streakRio3": [
+      { "text": "세 번 연속 내 승리야. 미안.", "emotion": "wink" },
+      { "text": "어, 계속 이기네. 봐주는 건 아니야.", "emotion": "happy" },
+      { "text": "흐름이 내 쪽이야. 놓치지 않을 거야.", "emotion": "confident" },
+      { "text": "너무 풀 죽지 마. 다음엔 이길 수 있어.", "emotion": "neutral" }
+    ],
+    "again": [
+      { "text": "한 판 더 할래?", "emotion": "happy" },
+      { "text": "다시 하자. 이번엔 안 질 거야.", "emotion": "focused" },
+      { "text": "...하나만 더. 아쉬워서 그래.", "emotion": "shy" },
+      { "text": "좋아, 계속하자. 손이 풀렸어.", "emotion": "wink" }
+    ]
+  },
+  "quiz": {
+    "lines": {
+      "intro": [
+        { "text": "퀴즈야. 나에 대해 얼마나 아는지 볼게.", "emotion": "wink" },
+        { "text": "거짓 없이 답해 줘. 시작할게.", "emotion": "focused" },
+        { "text": "나에 대한 문제야. 어, 어렵진 않을 거야.", "emotion": "shy" },
+        { "text": "집중해. 과녁을 보듯이 골라 봐.", "emotion": "focused" }
+      ],
+      "correct": [
+        { "text": "정답이야. 잘 알고 있네.", "emotion": "happy" },
+        { "text": "맞아. ...꽤 기쁘네.", "emotion": "shy" },
+        { "text": "정중앙이야. 대단해.", "emotion": "happy" },
+        { "text": "나를 잘 보고 있었구나.", "emotion": "wink" }
+      ],
+      "wrong": [
+        { "text": "아쉽네. 정답은 다른 거야.", "emotion": "troubled" },
+        { "text": "빗나갔어. 괜찮아, 다음에 맞추면 돼.", "emotion": "neutral" },
+        { "text": "아니야. ...조금 섭섭하네.", "emotion": "shy" },
+        { "text": "틀렸어. 기억해 두면 좋겠어.", "emotion": "troubled" }
+      ],
+      "perfect": [
+        { "text": "전부 맞췄어...! 정말 대단해.", "emotion": "surprised" },
+        { "text": "만점이야. 나보다 날 더 잘 아네.", "emotion": "happy" },
+        { "text": "...감동했어. 진심이야.", "emotion": "shy" },
+        { "text": "퍼펙트 샷이야. 박수 쳐 줄게.", "emotion": "wink" }
+      ],
+      "low": [
+        { "text": "거의 다 틀렸네. 조금 서운해.", "emotion": "troubled" },
+        { "text": "나에 대해 더 알아 줬으면 좋겠어.", "emotion": "shy" },
+        { "text": "괜찮아. 같이 있으면 알게 될 거야.", "emotion": "neutral" },
+        { "text": "다시 도전해 봐. 기다릴게.", "emotion": "happy" }
+      ],
+      "end": [
+        { "text": "퀴즈 끝이야. 재미있었어.", "emotion": "happy" },
+        { "text": "수고했어. 대답해 줘서 고마워.", "emotion": "shy" },
+        { "text": "이제 좀 더 가까워진 것 같네.", "emotion": "happy" },
+        { "text": "후... 문제 내는 것도 긴장돼.", "emotion": "troubled" }
+      ]
+    },
+    "questions": [
+      {
+        "q": "내가 쓰는 무기는 뭘까?",
+        "choices": ["활", "검", "총"],
+        "answer": 0,
+        "after": "응, 활이야. 늘 곁에 두고 있어.",
+        "source": "common"
+      },
+      {
+        "q": "내 나이는 몇 살일까?",
+        "choices": ["16세", "18세", "20세"],
+        "answer": 1,
+        "after": "열여덟이야. 아직 학생이지.",
+        "source": "common"
+      },
+      {
+        "q": "내 생일은 언제일까?",
+        "choices": ["6월 10일", "12월 15일", "3월 3일"],
+        "answer": 1,
+        "after": "12월 15일이야. 기억해 주면 기쁠 거야.",
+        "source": "A"
+      },
+      {
+        "q": "내가 제일 좋아하는 동물은?",
+        "choices": ["고양이", "강아지", "토끼"],
+        "answer": 0,
+        "after": "고양이야. 통통할수록 더 좋아.",
+        "source": "common"
+      },
+      {
+        "q": "내가 무서워하는 건 뭘까?",
+        "choices": ["큰 개", "천둥", "높은 곳"],
+        "answer": 0,
+        "after": "...큰 개야. 어릴 때 물린 적이 있어서.",
+        "source": "B"
+      },
+      {
+        "q": "내가 좋아하는 음식은?",
+        "choices": ["오므라이스", "김치찌개", "햄버거"],
+        "answer": 0,
+        "after": "부드러운 오므라이스가 최고야.",
+        "source": "B"
+      },
+      {
+        "q": "내가 좋아하는 음료는 뭘까?",
+        "choices": ["젤리 소다", "커피", "우유"],
+        "answer": 0,
+        "after": "시원하고 달콤해서 좋아. ...들켰네.",
+        "source": "B"
+      },
+      {
+        "q": "내가 가장 싫어하는 건?",
+        "choices": ["거짓말", "비 오는 날", "아침 운동"],
+        "answer": 0,
+        "after": "응. 거짓이나 돌려 말하는 건 싫어.",
+        "source": "B"
+      },
+      {
+        "q": "내 키는 몇 센티일까?",
+        "choices": ["156cm", "166cm", "176cm"],
+        "answer": 1,
+        "after": "166cm야. 활 쏘기엔 딱 좋아.",
+        "source": "common"
+      },
+      {
+        "q": "내가 번갈아 쓰는 활 두 가지는?",
+        "choices": ["장궁과 단궁", "석궁과 단검", "장궁과 지팡이"],
+        "answer": 0,
+        "after": "장궁과 단궁이야. 둘 다 손에 익었어.",
+        "source": "A"
+      },
+      {
+        "q": "내 대표 문구에 나오는 건?",
+        "choices": ["화살", "바람", "별"],
+        "answer": 0,
+        "after": "화살은 어떤 거짓도 통하지 않으니까.",
+        "source": "A"
+      },
+      {
+        "q": "학교에서 나는 무슨 부였을까?",
+        "choices": ["궁도부", "요리부", "미술부"],
+        "answer": 0,
+        "after": "궁도부 에이스였어. ...자랑은 아니야.",
+        "source": "common"
+      }
+    ]
+  },
+  "affection": {
+    "levels": [
+      { "level": 1, "name": "낯선 사이", "need": 0 },
+      { "level": 2, "name": "아는 사이", "need": 50 },
+      { "level": 3, "name": "친한 친구", "need": 150 },
+      { "level": 4, "name": "특별한 사람", "need": 350 },
+      { "level": 5, "name": "마음을 나눈 사이", "need": 700 }
+    ],
+    "levelUp": [
+      { "text": "이제 너한테 조금은 편해졌어.", "emotion": "shy" },
+      { "text": "친구라고 불러도 되려나...?", "emotion": "happy" },
+      { "text": "너한테는 숨기는 게 없어졌어.", "emotion": "shy" },
+      { "text": "...곁에 있어 줘서 고마워. 정말로.", "emotion": "happy" }
+    ],
+    "unlockLines": {
+      "2": [
+        { "text": "너랑 있으면 말이 좀 편해져.", "emotion": "neutral" },
+        { "text": "이제 얼굴이 익숙해졌어.", "emotion": "happy" },
+        { "text": "오늘은 뭐 하고 놀까?", "emotion": "happy" }
+      ],
+      "3": [
+        { "text": "네가 오면 괜히 활 손질을 멈추게 돼.", "emotion": "shy" },
+        { "text": "고양이 얘기, 너한테는 계속 해도 되지?", "emotion": "happy" },
+        { "text": "같이 있으면 시간이 빨리 가네.", "emotion": "happy" },
+        { "text": "...치요 얘기도 언젠가 해 줄게.", "emotion": "troubled" }
+      ],
+      "4": [
+        { "text": "네 목소리가 들리면 마음이 놓여.", "emotion": "shy" },
+        { "text": "비밀인데... 오늘 널 기다렸어.", "emotion": "shy" },
+        { "text": "너라면 내 시위를 맡겨도 되겠어.", "emotion": "wink" },
+        { "text": "자꾸 네 생각이 나. 이상하지?", "emotion": "troubled" }
+      ],
+      "5": [
+        {
+          "text": "너는 내 과녁 한가운데야. ...아, 말해 버렸네.",
+          "emotion": "shy"
+        },
+        { "text": "거짓 없이 말할게. 네가 있어서 좋아.", "emotion": "happy" },
+        { "text": "이젠 같이 있는 게 당연해졌어.", "emotion": "happy" },
+        { "text": "고마워. 나를 이렇게 웃게 해 줘서.", "emotion": "shy" }
+      ]
+    }
+  },
+  "ui": {
+    "archeryTitle": "궁도 대결",
+    "rpsTitle": "가위바위보",
+    "quizTitle": "리오 퀴즈"
+  }
+}

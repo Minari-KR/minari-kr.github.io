@@ -4,11 +4,17 @@
 
 2026-10-19 이전 항목은 [`docs/CHANGELOG-2026-10-19까지.md`](docs/CHANGELOG-2026-10-19까지.md)로 옮겼습니다(내용은 그대로).
 
-## 지금 상황 (2026-11-12, Claude)
+## 지금 상황 (2026-11-14, Claude)
 
-- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트 → 게임 플레이 경험, 그리고 `/about/`(About Me), `/games/`(만든 게임).
+- **공개 사이트:** `https://minari-kr.github.io/` = `main`. 홈 → 수상 → 출시 앱 → 프로젝트, 그리고 `/about/`(About Me), `/games/`(만든 게임), `/ai-games/`(AI Game Gallery, 주소로만).
 - **남은 일(사용자 자료 대기):** 만든 게임 페이지의 유튜브 링크(쭉쭉냥·ERZZ·Rio Idle)와 썸네일 교체, 넣을 게임 목록 확정, Aiden & Magnus KartRider ‘플레이하기’ 링크(있으면), 홈 소개 문장.
 - **확인 못 한 것:** 실제 휴대폰에서 유튜브 재생, 인트로 끝 깜빡임, 링크트리 앱 안에서 보기.
+
+## 2026-11-14 — AI Game Gallery(/ai-games/) 추가 (Claude)
+
+- 요청: 웹에서 바로 플레이하는 게임 갤러리(다크 모드, 플레이는 팝업)를 포트폴리오에 넣고 외부에 줄 주소를 만들기.
+- 변경: `static/ai-games/`(갤러리 + Unity 웹 빌드 4개: Chicken Fire·ERZZ·쭉쭉냥·Rio Idle)를 `dist/ai-games/`로 그대로 복사(`scripts/site.mjs`의 `addStaticSite`, `build.mjs` 경로 허용). Unity 페이지는 인라인 스크립트·WebAssembly가 필요해 포트폴리오 검사(`validateFiles`) 밖에 두고, 파일명·95MB 제한·비밀키 검사만 함. 테스트가 `public/`을 복사하므로 `public/` 밖에 둠. 갤러리 원본·로컬 서버는 `C:\Unity Project\game-gallery`, 빌드 도구·복사본 프로젝트는 `C:\Unity Project\game-gallery-build`.
+- 게임 빌드: 압축 없음(GitHub Pages는 압축 표시를 못 보내 JS로 풀면 1~2초 더 걸림), 스플래시 끔, ERZZ는 웹에서 Forward+가 셰이더를 깨서 복사본만 Forward, Rio는 데이터 JSON을 `Resources`로 옮기고 무대 그림 512·캐릭터 1024px.
 
 ## 2026-11-12 — 첫인사 페이지 취소, 공개 상태로 되돌림, About Me에 AI 워크플로우 그림 (Claude)
 
