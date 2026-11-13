@@ -1,61 +1,109 @@
-/* Document pages opened in the gallery popup (made by tools/make-docs.py). Same soft dark palette as the gallery. */
+/* Document pages opened in the gallery popup (made by tools/make-docs.py). Same soft dark palette as the gallery.
+   Read mode: comfortable Korean line length, clear heading steps, a table of contents that stays in view. */
 :root {
   --bg: #16181d;
   --surface: #1f2228;
+  --surface-2: #262a31;
   --line: #2e333b;
   --text: #e4e6ea;
-  --muted: #9aa1ab;
+  --muted: #a3aab4;
   --accent: #7fb89a;
+  --measure: 44em;      /* about 44 Korean characters per line */
+  color-scheme: dark;   /* dark scrollbars and form controls inside the popup */
+  scrollbar-color: #3a404a var(--bg);
 }
 
 * { box-sizing: border-box; }
+
+::selection { background: #7fb89a55; color: #fff; }
+
+html { scroll-padding-top: 24px; }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.75;    /* light text on a dark page needs a little more air */
+  letter-spacing: .005em;
   -webkit-font-smoothing: antialiased;
 }
 
-.doc { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+.doc { max-width: 1160px; margin: 0 auto; padding: 40px 24px 96px; }
 
-h1, h2, h3, h4 { line-height: 1.3; letter-spacing: -.01em; }
-h1 { font-size: 2rem; margin: 0 0 24px; }
-h2 { font-size: 1.5rem; margin: 48px 0 16px; padding-top: 16px; border-top: 1px solid var(--line); }
-h3 { font-size: 1.2rem; margin: 32px 0 12px; color: var(--accent); }
+/* Prose keeps a readable line; tables, code and pictures may use the full column. */
+.doc p, .doc li, .doc blockquote, .doc h1, .doc h3, .doc h4 { max-width: var(--measure); text-wrap: pretty; }
+.doc h1, .doc h2, .doc h3 { text-wrap: balance; }
 
-a { color: var(--accent); }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3, h4 { line-height: 1.35; letter-spacing: -.015em; }
+h1 { font-size: 2rem; font-weight: 800; margin: 0 0 24px; }
+h2 { font-size: 1.5rem; font-weight: 700; margin: 64px 0 16px; padding-top: 24px; border-top: 1px solid var(--line); }
+h3 { font-size: 1.1875rem; font-weight: 700; margin: 40px 0 12px; color: var(--accent); }
+h4 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; }
 
-code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
-pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; overflow-x: auto; }
-pre code { background: none; padding: 0; }
+p { margin: 0 0 16px; }
+ul, ol { padding-left: 1.4em; margin: 0 0 16px; }
+li + li { margin-top: 4px; }
+strong { color: #fff; font-weight: 700; }
 
-blockquote { margin: 16px 0; padding: 4px 16px; border-left: 3px solid var(--accent); color: var(--muted); }
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
-img { max-width: 100%; height: auto; border-radius: 6px; }
+code { font-family: ui-monospace, Consolas, monospace; font-size: .875em; color: #dfe9e3; background: var(--surface-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; overflow-x: auto; line-height: 1.6; }
+pre code { background: none; border: 0; padding: 0; }
 
+blockquote { margin: 0 0 16px; padding: 12px 16px; background: var(--surface); border-radius: 8px; color: var(--muted); }
+blockquote p:last-child { margin-bottom: 0; }
+
+img { max-width: 100%; height: auto; border-radius: 8px; }
+img[align="right"] { margin: 4px 0 16px 24px; }
+
+/* Tables */
 .table-wrap, table { display: block; overflow-x: auto; }
-table { border-collapse: collapse; margin: 16px 0; font-size: .92rem; }
-.table-wrap table { display: table; }
-th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; word-break: keep-all; }
+table { border-collapse: collapse; margin: 8px 0 24px; font-size: .9375rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.table-wrap table { display: table; margin: 0; }
+th, td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; word-break: keep-all; }
+th { background: var(--surface); white-space: nowrap; font-weight: 700; }
 tr.group td { background: var(--surface); color: var(--accent); font-weight: 700; }
-th { background: var(--surface); white-space: nowrap; }
-td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-bottom: 4px; background: #fff1; }
+td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-bottom: 4px; background: #ffffff0d; }
 
+/* Table of contents: on top for narrow popups, a sticky side column when there is room */
+.toc { font-size: .9375rem; }
+.toc h2 { margin-top: 0; padding-top: 0; border-top: 0; font-size: 1rem; color: var(--muted); }
+.toc ol, .toc ul { margin: 0; padding-left: 2em; }
+.toc a { text-decoration: none; color: var(--text); }
+.toc a:hover { color: var(--accent); }
+.toc hr { display: none; }  /* the source TOC ends with a rule; the layout already separates it */
+
+@media (min-width: 1080px) {
+  .doc:has(> .toc) { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: 56px; }
+  .toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-right: 8px; font-size: .875rem; line-height: 1.55; }
+  .toc ol, .toc ul { padding-left: 2em; }
+  .toc ol + ul { margin-top: 10px; padding-left: 0; list-style: none; }  /* appendix links under the numbered chapters */
+  .toc li + li { margin-top: 6px; }
+}
+
+/* Sheet tabs (spreadsheet pages) */
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-.tabs a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; }
+.tabs a { padding: 6px 16px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; color: var(--text); }
+.tabs a:hover { border-color: var(--accent); color: var(--accent); }
 
 @media (max-width: 640px) {
   .doc { padding: 24px 16px 64px; }
-  h1 { font-size: 1.6rem; }
+  h1 { font-size: 1.625rem; }
+  h2 { font-size: 1.3125rem; margin-top: 48px; }
+  img[align="right"] { float: none; display: block; margin: 0 auto 16px; }
 }
 
-/* Spreadsheet pages: use the whole popup width and keep every cell on one line. Fits from a 1280px-wide window;
+/* Spreadsheet pages: whole popup width, every cell on one line. Fits from a 1280px-wide window;
    below that only the table scrolls sideways (.table-wrap), never the page. */
 .wide { max-width: none; padding: 24px 16px 64px; }
-.wide table { font-size: .8rem; }
-.wide th, .wide td { white-space: nowrap; padding: 4px 8px; vertical-align: middle; }
+.wide table { font-size: .8125rem; }
+.wide th, .wide td { white-space: nowrap; padding: 5px 8px; vertical-align: middle; }
+.wide th { position: sticky; top: 0; z-index: 1; box-shadow: 0 1px 0 var(--line); }  /* column names stay in view in the 197-row sheet */
+.wide tr:hover td { background: #ffffff08; }
 .wide td img { width: 40px; height: 40px; margin: 0; }
+@media (min-width: 1180px) { .wide .table-wrap { overflow: visible; } }  /* no inner scroller, so the sticky header follows the page */

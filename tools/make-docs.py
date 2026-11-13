@@ -54,6 +54,11 @@ def md_page(src, css):
                                                markdown.extensions.toc.TocExtension(slugify=github_slug)])
     body = re.sub(r'href="([^"#:]+)\.md(#[^"]*)?"', r'href="\1.html\2"', body)
     body = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', body)
+    # the "목차" section becomes a nav, which doc.css keeps beside the text on wide screens
+    body = re.sub(r'(<h2 id="목차">.*?)(?=<h2 )', r'<nav class="toc" aria-label="목차">\1</nav>\n', body, count=1, flags=re.S)
+    nav = re.search(r'<nav class="toc".*?</nav>\n', body, flags=re.S)
+    if nav:  # nav first, then every other part of the page in one column (see .content in doc.css)
+        body = nav.group(0) + '<div class="content">\n' + body.replace(nav.group(0), '') + '</div>'
     title = re.search(r"^# (.+)$", text, re.M)
     return page(title.group(1) if title else src.stem, body, css)
 
