@@ -99,7 +99,10 @@ function prefetchBuilds() {
     }
   }
 }
-if ('requestIdleCallback' in window) requestIdleCallback(prefetchBuilds);
+// ~200 MB in total: skip on phones/tablets and data-saver connections.
+const skipPrefetch = navigator.connection?.saveData || matchMedia('(pointer: coarse)').matches;
+if (skipPrefetch) { /* games load on demand */ }
+else if ('requestIdleCallback' in window) requestIdleCallback(prefetchBuilds);
 else addEventListener('load', prefetchBuilds);
 
 // Close the popup: × button, a click outside the video, or Esc (built into <dialog>).
