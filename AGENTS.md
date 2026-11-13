@@ -16,7 +16,7 @@
 | `site/index.html` | 갤러리 페이지 틀(제목, 카드 자리, 게임 팝업, 영상 팝업) |
 | `site/style.css` | 다크 모드 디자인 |
 | `site/app.js` | 카드 만들기, 팝업 열고 닫기, PC에서 게임 파일 미리 받기(휴대폰·데이터 절약 모드는 안 함) |
-| `site/workflow.webp`·`workflow.html` | 게임 카드 아래 'AI 작업 워크플로우' 그림(1768×1037, 사이트와 같은 어두운 톤·초록 강조). 누르면 `workflow.html`이 팝업으로 열림(PC는 팝업에 맞춤, 휴대폰은 읽히는 크기로 옆으로 밀어 봄). 원본·프롬프트는 `D:\GPT_생성물\이미지6-11-14_AI워크플로우\`(Codex) |
+| `site/workflow.webp`·`workflow.html` | 게임 카드 아래 'AI 작업 워크플로우' 그림(1768×1037, 사이트와 같은 어두운 톤·초록 강조). 누르면 `workflow.html`이 팝업으로 열림(PC는 팝업에 맞춤, 휴대폰은 읽히는 크기로 옆으로 밀어 봄). 원본·프롬프트는 `D:\GPT_생성물\이미지\2026-11-14_AI워크플로우\`(Codex) |
 | `site/games.js` | **게임 목록.** 게임을 넣고 빼고 고치는 곳은 여기 하나입니다 |
 | `site/thumbs/` | 카드 썸네일(640×360 WebP) |
 | `site/games/<slug>/` | Unity 웹 빌드(Chicken Fire·ERZZ·쭉쭉냥·Rio Idle) |
