@@ -25,7 +25,7 @@ window.GAMES = [
     play: 'games/zzukzzuk-nyang/index.html',
     video: '',
     links: [
-      { label: '기획서', url: 'docs/zzukzzuk-nyang/game-design.html' },
+      { label: '제작 프롬프트', url: 'docs/zzukzzuk-nyang/game-design.html' },
       { label: '리소스 문서', url: 'docs/zzukzzuk-nyang/zzukzzuk-nyang-resources.html' },
     ],
   },
