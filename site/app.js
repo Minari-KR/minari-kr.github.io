@@ -44,8 +44,9 @@ function card(game) {
     play.setAttribute('aria-label', `${game.title} 플레이`);
     play.addEventListener('click', (e) => {
       e.preventDefault();
+      prefetchStop.abort(); // give the whole connection to this game
       gameFrame.title = game.title;
-      gameFrame.src = play.href; // play.href, not game.play: it may have been rewritten to the local server
+      gameFrame.src = game.play;
       gameDialog.showModal();
     });
     actions.append(play);
@@ -83,18 +84,22 @@ if (location.protocol === 'file:') {
   document.querySelector('.top').append(note);
 }
 
-// Warm the browser cache with each local web build while the visitor browses,
-// so pressing 플레이 loads from disk instead of the network.
-function prefetchBuilds() {
+// Warm the browser cache with each web build while the visitor browses, so pressing 플레이 loads
+// from disk. One file at a time, in list order, and it stops as soon as a game is opened:
+// downloading everything at once made the clicked game share the connection (15 s+ on a first visit).
+const prefetchStop = new AbortController();
+async function prefetchBuilds() {
   for (const game of window.GAMES) {
     const m = /^games\/([\w-]+)\/index\.html$/.exec(game.play);
     if (!m) continue;
-    const base = `games/${m[1]}/Build/${m[1]}`;
     for (const f of ['loader.js', 'framework.js', 'wasm', 'data']) { // uncompressed build names
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = `${base}.${f}`;
-      document.head.append(link);
+      try {
+        const res = await fetch(`games/${m[1]}/Build/${m[1]}.${f}`, { signal: prefetchStop.signal, priority: 'low' });
+        const reader = res.body.getReader();
+        while (!(await reader.read()).done); // read to the end so the browser caches it, without keeping it in memory
+      } catch {
+        return; // stopped, or offline: the game simply loads when opened
+      }
     }
   }
 }
