@@ -101,6 +101,14 @@ function card(game) {
 
 grid.append(...window.GAMES.map(card));
 
+// The workflow picture opens full size in the same popup (its words are small on a phone).
+document.querySelector('.workflow-link')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  gameFrame.title = 'AI 작업 워크플로우';
+  gameFrame.src = e.currentTarget.getAttribute('href');
+  gameDialog.showModal();
+});
+
 // Unity web builds cannot load from file:// — send the visitor to the published site.
 if (location.protocol === 'file:') {
   const note = document.createElement('p');

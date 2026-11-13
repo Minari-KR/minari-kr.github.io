@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="robots" content="noindex">
+  <title>AI 작업 워크플로우</title>
+  <!-- Opened in the gallery popup: fits the popup on a PC, and stays readable (pan sideways) on a phone. -->
+  <style>
+    :root { color-scheme: dark; scrollbar-color: #3a404a #14171c; }
+    html, body { margin: 0; background: #14171c; }
+    body { min-height: 100vh; display: flex; align-items: center; }
+    /* phone: readable size, pan sideways from the left edge */
+    img { display: block; flex: none; width: 1100px; height: auto; }
+    /* PC: the whole picture fits the popup */
+    @media (min-width: 900px) { img { width: min(100%, calc(100vh * 1768 / 1037)); margin: 0 auto; } }
+  </style>
+</head>
+<body>
+  <img src="workflow.webp" width="1768" height="1037" alt="AI 작업 워크플로우 그림">
+</body>
+</html>
