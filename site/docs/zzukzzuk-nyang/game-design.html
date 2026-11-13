@@ -56,65 +56,65 @@
 <table>
 <thead>
 <tr>
-<th>항목</th>
-<th>내용</th>
+<th class="nw">항목</th>
+<th class="nw">내용</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>한 줄 소개</td>
+<td class="nw">한 줄 소개</td>
 <td>쭉쭉 늘어나는 냥이를 연어 접시에 감아서, 견본 그림을 한붓에 그리는 퍼즐</td>
 </tr>
 <tr>
-<td>이름</td>
+<td class="nw">이름</td>
 <td>한국어 <code>쭉쭉냥</code> (스토어: <code>쭉쭉냥: 고양이 퍼즐</code>), 영어 <code>Zzuk-Zzuk Nyang</code> (부제 <code>A Stretchy Cat Puzzle</code>)</td>
 </tr>
 <tr>
-<td>장르</td>
+<td class="nw">장르</td>
 <td>한붓그리기(one-stroke) 퍼즐. 줄 대신 늘어나는 고양이 몸을 쓴다</td>
 </tr>
 <tr>
-<td>플랫폼</td>
+<td class="nw">플랫폼</td>
 <td>Android(Google Play, 패키지 <code>com.minari.zzukzzuknyang</code>), Windows PC, Web(WebGL)</td>
 </tr>
 <tr>
-<td>화면 방향</td>
+<td class="nw">화면 방향</td>
 <td>세로. 휴대폰(가장 짧은 변 600dp 미만)은 실행할 때 세로로 고정, 태블릿·폴더블은 회전 허용(<code>ScreenOrientationRule</code>)</td>
 </tr>
 <tr>
-<td>기준 해상도</td>
+<td class="nw">기준 해상도</td>
 <td>UI 캔버스 기준 1080×1920(Canvas Scaler). PC 창 540×960, 모니터 높이의 88%보다 크면 9:16을 지키며 줄임(최소 높이 320). F11 = 전체 화면 전환, Alt+Enter도 됨</td>
 </tr>
 <tr>
-<td>넓은 화면</td>
+<td class="nw">넓은 화면</td>
 <td>화면비(가로/세로)가 0.9 이하면 화면 전체를 쓴다. 더 넓으면 가운데에 9:16 세로 기둥만 그리고, 양옆은 배경색 × (0.8, 0.8, 0.82)로 칠한다(<code>BoardCamera</code>)</td>
 </tr>
 <tr>
-<td>안전 영역</td>
+<td class="nw">안전 영역</td>
 <td>UI 루트가 <code>Screen.safeArea</code>에 맞춰 줄어든다(<code>SafeArea</code>). 노치·둥근 모서리·홈 바를 피함</td>
 </tr>
 <tr>
-<td>프레임</td>
+<td class="nw">프레임</td>
 <td>60fps 고정(<code>Application.targetFrameRate = 60</code>). PC 빌드는 vSync 1(모니터 주사율)</td>
 </tr>
 <tr>
-<td>대상</td>
+<td class="nw">대상</td>
 <td>스토어 문구 "누구나 편하게". 연령 등급·주 대상층은 원본에 없음 → <strong>확인 못 함</strong></td>
 </tr>
 <tr>
-<td>수익 모델</td>
+<td class="nw">수익 모델</td>
 <td>없음. 광고·결제·로그인 없음, 인터넷 없이 플레이</td>
 </tr>
 <tr>
-<td>언어</td>
+<td class="nw">언어</td>
 <td>한국어·영어. 처음엔 기기 언어(한국어 기기 → 한국어, 그 밖 → 영어), 설정에서 바로 바꿈</td>
 </tr>
 <tr>
-<td>핵심 재미</td>
+<td class="nw">핵심 재미</td>
 <td>팽팽한 고양이 몸이 접시에 감기고 풀리는 손맛 + 감을 때마다 한 음씩 올라가 풀이가 멜로디가 됨 + 다 그리면 배경 그림이 나타나는 보상</td>
 </tr>
 <tr>
-<td>분량</td>
+<td class="nw">분량</td>
 <td>일반 레벨 197개 + 튜토리얼 4단계 + 일일 도전(날짜로 매일 3개 생성, 끝없음)</td>
 </tr>
 </tbody>
@@ -155,24 +155,24 @@
 <table>
 <thead>
 <tr>
-<th>방식</th>
-<th>하는 법</th>
-<th>계산</th>
+<th class="nw">방식</th>
+<th class="nw">하는 법</th>
+<th class="nw">계산</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>바깥 감기</td>
+<td class="nw">바깥 감기</td>
 <td>몸을 접시 바깥으로 돌려 감는다</td>
 <td><code>RopeSolver</code>가 쓸고 지나간 삼각형 안의 접시를 감는다</td>
 </tr>
 <tr>
-<td>지나가며 잇기</td>
+<td class="nw">지나가며 잇기</td>
 <td>손을 떼지 않고 접시 위를 지나가며 꺾는다(안쪽으로 꺾어도 됨)</td>
 <td><code>DotConnector</code>: 접시 0.45 안에 들어갔다 나오면 그 접시에 건다</td>
 </tr>
 <tr>
-<td>놓고 다시 잡기</td>
+<td class="nw">놓고 다시 잡기</td>
 <td>접시마다 손을 놓았다가 다시 잡아 끈다</td>
 <td><code>PegMagnet</code> + <code>RopeSolver.PinEnd</code></td>
 </tr>
@@ -205,30 +205,30 @@
 <table>
 <thead>
 <tr>
-<th>값</th>
-<th>수치</th>
-<th>뜻</th>
+<th class="nw">값</th>
+<th class="nw">수치</th>
+<th class="nw">뜻</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>StartPickRadius</code></td>
-<td>0.6</td>
-<td>시작 접시 고르기 탭 반경</td>
+<td class="nw"><code>StartPickRadius</code></td>
+<td class="nw">0.6</td>
+<td class="nw">시작 접시 고르기 탭 반경</td>
 </tr>
 <tr>
-<td><code>GrabRadius</code></td>
-<td>0.9</td>
+<td class="nw"><code>GrabRadius</code></td>
+<td class="nw">0.9</td>
 <td>떠 있는 머리를 다시 잡는 반경</td>
 </tr>
 <tr>
-<td><code>GrabOffsetFade</code></td>
-<td>1.2</td>
+<td class="nw"><code>GrabOffsetFade</code></td>
+<td class="nw">1.2</td>
 <td>잡을 때 손가락과 머리 사이 차이를 바로 없애지 않고, 손가락이 움직인 거리 d마다 차이 × e^(−d/1.2)로 줄인다(머리가 손가락으로 순간이동하지 않게)</td>
 </tr>
 <tr>
-<td><code>ClearTapDelay</code></td>
-<td>0.6초</td>
+<td class="nw"><code>ClearTapDelay</code></td>
+<td class="nw">0.6초</td>
 <td>클리어 직후 이 시간 동안 탭 무시</td>
 </tr>
 </tbody>
@@ -257,30 +257,30 @@
 <table>
 <thead>
 <tr>
-<th>값</th>
-<th>수치</th>
-<th>뜻</th>
+<th class="nw">값</th>
+<th class="nw">수치</th>
+<th class="nw">뜻</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>SnapRadius</code></td>
-<td>0.6</td>
+<td class="nw"><code>SnapRadius</code></td>
+<td class="nw">0.6</td>
 <td>손 뗄 때 이 안의 가장 가까운 접시에 붙음</td>
 </tr>
 <tr>
-<td><code>GraceSeconds</code></td>
-<td>0.15초</td>
+<td class="nw"><code>GraceSeconds</code></td>
+<td class="nw">0.15초</td>
 <td>그 안에 0.6 안을 스치고 지나간 접시가 있으면, 놓은 자리가 멀어도 그 접시에 붙음(빠른 튕김 보정)</td>
 </tr>
 <tr>
-<td><code>PullRadius</code></td>
-<td>0.6</td>
+<td class="nw"><code>PullRadius</code></td>
+<td class="nw">0.6</td>
 <td>그리는 머리만 이 안의 접시 쪽으로 끌려 보임: 위치 = Lerp(끝, 접시, Smooth(1 − 거리/0.6))</td>
 </tr>
 <tr>
-<td><code>StickRadius</code></td>
-<td>0.3</td>
+<td class="nw"><code>StickRadius</code></td>
+<td class="nw">0.3</td>
 <td>머리가 이 안에 새로 들어오면 "착": 접시 Pulse + Tick 소리(0.5)</td>
 </tr>
 </tbody>
@@ -315,38 +315,38 @@
 <table>
 <thead>
 <tr>
-<th>항목</th>
-<th>값</th>
+<th class="nw">항목</th>
+<th class="nw">값</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>시작 접시 탭</td>
-<td>0.6</td>
+<td class="nw">시작 접시 탭</td>
+<td class="nw">0.6</td>
 </tr>
 <tr>
-<td>머리 다시 잡기</td>
-<td>0.9</td>
+<td class="nw">머리 다시 잡기</td>
+<td class="nw">0.9</td>
 </tr>
 <tr>
-<td>손 뗄 때 붙기</td>
+<td class="nw">손 뗄 때 붙기</td>
 <td>0.6 (+ 0.15초 스침 보정)</td>
 </tr>
 <tr>
-<td>지나가며 잇기 닿음</td>
+<td class="nw">지나가며 잇기 닿음</td>
 <td>0.45, 결정 거리 1.2, 되돌아 나감 20°</td>
 </tr>
 <tr>
-<td>막 고정된 접시 방향 결정</td>
-<td>0.6</td>
+<td class="nw">막 고정된 접시 방향 결정</td>
+<td class="nw">0.6</td>
 </tr>
 <tr>
-<td>풀림 여유각</td>
-<td>10°</td>
+<td class="nw">풀림 여유각</td>
+<td class="nw">10°</td>
 </tr>
 <tr>
-<td>선 위의 접시</td>
-<td>0.05</td>
+<td class="nw">선 위의 접시</td>
+<td class="nw">0.05</td>
 </tr>
 <tr>
 <td>접시 사이 최소 거리(레벨 규칙)</td>
@@ -366,54 +366,54 @@
 <table>
 <thead>
 <tr>
-<th>필드</th>
-<th>형식</th>
-<th>뜻</th>
+<th class="nw">필드</th>
+<th class="nw">형식</th>
+<th class="nw">뜻</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>shapeName</code></td>
-<td>string</td>
+<td class="nw"><code>shapeName</code></td>
+<td class="nw">string</td>
 <td>한국어 이름. <strong>저장 키로도 씀</strong>(진행 저장이 번호가 아닌 이름)</td>
 </tr>
 <tr>
-<td><code>hint</code></td>
-<td>string</td>
-<td>힌트 문구(5.3절)</td>
+<td class="nw"><code>hint</code></td>
+<td class="nw">string</td>
+<td class="nw">힌트 문구(5.3절)</td>
 </tr>
 <tr>
-<td><code>pegs</code></td>
-<td>Vector2[]</td>
-<td>접시 좌표(월드 단위)</td>
+<td class="nw"><code>pegs</code></td>
+<td class="nw">Vector2[]</td>
+<td class="nw">접시 좌표(월드 단위)</td>
 </tr>
 <tr>
-<td><code>edges</code></td>
-<td>Vector2Int[]</td>
+<td class="nw"><code>edges</code></td>
+<td class="nw">Vector2Int[]</td>
 <td>견본 선 = 풀이 순서의 이웃 쌍. <code>FromPath</code>가 자동으로 만듦</td>
 </tr>
 <tr>
-<td><code>fixedStart</code></td>
-<td>int</td>
+<td class="nw"><code>fixedStart</code></td>
+<td class="nw">int</td>
 <td>시작 고정 접시 번호, −1 = 자유. <code>FromPath</code>의 세 번째 인자가 true면 <code>solution[0]</code></td>
 </tr>
 <tr>
-<td><code>solution</code></td>
-<td>int[]</td>
+<td class="nw"><code>solution</code></td>
+<td class="nw">int[]</td>
 <td>맞는 한붓 순서 하나(테스트·힌트·튜토리얼 손가락에 씀)</td>
 </tr>
 <tr>
-<td><code>clearLine</code></td>
-<td>string</td>
+<td class="nw"><code>clearLine</code></td>
+<td class="nw">string</td>
 <td>클리어 때 냥이 대사. 비면 "잘했다냥~"</td>
 </tr>
 <tr>
 <td><code>shapeNameEn</code>, <code>hintEn</code>, <code>clearLineEn</code></td>
-<td>string</td>
-<td>영어. 비면 한국어로 대체</td>
+<td class="nw">string</td>
+<td class="nw">영어. 비면 한국어로 대체</td>
 </tr>
 <tr>
-<td><code>artFrame</code></td>
+<td class="nw"><code>artFrame</code></td>
 <td>Vector3 (x, y, 변)</td>
 <td>배경 그림 정사각형. 변 0이면 접시에 맞춰 계산. 내장 레벨 197개는 모두 0</td>
 </tr>
@@ -436,45 +436,45 @@
 <table>
 <thead>
 <tr>
-<th>단계</th>
-<th>이름</th>
-<th>접시 좌표</th>
-<th>풀이</th>
-<th>시작</th>
-<th>특이</th>
+<th class="nw">단계</th>
+<th class="nw">이름</th>
+<th class="nw">접시 좌표</th>
+<th class="nw">풀이</th>
+<th class="nw">시작</th>
+<th class="nw">특이</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0-1</td>
-<td>끌어서 놓기</td>
-<td>(0,−3), (0,1)</td>
-<td>0,1</td>
-<td>고정</td>
-<td></td>
+<td class="nw">0-1</td>
+<td class="nw">끌어서 놓기</td>
+<td class="nw">(0,−3), (0,1)</td>
+<td class="nw">0,1</td>
+<td class="nw">고정</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>0-2</td>
-<td>생선에서 꺾기</td>
+<td class="nw">0-2</td>
+<td class="nw">생선에서 꺾기</td>
 <td>(−1.8,−2.9), (−1.8,0.9), (1.8,0.9)</td>
-<td>0,1,2</td>
-<td>고정</td>
-<td></td>
+<td class="nw">0,1,2</td>
+<td class="nw">고정</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>0-3</td>
-<td>한 단계 뒤로</td>
+<td class="nw">0-3</td>
+<td class="nw">한 단계 뒤로</td>
 <td>(−2,−2.7), (−0.7,0.7), (0.7,−2.7), (2,0.7)</td>
-<td>0,1,2,3</td>
-<td>고정</td>
+<td class="nw">0,1,2,3</td>
+<td class="nw">고정</td>
 <td><strong>틀린 선이 그려진 채 시작</strong>: 0→1→3 미리 그림</td>
 </tr>
 <tr>
-<td>0-4</td>
-<td>견본 따라 그리기</td>
+<td class="nw">0-4</td>
+<td class="nw">견본 따라 그리기</td>
 <td>(−1.6,−0.1), (1.6,−0.1), (0,−3.5), (0,1.5)</td>
-<td>0,3,1,0,2,1</td>
-<td>자유</td>
+<td class="nw">0,3,1,0,2,1</td>
+<td class="nw">자유</td>
 <td>손가락 안내 없음, 시작 가능한 접시 깜빡임</td>
 </tr>
 </tbody>
@@ -483,42 +483,42 @@
 <table>
 <thead>
 <tr>
-<th>단계</th>
-<th>영어 이름</th>
-<th>안내(한)</th>
-<th>안내(영)</th>
-<th>클리어 대사(한)</th>
-<th>클리어 대사(영)</th>
+<th class="nw">단계</th>
+<th class="nw">영어 이름</th>
+<th class="nw">안내(한)</th>
+<th class="nw">안내(영)</th>
+<th class="nw">클리어 대사(한)</th>
+<th class="nw">클리어 대사(영)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0-1</td>
-<td>Drag and Drop</td>
+<td class="nw">0-1</td>
+<td class="nw">Drag and Drop</td>
 <td>'시작' 생선에서 냥이를 끌어 위 생선에 놓아요</td>
 <td>Drag the cat from the 'Start' dish to the top dish</td>
 <td>잘했다냥! 이렇게 선을 그리는 거다냥</td>
 <td>Nice, meow! That's how you draw a line</td>
 </tr>
 <tr>
-<td>0-2</td>
-<td>Turn at a Dish</td>
+<td class="nw">0-2</td>
+<td class="nw">Turn at a Dish</td>
 <td>왼쪽 위 생선에서 꺾어요. 놓았다 다시 잡아도 돼요</td>
 <td>Turn at the top-left dish. You can let go and grab the cat again</td>
-<td>꺾기도 잘한다냥!</td>
+<td class="nw">꺾기도 잘한다냥!</td>
 <td>Great turning, meow!</td>
 </tr>
 <tr>
-<td>0-3</td>
-<td>One Step Back</td>
+<td class="nw">0-3</td>
+<td class="nw">One Step Back</td>
 <td>남은 생선을 이어 지그재그를 완성해요</td>
 <td>Join the remaining dishes to finish the zigzag</td>
-<td>실수해도 괜찮다냥~</td>
+<td class="nw">실수해도 괜찮다냥~</td>
 <td>Mistakes are okay, meow~</td>
 </tr>
 <tr>
-<td>0-4</td>
-<td>Copy the Sample</td>
+<td class="nw">0-4</td>
+<td class="nw">Copy the Sample</td>
 <td>시작 생선을 골라 견본의 선을 한 번씩 그려요</td>
 <td>Pick a starting dish and draw each line of the sample once</td>
 <td>튜토리얼 끝! 이제 진짜 퍼즐이다냥!</td>
@@ -531,29 +531,29 @@
 <table>
 <thead>
 <tr>
-<th>통계</th>
-<th>값</th>
+<th class="nw">통계</th>
+<th class="nw">값</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>접시 수</td>
-<td>3~14개</td>
+<td class="nw">접시 수</td>
+<td class="nw">3~14개</td>
 </tr>
 <tr>
-<td>선 수</td>
-<td>3~18개</td>
+<td class="nw">선 수</td>
+<td class="nw">3~18개</td>
 </tr>
 <tr>
-<td>발바닥(난이도 단계)</td>
+<td class="nw">발바닥(난이도 단계)</td>
 <td>쉬움 69 · 보통 38 · 어려움 90</td>
 </tr>
 <tr>
-<td>시작 고정</td>
-<td>0개</td>
+<td class="nw">시작 고정</td>
+<td class="nw">0개</td>
 </tr>
 <tr>
-<td>고비 레벨(10의 배수 번)</td>
+<td class="nw">고비 레벨(10의 배수 번)</td>
 <td>19개: 10 화살표, 20 망치, 30 당근, 40 버섯, 50 마이크, 60 사과, 70 야자수, 80 잠수함, 90 나뭇잎, 100 거북이, 110 햄버거, 120 먹구름, 130 부채, 140 물뿌리개, 150 안경, 160 기타, 170 케이크 조각, 180 튤립, 190 호랑나비</td>
 </tr>
 </tbody>
@@ -567,33 +567,33 @@
 <table>
 <thead>
 <tr>
-<th>요소</th>
-<th>계산</th>
+<th class="nw">요소</th>
+<th class="nw">계산</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>start</td>
+<td class="nw">start</td>
 <td>시작 고정 0 / 홀수 접시 없음(고리) 0.5 / 홀수 접시 2개이고 그중 하나라도 선 3개 이상 1.5, 아니면 0.5</td>
 </tr>
 <tr>
-<td>lines</td>
-<td>선 수</td>
+<td class="nw">lines</td>
+<td class="nw">선 수</td>
 </tr>
 <tr>
-<td>junctions</td>
-<td>선 3개 이상 모이는 접시 수</td>
+<td class="nw">junctions</td>
+<td class="nw">선 3개 이상 모이는 접시 수</td>
 </tr>
 <tr>
-<td>stuck</td>
+<td class="nw">stuck</td>
 <td>맞는 시작 접시들에서, 접시마다 안 쓴 선을 무작위로 고를 때 끝까지 못 그릴 확률(정확 계산, 메모이제이션), 시작 접시들 평균</td>
 </tr>
 <tr>
-<td>crossings</td>
+<td class="nw">crossings</td>
 <td>서로 진짜로 교차하는 선 쌍(끝을 공유하면 제외)</td>
 </tr>
 <tr>
-<td>sharp</td>
+<td class="nw">sharp</td>
 <td>40°보다 뾰족한 꺾임 수(고리면 시작점 꺾임 포함)</td>
 </tr>
 </tbody>
@@ -605,83 +605,83 @@
 <table>
 <thead>
 <tr>
-<th>구간</th>
-<th>평균 점수</th>
-<th>쉬움/보통/어려움</th>
-<th>평균 접시</th>
-<th>평균 선</th>
+<th class="nw">구간</th>
+<th class="nw">평균 점수</th>
+<th class="nw">쉬움/보통/어려움</th>
+<th class="nw">평균 접시</th>
+<th class="nw">평균 선</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1–20</td>
-<td>2.69</td>
-<td>11/5/4</td>
-<td>4.9</td>
-<td>4.8</td>
+<td class="nw">1–20</td>
+<td class="nw">2.69</td>
+<td class="nw">11/5/4</td>
+<td class="nw">4.9</td>
+<td class="nw">4.8</td>
 </tr>
 <tr>
-<td>21–40</td>
-<td>3.42</td>
-<td>9/3/8</td>
-<td>5.9</td>
-<td>6.2</td>
+<td class="nw">21–40</td>
+<td class="nw">3.42</td>
+<td class="nw">9/3/8</td>
+<td class="nw">5.9</td>
+<td class="nw">6.2</td>
 </tr>
 <tr>
-<td>41–60</td>
-<td>3.81</td>
-<td>8/5/7</td>
-<td>6.5</td>
-<td>7.0</td>
+<td class="nw">41–60</td>
+<td class="nw">3.81</td>
+<td class="nw">8/5/7</td>
+<td class="nw">6.5</td>
+<td class="nw">7.0</td>
 </tr>
 <tr>
-<td>61–80</td>
-<td>4.06</td>
-<td>8/2/10</td>
-<td>6.9</td>
-<td>7.3</td>
+<td class="nw">61–80</td>
+<td class="nw">4.06</td>
+<td class="nw">8/2/10</td>
+<td class="nw">6.9</td>
+<td class="nw">7.3</td>
 </tr>
 <tr>
-<td>81–100</td>
-<td>4.39</td>
-<td>7/5/8</td>
-<td>7.5</td>
-<td>8.0</td>
+<td class="nw">81–100</td>
+<td class="nw">4.39</td>
+<td class="nw">7/5/8</td>
+<td class="nw">7.5</td>
+<td class="nw">8.0</td>
 </tr>
 <tr>
-<td>101–120</td>
-<td>4.66</td>
-<td>7/7/6</td>
-<td>8.2</td>
-<td>8.4</td>
+<td class="nw">101–120</td>
+<td class="nw">4.66</td>
+<td class="nw">7/7/6</td>
+<td class="nw">8.2</td>
+<td class="nw">8.4</td>
 </tr>
 <tr>
-<td>121–140</td>
-<td>5.75</td>
-<td>6/4/10</td>
-<td>7.7</td>
-<td>8.7</td>
+<td class="nw">121–140</td>
+<td class="nw">5.75</td>
+<td class="nw">6/4/10</td>
+<td class="nw">7.7</td>
+<td class="nw">8.7</td>
 </tr>
 <tr>
-<td>141–160</td>
-<td>6.63</td>
-<td>5/4/11</td>
-<td>9.2</td>
-<td>10.2</td>
+<td class="nw">141–160</td>
+<td class="nw">6.63</td>
+<td class="nw">5/4/11</td>
+<td class="nw">9.2</td>
+<td class="nw">10.2</td>
 </tr>
 <tr>
-<td>161–180</td>
-<td>7.51</td>
-<td>5/3/12</td>
-<td>9.8</td>
-<td>10.9</td>
+<td class="nw">161–180</td>
+<td class="nw">7.51</td>
+<td class="nw">5/3/12</td>
+<td class="nw">9.8</td>
+<td class="nw">10.9</td>
 </tr>
 <tr>
-<td>181–197</td>
-<td>10.56</td>
-<td>3/0/14</td>
-<td>9.9</td>
-<td>12.2</td>
+<td class="nw">181–197</td>
+<td class="nw">10.56</td>
+<td class="nw">3/0/14</td>
+<td class="nw">9.9</td>
+<td class="nw">12.2</td>
 </tr>
 </tbody>
 </table>
@@ -720,38 +720,38 @@
 <table>
 <thead>
 <tr>
-<th>단계</th>
-<th>내용</th>
-<th>점수 4 이하</th>
-<th>7</th>
-<th>10 이상</th>
-<th>최소 시간</th>
+<th class="nw">단계</th>
+<th class="nw">내용</th>
+<th class="nw">점수 4 이하</th>
+<th class="nw">7</th>
+<th class="nw">10 이상</th>
+<th class="nw">최소 시간</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>① 그림</td>
+<td class="nw">① 그림</td>
 <td>배경 그림을 미리보기 시간만큼(최소 1초) 다시 보여 줌. 그리는 중이면 다음 시작 접시 고르기 때로 미룸</td>
-<td>25초</td>
-<td>40초</td>
-<td>60초</td>
-<td>15초</td>
+<td class="nw">25초</td>
+<td class="nw">40초</td>
+<td class="nw">60초</td>
+<td class="nw">15초</td>
 </tr>
 <tr>
-<td>② 문구</td>
+<td class="nw">② 문구</td>
 <td>레벨 <code>hint</code>를 6초 동안. 냥이 스킨: 그리는 중엔 머리 위 말풍선, 고르기 중엔 판 가운데 냥이 머리(1.9) + 말풍선. 다른 스킨: 위쪽 띠(견본 카드가 0.75 내려감)</td>
-<td>40초</td>
-<td>60초</td>
-<td>90초</td>
-<td>25초</td>
+<td class="nw">40초</td>
+<td class="nw">60초</td>
+<td class="nw">90초</td>
+<td class="nw">25초</td>
 </tr>
 <tr>
-<td>③ 시작 접시</td>
+<td class="nw">③ 시작 접시</td>
 <td>시작할 수 있는 접시(고정 시작, 아니면 홀수 선 접시, 없으면 전부)에 "시작" 표시 + 반짝이. 접시를 고르면 숨고, 다시 고르기로 돌아오면 다시 나옴</td>
-<td>55초</td>
-<td>85초</td>
-<td>120초</td>
-<td>35초</td>
+<td class="nw">55초</td>
+<td class="nw">85초</td>
+<td class="nw">120초</td>
+<td class="nw">35초</td>
 </tr>
 </tbody>
 </table>
@@ -772,86 +772,86 @@
 <table>
 <thead>
 <tr>
-<th>요일</th>
-<th>테마</th>
-<th>배치</th>
-<th>접시 수</th>
-<th>선 수(슬롯 0/1/2)</th>
-<th>다시 지남(최소,최대)</th>
-<th>교차(최소,최대)</th>
-<th>고리 확률</th>
+<th class="nw">요일</th>
+<th class="nw">테마</th>
+<th class="nw">배치</th>
+<th class="nw">접시 수</th>
+<th class="nw">선 수(슬롯 0/1/2)</th>
+<th class="nw">다시 지남(최소,최대)</th>
+<th class="nw">교차(최소,최대)</th>
+<th class="nw">고리 확률</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>월</td>
+<td class="nw">월</td>
 <td>대칭 별자리 Mirror Stars</td>
-<td>Mirror</td>
-<td>5~8</td>
-<td>4–6 / 5–7 / 8–10</td>
+<td class="nw">Mirror</td>
+<td class="nw">5~8</td>
+<td class="nw">4–6 / 5–7 / 8–10</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(0,0)/(0,1)/(0,2)</td>
-<td>0.5/0.8/0.5</td>
+<td class="nw">0.5/0.8/0.5</td>
 </tr>
 <tr>
-<td>화</td>
+<td class="nw">화</td>
 <td>반짝이는 별자리 Twinkling Stars</td>
-<td>Ring</td>
-<td>5~7</td>
-<td>5–5 / 5–6 / 7–9</td>
+<td class="nw">Ring</td>
+<td class="nw">5~7</td>
+<td class="nw">5–5 / 5–6 / 7–9</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(1,5)/(1,2)/(2,6)</td>
-<td>0.7/0.8/0.7</td>
+<td class="nw">0.7/0.8/0.7</td>
 </tr>
 <tr>
-<td>수</td>
+<td class="nw">수</td>
 <td>지그재그 별자리 Zigzag Stars</td>
-<td>Rows</td>
-<td>5~8</td>
-<td>4–6 / 5–7 / 8–10</td>
+<td class="nw">Rows</td>
+<td class="nw">5~8</td>
+<td class="nw">4–6 / 5–7 / 8–10</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(0,0)/(0,1)/(0,2)</td>
-<td>0.2/0.8/0.2</td>
+<td class="nw">0.2/0.8/0.2</td>
 </tr>
 <tr>
-<td>목</td>
+<td class="nw">목</td>
 <td>북적이는 별자리 Crowded Stars</td>
-<td>Scatter</td>
-<td>7~10</td>
-<td>6–8 / 6–8 / 8–11</td>
+<td class="nw">Scatter</td>
+<td class="nw">7~10</td>
+<td class="nw">6–8 / 6–8 / 8–11</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(0,0)/(0,0)/(0,1)</td>
-<td>0.3/0.8/0.3</td>
+<td class="nw">0.3/0.8/0.3</td>
 </tr>
 <tr>
-<td>금</td>
+<td class="nw">금</td>
 <td>기다란 별자리 Long Stars</td>
-<td>Scatter</td>
-<td>8~11</td>
-<td>7–9 / 7–8 / 9–11</td>
+<td class="nw">Scatter</td>
+<td class="nw">8~11</td>
+<td class="nw">7–9 / 7–8 / 9–11</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(0,0)/(0,1)/(0,1)</td>
-<td>0.4/0.8/0.4</td>
+<td class="nw">0.4/0.8/0.4</td>
 </tr>
 <tr>
-<td>토</td>
+<td class="nw">토</td>
 <td>엇갈린 별자리 Crossed Stars</td>
-<td>Scatter</td>
-<td>5~7</td>
-<td>5–6 / 5–6 / 7–9</td>
+<td class="nw">Scatter</td>
+<td class="nw">5~7</td>
+<td class="nw">5–6 / 5–6 / 7–9</td>
 <td>(0,0)/(1,1)/(1,2)</td>
 <td>(1,2)/(1,1)/(2,3)</td>
-<td>0.5/0.8/0.5</td>
+<td class="nw">0.5/0.8/0.5</td>
 </tr>
 <tr>
-<td>일</td>
+<td class="nw">일</td>
 <td>느긋한 별자리 Easy Stars</td>
-<td>Scatter</td>
-<td>5~9</td>
-<td>3–5 / 5–7 / 6–8</td>
+<td class="nw">Scatter</td>
+<td class="nw">5~9</td>
+<td class="nw">3–5 / 5–7 / 6–8</td>
 <td>(0,0)/(0,0)/(1,1)</td>
 <td>(0,0)/(0,1)/(0,1)</td>
-<td>0.5/0.5/0.8</td>
+<td class="nw">0.5/0.5/0.8</td>
 </tr>
 </tbody>
 </table>
@@ -862,107 +862,107 @@
 <table>
 <thead>
 <tr>
-<th>테마</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
+<th class="nw">테마</th>
+<th class="nw">0</th>
+<th class="nw">1</th>
+<th class="nw">2</th>
+<th class="nw">3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>대칭 (한)</td>
-<td>양쪽이 똑같다냥!</td>
-<td>거울 속 별자리 같다냥~</td>
-<td>반쪽씩 딱 맞았다냥!</td>
-<td>좌우 대칭 완벽하다냥!</td>
+<td class="nw">대칭 (한)</td>
+<td class="nw">양쪽이 똑같다냥!</td>
+<td class="nw">거울 속 별자리 같다냥~</td>
+<td class="nw">반쪽씩 딱 맞았다냥!</td>
+<td class="nw">좌우 대칭 완벽하다냥!</td>
 </tr>
 <tr>
-<td>대칭 (영)</td>
+<td class="nw">대칭 (영)</td>
 <td>Both sides match, meow!</td>
 <td>Like a mirror, meow~</td>
 <td>Two halves, a perfect fit!</td>
 <td>Perfectly even, meow!</td>
 </tr>
 <tr>
-<td>반짝이는 (한)</td>
-<td>반짝반짝 빛난다냥!</td>
-<td>별빛이 쏟아진다냥~</td>
-<td>눈부신 별자리다냥!</td>
-<td>오늘 밤 제일 반짝인다냥!</td>
+<td class="nw">반짝이는 (한)</td>
+<td class="nw">반짝반짝 빛난다냥!</td>
+<td class="nw">별빛이 쏟아진다냥~</td>
+<td class="nw">눈부신 별자리다냥!</td>
+<td class="nw">오늘 밤 제일 반짝인다냥!</td>
 </tr>
 <tr>
-<td>반짝이는 (영)</td>
+<td class="nw">반짝이는 (영)</td>
 <td>Twinkle twinkle, meow!</td>
 <td>Starlight everywhere, meow~</td>
 <td>What a shiny one, meow!</td>
 <td>The brightest tonight, meow!</td>
 </tr>
 <tr>
-<td>지그재그 (한)</td>
-<td>왔다 갔다 잘 이었다냥!</td>
-<td>지그재그 성공이다냥~</td>
-<td>이리저리 다 이었다냥!</td>
-<td>꼬불꼬불 완성이다냥!</td>
+<td class="nw">지그재그 (한)</td>
+<td class="nw">왔다 갔다 잘 이었다냥!</td>
+<td class="nw">지그재그 성공이다냥~</td>
+<td class="nw">이리저리 다 이었다냥!</td>
+<td class="nw">꼬불꼬불 완성이다냥!</td>
 </tr>
 <tr>
-<td>지그재그 (영)</td>
+<td class="nw">지그재그 (영)</td>
 <td>Back and forth, all linked, meow!</td>
 <td>Zig, zag, done, meow~</td>
 <td>This way and that, meow!</td>
 <td>Wiggly and finished, meow!</td>
 </tr>
 <tr>
-<td>북적이는 (한)</td>
-<td>별이 한가득이다냥!</td>
-<td>북적북적 다 이었다냥~</td>
-<td>별 하나도 안 놓쳤다냥!</td>
-<td>별 잔치가 열렸다냥!</td>
+<td class="nw">북적이는 (한)</td>
+<td class="nw">별이 한가득이다냥!</td>
+<td class="nw">북적북적 다 이었다냥~</td>
+<td class="nw">별 하나도 안 놓쳤다냥!</td>
+<td class="nw">별 잔치가 열렸다냥!</td>
 </tr>
 <tr>
-<td>북적이는 (영)</td>
+<td class="nw">북적이는 (영)</td>
 <td>So many stars, meow!</td>
 <td>A crowd of stars, all linked~</td>
 <td>Not one star missed, meow!</td>
 <td>A star party, meow!</td>
 </tr>
 <tr>
-<td>기다란 (한)</td>
-<td>쭈욱~ 길쭉한 별자리다냥!</td>
-<td>끝까지 다 이었다냥!</td>
-<td>꼬리가 긴 별자리다냥~</td>
-<td>길게 길게 성공이다냥!</td>
+<td class="nw">기다란 (한)</td>
+<td class="nw">쭈욱~ 길쭉한 별자리다냥!</td>
+<td class="nw">끝까지 다 이었다냥!</td>
+<td class="nw">꼬리가 긴 별자리다냥~</td>
+<td class="nw">길게 길게 성공이다냥!</td>
 </tr>
 <tr>
-<td>기다란 (영)</td>
+<td class="nw">기다란 (영)</td>
 <td>Such a long one, meow!</td>
 <td>All the way to the end, meow!</td>
 <td>A long-tailed one, meow~</td>
 <td>Long and done, meow!</td>
 </tr>
 <tr>
-<td>엇갈린 (한)</td>
-<td>엇갈린 별도 문제없다냥!</td>
-<td>엉킨 줄을 다 풀었다냥~</td>
-<td>교차로도 척척이다냥!</td>
-<td>엇갈려도 완벽하다냥!</td>
+<td class="nw">엇갈린 (한)</td>
+<td class="nw">엇갈린 별도 문제없다냥!</td>
+<td class="nw">엉킨 줄을 다 풀었다냥~</td>
+<td class="nw">교차로도 척척이다냥!</td>
+<td class="nw">엇갈려도 완벽하다냥!</td>
 </tr>
 <tr>
-<td>엇갈린 (영)</td>
+<td class="nw">엇갈린 (영)</td>
 <td>Crossed stars, no problem, meow!</td>
 <td>Tangle solved, meow~</td>
 <td>Crossings, no sweat, meow!</td>
 <td>Crossed and perfect, meow!</td>
 </tr>
 <tr>
-<td>느긋한 (한)</td>
-<td>느긋하게 한 판 끝이다냥~</td>
-<td>오늘은 쉬엄쉬엄이다냥~</td>
-<td>여유롭게 완성이다냥!</td>
-<td>낮잠 자기 딱 좋다냥~</td>
+<td class="nw">느긋한 (한)</td>
+<td class="nw">느긋하게 한 판 끝이다냥~</td>
+<td class="nw">오늘은 쉬엄쉬엄이다냥~</td>
+<td class="nw">여유롭게 완성이다냥!</td>
+<td class="nw">낮잠 자기 딱 좋다냥~</td>
 </tr>
 <tr>
-<td>느긋한 (영)</td>
+<td class="nw">느긋한 (영)</td>
 <td>Nice and easy, meow~</td>
 <td>Taking it slow, meow~</td>
 <td>Done without a rush, meow!</td>
@@ -1085,72 +1085,72 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>요소</th>
-<th>위치(월드)</th>
-<th>글꼴</th>
-<th>문구(한/영)</th>
+<th class="nw">요소</th>
+<th class="nw">위치(월드)</th>
+<th class="nw">글꼴</th>
+<th class="nw">문구(한/영)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>로고</td>
+<td class="nw">로고</td>
 <td>(0, 4), 상자 6×1.5, 최대 15</td>
-<td>Jua</td>
+<td class="nw">Jua</td>
 <td>쭉쭉냥 / Zzuk-Zzuk Nyang (천천히 출렁임 0.3배, 탭하면 흔들)</td>
 </tr>
 <tr>
-<td>부제</td>
+<td class="nw">부제</td>
 <td>(0, 2.75), 5.5×0.7</td>
-<td>Gaegu Bold</td>
+<td class="nw">Gaegu Bold</td>
 <td>고양이 퍼즐 / A Stretchy Cat Puzzle</td>
 </tr>
 <tr>
-<td>게임 시작 접시</td>
+<td class="nw">게임 시작 접시</td>
 <td>(−1.7, 0.2), 글자 0.75 위</td>
-<td>Jua</td>
-<td>게임 시작 / Start</td>
+<td class="nw">Jua</td>
+<td class="nw">게임 시작 / Start</td>
 </tr>
 <tr>
-<td>게임 종료 접시</td>
-<td>(1.7, 0.2)</td>
-<td>Jua</td>
+<td class="nw">게임 종료 접시</td>
+<td class="nw">(1.7, 0.2)</td>
+<td class="nw">Jua</td>
 <td>게임 종료 / Quit (<strong>웹 빌드는 없음</strong>)</td>
 </tr>
 <tr>
-<td>튜토리얼 접시</td>
-<td>(−2.3, −2.4)</td>
-<td>Jua</td>
-<td>튜토리얼 / Tutorial</td>
+<td class="nw">튜토리얼 접시</td>
+<td class="nw">(−2.3, −2.4)</td>
+<td class="nw">Jua</td>
+<td class="nw">튜토리얼 / Tutorial</td>
 </tr>
 <tr>
-<td>일일 도전 접시</td>
-<td>(2.3, −2.4)</td>
-<td>Jua</td>
-<td>일일 도전 / Daily</td>
+<td class="nw">일일 도전 접시</td>
+<td class="nw">(2.3, −2.4)</td>
+<td class="nw">Jua</td>
+<td class="nw">일일 도전 / Daily</td>
 </tr>
 <tr>
-<td>일일 상태</td>
+<td class="nw">일일 상태</td>
 <td>일일 접시 (−0.1, −0.95) 아래</td>
-<td>Jua</td>
+<td class="nw">Jua</td>
 <td>"오늘 0/3" 또는 "오늘 완료", 2일 이상이면 둘째 줄 "N일 연속"</td>
 </tr>
 <tr>
-<td>NEW</td>
+<td class="nw">NEW</td>
 <td>일일 접시 (−0.6, +0.15)</td>
-<td></td>
+<td class="nw"></td>
 <td>오늘 하나도 안 풀었으면 산호색 "NEW"가 까딱</td>
 </tr>
 <tr>
-<td>안내</td>
+<td class="nw">안내</td>
 <td>(0, −5.1), 6.4×0.7</td>
-<td>Gaegu Bold</td>
+<td class="nw">Gaegu Bold</td>
 <td>냥이를 잡아 늘려서 생선에 연결해요 / Stretch the cat to a dish!</td>
 </tr>
 <tr>
-<td>설정</td>
-<td>오른쪽 위 톱니</td>
-<td></td>
-<td></td>
+<td class="nw">설정</td>
+<td class="nw">오른쪽 위 톱니</td>
+<td class="nw"></td>
+<td class="nw"></td>
 </tr>
 </tbody>
 </table>
@@ -1167,60 +1167,60 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>요소</th>
-<th>기본 위치·크기</th>
-<th>내용</th>
+<th class="nw">요소</th>
+<th class="nw">기본 위치·크기</th>
+<th class="nw">내용</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>레벨 칩</td>
+<td class="nw">레벨 칩</td>
 <td>왼쪽 위 (40, −44), 150×86</td>
 <td>"24/197"(레벨), "0-1"(튜토리얼), "오늘 1/3"(일일)</td>
 </tr>
 <tr>
-<td>제목</td>
-<td>위쪽 가운데, 최소 글자 34</td>
-<td>레벨 이름</td>
+<td class="nw">제목</td>
+<td class="nw">위쪽 가운데, 최소 글자 34</td>
+<td class="nw">레벨 이름</td>
 </tr>
 <tr>
-<td>연어 카운터</td>
-<td>칩 아래 6</td>
+<td class="nw">연어 카운터</td>
+<td class="nw">칩 아래 6</td>
 <td>접시 아이콘(100×80) + "× N". 바뀔 때 1.5배 튐, 틀리면 0.4초 흔들림(sin 60t × 10 × 감쇠)</td>
 </tr>
 <tr>
-<td>난이도 배지</td>
-<td>400×76</td>
+<td class="nw">난이도 배지</td>
+<td class="nw">400×76</td>
 <td>"난이도" + 발바닥 3개(56, 켜진 것 #FF8C78, 꺼진 것 25%). 고비면 금색 판 + "도전"</td>
 </tr>
 <tr>
-<td>설정</td>
+<td class="nw">설정</td>
 <td>오른쪽 위 (−40, −44), 96</td>
-<td>톱니</td>
+<td class="nw">톱니</td>
 </tr>
 <tr>
-<td>건너뛰기</td>
-<td>설정 아래</td>
-<td>튜토리얼에서만 "건너뛰기"</td>
+<td class="nw">건너뛰기</td>
+<td class="nw">설정 아래</td>
+<td class="nw">튜토리얼에서만 "건너뛰기"</td>
 </tr>
 <tr>
-<td>견본 카드</td>
-<td>판 (0, 3.45)</td>
+<td class="nw">견본 카드</td>
+<td class="nw">판 (0, 3.45)</td>
 <td>그리기 시작하면 (2.35, 3.9)로 가며 0.55배로 작아짐(놀이를 가리지 않게)</td>
 </tr>
 <tr>
-<td>아래 바</td>
+<td class="nw">아래 바</td>
 <td>높이 230, 버튼 중심 y 115</td>
 <td>◀(−360) ↶(−150) ▦(0) ↻(+150) ▶(+360), 지름 120</td>
 </tr>
 <tr>
-<td>토스트</td>
+<td class="nw">토스트</td>
 <td>아래 (0, 240), 폭 화면−120, 높이 110</td>
-<td>짧은 안내</td>
+<td class="nw">짧은 안내</td>
 </tr>
 <tr>
-<td>말풍선</td>
-<td>냥이 머리 위 90</td>
+<td class="nw">말풍선</td>
+<td class="nw">냥이 머리 위 90</td>
 <td>최소 300×130, 최대 폭 760, 여백 90×56. 위 정보와 겹치면 머리 아래로 뒤집힘</td>
 </tr>
 </tbody>
@@ -1275,96 +1275,96 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>대상</th>
-<th>내용</th>
-<th>값</th>
+<th class="nw">대상</th>
+<th class="nw">내용</th>
+<th class="nw">값</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>접시(평소)</td>
-<td>좌우로 흔들 + 위아래 둥실</td>
+<td class="nw">접시(평소)</td>
+<td class="nw">좌우로 흔들 + 위아래 둥실</td>
 <td>±3°, 0.015, 2.2 rad/초(한 번 약 2.9초). 그림자 (0.05, −0.08) 검붉은 28%</td>
 </tr>
 <tr>
-<td>접시 감김</td>
-<td>회전하며 빨려 들어가 "먹힘"</td>
+<td class="nw">접시 감김</td>
+<td class="nw">회전하며 빨려 들어가 "먹힘"</td>
 <td>0.35초. 풀리면 다시 튀어나옴</td>
 </tr>
 <tr>
-<td>접시 Pulse</td>
-<td>커졌다 돌아옴</td>
-<td>0.4초, +25%</td>
+<td class="nw">접시 Pulse</td>
+<td class="nw">커졌다 돌아옴</td>
+<td class="nw">0.4초, +25%</td>
 </tr>
 <tr>
-<td>시작 표시</td>
+<td class="nw">시작 표시</td>
 <td>접시 위 "시작" 글자 + 반짝이 5개가 돎</td>
-<td>반짝 sin(6t)</td>
+<td class="nw">반짝 sin(6t)</td>
 </tr>
 <tr>
-<td>냥이 몸</td>
-<td>젤리 부풂, 클리어 떨림</td>
-<td>3.7절</td>
+<td class="nw">냥이 몸</td>
+<td class="nw">젤리 부풂, 클리어 떨림</td>
+<td class="nw">3.7절</td>
 </tr>
 <tr>
-<td>냥이 표정</td>
-<td>깜빡·기쁨·놀람</td>
+<td class="nw">냥이 표정</td>
+<td class="nw">깜빡·기쁨·놀람</td>
 <td>0.2초 / 0.8초 / 0.9초</td>
 </tr>
 <tr>
-<td>견본 카드</td>
+<td class="nw">견본 카드</td>
 <td>그리기 시작하면 구석으로, 클리어 때 선이 #FFC238로</td>
-<td>0.55배</td>
+<td class="nw">0.55배</td>
 </tr>
 <tr>
-<td>배경 그림</td>
-<td>미리보기·사라짐·보상</td>
+<td class="nw">배경 그림</td>
+<td class="nw">미리보기·사라짐·보상</td>
 <td>나타남 0.25초, 사라짐 0.5초, 보상 0.8초, 불투명 0.35</td>
 </tr>
 <tr>
-<td>클리어 도장</td>
+<td class="nw">클리어 도장</td>
 <td>떨어짐: 크기 2.6 → 0.85, 회전 −22° → −7°, 0.18초. 출렁임 0.32초</td>
-<td></td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>색종이</td>
+<td class="nw">색종이</td>
 <td>70개(모든 레벨 클리어·튜토리얼 끝·일일 하루 완료는 140), 12개 중 1개는 접시 그림. 3줄: 왼쪽 위·오른쪽 위 대포(속도 x 2.5~6 안쪽, y 2~6) + 위에서 비(x ±0.5, y −2.5~−1.2). 중력 9, 최저 낙하 −2.2, 좌우 흔들 0.8, 종이 뒤집힘 4~10. 3.2초 살고 마지막 0.8초 사라짐. 색 #FFC738 #FF8C9E #FA994C #73D1B8 #8CB3FF 흰색</td>
-<td></td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>글자 등장</td>
+<td class="nw">글자 등장</td>
 <td>글자마다 0.035초 간격으로 튀어 오름(짝수 글자마다 Tick)</td>
-<td><code>TextFx</code></td>
+<td class="nw"><code>TextFx</code></td>
 </tr>
 <tr>
-<td>말풍선</td>
+<td class="nw">말풍선</td>
 <td>스프링으로 나와 글자를 타이핑, 사라질 때 글자가 풀리듯</td>
-<td></td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>화면 전환</td>
+<td class="nw">화면 전환</td>
 <td>휙 패닝 0.32초 + 모션 블러</td>
-<td>6.9절</td>
+<td class="nw">6.9절</td>
 </tr>
 <tr>
-<td>일일 판</td>
+<td class="nw">일일 판</td>
 <td>밤하늘, 별, 별똥별 / 클리어 빛 번짐</td>
-<td>5.6절</td>
+<td class="nw">5.6절</td>
 </tr>
 <tr>
-<td>메달 연출</td>
-<td>5.8절</td>
-<td></td>
+<td class="nw">메달 연출</td>
+<td class="nw">5.8절</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>카메라</td>
+<td class="nw">카메라</td>
 <td>고정(흔들기 없음). 화면비에 맞춰 크기만 매 프레임 맞춤</td>
-<td>3장</td>
+<td class="nw">3장</td>
 </tr>
 <tr>
-<td>진동</td>
-<td>없음(코드에 진동 호출 없음)</td>
-<td></td>
+<td class="nw">진동</td>
+<td class="nw">없음(코드에 진동 호출 없음)</td>
+<td class="nw"></td>
 </tr>
 </tbody>
 </table>
@@ -1382,56 +1382,56 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>소리</th>
-<th>만드는 법</th>
-<th>쓰이는 곳(gain)</th>
+<th class="nw">소리</th>
+<th class="nw">만드는 법</th>
+<th class="nw">쓰이는 곳(gain)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Wrap(감김 음)</td>
-<td>아래 8.3</td>
+<td class="nw">Wrap(감김 음)</td>
+<td class="nw">아래 8.3</td>
 <td>몸이 새 접시에 걸림(감기·지나가며 잇기), 0.9</td>
 </tr>
 <tr>
-<td>Unwrap</td>
+<td class="nw">Unwrap</td>
 <td>뜯는 줄(Karplus–Strong) 196Hz, 0.35초, 감쇠 0.985, 씨앗 3</td>
 <td>고정점이 줄어듦 0.7, 한 단계 뒤로·되감기 시작 0.7, 타이틀 되감기 0.7/0.5, 메달 깨짐 0.8</td>
 </tr>
 <tr>
-<td>Pin</td>
+<td class="nw">Pin</td>
 <td>나무 두드림: sin 820Hz × e^(−55t) × 0.9 + sin 1630Hz × e^(−90t) × 0.3, 0.12초</td>
 <td>시작 접시 고름, 접시에 놓음 1.0, 되감기 끝 0.6, 메달 쾅</td>
 </tr>
 <tr>
-<td>Wrong</td>
+<td class="nw">Wrong</td>
 <td><code>kenney_error_008.ogg</code>(합성 대체: 230→130Hz 내려가는 "붑" 0.2초)</td>
 <td>새 틀린 선 1.0, 잘못된 시작 0.5, 갈 곳 없는 ◀▶ 0.4, 쪽 끝 0.3, 너무 늘어남 0.5</td>
 </tr>
 <tr>
-<td>Pop</td>
+<td class="nw">Pop</td>
 <td><code>kenney_drop_002.ogg</code>(합성 대체: 520→1250Hz 0.09초)</td>
 <td>화면 전환 0.5, 설정 열기 1.0/닫기 0.6, 쪽 넘김 0.7, 타이틀 잡기·글자 부딪힘, 글자 탭 0.6</td>
 </tr>
 <tr>
-<td>Tick</td>
+<td class="nw">Tick</td>
 <td>sin 2100Hz × e^(−140t) × 0.5, 0.035초</td>
 <td>머리가 접시에 "착" 0.5, 글자 등장, 타이틀 반응 2.0</td>
 </tr>
 <tr>
-<td>Clear</td>
+<td class="nw">Clear</td>
 <td>뜯는 줄 4음(펜타토닉 5·7·8·10단계 = 784, 988, 1175, 1568Hz) 0.09초 간격, 각 × 0.45 + 2349Hz 반짝임(× 0.08), 1.3초</td>
-<td>클리어 1.0</td>
+<td class="nw">클리어 1.0</td>
 </tr>
 <tr>
-<td>Happy</td>
+<td class="nw">Happy</td>
 <td>880 → 1175 → 1568Hz 음 3개(각 0.075초, 떨림 28Hz ±1.2%)</td>
 <td>클리어 0.4초 뒤(냥이), 타이틀 메뉴 고름, 팡파르</td>
 </tr>
 <tr>
-<td>Challenge</td>
+<td class="nw">Challenge</td>
 <td>"두둥 탁": 북 150→72Hz(0초, 0.3초) + 130→55Hz(0.17초, 0.8초) + 림샷(0.42초), 1.1초</td>
-<td>고비 레벨 입장</td>
+<td class="nw">고비 레벨 입장</td>
 </tr>
 </tbody>
 </table>
@@ -1445,36 +1445,36 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>step</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-<th>11</th>
+<th class="nw">step</th>
+<th class="nw">0</th>
+<th class="nw">1</th>
+<th class="nw">2</th>
+<th class="nw">3</th>
+<th class="nw">4</th>
+<th class="nw">5</th>
+<th class="nw">6</th>
+<th class="nw">7</th>
+<th class="nw">8</th>
+<th class="nw">9</th>
+<th class="nw">10</th>
+<th class="nw">11</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Hz</td>
-<td>392.0</td>
-<td>440.0</td>
-<td>493.9</td>
-<td>587.3</td>
-<td>659.3</td>
-<td>784.0</td>
-<td>880.0</td>
-<td>987.8</td>
-<td>1174.7</td>
-<td>1318.5</td>
-<td>1568.0</td>
-<td>1760.0</td>
+<td class="nw">Hz</td>
+<td class="nw">392.0</td>
+<td class="nw">440.0</td>
+<td class="nw">493.9</td>
+<td class="nw">587.3</td>
+<td class="nw">659.3</td>
+<td class="nw">784.0</td>
+<td class="nw">880.0</td>
+<td class="nw">987.8</td>
+<td class="nw">1174.7</td>
+<td class="nw">1318.5</td>
+<td class="nw">1568.0</td>
+<td class="nw">1760.0</td>
 </tr>
 </tbody>
 </table>
@@ -1499,131 +1499,131 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>이름</th>
-<th>hex</th>
-<th>쓰임</th>
+<th class="nw">이름</th>
+<th class="nw">hex</th>
+<th class="nw">쓰임</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Ink / Rope</td>
-<td>#21293D</td>
-<td>글자, 실 스킨 줄</td>
+<td class="nw">Ink / Rope</td>
+<td class="nw">#21293D</td>
+<td class="nw">글자, 실 스킨 줄</td>
 </tr>
 <tr>
-<td>RopeWrong</td>
-<td>#E64242</td>
-<td>틀린 선</td>
+<td class="nw">RopeWrong</td>
+<td class="nw">#E64242</td>
+<td class="nw">틀린 선</td>
 </tr>
 <tr>
-<td>PegLit</td>
-<td>#FFC238</td>
-<td>완성 견본 선, 켜진 토글</td>
+<td class="nw">PegLit</td>
+<td class="nw">#FFC238</td>
+<td class="nw">완성 견본 선, 켜진 토글</td>
 </tr>
 <tr>
-<td>PegIdle</td>
-<td>#FAFAF7</td>
-<td>점 스킨 접시</td>
+<td class="nw">PegIdle</td>
+<td class="nw">#FAFAF7</td>
+<td class="nw">점 스킨 접시</td>
 </tr>
 <tr>
-<td>배경 0 sea glass</td>
-<td>#B0D4CF</td>
+<td class="nw">배경 0 sea glass</td>
+<td class="nw">#B0D4CF</td>
 <td>레벨 1, 7, 13…(번호−1을 6으로 나눈 나머지 0), 타이틀</td>
 </tr>
 <tr>
-<td>배경 1 peach</td>
-<td>#EDC7B8</td>
-<td>나머지 1</td>
+<td class="nw">배경 1 peach</td>
+<td class="nw">#EDC7B8</td>
+<td class="nw">나머지 1</td>
 </tr>
 <tr>
-<td>배경 2 periwinkle</td>
-<td>#C2C9E8</td>
-<td>나머지 2</td>
+<td class="nw">배경 2 periwinkle</td>
+<td class="nw">#C2C9E8</td>
+<td class="nw">나머지 2</td>
 </tr>
 <tr>
-<td>배경 3 sage</td>
-<td>#D6E0B2</td>
-<td>나머지 3</td>
+<td class="nw">배경 3 sage</td>
+<td class="nw">#D6E0B2</td>
+<td class="nw">나머지 3</td>
 </tr>
 <tr>
-<td>배경 4 rose</td>
-<td>#E8CCE0</td>
-<td>나머지 4</td>
+<td class="nw">배경 4 rose</td>
+<td class="nw">#E8CCE0</td>
+<td class="nw">나머지 4</td>
 </tr>
 <tr>
-<td>배경 5 sand</td>
-<td>#EDDBAD</td>
-<td>나머지 5</td>
+<td class="nw">배경 5 sand</td>
+<td class="nw">#EDDBAD</td>
+<td class="nw">나머지 5</td>
 </tr>
 <tr>
-<td>일일 판</td>
-<td>#9EABDB</td>
-<td>일일 도전</td>
+<td class="nw">일일 판</td>
+<td class="nw">#9EABDB</td>
+<td class="nw">일일 도전</td>
 </tr>
 <tr>
-<td>StampCoral</td>
-<td>#FF5A3D</td>
-<td>클리어 도장, 레벨 선택 도장</td>
+<td class="nw">StampCoral</td>
+<td class="nw">#FF5A3D</td>
+<td class="nw">클리어 도장, 레벨 선택 도장</td>
 </tr>
 <tr>
-<td>ButtonGold</td>
-<td>#FFCC4C</td>
-<td>주 버튼, 고비 칸</td>
+<td class="nw">ButtonGold</td>
+<td class="nw">#FFCC4C</td>
+<td class="nw">주 버튼, 고비 칸</td>
 </tr>
 <tr>
-<td>BossPlate</td>
-<td>#FFD961</td>
-<td>고비 난이도 배지</td>
+<td class="nw">BossPlate</td>
+<td class="nw">#FFD961</td>
+<td class="nw">고비 난이도 배지</td>
 </tr>
 <tr>
-<td>발바닥</td>
-<td>#FF8C78</td>
-<td>난이도 발바닥</td>
+<td class="nw">발바닥</td>
+<td class="nw">#FF8C78</td>
+<td class="nw">난이도 발바닥</td>
 </tr>
 <tr>
-<td>CardBackdrop</td>
-<td>#141A40 (60%)</td>
-<td>카드 뒤 어둠</td>
+<td class="nw">CardBackdrop</td>
+<td class="nw">#141A40 (60%)</td>
+<td class="nw">카드 뒤 어둠</td>
 </tr>
 <tr>
-<td>현재 레벨 칸</td>
-<td>#9ED6FF</td>
-<td>레벨 선택</td>
+<td class="nw">현재 레벨 칸</td>
+<td class="nw">#9ED6FF</td>
+<td class="nw">레벨 선택</td>
 </tr>
 <tr>
-<td>칸</td>
-<td>#FFFCF7</td>
-<td>레벨 선택</td>
+<td class="nw">칸</td>
+<td class="nw">#FFFCF7</td>
+<td class="nw">레벨 선택</td>
 </tr>
 <tr>
-<td>냥이 외곽(코드 그림)</td>
-<td>#66402B</td>
-<td>기본 그림·말풍선 글자</td>
+<td class="nw">냥이 외곽(코드 그림)</td>
+<td class="nw">#66402B</td>
+<td class="nw">기본 그림·말풍선 글자</td>
 </tr>
 <tr>
-<td>냥이 털/외곽(CatSkin)</td>
+<td class="nw">냥이 털/외곽(CatSkin)</td>
 <td>#FEFAF7 / #220A02</td>
-<td>몸 끝 둥근 마개</td>
+<td class="nw">몸 끝 둥근 마개</td>
 </tr>
 <tr>
-<td>견본 카드</td>
-<td>흰색 82%</td>
-<td></td>
+<td class="nw">견본 카드</td>
+<td class="nw">흰색 82%</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>메달 숫자</td>
-<td>#6B3D1F</td>
-<td></td>
+<td class="nw">메달 숫자</td>
+<td class="nw">#6B3D1F</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>도감 남색</td>
-<td>#182B50</td>
-<td></td>
+<td class="nw">도감 남색</td>
+<td class="nw">#182B50</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>연출 어둠</td>
-<td>#080A1F</td>
-<td>메달·모든 레벨 클리어</td>
+<td class="nw">연출 어둠</td>
+<td class="nw">#080A1F</td>
+<td class="nw">메달·모든 레벨 클리어</td>
 </tr>
 </tbody>
 </table>
@@ -1638,60 +1638,60 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>부위</th>
-<th>실제 파일 크기(px)</th>
-<th>게임 크기(월드)</th>
-<th>비고</th>
+<th class="nw">부위</th>
+<th class="nw">실제 파일 크기(px)</th>
+<th class="nw">게임 크기(월드)</th>
+<th class="nw">비고</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>머리 4표정 + 귀 있는 4표정</td>
-<td>381×381</td>
-<td>머리 1.3</td>
+<td class="nw">381×381</td>
+<td class="nw">머리 1.3</td>
 <td>같은 크기·위치, 표정만 다름. 리본이 머리 그림에 포함(<code>headIncludesBow</code>)</td>
 </tr>
 <tr>
-<td>몸통 띠 <code>body_tile</code></td>
-<td>328×198</td>
-<td>굵기 0.55</td>
+<td class="nw">몸통 띠 <code>body_tile</code></td>
+<td class="nw">328×198</td>
+<td class="nw">굵기 0.55</td>
 <td>좌우 이어지는 무늬, Wrap = Repeat</td>
 </tr>
 <tr>
-<td>꼬리 <code>tail</code></td>
-<td>291×255</td>
-<td>길이 1</td>
+<td class="nw">꼬리 <code>tail</code></td>
+<td class="nw">291×255</td>
+<td class="nw">길이 1</td>
 <td>뿌리 (0.145, 0.232), 방향 35.65°</td>
 </tr>
 <tr>
-<td>앞발 <code>paw</code></td>
-<td>186×219</td>
-<td>0.5</td>
-<td>발가락 위, 감긴 접시마다</td>
+<td class="nw">앞발 <code>paw</code></td>
+<td class="nw">186×219</td>
+<td class="nw">0.5</td>
+<td class="nw">발가락 위, 감긴 접시마다</td>
 </tr>
 <tr>
-<td>연어 접시</td>
-<td>220×121</td>
-<td>폭 1.1</td>
+<td class="nw">연어 접시</td>
+<td class="nw">220×121</td>
+<td class="nw">폭 1.1</td>
 <td>그리기 순서 8(냥이 머리 5, 리본 6보다 위)</td>
 </tr>
 <tr>
-<td>UI 아이콘</td>
-<td>128×128</td>
-<td></td>
+<td class="nw">UI 아이콘</td>
+<td class="nw">128×128</td>
+<td class="nw"></td>
 <td>Material Icons(라이선스 파일 동봉)</td>
 </tr>
 <tr>
-<td>레벨 그림</td>
-<td>197장</td>
-<td>4.2절</td>
-<td></td>
+<td class="nw">레벨 그림</td>
+<td class="nw">197장</td>
+<td class="nw">4.2절</td>
+<td class="nw"></td>
 </tr>
 <tr>
-<td>일일 그림</td>
+<td class="nw">일일 그림</td>
 <td>테마 3584×512(7칸), 메달 3072×512(6칸)×2, 밤하늘 1080×1920, 발바닥 도장·오늘 별 256, 도감 테 512, 리본 1024×256, 방석 512×256</td>
-<td></td>
-<td></td>
+<td class="nw"></td>
+<td class="nw"></td>
 </tr>
 </tbody>
 </table>
@@ -1702,25 +1702,25 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>키</th>
-<th>형식</th>
-<th>뜻</th>
+<th class="nw">키</th>
+<th class="nw">형식</th>
+<th class="nw">뜻</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>zzukzzuk.lastLevel</code></td>
-<td>string</td>
+<td class="nw">string</td>
 <td><strong>마지막으로 연</strong> 레벨의 한국어 이름(번호 아님). 레벨을 열 때 저장. "게임 시작"과 튜토리얼 끝이 이리로 감. 없으면 레벨 1</td>
 </tr>
 <tr>
-<td><code>zzukzzuk.cleared</code></td>
+<td class="nw"><code>zzukzzuk.cleared</code></td>
 <td>string, 이름을 줄바꿈으로</td>
-<td>깬 레벨들</td>
+<td class="nw">깬 레벨들</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.allClearSeen</code></td>
-<td>int 1</td>
+<td class="nw">int 1</td>
 <td>"모든 레벨 클리어" 화면을 봄</td>
 </tr>
 <tr>
@@ -1730,62 +1730,62 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.intro</code></td>
-<td>yyyy-MM-dd</td>
-<td>소개 카드를 본 마지막 날</td>
+<td class="nw">yyyy-MM-dd</td>
+<td class="nw">소개 카드를 본 마지막 날</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.lastFull</code></td>
-<td>yyyy-MM-dd</td>
-<td>마지막으로 3개 다 한 날</td>
+<td class="nw">yyyy-MM-dd</td>
+<td class="nw">마지막으로 3개 다 한 날</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.streak</code> / <code>.best</code> / <code>.days</code></td>
-<td>int</td>
-<td>연속, 최고, 다 한 날 수</td>
+<td class="nw">int</td>
+<td class="nw">연속, 최고, 다 한 날 수</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.titleMedal</code></td>
-<td>int</td>
+<td class="nw">int</td>
 <td>타이틀이 마지막으로 보여 준 메달(일수, 0 없음)</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.titleMedalRun</code></td>
-<td>string</td>
-<td>그때의 lastFull</td>
+<td class="nw">string</td>
+<td class="nw">그때의 lastFull</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.medal{0..5}.wins</code> / <code>.first</code></td>
-<td>int / yyyy-MM-dd</td>
+<td class="nw">int / yyyy-MM-dd</td>
 <td>메달 받은 횟수, 처음 받은 날</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.daily.day</code>, <code>.slots</code></td>
-<td>(옛 형식)</td>
+<td class="nw">(옛 형식)</td>
 <td>있으면 history로 한 번 옮기고 지움</td>
 </tr>
 <tr>
 <td><code>StringPuzzle.Volume</code></td>
-<td>float, 기본 0.8</td>
-<td>효과음 볼륨</td>
+<td class="nw">float, 기본 0.8</td>
+<td class="nw">효과음 볼륨</td>
 </tr>
 <tr>
 <td><code>StringPuzzle.Muted</code></td>
-<td>int, 기본 0</td>
-<td>음소거</td>
+<td class="nw">int, 기본 0</td>
+<td class="nw">음소거</td>
 </tr>
 <tr>
 <td><code>StringPuzzle.CatEars</code></td>
-<td>int, 기본 0</td>
+<td class="nw">int, 기본 0</td>
 <td>고양이 귀(귀 있는 머리 그림 사용)</td>
 </tr>
 <tr>
 <td><code>StringPuzzle.Language</code></td>
 <td>int 0 한국어 / 1 영어, 없으면 기기 언어</td>
-<td>언어</td>
+<td class="nw">언어</td>
 </tr>
 <tr>
 <td><code>zzukzzuk.debug.dayOffset</code></td>
-<td>int</td>
+<td class="nw">int</td>
 <td>에디터 전용 날짜 옮기기(빌드는 항상 0)</td>
 </tr>
 </tbody>
@@ -1803,8 +1803,8 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>파일</th>
-<th>책임</th>
+<th class="nw">파일</th>
+<th class="nw">책임</th>
 </tr>
 </thead>
 <tbody>
@@ -1813,7 +1813,7 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <td>게임 전체 흐름·상태(Title / ChoosingStart / Drawing / Cleared), 판 만들기, 판정 반영, 입력, 클리어, 힌트, 튜토리얼, 일일 도전</td>
 </tr>
 <tr>
-<td><code>RopeSolver.cs</code></td>
+<td class="nw"><code>RopeSolver.cs</code></td>
 <td>몸(줄) 감기·풀기 계산(순수 로직)</td>
 </tr>
 <tr>
@@ -1821,16 +1821,16 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <td>자석, 지나가며 잇기, 가까운 접시 찾기</td>
 </tr>
 <tr>
-<td><code>ShapeMatcher.cs</code></td>
-<td>견본과 비교</td>
+<td class="nw"><code>ShapeMatcher.cs</code></td>
+<td class="nw">견본과 비교</td>
 </tr>
 <tr>
 <td><code>LevelData.cs</code>, <code>BuiltInLevels.cs</code>, <code>TutorialLevels.cs</code></td>
-<td>레벨 형식과 데이터</td>
+<td class="nw">레벨 형식과 데이터</td>
 </tr>
 <tr>
 <td><code>LevelDifficulty.cs</code>, <code>HintSchedule.cs</code>, <code>ShapeArt.cs</code>, <code>ShapeArtReveal.cs</code></td>
-<td>난이도·힌트 시간·배경 그림</td>
+<td class="nw">난이도·힌트 시간·배경 그림</td>
 </tr>
 <tr>
 <td><code>SolutionReplay.cs</code></td>
@@ -1850,7 +1850,7 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 </tr>
 <tr>
 <td><code>RopeView.cs</code>, <code>CatDecor.cs</code>, <code>CatArt.cs</code>, <code>CatSkin.cs</code>, <code>CatPeek.cs</code></td>
-<td>냥이 그리기</td>
+<td class="nw">냥이 그리기</td>
 </tr>
 <tr>
 <td><code>Peg.cs</code>, <code>ShapePreview.cs</code>, <code>Confetti.cs</code>, <code>TutorialGuide.cs</code></td>
@@ -1858,31 +1858,31 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 </tr>
 <tr>
 <td><code>TitleScreen*.cs</code>, <code>TitleDailyCorner.cs</code>, <code>TitleMedal.cs</code></td>
-<td>타이틀</td>
+<td class="nw">타이틀</td>
 </tr>
 <tr>
 <td><code>BoardCamera.cs</code>, <code>ScreenOrientationRule.cs</code>, <code>DesktopWindow.cs</code>, <code>Palette.cs</code></td>
-<td>카메라·방향·PC 창·색</td>
+<td class="nw">카메라·방향·PC 창·색</td>
 </tr>
 <tr>
 <td><code>Audio/Sfx.cs</code>, <code>Audio/SfxSynth.cs</code></td>
-<td>소리 재생·합성</td>
+<td class="nw">소리 재생·합성</td>
 </tr>
 <tr>
-<td><code>UI/PuzzleHud.cs</code></td>
+<td class="nw"><code>UI/PuzzleHud.cs</code></td>
 <td>HUD 전체(칩, 제목, 카운터, 버튼, 토스트, 말풍선, 오버레이 생성)</td>
 </tr>
 <tr>
 <td><code>UI/LevelSelect.cs</code>, <code>UI/SettingsPopup.cs</code>, <code>UI/DailyIntro.cs</code>, <code>UI/MedalCeremony*.cs</code>, <code>UI/MedalBook.cs</code>, <code>UI/AllClearCelebration.cs</code>, <code>UI/ClearOverlays.cs</code></td>
-<td>각 화면</td>
+<td class="nw">각 화면</td>
 </tr>
 <tr>
 <td><code>UI/ScreenTransition.cs</code> + <code>Shaders/MotionBlurUI.shader</code></td>
-<td>화면 전환</td>
+<td class="nw">화면 전환</td>
 </tr>
 <tr>
 <td><code>UI/TextFx.cs</code>, <code>UI/LetterKnocker.cs</code>, <code>UI/SpeechBubble.cs</code>, <code>UI/ButtonFx.cs</code>, <code>UI/ProgressPips.cs</code>, <code>UI/DifficultyPaws.cs</code>, <code>UI/SafeArea.cs</code>, <code>UI/UiCorners.cs</code></td>
-<td>UI 부품</td>
+<td class="nw">UI 부품</td>
 </tr>
 </tbody>
 </table>
@@ -1892,25 +1892,25 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>대상</th>
-<th>설정</th>
+<th class="nw">대상</th>
+<th class="nw">설정</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>공통</td>
+<td class="nw">공통</td>
 <td>회사 <code>Minari</code>, 제품 <code>쭉쭉냥</code>, 버전 1.1.1, 패키지 <code>com.minari.zzukzzuknyang</code>, 기본 방향 AutoRotation(세로 + 가로 좌우, 거꾸로 세로 X)</td>
 </tr>
 <tr>
-<td>Android</td>
+<td class="nw">Android</td>
 <td>IL2CPP, ARM64만, 최소 API 26(Android 8.0), 목표 API 자동(최신), R8 축소 켬, 버전 코드 4, 출력 AAB <code>Builds/Android/zzukzzuk-nyang.aab</code>(업로드 키 필요)</td>
 </tr>
 <tr>
-<td>Windows</td>
+<td class="nw">Windows</td>
 <td>64비트, 창 모드 540×960, 크기 조절 가능, Alt+Enter 허용, 백그라운드에서 멈춤, zip <code>Builds/zzukzzuk-nyang-windows.zip</code></td>
 </tr>
 <tr>
-<td>Web</td>
+<td class="nw">Web</td>
 <td>WebGL, gzip 압축 + 압축 풀기 대체(decompression fallback) 켬(itch.io가 압축 헤더를 안 보내서), 캔버스 540×960, zip <code>Builds/zzukzzuk-nyang-web.zip</code>. 게임 종료 접시·버튼 없음</td>
 </tr>
 </tbody>
@@ -1939,13 +1939,13 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>항목</th>
-<th>이유</th>
+<th class="nw">항목</th>
+<th class="nw">이유</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>연령 등급·주 대상층</td>
+<td class="nw">연령 등급·주 대상층</td>
 <td>원본 문서·스토어 문구에 없음("누구나 편하게"뿐)</td>
 </tr>
 <tr>
@@ -1953,15 +1953,15 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <td>장면 <code>ER.unity</code>에서 배치 편집기로 옮긴 값이라 생성 도구 기본값과 다름. 이 문서에는 기본값과 스토어 그림만 적음</td>
 </tr>
 <tr>
-<td>레벨 그림 197장 자체</td>
+<td class="nw">레벨 그림 197장 자체</td>
 <td>합계 약 55MB라 옮기지 않음(원본 <code>Assets/StringPuzzle/Resources/Shapes/</code>, 만든 방법은 <code>Tools/levelcheck/shape_guides.py</code> 가이드 + 사람이 GPT로 그림)</td>
 </tr>
 <tr>
 <td>일일 도전 C#판과 파이썬판이 다른 23문제가 어느 날짜인지</td>
-<td>원본 문서에 숫자만 있음</td>
+<td class="nw">원본 문서에 숫자만 있음</td>
 </tr>
 <tr>
-<td>스플래시 화면 설정</td>
+<td class="nw">스플래시 화면 설정</td>
 <td>원본 프로젝트 설정에서 확인하지 않음</td>
 </tr>
 <tr>
@@ -1969,11 +1969,11 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <td><code>MedalCeremony*.cs</code>의 시간 값만 옮김. 곡선 세부는 비공개 원본 코드에만 있음</td>
 </tr>
 <tr>
-<td>말풍선·글자 효과의 세부 곡선</td>
+<td class="nw">말풍선·글자 효과의 세부 곡선</td>
 <td><code>TextFx</code>, <code>SpeechBubble</code>, <code>TextFxCurves</code>의 주요 값만 옮김</td>
 </tr>
 <tr>
-<td>테스트 1,573개 통과 여부</td>
+<td class="nw">테스트 1,573개 통과 여부</td>
 <td>이번에 실행하지 않음(README 배지 숫자)</td>
 </tr>
 </tbody>
@@ -1983,69 +1983,69 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>다른 곳</th>
-<th>원본 문서</th>
-<th>코드(따른 것)</th>
+<th class="nw">다른 곳</th>
+<th class="nw">원본 문서</th>
+<th class="nw">코드(따른 것)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>버전</td>
+<td class="nw">버전</td>
 <td><code>출시노트_1.1.0.md</code>: 1.1.0(코드 3)</td>
 <td><code>StoreBuild</code>·ProjectSettings: 1.1.1(코드 4)</td>
 </tr>
 <tr>
-<td>레벨 수</td>
+<td class="nw">레벨 수</td>
 <td><code>스토어/스토어_등록정보.md</code>: "레벨 100개"</td>
-<td>197개</td>
+<td class="nw">197개</td>
 </tr>
 <tr>
-<td>출시 상태</td>
+<td class="nw">출시 상태</td>
 <td>README: "비공개 테스트 중"</td>
 <td>출시 노트: "정식 출시"(프로덕션). 코드로는 판단 불가</td>
 </tr>
 <tr>
-<td>메달 그림 숫자</td>
+<td class="nw">메달 그림 숫자</td>
 <td><code>인게임_설계정리.md</code>: 6칸을 숫자 없이 그리고 게임이 일수를 씀 / <code>계획_메달과_도감.md</code>: 200일부터 100일 그림과 같음</td>
 <td>3~100일은 숫자가 그려진 <code>medal_sheet_numbered</code>, 200일부터 숫자 없는 그림 + 게임이 숫자를 씀</td>
 </tr>
 <tr>
-<td>그림 미리보기 시간</td>
+<td class="nw">그림 미리보기 시간</td>
 <td><code>계획_난이도곡선과_힌트.md</code>: 4~7점 2→1.5초, 7~10점 1.2→1초</td>
 <td>(2, 3.5) (4, 2.5) (7, 1.5) (10, 1) 직선</td>
 </tr>
 <tr>
-<td>"도전!" 도장 시간</td>
-<td>계획 문서: 1초쯤</td>
-<td>1.3초</td>
+<td class="nw">"도전!" 도장 시간</td>
+<td class="nw">계획 문서: 1초쯤</td>
+<td class="nw">1.3초</td>
 </tr>
 <tr>
-<td>발바닥 기준</td>
-<td>계획 문서: "점수대로"</td>
+<td class="nw">발바닥 기준</td>
+<td class="nw">계획 문서: "점수대로"</td>
 <td>내장 레벨은 다시 지나는 횟수, 일일만 점수</td>
 </tr>
 <tr>
-<td>요령 가르치는 레벨</td>
+<td class="nw">요령 가르치는 레벨</td>
 <td>계획 문서: 번개·마름모·별·물고기·연 / 설계정리: 삼각형·리본·물고기·깃발</td>
 <td><code>LevelDifficulty.Teachers</code> = 물고기·깃발(도구 <code>TRICK_TEACHERS</code>는 삼각형·리본·물고기·깃발)</td>
 </tr>
 <tr>
-<td>고비 판정</td>
+<td class="nw">고비 판정</td>
 <td>설계정리: "구간 평균보다 2.5 이상 높은 레벨"</td>
 <td>실행 중 판정은 번호(10의 배수)뿐. 2.5 규칙은 배치 도구의 규칙</td>
 </tr>
 <tr>
-<td>냥이 그림 크기</td>
+<td class="nw">냥이 그림 크기</td>
 <td><code>Art/Cat/README.md</code>: 머리 1024×1024, 몸통 512×128, 꼬리 512×256, 앞발 256×256</td>
 <td>실제 파일: 머리 381×381, 몸통 328×198, 꼬리 291×255, 앞발 186×219</td>
 </tr>
 <tr>
-<td>오늘 날짜 옮기기</td>
+<td class="nw">오늘 날짜 옮기기</td>
 <td><code>DailyClock</code> 주석: "에디터와 개발 빌드에서"</td>
 <td>코드는 에디터에서만(<code>#if UNITY_EDITOR</code>)</td>
 </tr>
 <tr>
-<td>효과음 출처</td>
+<td class="nw">효과음 출처</td>
 <td><code>Sfx</code> 주석: 비어 있으면 합성</td>
 <td>장면에서 wrong·pop에 Kenney 파일이 들어 있음(README "버튼·틀림은 Kenney"와 일치)</td>
 </tr>
@@ -2055,25 +2055,25 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <table>
 <thead>
 <tr>
-<th>경로</th>
-<th>내용</th>
+<th class="nw">경로</th>
+<th class="nw">내용</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="data/levels.json"><code>data/levels.json</code></a></td>
+<td class="nw"><a href="data/levels.json"><code>data/levels.json</code></a></td>
 <td>197개 + 튜토리얼 전체(4.1절 필드) + 계산한 난이도</td>
 </tr>
 <tr>
 <td><a href="data/level_table.html"><code>data/level_table.md</code></a></td>
-<td>레벨 한 줄 요약 표</td>
+<td class="nw">레벨 한 줄 요약 표</td>
 </tr>
 <tr>
 <td><a href="data/daily_samples.txt"><code>data/daily_samples.txt</code></a></td>
 <td>2026-10-01~07 일일 도전 결과(검증용)</td>
 </tr>
 <tr>
-<td><a href="images/"><code>images/</code></a></td>
+<td class="nw"><a href="images/"><code>images/</code></a></td>
 <td>화면 캡처(예전 1~5 jpg는 2026-10-04 캡처라 레벨 수가 100개일 때 모습), 스토어 그림 6장, 냥이·접시·일일 그림, 레벨 그림 예시 2장, 메달·테마 시트(절반 크기)</td>
 </tr>
 </tbody>

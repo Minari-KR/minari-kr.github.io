@@ -56,6 +56,10 @@ def md_page(src, css):
     body = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', body)
     # the "목차" section becomes a nav, which doc.css keeps beside the text on wide screens
     body = re.sub(r'(<h2 id="목차">.*?)(?=<h2 )', r'<nav class="toc" aria-label="목차">\1</nav>\n', body, count=1, flags=re.S)
+    # short cells (labels, values, names) stay on one line; only long explanations wrap (see .nw in doc.css)
+    body = re.sub(r"<(td|th)>(.*?)</\1>",
+                  lambda m: f'<{m[1]} class="nw">{m[2]}</{m[1]}>' if len(html.unescape(re.sub(r"<[^>]+>", "", m[2])).strip()) <= 16 else m[0],
+                  body, flags=re.S)
     nav = re.search(r'<nav class="toc".*?</nav>\n', body, flags=re.S)
     if nav:  # nav first, then every other part of the page in one column (see .content in doc.css)
         body = nav.group(0) + '<div class="content">\n' + body.replace(nav.group(0), '') + '</div>'

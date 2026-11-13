@@ -63,10 +63,11 @@ img[align="right"] { margin: 4px 0 16px 24px; }
 
 /* Tables */
 .table-wrap, table { display: block; overflow-x: auto; }
-table { border-collapse: collapse; margin: 8px 0 24px; font-size: .9375rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+table { clear: both; border-collapse: collapse; margin: 8px 0 24px; font-size: .9375rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
 .table-wrap table { display: table; margin: 0; }
-th, td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; word-break: keep-all; }
+th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; word-break: keep-all; }
 th { background: var(--surface); white-space: nowrap; font-weight: 700; }
+.nw { white-space: nowrap; }  /* short cells never fold; set by make-docs.py */
 tr.group td { background: var(--surface); color: var(--accent); font-weight: 700; }
 td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-bottom: 4px; background: #ffffff0d; }
 
