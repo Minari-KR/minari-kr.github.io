@@ -1,39 +1,29 @@
-name: Check and deploy portfolio
+name: Deploy AI Game Gallery
 on:
   push:
-  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  verify:
+  upload:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-          lfs: true
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version-file: '.nvmrc'
-      - name: Test
-        run: npm test
-      - name: Build publishable files
-        run: npm run build
-      - name: Check generated files
-        run: npm run check
+      - name: Check the gallery scripts parse
+        run: for f in site/app.js site/games.js; do node --check "$f"; done
       - name: Upload website files
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
-          path: dist
+          path: site
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: verify
+    needs: upload
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

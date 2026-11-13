@@ -1,2 +1,0 @@
-* text=auto eol=lf
-public/assets/videos/**/*.mp4 filter=lfs diff=lfs merge=lfs -text

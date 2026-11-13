@@ -75,13 +75,12 @@ function card(game) {
 
 grid.append(...window.GAMES.map(card));
 
-// Unity web builds cannot load from file:// — point to the local server instead.
+// Unity web builds cannot load from file:// — send the visitor to the published site.
 if (location.protocol === 'file:') {
   const note = document.createElement('p');
   note.className = 'notice';
-  note.textContent = '게임은 파일로 직접 열면 실행되지 않습니다. 폴더의 「갤러리열기.bat」을 더블클릭해 열어 주세요.';
+  note.textContent = '게임은 파일로 직접 열면 실행되지 않습니다. https://minari-kr.github.io/ 에서 열어 주세요.';
   document.querySelector('.top').append(note);
-  for (const a of grid.querySelectorAll('a[href^="games/"]')) a.href = `http://localhost:8080/${a.getAttribute('href')}`;
 }
 
 // Warm the browser cache with each local web build while the visitor browses,

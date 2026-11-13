@@ -1,13 +1,3 @@
-# Generated output: edit src/, public/ and scripts/site-config.mjs instead.
-/index.html
-/mobile-preview.html
-/projects/*.html
-/about/
-/games/
-/assets/
-/dist/
-/.generated-files.json
-
 # Private/local files must never enter the public repository.
 .env
 .env.*
@@ -20,7 +10,5 @@
 node_modules/
 .vs/
 .vscode/
-work/
-backups/
 .DS_Store
 Thumbs.db
