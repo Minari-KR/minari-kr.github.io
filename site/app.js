@@ -3,6 +3,7 @@ const player = document.getElementById('player');
 const video = player.querySelector('video');
 const gameDialog = document.getElementById('game');
 const gameFrame = gameDialog.querySelector('iframe');
+const version = new URL(document.currentScript.src).searchParams.get('v'); // set at deploy (check.yml)
 
 const isMp4 = (src) => /\.mp4($|\?)/i.test(src);
 const isExternal = (src) => /^https:\/\//i.test(src);
@@ -86,7 +87,7 @@ function card(game) {
         a.addEventListener('click', (e) => {
           e.preventDefault();
           gameFrame.title = `${game.title} ${label}`;
-          gameFrame.src = url;
+          gameFrame.src = version ? `${url}?v=${version}` : url; // same ?v= as this script, so an updated doc is never stale
           gameDialog.showModal();
         });
       } else continue;
