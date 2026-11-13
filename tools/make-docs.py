@@ -60,6 +60,9 @@ def md_page(src, css):
     body = re.sub(r"<(td|th)>(.*?)</\1>",
                   lambda m: f'<{m[1]} class="nw">{m[2]}</{m[1]}>' if len(html.unescape(re.sub(r"<[^>]+>", "", m[2])).strip()) <= 16 else m[0],
                   body, flags=re.S)
+    # tables with many columns get a slightly smaller size so they fit the column (see table.dense in doc.css)
+    body = re.sub(r"<table>(\s*<thead>\s*<tr>(.*?)</tr>)",
+                  lambda m: '<table class="dense">' + m[1] if m[2].count("<th") >= 5 else m[0], body, flags=re.S)
     nav = re.search(r'<nav class="toc".*?</nav>\n', body, flags=re.S)
     if nav:  # nav first, then every other part of the page in one column (see .content in doc.css)
         body = nav.group(0) + '<div class="content">\n' + body.replace(nav.group(0), '') + '</div>'
@@ -93,29 +96,40 @@ def xlsx_page(src, css):
             pic.save(img_dir / name, "WEBP", quality=82)
             pictures.setdefault((at.row + 1, at.col + 1), []).append(f"{img_dir.name}/{name}")
         rows = list(ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=ws.max_column))
-        # "경로" values all start with the same Unity folder; drop it so the table fits on one screen
-        path_cols = {c for c, cell in enumerate(rows[0], start=1) if cell.value == "경로"}
+        has_pic = lambda r, row: any((r, c) in pictures for c in range(1, len(row) + 1))
+        is_group = lambda r, row: r > 1 and [x for x in row if x.value is not None] == [row[0]] and not has_pic(r, row)
+        # A group heading row (e.g. "■ 앱 아이콘") spans the table. When every row in a group shares one "경로",
+        # the path goes into that heading and the column is dropped, so the table fits one screen at a larger size.
+        path_col = next((c for c, cell in enumerate(rows[0]) if cell.value == "경로"), None)
+        group_paths, current = {}, None
+        for r, row in enumerate(rows, start=1):
+            if is_group(r, row):
+                current = r
+                group_paths[r] = set()
+            elif current and path_col is not None and row[path_col].value:
+                group_paths[current].add(row[path_col].value)
+        drop = path_col if path_col is not None and group_paths and all(len(p) == 1 for p in group_paths.values()) else None
+        width = len(rows[0]) - (drop is not None)
         parts.append(f'<section id="sheet-{i}"><h2>{html.escape(ws.title)}</h2><div class="table-wrap"><table>')
         for r, row in enumerate(rows, start=1):
+            if is_group(r, row):
+                path = f' <span class="path">{cell_text(next(iter(group_paths[r])))}</span>' if drop is not None else ""
+                parts.append(f'<tr class="group"><td colspan="{width}">{cell_text(row[0].value)}{path}</td></tr>')
+                continue
+            if not (any(x.value is not None for x in row) or has_pic(r, row)):
+                continue
             cells = []
             for c, cell in enumerate(row, start=1):
+                if c - 1 == drop:
+                    continue
                 pics = "".join(f'<img src="{p}" alt="" loading="lazy" width="40" height="40">' for p in pictures.get((r, c), []))
                 tag = "th" if r == 1 else "td"
-                value = cell.value
-                if c in path_cols:
-                    value = f"경로 ({PATH_PREFIX} 아래)" if r == 1 else (value.removeprefix(PATH_PREFIX) if isinstance(value, str) else value)
-                cells.append(f"<{tag}>{pics}{cell_text(value)}</{tag}>")
-            filled = [cell for cell in row if cell.value is not None]
-            if r > 1 and len(filled) == 1 and filled[0] is row[0] and not any((r, c) in pictures for c in range(1, len(row) + 1)):
-                # a group heading row (e.g. "■ 앱 아이콘"): one cell across the whole table
-                parts.append(f'<tr class="group"><td colspan="{len(row)}">{cell_text(row[0].value)}</td></tr>')
-            elif filled or any((r, c) in pictures for c in range(1, len(row) + 1)):
-                parts.append("<tr>" + "".join(cells) + "</tr>")
+                cells.append(f"<{tag}>{pics}{cell_text(cell.value)}</{tag}>")
+            parts.append("<tr>" + "".join(cells) + "</tr>")
         parts.append("</table></div></section>")
     return page(title, "\n".join(parts), css, "doc wide")  # wide: every cell on one line, no sideways scroll
 
 
-PATH_PREFIX = "Assets/StringPuzzle/"
 TITLES = {"zzukzzuk-nyang-resources": "쭉쭉냥 리소스 목록"}  # page titles for files whose names are not readable
 
 

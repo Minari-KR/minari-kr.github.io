@@ -17,7 +17,7 @@
 
 ::selection { background: #7fb89a55; color: #fff; }
 
-html { scroll-padding-top: 24px; }
+html { font-size: 125%; scroll-padding-top: 24px; }  /* every size below is in rem/em: 16px base -> 20px (about +3pt, user request) */
 
 body {
   margin: 0;
@@ -69,6 +69,9 @@ th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; ver
 th { background: var(--surface); white-space: nowrap; font-weight: 700; }
 .nw { white-space: nowrap; }  /* short cells never fold; set by make-docs.py */
 tr.group td { background: var(--surface); color: var(--accent); font-weight: 700; }
+tr.group .path { margin-left: 12px; color: var(--muted); font-weight: 500; font-family: ui-monospace, Consolas, monospace; font-size: .875em; }
+table.dense { font-size: .8125rem; }  /* 5+ columns: a step smaller so it still fits the column */
+table.dense th, table.dense td { padding: 6px 8px; }
 td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-bottom: 4px; background: #ffffff0d; }
 
 /* Table of contents: on top for narrow popups, a sticky side column when there is room */
@@ -81,7 +84,7 @@ td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-
 
 @media (min-width: 1080px) {
   .doc:has(> .toc) { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: 56px; }
-  .toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-right: 8px; font-size: .875rem; line-height: 1.55; }
+  .toc { position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-right: 8px; font-size: .8rem; line-height: 1.55; }
   .toc ol, .toc ul { padding-left: 2em; }
   .toc ol + ul { margin-top: 10px; padding-left: 0; list-style: none; }  /* appendix links under the numbered chapters */
   .toc li + li { margin-top: 6px; }

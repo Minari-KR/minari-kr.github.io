@@ -433,7 +433,7 @@
 </ul>
 <h3 id="43-197개--튜토리얼-구성">4.3 197개 + 튜토리얼 구성</h3>
 <p><strong>튜토리얼 4단계</strong> (<code>TutorialLevels</code>, 칩 표시 <code>0-1</code>~<code>0-4</code>, 진행 저장 안 함)</p>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">단계</th>
@@ -480,7 +480,7 @@
 </tbody>
 </table>
 <p>튜토리얼 문구(아래 토스트에 계속 떠 있는 안내 = <code>hint</code>, 클리어 대사 = <code>clearLine</code>). 같은 내용이 <code>data/levels.json</code>의 <code>tutorial</code>에도 있다.</p>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">단계</th>
@@ -602,7 +602,7 @@
 <p><strong>고비(보스)</strong>: 실행 중 판정은 번호뿐 — <code>(index + 1) % 10 == 0</code>(내장 레벨일 때만). 고비 레벨을 어디에 둘지는 도구(<code>difficulty.py --reorder</code>)가 정했다: 앞 9개 평균보다 점수가 2.5(<code>BossMargin</code>) 이상 높은 레벨 중 가장 쉬운 것.</p>
 <p><strong>순서(도구가 미리 정해 둔 것, 게임은 파일 순서 그대로)</strong>: 단계별로 점수 순으로 세우고 게임 전체에 섞어 펼친다(쉬움은 앞, 어려움은 뒤로 몰리게 <code>MIX_CURVE</code> 1.5, 보통은 고르게). 처음 3개는 쉬움. 요령을 가르치는 레벨(물고기 = 같은 접시 두 번, 깃발 = 홀수 접시에서 시작)은 그 요령이 처음 필요한 레벨 바로 앞. 마지막이 가장 어렵다.</p>
 <p><strong>실제 곡선(20개 묶음, <code>data/levels.json</code>에서 계산)</strong></p>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">구간</th>
@@ -717,7 +717,7 @@
 <p>점수 2 이하 3.5초 → 4에서 2.5초 → 7에서 1.5초 → 10 이상 1초, 사이는 직선으로 잇는다. 고비는 × 0.7. 튜토리얼은 점수 0으로 친다(3.5초). 화면 전환이 끝난 뒤 시작.</p>
 <h3 id="53-힌트-단계-hintschedule">5.3 힌트 단계 (<code>HintSchedule</code>)</h3>
 <p>막힌 시간(stuckTime)은 레벨에서 시작 접시 고르기·그리기 중에만 흐른다(설정 창, 화면 전환, 클리어 뒤에는 멈춤, 한 프레임 최대 0.1초만 셈). 튜토리얼에는 이 힌트가 없다.</p>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">단계</th>
@@ -769,7 +769,7 @@
 <li><strong>번호</strong>: 2026-10-01 첫 문제가 No.1. <code>No = (날짜 − 2026-10-01)일 × 3 + 슬롯 + 1</code>. 이름 = "&lt;테마 이름&gt; No.&lt;번호&gt;"(예 "북적이는 별자리 No.64"). 1 미만이면 번호 없이 테마 이름만.</li>
 <li><strong>요일 테마</strong>(월요일 = 0, <code>요일 = (DayOfWeek + 6) % 7</code>)</li>
 </ul>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">요일</th>
@@ -859,7 +859,7 @@
 <li><strong>점수 범위</strong>(아래 이상, 위 미만): 평일 (1.0, 3.8) / (4.0, 5.6) / (5.6, 9.5). 일요일 (0.5, 2.6) / (1.6, 3.8) / (4.0, 5.6).</li>
 <li>테마별 클리어 대사 4개씩, 고르는 번호 = <code>Seed(날짜, 슬롯, 7777) % 4</code>(아래 표의 0~3번):</li>
 </ul>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">테마</th>
@@ -1442,7 +1442,7 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
   <code>freq(step) = 392 × 2^((PENT[step % 5] + 12 × (step / 5)) / 12)</code></li>
 <li>고정점이 하나 늘 때마다 <code>step = 고정점 수 − 2</code>(시작 접시 다음 첫 접시가 0), 최대 11에서 멈춤.</li>
 </ul>
-<table>
+<table class="dense">
 <thead>
 <tr>
 <th class="nw">step</th>
