@@ -59,6 +59,7 @@ function card(game) {
       vid.addEventListener('click', (e) => {
         e.preventDefault();
         video.src = game.video;
+        video.volume = 0.4; // same default as the games (volume.js)
         player.showModal();
         video.play().catch(() => {});
       });

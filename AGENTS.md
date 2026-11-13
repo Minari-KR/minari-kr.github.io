@@ -31,7 +31,8 @@
 - 압축 없음(GitHub Pages는 압축 표시를 보내지 못해 JS로 풀면 1~2초 더 걸림. 실행 파일 `.wasm`은 GitHub이 전송할 때 gzip으로 줄여 줌), 스플래시 끔, 데이터 캐시 켬, 엔진 코드 제거.
 - 웹에서 돌리려고 고친 것: ERZZ는 `PC_Renderer`를 Forward+에서 Forward로(Forward+는 웹 GPU에서 셰이더가 모두 실패), 빌드 장면은 `ERZZ_Prototype`. Rio Idle은 데이터 JSON을 `StreamingAssets` 대신 `Resources/data`에서 읽게 하고, 무대 그림 512px·캐릭터 1024px로 줄임(UI·글꼴은 그대로).
 - 위 수정은 `D:\5_Archive`의 원본 프로젝트에는 없습니다(복사본에서 고쳤고, 복사본은 지움). 다시 빌드하려면 원본을 복사해 같은 수정을 다시 합니다.
-- 빌드한 게임 페이지(`games/<slug>/index.html`)의 `</head>` 앞에 어두운 바탕·창 맞춤 스타일(`<style id="gallery-dark">`)을 넣습니다. 지금 파일에 있는 것을 그대로 쓰면 됩니다.
+- 빌드한 게임 페이지(`games/<slug>/index.html`)의 `</head>` 앞에 어두운 바탕·창 맞춤 스타일(`<style id="gallery-dark">`)과 `<script src="../../volume.js"></script>`를 넣습니다. 지금 파일에 있는 것을 그대로 쓰면 됩니다.
+- 기본 볼륨 40%(사용자 요청 ‘50% 아래’): `site/volume.js`가 Unity 소리가 모두 모이는 출구(`audioContext.destination`) 앞에 볼륨 조절기를 끼웁니다. 값은 그 파일의 `VOLUME` 하나이고, 게임 안 볼륨 설정은 그 위에 곱해집니다. 갤러리 영상 팝업도 0.4.
 - GitHub 파일 크기 제한이 100MB라서, 파일 하나가 그보다 커지면 그림 크기를 더 줄입니다.
 
 ## 지킬 것
