@@ -79,6 +79,7 @@ h1 {
 h2 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
 
 .actions { display: flex; gap: 8px; margin-top: auto; padding-top: 16px; }
+.docs { margin-top: 0; padding-top: 8px; }
 
 .btn {
   flex: 1;

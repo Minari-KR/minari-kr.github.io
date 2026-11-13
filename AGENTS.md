@@ -19,11 +19,12 @@
 | `site/games.js` | **게임 목록.** 게임을 넣고 빼고 고치는 곳은 여기 하나입니다 |
 | `site/thumbs/` | 카드 썸네일(640×360 WebP) |
 | `site/games/<slug>/` | Unity 웹 빌드(Chicken Fire·ERZZ·쭉쭉냥·Rio Idle) |
+| `docs/zzukzzuk-nyang/` | 쭉쭉냥 역기획서 `game-design.md`(그림 `images/`, 레벨 데이터 `data/levels.json`·`level_table.md`)와 리소스 목록 `zzukzzuk-nyang-resources.xlsx`. 사이트에는 안 올라가고 GitHub 화면으로 봅니다(카드의 `links` 버튼). 쭉쭉냥 원본 저장소가 비공개라 원본 코드는 넣지 않습니다(사용자 결정) |
 | `.github/workflows/check.yml` | `main`에 올리면 스크립트 문법을 확인하고 `site/`를 GitHub Pages에 배포 |
 
 ## 게임 목록 고치기 (`site/games.js`)
 
-- 항목: `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
+- 항목: `links`(선택, `[{ label, url }]`, https만, 새 탭으로 여는 문서 버튼 줄; 지금은 쭉쭉냥의 기획서·리소스 문서), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
 - 목록 순서가 화면의 카드 순서입니다.
 
 ## 게임 빌드 기준

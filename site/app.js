@@ -71,6 +71,20 @@ function card(game) {
   }
 
   body.append(genre, title, actions);
+  if (game.links?.length) { // documents (design doc, resource list): https links, new tab
+    const docs = document.createElement('div');
+    docs.className = 'actions docs';
+    for (const { label, url } of game.links) {
+      if (!isExternal(url)) continue;
+      const a = button(label, 'ghost');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.setAttribute('aria-label', `${game.title} ${label} (새 탭)`);
+      docs.append(a);
+    }
+    body.append(docs);
+  }
   li.append(thumb, body);
   return li;
 }
