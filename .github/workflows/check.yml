@@ -17,6 +17,12 @@ jobs:
           persist-credentials: false
       - name: Check the gallery scripts parse
         run: for f in site/app.js site/games.js; do node --check "$f"; done
+      # A new ?v= whenever games.js, app.js or style.css change, so browsers never keep an old copy (Pages caches 10 min).
+      - name: Version the gallery's script and style links
+        run: |
+          v=$(cat site/games.js site/app.js site/style.css | sha256sum | cut -c1-8)
+          sed -i -E "s#(href|src)=\"(style\.css|games\.js|app\.js)(\?v=[a-f0-9]+)?\"#\1=\"\2?v=$v\"#g" site/index.html
+          grep -c "?v=$v" site/index.html | grep -qx 3
       - name: Upload website files
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
