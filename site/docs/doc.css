@@ -52,3 +52,10 @@ td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-
   .doc { padding: 24px 16px 64px; }
   h1 { font-size: 1.6rem; }
 }
+
+/* Spreadsheet pages: use the whole popup width and keep every cell on one line. Fits from a 1280px-wide window;
+   below that only the table scrolls sideways (.table-wrap), never the page. */
+.wide { max-width: none; padding: 24px 16px 64px; }
+.wide table { font-size: .8rem; }
+.wide th, .wide td { white-space: nowrap; padding: 4px 8px; vertical-align: middle; }
+.wide td img { width: 40px; height: 40px; margin: 0; }

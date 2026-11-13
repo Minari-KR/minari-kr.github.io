@@ -21,7 +21,7 @@ from PIL import Image
 
 
 
-def page(title, body, css):
+def page(title, body, css, cls="doc"):
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -34,7 +34,7 @@ def page(title, body, css):
   <link rel="stylesheet" href="{css}">
 </head>
 <body>
-<main class="doc">
+<main class="{cls}">
 {body}
 </main>
 </body>
@@ -84,13 +84,18 @@ def xlsx_page(src, css):
             pic.save(img_dir / name, "WEBP", quality=82)
             pictures.setdefault((at.row + 1, at.col + 1), []).append(f"{img_dir.name}/{name}")
         rows = list(ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=ws.max_column))
+        # "경로" values all start with the same Unity folder; drop it so the table fits on one screen
+        path_cols = {c for c, cell in enumerate(rows[0], start=1) if cell.value == "경로"}
         parts.append(f'<section id="sheet-{i}"><h2>{html.escape(ws.title)}</h2><div class="table-wrap"><table>')
         for r, row in enumerate(rows, start=1):
             cells = []
             for c, cell in enumerate(row, start=1):
-                pics = "".join(f'<img src="{p}" alt="" loading="lazy" width="96" height="96">' for p in pictures.get((r, c), []))
+                pics = "".join(f'<img src="{p}" alt="" loading="lazy" width="40" height="40">' for p in pictures.get((r, c), []))
                 tag = "th" if r == 1 else "td"
-                cells.append(f"<{tag}>{pics}{cell_text(cell.value)}</{tag}>")
+                value = cell.value
+                if c in path_cols:
+                    value = f"경로 ({PATH_PREFIX} 아래)" if r == 1 else (value.removeprefix(PATH_PREFIX) if isinstance(value, str) else value)
+                cells.append(f"<{tag}>{pics}{cell_text(value)}</{tag}>")
             filled = [cell for cell in row if cell.value is not None]
             if r > 1 and len(filled) == 1 and filled[0] is row[0] and not any((r, c) in pictures for c in range(1, len(row) + 1)):
                 # a group heading row (e.g. "■ 앱 아이콘"): one cell across the whole table
@@ -98,9 +103,10 @@ def xlsx_page(src, css):
             elif filled or any((r, c) in pictures for c in range(1, len(row) + 1)):
                 parts.append("<tr>" + "".join(cells) + "</tr>")
         parts.append("</table></div></section>")
-    return page(title, "\n".join(parts), css)
+    return page(title, "\n".join(parts), css, "doc wide")  # wide: every cell on one line, no sideways scroll
 
 
+PATH_PREFIX = "Assets/StringPuzzle/"
 TITLES = {"zzukzzuk-nyang-resources": "쭉쭉냥 리소스 목록"}  # page titles for files whose names are not readable
 
 
