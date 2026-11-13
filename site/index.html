@@ -24,6 +24,32 @@
       <a class="workflow-link" href="workflow.html" aria-label="AI 작업 워크플로우 그림 크게 보기">
         <img src="workflow.webp" width="1768" height="1037" loading="lazy"
           alt="AI 작업 워크플로우: 1 목표 정하기(문제·기준을 내가 정함), 2 지휘 AI 계획(브리프·일 나누기), 3 스킬 찾기(외부 스킬 비교), 4 나눠 맡기기(가장 알맞은 AI에게), 5 검토(테스트·화면 확인), 6 내가 고르기(실제 결과를 보고 결정), 7 기록·배운 점(다음 작업에 반영), 그리고 다시 1로 돌아가며 개선. 4단계에서 Opus(어려운 일·설계), Sonnet(코드·문서), Haiku(단순 반복), Codex(이미지), Grok(영상), Gemini(긴 글 다듬기), ComfyUI(캐릭터 그림, 내 PC)에게 나눠 맡기고, 큰 일은 Orca로 일꾼 세션을 따로 열어 진행이 보이게 한다.">
+        <!-- Motion only says "this loop keeps running": coordinates are the picture's own pixels (1768x1037).
+             No step-by-step reveal; everything runs at once. Hidden with prefers-reduced-motion (style.css). -->
+        <svg class="workflow-anim" viewBox="0 0 1768 1037" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <!-- the moving light passes behind the "반복하며 개선" label instead of over its letters -->
+            <mask id="wf-label-gap"><rect width="1768" height="1037" fill="#fff"/><rect x="698" y="140" width="406" height="56" rx="28" fill="#000"/></mask>
+            <radialGradient id="wf-glow"><stop offset="0" stop-color="#d9f5e4"/><stop offset=".35" stop-color="#7fb89a"/><stop offset="1" stop-color="#7fb89a" stop-opacity="0"/></radialGradient>
+          </defs>
+          <g class="wf-pulse">
+            <circle cx="167" cy="241" r="31"/><circle cx="402" cy="241" r="31"/><circle cx="638" cy="241" r="31"/><circle cx="884" cy="241" r="31"/>
+            <circle cx="1128" cy="241" r="31"/><circle cx="1368" cy="241" r="31"/><circle cx="1602" cy="241" r="31"/>
+          </g>
+          <g mask="url(#wf-label-gap)">
+            <circle r="14" fill="url(#wf-glow)"><animateMotion dur="5s" repeatCount="indefinite" path="M1602 205 V181 Q1602 167 1588 167 H182 Q168 167 168 181 V205"/></circle>
+            <circle r="14" fill="url(#wf-glow)"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" path="M1602 205 V181 Q1602 167 1588 167 H182 Q168 167 168 181 V205"/></circle>
+          </g>
+          <g class="wf-flow">
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H260 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H471 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H682 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H1084 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H1297 V606"/></circle>
+            <circle r="9" fill="url(#wf-glow)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M884 528 V578 H1507 V606"/></circle>
+          </g>
+        </svg>
       </a>
     </section>
   </main>
