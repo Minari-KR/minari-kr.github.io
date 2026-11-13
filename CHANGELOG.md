@@ -14,7 +14,8 @@
 
 - 요청: 웹에서 바로 플레이하는 게임 갤러리(다크 모드, 플레이는 팝업)를 포트폴리오에 넣고 외부에 줄 주소를 만들기.
 - 변경: `static/ai-games/`(갤러리 + Unity 웹 빌드 4개: Chicken Fire·ERZZ·쭉쭉냥·Rio Idle)를 `dist/ai-games/`로 그대로 복사(`scripts/site.mjs`의 `addStaticSite`, `build.mjs` 경로 허용). Unity 페이지는 인라인 스크립트·WebAssembly가 필요해 포트폴리오 검사(`validateFiles`) 밖에 두고, 파일명·95MB 제한·비밀키 검사만 함. 테스트가 `public/`을 복사하므로 `public/` 밖에 둠. 갤러리 원본·로컬 서버는 `C:\Unity Project\game-gallery`, 빌드 도구·복사본 프로젝트는 `C:\Unity Project\game-gallery-build`.
-- 게임 빌드: 압축 없음(GitHub Pages는 압축 표시를 못 보내 JS로 풀면 1~2초 더 걸림), 스플래시 끔, ERZZ는 웹에서 Forward+가 셰이더를 깨서 복사본만 Forward, Rio는 데이터 JSON을 `Resources`로 옮기고 무대 그림 512·캐릭터 1024px.
+- 게임 빌드: 압축 없음(GitHub Pages는 압축 표시를 못 보내 JS로 풀면 1~2초 더 걸림), 스플래시 끔, ERZZ는 웹에서 Forward+가 셰이더를 깨서 복사본만 Forward, Rio는 데이터 JSON을 `Resources`로 옮기고 무대 그림 512·캐릭터 1024px. 휴대폰·데이터 절약 모드에서는 미리 받기를 하지 않음.
+- 검증: build·verify 79개 통과, Actions 검사·배포 성공. 공개 주소에서 실제 GPU로 측정: 처음 열 때 3~11초(다운로드, Rio가 가장 큼), 두 번째부터 Chicken 0.50·ERZZ 0.44·쭉쭉냥 0.42~0.74초, Rio는 0.5초 캡처에 UI까지 보임. 휴대폰과 게임 속 기능은 확인 못 함.
 
 ## 2026-11-12 — 첫인사 페이지 취소, 공개 상태로 되돌림, About Me에 AI 워크플로우 그림 (Claude)
 
