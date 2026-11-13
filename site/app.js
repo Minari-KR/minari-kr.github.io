@@ -71,16 +71,25 @@ function card(game) {
   }
 
   body.append(genre, title, actions);
-  if (game.links?.length) { // documents (design doc, resource list): https links, new tab
+  if (game.links?.length) { // documents: site pages (docs/...) open in the popup, https links in a new tab
     const docs = document.createElement('div');
     docs.className = 'actions docs';
     for (const { label, url } of game.links) {
-      if (!isExternal(url)) continue;
       const a = button(label, 'ghost');
       a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.setAttribute('aria-label', `${game.title} ${label} (새 탭)`);
+      if (isExternal(url)) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.setAttribute('aria-label', `${game.title} ${label} (새 탭)`);
+      } else if (/^docs\/[\w./-]+\.html$/.test(url)) {
+        a.setAttribute('aria-label', `${game.title} ${label}`);
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          gameFrame.title = `${game.title} ${label}`;
+          gameFrame.src = url;
+          gameDialog.showModal();
+        });
+      } else continue;
       docs.append(a);
     }
     body.append(docs);
