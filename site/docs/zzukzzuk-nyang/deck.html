@@ -17,7 +17,7 @@
 <section class="slide cover" aria-label="표지">
   <div class="stage">
     <div class="cover-text">
-      <p class="kicker">기획부터 출시까지 · 1인 개발</p>
+      <p class="kicker">AI와 함께 기획부터 출시까지 · 1인 개발</p>
       <h1>쭉쭉냥 <span>: 고양이 퍼즐</span></h1>
       <p class="lead">고양이를 쭉 늘려 그리는 한붓그리기 퍼즐</p>
       <ul class="chips">
@@ -72,7 +72,7 @@
     <p class="kicker">1. 게임 · 돌아가는 구조</p>
     <h2>한 판마다 반복되는 플레이 흐름</h2>
     <ol class="body a-loop">
-      <li><b>보기</b><span>견본 그림 잠깐 확인 (쉬운 판 3.5초 → 어려운 판 1초)</span></li>
+      <li><b>보기</b><span>견본 그림 잠깐 확인 (쉬운 레벨 3.5초 → 어려운 레벨 1초)</span></li>
       <li><b>감기</b><span>시작 접시를 골라 냥이를 끌어 감기</span></li>
       <li><b>반응</b><span>맞으면 음이 오르고 기쁜 표정, 틀리면 빨간 선과 놀란 표정</span></li>
       <li><b>보상</b><span>숨었던 그림이 완성 그림으로 등장</span></li>
@@ -89,7 +89,7 @@
       <ul class="a-pts">
         <li><strong>감길 때마다 한 음씩 상승</strong><span>한 판을 풀면 짧은 멜로디 하나</span></li>
         <li><strong>냥이 표정이 곧 판정</strong><span>맞으면 기쁨, 틀리면 깜짝</span></li>
-        <li><strong>실패 없음</strong><span>시간·목숨·횟수 제한 없이 ↶ 한 단계 뒤로</span></li>
+        <li><strong>실패 없음</strong><span>시간·목숨·횟수 제한 없음. 틀리면 ↶로 한 단계 뒤로</span></li>
       </ul>
     </div>
     <div class="a-duo">
@@ -127,7 +127,29 @@
         <img class="a-phone" src="images/deck/shot-hint3.webp" alt="시작 접시가 반짝이는 화면" width="720" height="1280">
       </li>
     </ol>
-    <p class="note d-note">쉬운 판 기준. 어려운 판은 60 · 90 · 120초로 늦춰 고민할 시간을 더 줌. 3번 실패하면 앞당김</p>
+    <p class="note d-note">쉬운 레벨 기준. 어려운 레벨은 60 · 90 · 120초로 늦춰 고민할 시간을 더 줌. 3번 실패하면 앞당김</p>
+  </div>
+</section>
+
+<section class="slide" aria-label="고민한 지점: 힌트와 조작">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 고민한 지점</p>
+    <h2>답을 빼앗지 않는 힌트, 실수해도 괜찮은 조작</h2>
+    <ul class="body c-two">
+      <li>
+        <h3>힌트</h3>
+        <p class="c-row"><b>문제</b><span>막히면 힌트가 바로 "여기서 시작해요"</span></p>
+        <p class="c-row c-pick"><b>바꿈</b><span>시작 위치 안내는 맨 마지막 단계로 미룸</span></p>
+        <p class="c-row"><b>이유</b><span>어디서 시작할지가 이 퍼즐의 가장 큰 고민거리</span></p>
+        <p class="c-eg">시작 위치를 말하던 문구 49개를 순서 요령으로 고쳐 씀.<br>요령의 예: "하트는 끊기지 않는 한 바퀴예요"</p>
+      </li>
+      <li>
+        <h3>조작</h3>
+        <p class="c-row"><b>문제</b><span>테스트 의견 "연결한 줄이 자꾸 끊긴다"</span></p>
+        <p class="c-row c-pick"><b>바꿈</b><span>한 번 감긴 접시는 잠금.<br>떼는 것은 ↶ 버튼으로만</span></p>
+        <p class="c-row"><b>원칙</b><span>화면에서 먹힌 접시는 항상 연결</span></p>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -161,7 +183,7 @@
           <ol>
             <li>게임 규칙과 난이도 기준</li>
             <li>소리와 그림의 톤</li>
-            <li>레벨 순서와 범위</li>
+            <li>레벨 순서와 개수</li>
             <li>출시 전 마지막 확인</li>
           </ol>
         </div>
@@ -175,49 +197,6 @@
           </ol>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide d-dense" aria-label="구조화 능력: 레벨 추가를 다섯 단계와 통과 기준으로">
-  <div class="stage">
-    <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
-    <h2>레벨 100개 추가를 다섯 단계와 통과 기준으로</h2>
-    <p class="lead">25개씩 4묶음. 기준을 넘은 레벨만 다음 단계로</p>
-    <div class="body d-pipe">
-      <div class="d-head"><span>단계</span><span>통과 기준</span><span>검사</span></div>
-      <ol>
-        <li><b class="d-n">1</b><strong>모양 잡기</strong><span>접시와 선을 좌표로 적고 보드 크기에 맞춤</span><em></em></li>
-        <li><b class="d-n">2</b><strong>간격 검사</strong><span>접시 사이 1.3 이상, 선과 접시 사이 0.45 이상</span><em>파이썬</em></li>
-        <li><b class="d-n">3</b><strong>순서 찾기와 재생</strong><span>세 가지 조작으로 자동 재생해 풀려야 통과</span><em>파이썬</em></li>
-        <li><b class="d-n">4</b><strong>일직선 거르기</strong><span>접시를 거의 곧게(170° 넘게) 지나는 순서는 버림</span><em>파이썬</em></li>
-        <li><b class="d-n">5</b><strong>게임에 넣고 확정</strong><span>전체를 난이도 순으로 다시 섞고 Unity 테스트 전부 통과</span><em>Unity</em></li>
-      </ol>
-    </div>
-    <p class="note d-note">배경 그림은 그 뒤 Codex가 그리고 선 위에 겹쳐 확인. 마지막에 197개만 남김</p>
-  </div>
-</section>
-
-<section class="slide d-dense" aria-label="AI 리더십: 직접 조정하려고 만든 레벨 편집 도구">
-  <div class="stage d-tool">
-    <div class="g-demo">
-      <svg id="g-board" class="g-board" viewBox="-2.9 -2.5 5.8 7" role="group" aria-label="레벨 편집 체험판 보드: 집 모양 접시 5개"></svg>
-      <div class="g-side">
-        <p class="g-tag">체험판 · 실제 도구의 핵심 동작</p>
-        <p class="g-hint">접시를 끌어 옮겨 보세요</p>
-        <div id="g-checks" class="g-checks" aria-live="polite"></div>
-        <button type="button" class="g-reset">처음으로</button>
-      </div>
-    </div>
-    <div class="d-why">
-      <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
-      <h2>세밀한 조정은 내가 직접, 레벨 편집 도구</h2>
-      <dl>
-        <dt>만든 이유</dt><dd>접시 위치를 말로 설명해 고치게 하는 대신 직접 끌어서 조정. AI 사용량도 아낌</dd>
-        <dt>하는 일</dt><dd>접시를 끌어 옮기면 간격과 일직선 문제를 바로 표시</dd>
-        <dt>게임에 반영</dt><dd>저장한 수정은 파이썬 검사를 모두 통과할 때만 반영</dd>
-        <dt>쓴 곳</dt><dd>레벨 18개의 접시 위치 조정. 같은 방식으로 UI 배치 도구도 제작</dd>
-      </dl>
     </div>
   </div>
 </section>
@@ -254,7 +233,7 @@
           <li>테스트는 전부 통과해야 반영</li>
           <li>UI 확인은 세로 화면 1080×1920으로</li>
           <li>힌트는 답을 너무 빨리 주지 않기</li>
-          <li>올리기 전에는 매번 내 확인</li>
+          <li>올리기 전에는 매번 내가 확인</li>
         </ol>
       </div>
       <div class="e-back">
@@ -272,29 +251,34 @@
   </div>
 </section>
 
-<section class="slide e-dense" aria-label="학습 실행력: AI에게 배워 게임에 적용">
-  <div class="stage">
-    <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
-    <h2>모르는 기술은 AI에게 배워 게임에 바로 적용</h2>
-    <div class="body">
-      <table class="e-table">
-        <colgroup><col><col><col></colgroup>
-        <thead><tr><th>풀어야 했던 문제</th><th>AI와 익힌 것</th><th>게임에 적용</th></tr></thead>
-        <tbody>
-          <tr><td>서버 없이 매일 새 퍼즐</td><td>날짜를 씨앗으로 쓰는 난수. 같은 날짜면 같은 결과</td><td>일일 도전 하루 3개, 같은 날엔 누구에게나 같은 퍼즐</td></tr>
-          <tr><td>풀 수 없는 모양 걸러 내기</td><td>한붓그리기 원리. 선이 홀수 개 모인 접시는 0개 또는 2개</td><td>레벨 검사 도구와 시작 접시 힌트</td></tr>
-          <tr><td>검사는 통과했는데 게임에서 접시를 건너뜀</td><td>거의 일직선인 세 접시는 소수점 오차로 가운데를 놓침</td><td>170° 넘는 꺾임 금지를 편집 도구와 검사 규칙으로</td></tr>
-          <tr><td>끌 때 냥이 머리가 한 박자 늦음</td><td>한 프레임 안의 계산 순서와 그리는 순서</td><td>몸통 그리기를 프레임 맨 뒤로, 폰은 60프레임</td></tr>
-        </tbody>
-      </table>
+<section class="slide d-dense" aria-label="AI 리더십: 직접 조정하려고 만든 레벨 편집 도구">
+  <div class="stage d-tool">
+    <div class="g-demo">
+      <svg id="g-board" class="g-board" viewBox="-2.9 -2.5 5.8 7" role="group" aria-label="레벨 편집 체험판 보드: 집 모양 접시 5개"></svg>
+      <div class="g-side">
+        <p class="g-tag">체험판 · 실제 도구의 핵심 동작</p>
+        <p class="g-hint">접시를 끌어 옮겨 보세요</p>
+        <div id="g-checks" class="g-checks" aria-live="polite"></div>
+        <button type="button" class="g-reset">처음으로</button>
+      </div>
+    </div>
+    <div class="d-why">
+      <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
+      <h2>세밀한 조정은 내가 직접, 레벨 편집 도구</h2>
+      <dl>
+        <dt>만든 이유</dt><dd>접시 위치를 말로 설명해 고치게 하는 대신 직접 끌어서 조정. AI 사용량도 아낌</dd>
+        <dt>하는 일</dt><dd>접시를 끌어 옮기면 간격과 일직선 문제를 바로 표시</dd>
+        <dt>게임에 반영</dt><dd>저장한 수정은 파이썬 검사를 모두 통과할 때만 반영</dd>
+        <dt>쓴 곳</dt><dd>레벨 18개의 접시 위치 조정. 같은 방식으로 UI 배치 도구도 제작</dd>
+      </dl>
     </div>
   </div>
 </section>
 
-<section class="slide e-dense" aria-label="고민과 선택 하나: 어려운 판의 기준">
+<section class="slide e-dense" aria-label="구조화 능력: 어려운 레벨의 기준을 다시 정의">
   <div class="stage">
-    <p class="kicker">2. AI와 만든 과정 · 고민한 지점 ①</p>
-    <h2>"어떤 판이 어려운 판인가"를 다시 정하기</h2>
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
+    <h2>"어떤 레벨이 어려운 레벨인가"를 다시 정하기</h2>
     <div class="body e-think">
       <ol class="e-steps">
         <li><b>처음 기준</b><span>선 수, 갈림길, 막다른 길 확률 등 여섯 가지를 더한 점수</span></li>
@@ -315,25 +299,41 @@
   </div>
 </section>
 
-<section class="slide" aria-label="고민과 선택 둘: 힌트와 조작">
+<section class="slide d-dense" aria-label="구조화 능력: 레벨 추가를 다섯 단계와 통과 기준으로">
   <div class="stage">
-    <p class="kicker">2. AI와 만든 과정 · 고민한 지점 ②</p>
-    <h2>답을 빼앗지 않는 힌트, 실수해도 괜찮은 조작</h2>
-    <ul class="body c-two">
-      <li>
-        <h3>힌트</h3>
-        <p class="c-row"><b>문제</b><span>막히면 힌트가 바로 "여기서 시작해요"</span></p>
-        <p class="c-row c-pick"><b>바꿈</b><span>① 그림 다시 보기 → ② 순서 요령<br>→ ③ 시작 접시 반짝임</span></p>
-        <p class="c-row"><b>이유</b><span>어디서 시작할지가 이 퍼즐의 가장 큰 고민거리</span></p>
-        <p class="c-eg">시작 위치를 말하던 문구 49개를 순서 요령으로 고쳐 씀.<br>요령의 예: "같은 생선을 두 번 지나는 건 괜찮아요"</p>
-      </li>
-      <li>
-        <h3>조작</h3>
-        <p class="c-row"><b>문제</b><span>테스트 의견 "연결한 줄이 자꾸 끊긴다"</span></p>
-        <p class="c-row c-pick"><b>바꿈</b><span>한 번 감긴 접시는 잠금.<br>떼는 것은 ↶ 버튼으로만</span></p>
-        <p class="c-row"><b>원칙</b><span>화면에서 먹힌 접시는 항상 연결</span></p>
-      </li>
-    </ul>
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
+    <h2>레벨 100개 추가를 다섯 단계와 통과 기준으로 쪼개기</h2>
+    <p class="lead">25개씩 4묶음. 기준을 넘은 레벨만 다음 단계로</p>
+    <div class="body d-pipe">
+      <div class="d-head"><span>단계</span><span>통과 기준</span><span>검사</span></div>
+      <ol>
+        <li><b class="d-n">1</b><strong>모양 잡기</strong><span>접시와 선을 좌표로 적고 보드 크기에 맞춤</span><em></em></li>
+        <li><b class="d-n">2</b><strong>간격 검사</strong><span>접시 사이 1.3 이상, 선에 너무 가까운 접시는 탈락</span><em>파이썬</em></li>
+        <li><b class="d-n">3</b><strong>순서 찾기와 재생</strong><span>세 가지 조작으로 자동 재생해 풀려야 통과</span><em>파이썬</em></li>
+        <li><b class="d-n">4</b><strong>일직선 거르기</strong><span>접시를 거의 곧게(170° 넘게) 지나는 순서는 버림</span><em>파이썬</em></li>
+        <li><b class="d-n">5</b><strong>게임에 넣고 확정</strong><span>전체를 난이도 순으로 다시 섞고 Unity 테스트 전부 통과</span><em>Unity</em></li>
+      </ol>
+    </div>
+    <p class="note d-note">배경 그림은 그 뒤 Codex가 그리고 선 위에 겹쳐 확인. 마지막에 197개만 남김</p>
+  </div>
+</section>
+
+<section class="slide e-dense" aria-label="학습 실행력: AI에게 배워 게임에 적용">
+  <div class="stage">
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
+    <h2>모르는 기술은 AI로 배워 게임에 바로 적용</h2>
+    <div class="body">
+      <table class="e-table">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>풀어야 했던 문제</th><th>AI로 배운 것</th><th>게임에 적용</th></tr></thead>
+        <tbody>
+          <tr><td>서버 없이 매일 새 퍼즐</td><td>날짜를 씨앗으로 쓰는 난수. 같은 날짜면 같은 결과</td><td>일일 도전 하루 3개, 같은 날엔 누구에게나 같은 퍼즐</td></tr>
+          <tr><td>풀 수 없는 모양 걸러 내기</td><td>한붓그리기 원리. 선이 홀수 개 모인 접시가 0개나 2개일 때만 풀림</td><td>레벨 검사 도구와 시작 접시 힌트</td></tr>
+          <tr><td>검사는 통과했는데 게임에서 접시를 건너뜀</td><td>거의 일직선인 세 접시는 소수점 오차로 가운데를 놓침</td><td>170° 넘는 꺾임 금지를 편집 도구와 검사 규칙으로</td></tr>
+          <tr><td>끌 때 냥이 머리가 한 박자 늦음</td><td>한 프레임 안의 계산 순서와 그리는 순서</td><td>몸통 그리기를 프레임 맨 뒤로, 폰은 60프레임</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -363,9 +363,9 @@
     <h2>한 장 정리</h2>
     <div class="body">
       <ul class="f-sum">
-        <li><span class="tag">구조화 능력</span><p>레벨 100개 추가를 다섯 단계와 통과 기준으로 쪼개 197개 완성</p></li>
         <li><span class="tag">AI 리더십</span><p>역할과 기준은 내가 정하고, 기준에 안 맞는 결과는 되돌림</p></li>
-        <li><span class="tag">학습 실행력</span><p>모르는 기술은 AI와 익혀 게임에 바로 적용</p></li>
+        <li><span class="tag">구조화 능력</span><p>난이도 기준을 다시 정의하고, 레벨 추가를 다섯 단계로 쪼개 197개 완성</p></li>
+        <li><span class="tag">학습 실행력</span><p>모르는 기술은 AI로 배워 게임에 바로 적용</p></li>
       </ul>
       <p class="f-done">혼자서 기획부터 Google Play 178개국 출시까지</p>
       <div class="actions">
