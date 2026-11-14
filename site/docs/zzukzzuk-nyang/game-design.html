@@ -24,13 +24,7 @@
 <li><a href="#9-아트-기준">아트 기준</a></li>
 <li><a href="#10-저장-데이터설정진행">저장 데이터·설정·진행</a></li>
 <li><a href="#11-기술-구조">기술 구조</a></li>
-<li><a href="#12-다시-만들-때-순서">다시 만들 때 순서</a></li>
 </ol>
-<ul>
-<li><a href="#부록-a-명세에-없는-부분">부록 A. 명세에 없는 부분</a></li>
-<li><a href="#부록-b-원본-자료끼리-다른-곳">부록 B. 원본 자료끼리 다른 곳</a></li>
-<li><a href="#부록-c-함께-둔-파일">부록 C. 함께 둔 파일</a></li>
-</ul>
 <hr />
 </nav>
 <div class="content">
@@ -47,8 +41,7 @@
 - 명세에 적힌 규칙, 숫자, 문구, 화면 순서는 바꾸지 말고 그대로 구현한다.
 - 레벨은 함께 준 data/levels.json(197개 + 튜토리얼 4개)을 그대로 쓴다.
 - 그림·소리·글꼴은 함께 준 리소스 목록의 이름과 규격을 따른다.
-- 명세에 없는 부분(부록 A)만 스스로 정하고, 정한 내용을 따로 적어 둔다.
-- 12장 &quot;다시 만들 때 순서&quot;대로 만들고, 단계마다 그 장의 확인 방법으로 검사한 뒤 다음 단계로 간다.
+- 명세에 없는 부분만 스스로 정하고, 정한 내용을 따로 적어 둔다.
 </code></pre>
 <p>아래부터가 프롬프트와 함께 주는 <strong>게임 명세</strong>입니다.</p>
 <h2 id="1-개요">1. 개요</h2>
@@ -1895,167 +1888,7 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 </table>
 <p>메뉴: String Puzzle ▸ Apply Release Settings / Build Android (Google Play) / Build Windows (PC) / Build Web (itch.io).</p>
 <h3 id="114-테스트">11.4 테스트</h3>
-<p>EditMode 테스트 15파일: <code>DailyPuzzleTests</code>, <code>DifficultyTests</code>, <code>DotConnectorTests</code>, <code>HintScheduleTests</code>, <code>LevelTests</code>(레벨마다 7가지, <code>TestCaseSource</code>), <code>PegMagnetTests</code>, <code>ProgressTests</code>, <code>RopeSolverTests</code>, <code>SfxSynthTests</code>, <code>ShapeArtTests</code>, <code>ShapeMatcherTests</code>, <code>TextFxCurveTests</code>, <code>TutorialTests</code>, <code>UiCornersTests</code>, <code>UtilTests</code>. 원본 README 배지: <strong>1,573개 통과</strong>(이 문서 작성 때 직접 실행하지는 않음).</p>
-<hr />
-<h2 id="12-다시-만들-때-순서">12. 다시 만들 때 순서</h2>
-<ol>
-<li><strong>순수 로직부터, 테스트와 함께</strong>: <code>PegGeometry</code> → <code>RopeSolver</code> → <code>PegMagnet</code> → <code>DotConnector</code> → <code>ShapeMatcher</code> → <code>SolutionReplay</code>. 원본 저장소는 비공개라 3장·4.5절의 규칙과 수치가 기준이다. 튜토리얼 4단계와 레벨 몇 개로 4.5절 재생 검사가 모두 통과하는지 확인.</li>
-<li><strong>레벨 데이터</strong>: <a href="data/levels.json"><code>data/levels.json</code></a>을 읽어 197개 + 튜토리얼 4개를 만든다. 모든 레벨이 재생 검사를 통과하는지, 난이도 숫자가 json의 <code>difficulty</code>와 같은지 확인(<code>LevelDifficulty</code>).</li>
-<li><strong>판 하나 플레이</strong>: 카메라(3장), 접시, 견본 카드, 냥이 몸 그리기, 입력(잡기·끌기·놓기·↶·↻·되감기·화면 밖 머리), 판정 반영(카운터, 빨간 선, 표정).</li>
-<li><strong>소리</strong>: 합성 소리 8종 + 펜타토닉 감김 음(8장), Kenney 2개.</li>
-<li><strong>클리어 흐름</strong>: 도장, 대사, 탭 문구, 색종이, 배경 그림 보상, 다음 레벨, 진행 저장(10장).</li>
-<li><strong>HUD와 화면</strong>: 위·아래 바, 레벨 선택(잠금 없음), 화면 전환, 설정 창, 뒤로 가기 규칙, 안전 영역, 넓은 화면 기둥.</li>
-<li><strong>타이틀</strong>: 냥이를 메뉴 접시에 놓는 방식(6.2절), 글자 부딪힘.</li>
-<li><strong>난이도 장치</strong>: 그림 미리보기 시간, 힌트 3단계, 고비 레벨 입장.</li>
-<li><strong>튜토리얼</strong>: 미리 그린 틀린 선, 손가락 안내, ↶ 안내, 건너뛰기.</li>
-<li><strong>일일 도전</strong>: mulberry32와 씨앗을 비트 단위로 똑같이 → <a href="data/daily_samples.txt"><code>data/daily_samples.txt</code></a>와 같은 퍼즐이 나오는지 비교 → 진행·연속·메달 → 소개/완료 카드 → 메달 연출 → 메달 도감.</li>
-<li><strong>모든 레벨 클리어 화면, 언어 전환(한/영), 고양이 귀 설정.</strong></li>
-<li><strong>빌드 설정</strong>(11.3)과 출시 전 폰트 아틀라스 채우기.</li>
-</ol>
-<hr />
-<h2 id="부록-a-명세에-없는-부분">부록 A. 명세에 없는 부분</h2>
-<table>
-<thead>
-<tr>
-<th class="nw">항목</th>
-<th class="nw">이유</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="nw">연령 등급·주 대상층</td>
-<td>원본 문서·스토어 문구에 없음("누구나 편하게"뿐)</td>
-</tr>
-<tr>
-<td>HUD 각 요소의 최종 픽셀 위치</td>
-<td>장면 <code>ER.unity</code>에서 배치 편집기로 옮긴 값이라 생성 도구 기본값과 다름. 이 문서에는 기본값과 스토어 그림만 적음</td>
-</tr>
-<tr>
-<td class="nw">레벨 그림 197장 자체</td>
-<td>합계 약 55MB라 옮기지 않음(원본 <code>Assets/StringPuzzle/Resources/Shapes/</code>, 만든 방법은 <code>Tools/levelcheck/shape_guides.py</code> 가이드 + 사람이 GPT로 그림)</td>
-</tr>
-<tr>
-<td>일일 도전 C#판과 파이썬판이 다른 23문제가 어느 날짜인지</td>
-<td class="nw">원본 문서에 숫자만 있음</td>
-</tr>
-<tr>
-<td class="nw">스플래시 화면 설정</td>
-<td>원본 프로젝트 설정에서 확인하지 않음</td>
-</tr>
-<tr>
-<td>메달 연출의 위치 이동 곡선(이징)·반짝이 궤적 세부</td>
-<td><code>MedalCeremony*.cs</code>의 시간 값만 옮김. 곡선 세부는 비공개 원본 코드에만 있음</td>
-</tr>
-<tr>
-<td class="nw">말풍선·글자 효과의 세부 곡선</td>
-<td><code>TextFx</code>, <code>SpeechBubble</code>, <code>TextFxCurves</code>의 주요 값만 옮김</td>
-</tr>
-<tr>
-<td class="nw">테스트 1,573개 통과 여부</td>
-<td>이번에 실행하지 않음(README 배지 숫자)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="부록-b-원본-자료끼리-다른-곳">부록 B. 원본 자료끼리 다른 곳</h2>
-<p>코드를 따랐다.</p>
-<table>
-<thead>
-<tr>
-<th class="nw">다른 곳</th>
-<th class="nw">원본 문서</th>
-<th class="nw">코드(따른 것)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="nw">버전</td>
-<td><code>출시노트_1.1.0.md</code>: 1.1.0(코드 3)</td>
-<td><code>StoreBuild</code>·ProjectSettings: 1.1.1(코드 4)</td>
-</tr>
-<tr>
-<td class="nw">레벨 수</td>
-<td><code>스토어/스토어_등록정보.md</code>: "레벨 100개"</td>
-<td class="nw">197개</td>
-</tr>
-<tr>
-<td class="nw">출시 상태</td>
-<td>README: "비공개 테스트 중"</td>
-<td>출시 노트: "정식 출시"(프로덕션). 코드로는 판단 불가</td>
-</tr>
-<tr>
-<td class="nw">메달 그림 숫자</td>
-<td><code>인게임_설계정리.md</code>: 6칸을 숫자 없이 그리고 게임이 일수를 씀 / <code>계획_메달과_도감.md</code>: 200일부터 100일 그림과 같음</td>
-<td>3~100일은 숫자가 그려진 <code>medal_sheet_numbered</code>, 200일부터 숫자 없는 그림 + 게임이 숫자를 씀</td>
-</tr>
-<tr>
-<td class="nw">그림 미리보기 시간</td>
-<td><code>계획_난이도곡선과_힌트.md</code>: 4~7점 2→1.5초, 7~10점 1.2→1초</td>
-<td>(2, 3.5) (4, 2.5) (7, 1.5) (10, 1) 직선</td>
-</tr>
-<tr>
-<td class="nw">"도전!" 도장 시간</td>
-<td class="nw">계획 문서: 1초쯤</td>
-<td class="nw">1.3초</td>
-</tr>
-<tr>
-<td class="nw">발바닥 기준</td>
-<td class="nw">계획 문서: "점수대로"</td>
-<td>내장 레벨은 다시 지나는 횟수, 일일만 점수</td>
-</tr>
-<tr>
-<td class="nw">요령 가르치는 레벨</td>
-<td>계획 문서: 번개·마름모·별·물고기·연 / 설계정리: 삼각형·리본·물고기·깃발</td>
-<td><code>LevelDifficulty.Teachers</code> = 물고기·깃발(도구 <code>TRICK_TEACHERS</code>는 삼각형·리본·물고기·깃발)</td>
-</tr>
-<tr>
-<td class="nw">고비 판정</td>
-<td>설계정리: "구간 평균보다 2.5 이상 높은 레벨"</td>
-<td>실행 중 판정은 번호(10의 배수)뿐. 2.5 규칙은 배치 도구의 규칙</td>
-</tr>
-<tr>
-<td class="nw">냥이 그림 크기</td>
-<td><code>Art/Cat/README.md</code>: 머리 1024×1024, 몸통 512×128, 꼬리 512×256, 앞발 256×256</td>
-<td>실제 파일: 머리 381×381, 몸통 328×198, 꼬리 291×255, 앞발 186×219</td>
-</tr>
-<tr>
-<td class="nw">오늘 날짜 옮기기</td>
-<td><code>DailyClock</code> 주석: "에디터와 개발 빌드에서"</td>
-<td>코드는 에디터에서만(<code>#if UNITY_EDITOR</code>)</td>
-</tr>
-<tr>
-<td class="nw">효과음 출처</td>
-<td><code>Sfx</code> 주석: 비어 있으면 합성</td>
-<td>장면에서 wrong·pop에 Kenney 파일이 들어 있음(README "버튼·틀림은 Kenney"와 일치)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="부록-c-함께-둔-파일">부록 C. 함께 둔 파일</h2>
-<table>
-<thead>
-<tr>
-<th class="nw">경로</th>
-<th class="nw">내용</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="nw"><a href="data/levels.json"><code>data/levels.json</code></a></td>
-<td>197개 + 튜토리얼 전체(4.1절 필드) + 계산한 난이도</td>
-</tr>
-<tr>
-<td><a href="data/level_table.html"><code>data/level_table.md</code></a></td>
-<td class="nw">레벨 한 줄 요약 표</td>
-</tr>
-<tr>
-<td><a href="data/daily_samples.txt"><code>data/daily_samples.txt</code></a></td>
-<td>2026-10-01~07 일일 도전 결과(검증용)</td>
-</tr>
-<tr>
-<td class="nw"><a href="images/"><code>images/</code></a></td>
-<td>화면 캡처(예전 1~5 jpg는 2026-10-04 캡처라 레벨 수가 100개일 때 모습), 스토어 그림 6장, 냥이·접시·일일 그림, 레벨 그림 예시 2장, 메달·테마 시트(절반 크기)</td>
-</tr>
-</tbody>
-</table></div>
+<p>EditMode 테스트 15파일: <code>DailyPuzzleTests</code>, <code>DifficultyTests</code>, <code>DotConnectorTests</code>, <code>HintScheduleTests</code>, <code>LevelTests</code>(레벨마다 7가지, <code>TestCaseSource</code>), <code>PegMagnetTests</code>, <code>ProgressTests</code>, <code>RopeSolverTests</code>, <code>SfxSynthTests</code>, <code>ShapeArtTests</code>, <code>ShapeMatcherTests</code>, <code>TextFxCurveTests</code>, <code>TutorialTests</code>, <code>UiCornersTests</code>, <code>UtilTests</code>. 원본 README 배지: <strong>1,573개 통과</strong>(이 문서 작성 때 직접 실행하지는 않음).</p></div>
 </main>
 </body>
 </html>
