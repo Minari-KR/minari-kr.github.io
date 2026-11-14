@@ -793,31 +793,166 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .q-stats b { font-size: 2.8em; }
 }
 
-/* Chicken Fire: studied first in a practice project, then applied (classes start with r-) */
-.r-study { flex-direction: row; align-items: stretch; justify-content: flex-start; gap: 0; margin-top: 1.1em; }
-.r-from { flex: 0 0 31%; padding-right: 2em; display: flex; flex-direction: column; }
-.r-from h3 { font-size: 1.3em; font-weight: 800; color: var(--accent); }
-.r-from h3 small { display: block; font-size: .72em; font-weight: 700; color: var(--muted); }
-.r-from img { margin-top: .5em; width: 7em; height: 7em; border-radius: .7em; }
-.r-from ul { margin-top: .6em; display: grid; gap: .2em; }
-.r-from li { font-size: 1.05em; padding-left: .9em; position: relative; }
-.r-from li::before { content: ""; position: absolute; left: 0; top: .6em; width: .4em; height: .4em; border-radius: 50%; background: var(--accent); }
-.r-to { flex: 1; min-width: 0; position: relative; padding-left: 3.4em; border-left: 1px solid var(--edge); display: grid; gap: 1.2em; align-content: center; }
-.r-to::before { content: "→"; position: absolute; left: -.52em; top: 50%; transform: translateY(-50%); width: 1.04em; text-align: center; background: var(--bg); color: var(--accent); font-size: 2em; font-weight: 800; line-height: 1.4; }
-.r-to li { min-width: 0; display: grid; grid-template-columns: 17em 1fr; align-items: center; gap: 1.6em; }   /* picture, then what it is */
-.r-to img { border-radius: .6em; border: 1px solid var(--edge); }
-.r-wide { width: 100%; height: auto; }
-.r-pair { display: flex; align-items: center; gap: .4em; }
-.r-pair img { flex: 1; min-width: 0; height: auto; }
-.r-pair i { font-style: normal; font-weight: 800; color: var(--accent); }
-.r-to strong { display: block; font-size: 1.45em; }
-.r-to p span { display: block; margin-top: .2em; font-size: 1.1em; color: var(--muted); text-wrap: balance; }
+/* Chicken Fire deck: slides with live 3D views (chicken-fire/viewer.js). Classes start with v-; sizes in em of the stage. */
+.v-dense .stage { padding: 2em 3em 1.6em; }
+.v-dense .body { margin-top: 1em; }
+
+/* the 3D view: transparent canvas over a soft spot so the model reads on the dark slide */
+.v3d { position: relative; min-height: 0; border-radius: .8em; background: radial-gradient(closest-side, var(--surface-2), transparent); }
+.v3d canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.v3d canvas:active { cursor: grabbing; }
+.v3d img { width: 100%; height: 100%; object-fit: contain; }
+.v3d [hidden] { display: none; }   /* deck.css sets img { display: block } */
+
+.v-block { display: flex; flex-direction: column; gap: .45em; min-width: 0; min-height: 0; }
+.v-block > .v3d { flex: 1; }
+.v-btns, .v-tabs { display: flex; flex-wrap: wrap; gap: .45em; }
+.v-btns button, .v-tabs button { font: inherit; font-size: .95em; font-weight: 700; line-height: 1.3; color: var(--text); background: var(--surface-2); border: 1px solid var(--edge); border-radius: 999px; padding: .3em 1em; cursor: pointer; }
+.v-btns button:hover, .v-tabs button:hover { border-color: var(--accent); }
+.v-btns button:focus-visible, .v-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.v-btns [aria-pressed="true"], .v-tabs [aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.v-btns .v-go { padding-left: 1.3em; padding-right: 1.3em; background: #f08a3c; border-color: #f08a3c; color: #2a1206; font-weight: 800; }   /* fire */
+.v-btns .v-go:hover { background: #ffa25a; border-color: #ffa25a; }
+.v-live { font-size: .95em; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.v-cap { font-size: .95em; color: var(--muted); }
+.v-block .note { margin-top: -.2em; }
+
+/* A: chicken viewer left, three points right */
+.v-react { flex-direction: row; align-items: stretch; gap: 2.6em; }
+.v-chick { flex: 1.25; }
+.v-pts { flex: 1; align-self: center; margin-top: 0; }
+
+/* B: oak viewer left, real render and points right */
+.v-burn { flex-direction: row; align-items: stretch; gap: 2.4em; }
+.v-tree { flex: 0 0 15em; }
+.v-tree .v3d { border-radius: .8em; background: linear-gradient(#8ba6ad 0 58%, #84a264 58%); }   /* sky and grass, like the game render: the burnt branches are black */
+.v-side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .9em; }
+.v-clip video { display: block; height: 9.6em; width: auto; max-width: 100%; border-radius: .6em; border: 1px solid var(--edge); background: #0b0c0f; }
+.v-clip figcaption { margin-top: .3em; }
+.v-lines { display: grid; gap: .6em; }
+.v-lines li { padding-left: 1em; border-left: .25em solid var(--accent); }
+.v-lines strong { display: block; font-size: 1.15em; }
+.v-lines span { display: block; color: var(--muted); }
+
+/* C: four-step flow, then reference sheet → model with tabs */
+.v-flow { display: flex; align-items: stretch; margin-top: .8em; }
+.v-flow li { flex: 1; min-width: 0; position: relative; padding: .35em .5em; border: 1px solid var(--edge); border-radius: .6em; background: var(--surface); text-align: center; font-weight: 700; white-space: nowrap; }
+.v-flow li + li { margin-left: 2em; }
+.v-flow li + li::before { content: "→"; position: absolute; left: -1.55em; top: 50%; transform: translateY(-50%); color: var(--accent); font-weight: 800; font-size: 1.15em; }
+.v-flow .v-gate { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 800; }
+.v-result { justify-content: flex-start; gap: .55em; }
+.v-pair { flex: 1; min-height: 0; display: flex; align-items: stretch; gap: 1em; }
+.v-pair > i { align-self: center; font-style: normal; font-size: 1.6em; font-weight: 800; color: var(--accent); }
+.v-pair figure { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: .3em; }
+.v-pair figcaption { font-size: .95em; font-weight: 800; color: var(--accent); }
+.v-ref { flex: 0 1 44%; }
+.v-ref img { flex: 1; min-height: 0; width: 100%; object-fit: contain; object-position: left top; border-radius: .5em; }
+.v-made { flex: 1 1 56%; }
+.v-made .v3d { flex: 1; }
+.v-tabnote { font-size: 1.1em; font-weight: 700; }
+
+/* D: practice project → two results */
+.v-h2s { font-size: 1.75em; }
+.v-study { flex-direction: row; align-items: stretch; gap: 1.6em; }
+.v-from { flex: 0 0 11.5em; display: flex; flex-direction: column; justify-content: center; }
+.v-from h3 span { display: block; font-size: .85em; color: var(--muted); white-space: nowrap; }
+.v-from h3 { font-size: 1.1em; font-weight: 800; color: var(--accent); line-height: 1.35; }
+.v-from img { margin-top: .5em; width: 7em; height: 7em; border-radius: .7em; }
+.v-from ul { margin-top: .6em; display: grid; gap: .2em; }
+.v-from li { padding-left: .9em; position: relative; }
+.v-from li::before { content: ""; position: absolute; left: 0; top: .65em; width: .4em; height: .4em; border-radius: 50%; background: var(--accent); }
+.v-arrow { align-self: center; font-style: normal; font-size: 2em; font-weight: 800; color: var(--accent); }
+.v-to { flex: 1; min-width: 0; display: grid; grid-template-columns: .85fr 1.15fr; gap: 1.6em; }
+.v-to figure { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: .4em; }
+.v-to strong { font-size: 1.25em; }
+.v-to video { display: block; width: 100%; height: auto; border-radius: .6em; border: 1px solid var(--edge); background: #0b0c0f; }
+
+/* E: bucket alone (the block also fits a small 14em × 10em spot in another slide) */
+.v-bare { justify-content: center; }
+.v-bucket { flex: 1; }
 
 @media (max-width: 640px) and (orientation: portrait) {
-  .r-study { flex-direction: column; gap: 24px; }
-  .r-from { flex: none; padding-right: 0; }
-  .r-from img { width: 140px; height: 140px; }
-  .r-to { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--edge); gap: 24px; }
-  .r-to li { grid-template-columns: 1fr; gap: 10px; }
-  .r-to::before { content: "↓"; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 1.5em; }
+  .v-dense .stage { padding: 0; }
+  .v-dense .body { margin-top: 1.4em; }
+  .v3d, .v-block > .v3d, .v-made .v3d, .v-bucket { flex: none; aspect-ratio: 4 / 3; }
+  .v-react, .v-burn, .v-study { flex-direction: column; gap: 24px; }
+  .v-tree { flex: none; }
+  .v-tree .v3d { aspect-ratio: 3 / 4; }
+  .v-clip video { height: auto; width: 100%; }
+  .v-flow { flex-direction: column; }
+  .v-flow li + li { margin: 22px 0 0; }
+  .v-flow li + li::before { content: "↓"; left: 50%; top: -20px; transform: translateX(-50%); }
+  .v-pair { flex-direction: column; }
+  .v-pair > i { transform: rotate(90deg); }
+  .v-ref img { width: 100%; height: auto; }
+  .v-from { flex: none; }
+  .v-from img { width: 140px; height: 140px; }
+  .v-arrow { transform: rotate(90deg); }
+  .v-to { grid-template-columns: 1fr; gap: 24px; }
+  .v-bare { padding: 0; }
+}
+
+/* Chicken Fire deck rebuild (chicken-fire/deck-s.html). Classes start with s-; sizes in em of the stage. */
+.s-dense .stage { padding: 2em 2.2em 1.6em; }
+.s-dense .body { margin-top: 1em; }
+.s-dense h2 { font-size: 1.9em; }
+
+/* 2: three large media, arrows between */
+.s-trio { flex-direction: row; justify-content: flex-start; align-items: center; gap: 0; margin-top: .8em; }
+.s-trio > li { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; }
+.s-trio > li + li { margin-left: 1.5em; }
+.s-trio > li + li::before { content: "→"; position: absolute; left: -1.35em; top: 22%; color: var(--accent); font-size: 1.6em; font-weight: 800; }
+.s-media { aspect-ratio: 16 / 9; border: .22em solid #0b0c0f; border-radius: .9em; background: #0b0c0f; overflow: hidden; display: grid; place-items: center; }
+.s-media .p-frame { width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; box-shadow: none; }
+.s-3d .v3d, .s-3d .v3d img { width: 100%; height: 100%; object-fit: cover; }
+.s-hud { background: var(--surface); }
+.s-hud img { width: 100%; height: auto; }
+.s-tag { margin-top: .5em; font-size: .9em; font-weight: 800; color: var(--accent); white-space: nowrap; }
+.s-trio .a-cap { min-height: 5.4em; margin-top: .3em; }
+
+/* 5: reasoning chain on top, data below */
+.s-tense { justify-content: space-between; margin-top: .8em; }
+.s-chain { display: flex; align-items: stretch; }
+.s-chain li { flex: 1; min-width: 0; position: relative; padding-left: .8em; border-left: .25em solid var(--accent); }
+.s-chain li + li { margin-left: 2.2em; }
+.s-chain li + li::before { content: "→"; position: absolute; left: -1.9em; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.5em; font-weight: 800; }
+.s-chain b { display: block; font-size: .95em; font-weight: 800; color: var(--accent); }
+.s-chain span { display: block; font-size: 1.3em; font-weight: 800; line-height: 1.3; color: #fff; text-wrap: balance; }
+.s-data { display: flex; align-items: flex-end; gap: 2.2em; }
+.s-data .p-steps { flex: 1.7; min-width: 0; }
+.s-data .p-steps b { font-size: 2.2em; }
+.s-alert { flex: 1; min-width: 0; }
+.s-alert img { width: 100%; height: auto; border-radius: .5em; }
+.s-alert figcaption { margin-top: .4em; font-size: 1.05em; font-weight: 700; color: var(--muted); }
+
+/* 9: four numbers under the three abilities */
+.s-nums { margin-top: 1em; display: grid; grid-template-columns: 1fr 1.1fr 1.3fr 1.7fr; }
+.s-nums li { padding: 0 1em; border-left: 1px solid var(--line); }
+.s-nums li:first-child { padding-left: 0; border-left: 0; }
+.s-nums b { display: block; font-size: 2.6em; font-weight: 800; line-height: 1.1; letter-spacing: -.03em; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.s-nums b small { font-size: .42em; font-weight: 700; letter-spacing: 0; margin-left: .15em; }
+.s-nums span { display: block; font-size: 1em; color: var(--muted); white-space: nowrap; }
+.s-dense .f-sum li { padding: .55em 0; }
+.s-dense .f-done { margin-top: .9em; }
+.s-dense .f-done + .actions { margin-top: .9em; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .s-dense .stage { padding: 0; }
+  .s-dense .body { margin-top: 1.4em; }
+  .s-dense h2 { font-size: 1.6em; }
+  .s-trio { flex-direction: column; align-items: stretch; gap: 28px; }
+  .s-trio > li + li { margin-left: 0; }
+  .s-trio > li + li::before { content: "↓"; left: 50%; top: -26px; }
+  .s-tag { white-space: normal; font-size: 1em; }
+  .s-trio .a-cap { min-height: 0; }
+  .s-data .p-steps b { font-size: 1.6em; }
+  .s-chain { flex-direction: column; gap: 34px; }
+  .s-chain li + li { margin-left: 0; }
+  .s-chain li + li::before { content: "↓"; left: 0; top: -22px; transform: none; }
+  .s-tense { gap: 24px; }
+  .s-data { flex-direction: column; align-items: stretch; gap: 24px; }
+  .s-nums { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+  .s-nums li, .s-nums li:first-child { padding: 0; border: 0; }
+  .s-nums b { font-size: 2.2em; }
+  .s-nums b small { font-size: .5em; }
 }
