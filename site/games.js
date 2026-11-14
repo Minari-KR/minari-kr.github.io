@@ -7,7 +7,7 @@
 window.GAMES = [
   {
     title: 'Chicken Fire',
-    genre: '아레나 생존',
+    genre: '타임어택 슈팅',
     thumb: 'thumbs/chicken-fire.webp',
     play: 'games/chicken-fire/index.html',
     video: '',
