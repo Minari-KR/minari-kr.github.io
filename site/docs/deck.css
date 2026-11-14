@@ -485,8 +485,6 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 /* C: tool screenshot is the hero */
 .d-dense .d-tool { padding-top: 1.2em; padding-bottom: 1.2em; }
 .d-tool { flex-direction: row; align-items: center; gap: 2.2em; }
-.d-shot { flex: 0 0 56%; }
-.d-shot img { width: 100%; height: auto; border: 1px solid var(--edge); border-radius: .7em; }
 .d-why { flex: 1; min-width: 0; }
 .d-why h2 { font-size: 1.5em; }
 .d-why dl { margin: .8em 0 0; display: grid; gap: .5em; }
@@ -502,8 +500,7 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .d-head { display: none; }
   .d-pipe li { grid-template-columns: 1fr; row-gap: 2px; padding: 12px 0 12px 44px; }
   .d-pipe strong { font-size: 1.2em; }
-  .d-tool { flex-direction: column-reverse; align-items: stretch; gap: 24px; }
-  .d-shot { flex: none; }
+  .d-tool { flex-direction: column; align-items: stretch; gap: 24px; }
   .d-why h2 { font-size: 1.6em; }
   .d-why dd { font-size: 1.0625em; }
   .d-note { font-size: .95em; }
@@ -587,4 +584,48 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .e-result { gap: 20px; }
   .e-result .c-level { width: 80px; height: 88px; }
   .e-result b { font-size: 1.7em; }
+}
+
+/* Last slide: the three abilities in one line each (classes start with f-) */
+.f-sum li { display: flex; align-items: center; gap: 1.4em; padding: .75em 0; border-bottom: 1px solid var(--line); }
+.f-sum li:first-child { border-top: 1px solid var(--line); }
+.f-sum .tag { flex: none; width: 7.6em; margin-left: 0; padding: .25em 0; text-align: center; font-size: 1em; }
+.f-sum p { font-size: 1.4em; font-weight: 700; line-height: 1.35; text-wrap: pretty; }
+.f-done { margin-top: 1.1em; font-size: 1.5em; font-weight: 800; color: var(--accent); }
+.f-done + .actions { margin-top: 1.4em; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .f-sum li { flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 0; }
+  .f-sum p { font-size: 1.15em; }
+  .f-done { font-size: 1.25em; }
+}
+
+/* Level editor demo on the tool slide (zzukzzuk-nyang/level-demo.js). Classes start with g-. */
+.g-demo { flex: 0 0 47%; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: .7em; }   /* the board is the main thing on the slide */
+.g-board { flex: none; align-self: center; height: 18em; aspect-ratio: 5.8 / 7; touch-action: none; user-select: none; background: var(--surface); border: 1px solid var(--edge); border-radius: .7em; }
+.g-bd { fill: none; stroke: var(--edge); stroke-width: .03; stroke-dasharray: .12 .1; }
+.g-grid { stroke: var(--line); stroke-width: .02; }
+.g-ln { stroke: #fff; stroke-width: .07; stroke-linecap: round; }
+.g-ln.g-bad { stroke: #ff6b6b; }
+.g-dish { cursor: grab; outline: none; }
+.g-dish circle { fill: #ef7a5a; stroke: #2f9e6a; stroke-width: .1; }
+.g-dish.g-bad circle { stroke: #ff3b3b; }
+.g-dish:focus-visible circle { stroke: #fff; }
+.g-dish text { fill: #23242f; font-size: 20px; font-weight: 800; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.g-side { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .5em 1em; }
+.g-tag { grid-column: 1; grid-row: 2; }
+.g-hint { grid-column: 1; grid-row: 1; }
+.g-reset { grid-column: 2; grid-row: 1 / 3; }
+.g-checks { grid-column: 1 / 3; grid-row: 3; }
+.g-tag { font-size: .9em; color: var(--muted); }
+.g-hint { font-size: .95em; font-weight: 800; }
+.g-checks { min-height: 4.4em; padding: .5em .7em; border: 1px solid var(--edge); border-radius: .6em; background: var(--surface); font-size: .9em; font-weight: 700; line-height: 1.35; }
+.g-checks p + p { margin-top: .3em; }
+.g-ok { color: var(--accent); }
+.g-warn { color: #ff8a8a; }
+.g-reset { justify-self: start; font: inherit; font-size: .9em; font-weight: 700; color: var(--text); background: var(--surface-2); border: 1px solid var(--edge); border-radius: .5em; padding: .3em .9em; cursor: pointer; }
+.g-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) and (orientation: portrait) {
+  .g-demo { flex: none; flex-direction: column; align-items: stretch; gap: 16px; }
+  .g-board { flex: none; align-self: stretch; width: 100%; height: auto; }
 }

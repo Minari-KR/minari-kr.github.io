@@ -23,10 +23,10 @@ jobs:
       # 10 min). app.js passes the same ?v= on to the document pages it opens; they pass it to doc.css.
       - name: Version the gallery's script, style and document links
         run: |
-          v=$(cat site/games.js site/app.js site/style.css site/docs/doc.css site/docs/deck.css site/docs/deck.js $(find site/docs -name '*.html' | sort) | sha256sum | cut -c1-8)
+          v=$(cat site/games.js site/app.js site/style.css site/docs/doc.css site/docs/deck.css site/docs/deck.js site/docs/zzukzzuk-nyang/level-demo.js $(find site/docs -name '*.html' | sort) | sha256sum | cut -c1-8)
           sed -i -E "s#(href|src)=\"(style\.css|games\.js|app\.js)(\?v=[a-f0-9]+)?\"#\1=\"\2?v=$v\"#g" site/index.html
           grep -c "?v=$v" site/index.html | grep -qx 3
-          find site/docs -name '*.html' -exec sed -i -E "s#(href|src)=\"([./]*(doc|deck)\.(css|js))(\?v=[a-f0-9]+)?\"#\1=\"\2?v=$v\"#g" {} +
+          find site/docs -name '*.html' -exec sed -i -E "s#(href|src)=\"([./]*(doc|deck|level-demo)\.(css|js))(\?v=[a-f0-9]+)?\"#\1=\"\2?v=$v\"#g" {} +
       - name: Upload website files
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:

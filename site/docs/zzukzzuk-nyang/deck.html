@@ -9,6 +9,7 @@
   <title>쭉쭉냥 : 고양이 퍼즐 — 기획과 AI 제작 과정</title>
   <link rel="stylesheet" href="../deck.css">
   <script src="../deck.js" defer></script>
+  <script src="level-demo.js" defer></script>
 </head>
 <body>
 <main>
@@ -130,10 +131,10 @@
   </div>
 </section>
 
-<section class="slide" aria-label="플레이 경험 셋: 다시 올 이유">
+<section class="slide" aria-label="유저 리텐션: 매일 돌아오게 하는 장치">
   <div class="stage">
-    <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
-    <h2>다 깬 뒤에도 내일 또 올 이유</h2>
+    <p class="kicker">1. 게임 · 유저 리텐션</p>
+    <h2>유저 리텐션: 다 깬 뒤에도 매일 돌아오게</h2>
     <ul class="body c-pair">
       <li>
         <img class="a-phone" src="images/deck/shot-clear.webp" alt="클리어 화면: 완성된 하트 그림" width="720" height="1280">
@@ -197,9 +198,15 @@
 
 <section class="slide d-dense" aria-label="AI 리더십: 직접 조정하려고 만든 레벨 편집 도구">
   <div class="stage d-tool">
-    <figure class="d-shot">
-      <img src="images/deck/tool-level-editor.webp" alt="레벨 편집 도구 화면: 접시를 끌어 옮기고 검사 결과를 바로 확인" width="1280" height="800">
-    </figure>
+    <div class="g-demo">
+      <svg id="g-board" class="g-board" viewBox="-2.9 -2.5 5.8 7" role="group" aria-label="레벨 편집 체험판 보드: 집 모양 접시 5개"></svg>
+      <div class="g-side">
+        <p class="g-tag">체험판 · 실제 도구의 핵심 동작</p>
+        <p class="g-hint">접시를 끌어 옮겨 보세요</p>
+        <div id="g-checks" class="g-checks" aria-live="polite"></div>
+        <button type="button" class="g-reset">처음으로</button>
+      </div>
+    </div>
     <div class="d-why">
       <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
       <h2>세밀한 조정은 내가 직접, 레벨 편집 도구</h2>
@@ -348,18 +355,19 @@
   </div>
 </section>
 
-<section class="slide" aria-label="남은 숙제">
+<section class="slide" aria-label="정리">
   <div class="stage">
-    <p class="kicker">3. 결과 · 돌아보며</p>
-    <h2>남은 숙제</h2>
+    <p class="kicker">3. 결과 · 정리</p>
+    <h2>한 장 정리</h2>
     <div class="body">
-      <ul class="b-todo">
-        <li>난이도 체감이 사람마다 크게 달랐음. 플레이 데이터로 다시 맞추는 일이 남음</li>
-        <li>출시 뒤 지표(다운로드, 잔존율)는 재지 못함</li>
-        <li>출시가 끝이 아님. 테스트 의견을 받아 조작과 난이도를 계속 고침</li>
+      <ul class="f-sum">
+        <li><span class="tag">구조화 능력</span><p>레벨 100개 추가를 다섯 단계와 통과 기준으로 쪼개 197개 완성</p></li>
+        <li><span class="tag">AI 리더십</span><p>역할과 기준은 내가 정하고, 기준에 안 맞는 결과는 되돌림</p></li>
+        <li><span class="tag">학습 실행력</span><p>모르는 기술은 AI와 익혀 게임에 바로 적용</p></li>
       </ul>
+      <p class="f-done">혼자서 기획부터 Google Play 178개국 출시까지</p>
       <div class="actions">
-        <a href="gdd.html">자세한 기획서</a>
+        <a href="gdd.html">상세 기획서</a>
         <a href="https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang" target="_blank" rel="noopener noreferrer">Google Play</a>
       </div>
     </div>
