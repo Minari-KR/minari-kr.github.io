@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; media-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <title>Chicken Fire — 기획과 AI 제작 과정</title>
+  <link rel="stylesheet" href="../deck.css">
+  <script src="../deck.js" defer></script>
+</head>
+<body>
+<main>
+
+<section class="slide cover p-cover" aria-label="표지">
+  <div class="stage">
+    <div class="cover-text">
+      <p class="kicker">AI와 함께 3일 만에 만든 프로토타입</p>
+      <h1>Chicken Fire</h1>
+      <p class="lead">화염방사기를 멘 닭이 시간과 싸우는 타임어택 슈팅</p>
+      <ul class="chips">
+        <li>1인 개발 · 3D 쿼터뷰</li>
+        <li>웹에서 바로 플레이</li>
+        <li>2026. 10. 9 ~ 10. 11</li>
+      </ul>
+      <p class="note hint">방향키나 마우스 휠로 넘겨 보세요 →</p>
+    </div>
+    <div class="p-cover-shot">
+      <video class="p-frame" src="images/deck/play.mp4" poster="images/deck/play.webp" width="960" height="540" autoplay muted loop playsinline aria-label="Chicken Fire 실제 플레이 영상: 화염방사기로 닭을 쫓는 장면"></video>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="어떤 게임인가">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 한눈에</p>
+    <h2>닭을 태워 시간을 버는 타임어택</h2>
+    <ol class="body a-trio p-trio">
+      <li>
+        <img class="p-frame" src="images/deck/shot-fire.webp" alt="화염방사기로 흰 닭을 태우는 화면" width="1280" height="720">
+        <p class="a-cap"><b><i>1</i> 태우기</b><span>화염방사기로 흰 닭을 지지기</span></p>
+      </li>
+      <li>
+        <img class="p-frame" src="images/deck/shot-bucket.webp" alt="치킨통을 먹는 화면" width="1280" height="720">
+        <p class="a-cap"><b><i>2</i> 치킨통</b><span>쓰러진 닭이 치킨통으로 바뀜</span></p>
+      </li>
+      <li>
+        <img class="p-frame" src="images/deck/shot-over.webp" alt="점수가 나온 게임 오버 화면" width="1280" height="720">
+        <p class="a-cap"><b><i>3</i> 시간 벌기</b><span>치킨통을 먹으면 +5초. 시간이 0이 되면 끝</span></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" aria-label="3일의 흐름">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 3일의 흐름</p>
+    <h2>불 효과 실험에서 타임어택 게임까지</h2>
+    <ol class="body a-path">
+      <li><b>출발</b><span>이전 프로젝트에서 만든 불 효과를 게임으로</span></li>
+      <li><b>첫 방향</b><span>작은 농장 마당, 쿼터뷰, 눈에 잘 띄는 닭과 불꽃</span></li>
+      <li><b>시제품</b><span>끝없이 이어지는 농장</span></li>
+      <li class="a-goal"><b>방향 전환</b><span>40 × 40 m 아레나와 30초 생존 라운드</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" aria-label="돌아가는 구조">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 돌아가는 구조</p>
+    <h2>한 판마다 반복되는 플레이 흐름</h2>
+    <ol class="body p-flow">
+      <li><b>시작</b><span>남은 시간 30초</span></li>
+      <li class="p-loop">
+        <ol>
+          <li><b>태우기</b><span>화염이 닿으면 닭이 놀라 도망. 1.4초쯤 맞히면 쓰러짐</span></li>
+          <li><b>먹기</b><span>치킨통에 다가가면 저절로 먹고 시간 +5초</span></li>
+          <li><b>압박</b><span>30초마다 보상 1초씩 감소, 닭은 6마리에서 12마리까지</span></li>
+        </ol>
+      </li>
+      <li class="p-end"><b>끝</b><span>시간이 0이 되면 종료. 점수는 먹은 치킨통 수</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide side p-react" aria-label="플레이 경험 하나: 닭의 반응">
+  <div class="stage">
+    <div class="side-text">
+      <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
+      <h2>맞은 닭이 온몸으로 반응하게</h2>
+      <ul class="a-pts">
+        <li><strong>눈이 &gt; &lt; 로</strong><span>"뜨겁고 당황한 느낌"을 표정으로</span></li>
+        <li><strong>놀라고, 도망치고, 진정</strong><span>0.2초 놀람 → 2배 속도로 도주 → 2초 뒤 진정</span></li>
+        <li><strong>아픈 느낌 대신 우스꽝스럽게</strong><span>빨간 번쩍임, 꼬꼬댁 소리, 만화 같은 몸짓</span></li>
+      </ul>
+    </div>
+    <div class="p-right">
+      <div class="p-pair">
+        <figure><img src="images/deck/face-normal.webp" alt="평소 닭의 얼굴" width="600" height="600"><figcaption>평소</figcaption></figure>
+        <i>→</i>
+        <figure><img src="images/deck/face-panic.webp" alt="맞은 닭의 얼굴: 눈이 &gt; &lt; 모양" width="600" height="600"><figcaption>맞으면</figcaption></figure>
+      </div>
+      <img class="p-frame" src="images/deck/shot-panic.webp" alt="닭들이 도망치는 화면" width="1280" height="720">
+    </div>
+  </div>
+</section>
+
+<section class="slide p-burn" aria-label="플레이 경험 둘: 번지는 불">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
+    <h2>불이 번지는 아레나</h2>
+    <div class="body p-burn-body">
+      <div class="p-main">
+        <img class="p-frame" src="images/deck/shot-burn.webp" alt="불이 나무와 작물로 번지는 화면" width="1280" height="720">
+      </div>
+      <ul class="p-pics">
+        <li class="p-plain"><p><strong>0.4초 닿으면 불붙음</strong><span>6초 동안 타며 2.4 m 안으로 번짐</span></p></li>
+        <li class="p-plain"><p><strong>타는 것 122개, 안 타는 것 12개</strong><span>건물과 바위는 길잡이와 엄폐물로 남김</span></p></li>
+        <li>
+          <img src="images/deck/tree-burn.webp" alt="나무가 단계별로 타는 모습" width="1100" height="700">
+          <p><strong>단계별로 타는 나무</strong><span>잎이 타 없어지고 검은 가지만 남음</span></p>
+        </li>
+        <li>
+          <img src="images/deck/through-fire.webp" alt="불 사이로 둥근 창에 비치는 닭" width="960" height="720">
+          <p><strong>가려져도 보이게</strong><span>불이나 건물 뒤의 닭은 둥근 창으로 비쳐 보임</span></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="고민한 지점: 위협은 시간">
+  <div class="stage">
+    <p class="kicker">1. 게임 · 고민한 지점</p>
+    <h2>위협은 닭이 아니라 시간</h2>
+    <div class="body p-time">
+      <ul class="p-says">
+        <li>닭은 공격하지 않고, 플레이어 체력도 없음</li>
+        <li>잡기는 계속 쉽게 두고 치킨통 하나의 값을 줄임</li>
+      </ul>
+      <ol class="p-steps">
+        <li class="p-r5"><time>0초</time><b>+5초</b><i></i><span>닭 6마리</span></li>
+        <li class="p-r4"><time>30초</time><b>+4초</b><i></i><span>닭 8마리</span></li>
+        <li class="p-r3"><time>60초</time><b>+3초</b><i></i><span>닭 10마리</span></li>
+        <li class="p-r2"><time>90초</time><b>+2초</b><i></i><span>닭 12마리</span></li>
+        <li class="p-r1"><time>120초</time><b>+1초</b><i></i><span>닭 12마리</span></li>
+      </ol>
+      <p class="p-line">버티려면 점점 더 많이 먹어야 하고, 결국 시계가 이김</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide q-dense" aria-label="AI 리더십: 그림으로 먼저 확인">
+  <div class="stage">
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
+    <h2>그림으로 먼저 확인하고, 승인한 것만 만들기</h2>
+    <div class="body">
+      <ol class="q-flow">
+        <li>참고 그림<br>(AI 이미지)</li>
+        <li class="q-gate">내 확인</li>
+        <li>Blender 모델과 동작</li>
+        <li>Unity 적용</li>
+        <li>실제 쿼터뷰 화면에서 비교</li>
+      </ol>
+      <ul class="q-cases">
+        <li>
+          <img src="images/deck/ref-panic.webp" alt="닭 놀람 동작 포즈 시트: 놀람, 달리기, 회복 여섯 포즈" width="1280" height="853">
+          <strong>닭 놀람 동작</strong>
+          <span>포즈 시트 승인 뒤 제작. 검사 9개 통과</span>
+        </li>
+        <li>
+          <img src="images/deck/ref-eyes.webp" alt="화상 표정 시트: 평소 눈, > < 눈, 놀란 눈, 게임 화면" width="1280" height="853">
+          <strong>화상 표정</strong>
+          <span>참고 그림 확인 뒤 적용. 검사 11개 통과</span>
+        </li>
+        <li>
+          <img src="images/deck/ref-gear.webp" alt="화염방사기와 연료통을 멘 노란 닭 재디자인 시트" width="1280" height="853">
+          <strong>화염방사기</strong>
+          <span>재디자인 그림 확인 뒤 모델 수정</span>
+        </li>
+      </ul>
+      <p class="note q-note">참고 그림은 느낌을 정하는 용도. 실제 모델과 게임 화면에서 다시 확인</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide q-dense" aria-label="구조화 능력: 단계와 완료 기준">
+  <div class="stage">
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
+    <h2>기능 하나를 단계와 완료 기준으로 쪼개기</h2>
+    <div class="q-eg">
+      <p class="lead">예: 불에 맞은 닭의 눈 표정</p>
+      <img src="images/deck/face-normal.webp" alt="평소 둥근 눈의 닭 얼굴" width="600" height="600">
+      <i>→</i>
+      <img src="images/deck/face-panic.webp" alt="> < 눈으로 바뀐 닭 얼굴" width="600" height="600">
+    </div>
+    <div class="body q-check">
+      <div class="q-col">
+        <h3>만드는 순서</h3>
+        <ol class="q-steps">
+          <li>원래 눈을 따로 떼어 낼 수 있는지 확인</li>
+          <li>같은 자리에 &gt; &lt; 눈 만들기</li>
+          <li>얼굴에 붙이고 깜빡임 없게 띄우기</li>
+          <li>평소 눈과 &gt; &lt; 눈을 바꾸는 장치</li>
+          <li>놀람·도주·회복 흐름에 연결</li>
+          <li>실제 쿼터뷰에서 선 두께와 크기 조정</li>
+        </ol>
+      </div>
+      <div class="q-col">
+        <h3>완료 기준</h3>
+        <ul class="q-done">
+          <li>평소 눈과 &gt; &lt; 눈이 겹치지 않음</li>
+          <li>머리가 돌아도 얼굴을 따라 움직임</li>
+          <li>연속으로 맞아도 깜빡이지 않음</li>
+          <li>회복하면 원래 눈, 다시 나올 때 표정이 남지 않음</li>
+          <li>여러 마리가 맞아도 각자 따로 반응</li>
+          <li>실제 플레이 크기에서 표정이 읽힘</li>
+        </ul>
+      </div>
+    </div>
+    <p class="q-line">검사 11개 통과. 같은 방식으로 남긴 결과 기록 12개, 통과한 검사 100개 이상</p>
+  </div>
+</section>
+
+<section class="slide e-dense" aria-label="학습 실행력: AI로 배워 게임에 적용">
+  <div class="stage">
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
+    <h2>모르는 기술은 AI로 배워 게임에 바로 적용</h2>
+    <div class="body">
+      <table class="e-table">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>풀어야 했던 문제</th><th>AI로 배운 것</th><th>게임에 적용</th></tr></thead>
+        <tbody>
+          <tr><td>불이나 건물 뒤의 닭이 안 보임</td><td>가린 부분만 뚫어 보이는 스텐실과 깊이 비교</td><td>닭 주변에 둥근 창</td></tr>
+          <tr><td>풀밭 전체를 바람에 흔들기</td><td>정점 셰이더에서 흔들고 뿌리는 고정</td><td>그림자와 외곽선까지 함께 흔들리는 풀</td></tr>
+          <tr><td>달리는 닭이 나는 것처럼 보임</td><td>동작 재생 속도를 실제 이동 속도에 맞추기</td><td>걷기 동작으로 바꾸고 발을 땅에 붙임</td></tr>
+          <tr><td>닭 무리가 한 길로 몰림</td><td>서로 밀어내는 분리 조향, 미리 만들어 두고 다시 쓰는 풀링</td><td>흩어져 도망치는 닭 12마리</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="3일 동안 만든 것">
+  <div class="stage">
+    <p class="kicker">3. 결과 · 만든 것</p>
+    <h2>3일 동안 만든 것</h2>
+    <div class="body">
+      <ul class="stats q-stats">
+        <li><b>3<small>일</small></b><strong>제작 기간</strong><span>2026. 10. 9 ~ 10. 11</span></li>
+        <li><b>55<small>개</small></b><strong>C# 스크립트</strong><span>3,549줄</span></li>
+        <li><b>134<small>개</small></b><strong>아레나 소품</strong><span>그중 122개가 불에 탐</span></li>
+        <li><b>100<small>개 이상</small></b><strong>통과한 자동 검사</strong><span>결과 기록 12개</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="정리">
+  <div class="stage">
+    <p class="kicker">3. 결과 · 정리</p>
+    <h2>한 장 정리</h2>
+    <div class="body">
+      <ul class="f-sum">
+        <li><span class="tag">AI 리더십</span><p>그림으로 먼저 확인하고, 승인한 것만 제작</p></li>
+        <li><span class="tag">구조화 능력</span><p>기능마다 단계와 완료 기준을 적고 검사로 확인</p></li>
+        <li><span class="tag">학습 실행력</span><p>모르는 기술은 AI로 배워 게임에 바로 적용</p></li>
+      </ul>
+      <p class="f-done">3일 만에 웹에서 바로 플레이하는 타임어택 슈팅 완성</p>
+      <div class="actions">
+        <a href="gdd.html">상세 기획서</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

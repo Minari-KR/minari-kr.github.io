@@ -12,7 +12,7 @@ window.GAMES = [
     play: 'games/chicken-fire/index.html',
     video: '',
     links: [
-      { label: '기획서', url: 'docs/chicken-fire/gdd.html' },
+      { label: '기획서', url: 'docs/chicken-fire/deck.html' },
     ],
   },
   {

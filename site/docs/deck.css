@@ -636,3 +636,159 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .h-ret h2 { font-size: 1.6em; }
   .h-medals { height: auto; width: 100%; }
 }
+
+/* Chicken Fire deck, slides 1-7 (chicken-fire/deck-p.html). Classes start with p-; sizes in em of the stage. */
+
+/* landscape game screen: rounded, thin dark border, never cropped */
+.p-frame { width: 100%; height: auto; border: .22em solid #0b0c0f; border-radius: .9em; box-shadow: 0 1em 2.4em #0008; background: #0b0c0f; }
+
+/* 1 */
+.p-cover .stage { gap: 2.4em; }
+.p-cover .cover-text { flex: 1; }
+.p-cover h1 { font-size: 3.1em; white-space: nowrap; }
+.p-cover .chips { flex-direction: column; align-items: flex-start; }
+.p-cover-shot { flex: 1.75; min-width: 0; }   /* the real play video is the main thing on the cover */
+
+/* 2 */
+.p-trio { justify-content: center; align-items: center; gap: 1.8em; }
+.p-trio li { flex: 1; }
+.p-trio .a-cap { min-height: 5.3em; margin-top: .8em; }
+
+/* 4: first row, a bracketed loop of three, then the end */
+.p-flow { justify-content: space-between; margin-right: 3.4em; }
+.p-flow li { display: flex; align-items: baseline; gap: 1.2em; }
+.p-flow b { flex: none; width: 3.1em; font-size: 1.6em; font-weight: 800; color: var(--accent); }
+.p-flow span { font-size: 1.15em; }
+.p-flow > li { padding: .3em 0; }
+.p-loop { position: relative; display: block; padding: .3em 0; }
+.p-loop ol { display: grid; gap: .8em; }
+.p-loop::before { content: ""; position: absolute; right: -2.6em; top: 1em; bottom: 1em; width: 2em; border: .16em solid var(--accent); border-left: 0; border-radius: 0 1em 1em 0; }
+.p-loop::after { content: ""; position: absolute; right: .2em; top: 1em; transform: translateY(-50%); border-style: solid; border-width: .5em .8em .5em 0; border-color: transparent var(--accent) transparent transparent; }  /* arrowhead: pressure goes back to burning */
+.p-end { padding-top: .5em; border-top: 1px solid var(--edge); }
+
+/* 5 */
+.p-react .side-text { flex: 1.05; }
+.p-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.2em; }
+.p-pair { display: flex; align-items: center; gap: 1.2em; }
+.p-pair figure { width: 7.5em; }
+.p-pair img { width: 100%; height: auto; border-radius: .8em; }
+.p-pair figcaption { margin-top: .2em; font-weight: 800; font-size: 1.05em; }
+.p-pair i { font-style: normal; font-size: 2em; font-weight: 800; color: var(--accent); }
+.p-react .a-pts { margin-top: 1.4em; }
+
+/* 6 */
+.p-burn-body { flex-direction: row; align-items: center; justify-content: flex-start; gap: 2.6em; margin-top: 1.1em; }
+.p-main { flex: 1.2; min-width: 0; }
+.p-pics { flex: 1; min-width: 0; display: grid; gap: 1em; }
+.p-pics li { display: grid; grid-template-columns: 7em 1fr; gap: 1em; align-items: center; }
+.p-pics .p-plain { display: block; padding-left: 1em; border-left: .25em solid var(--accent); }
+.p-pics img { width: 100%; height: auto; border-radius: .6em; border: 1px solid var(--edge); }
+.p-pics strong { display: block; font-size: 1.2em; }
+.p-pics span { display: block; margin-top: .1em; font-size: 1.05em; color: var(--muted); }
+
+/* 7 */
+.p-time { justify-content: space-between; margin-top: 1.2em; }
+.p-says { display: flex; gap: 2.4em; }
+.p-says li { flex: 1; padding-left: .8em; border-left: .25em solid var(--accent); font-size: 1.45em; font-weight: 800; line-height: 1.35; color: #fff; text-wrap: balance; }
+.p-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1em; align-items: end; }
+.p-steps li { display: flex; flex-direction: column; }
+.p-steps time { font-size: 1.05em; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.p-steps b { font-size: 2.6em; font-weight: 800; line-height: 1.15; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.p-steps i { display: block; margin: .2em 0 .3em; background: var(--accent); border-radius: .2em; }
+.p-steps span { font-size: 1.15em; font-weight: 700; }
+.p-r5 i { height: 3.5em; }
+.p-r4 i { height: 2.8em; }
+.p-r3 i { height: 2.1em; }
+.p-r2 i { height: 1.4em; }
+.p-r1 i { height: .7em; }
+.p-line { font-size: 1.6em; font-weight: 800; color: var(--accent); }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .p-cover h1 { white-space: normal; }
+  .p-cover .chips { flex-direction: row; }
+  .p-trio { gap: 28px; }
+  .p-trio li { flex: none; }
+  .p-flow { margin-right: 0; gap: 14px; }
+  .p-flow li { flex-direction: column; gap: 0; }
+  .p-flow b { width: auto; }
+  .p-loop::before, .p-loop::after { display: none; }
+  .p-loop { padding: 10px 0 10px 14px; border-left: 3px solid var(--accent); }
+  .p-loop ol { gap: 14px; }
+  .p-react .side-text { flex: none; }
+  .p-right { flex: none; }
+  .p-pair figure { width: 38%; }
+  .p-burn-body { flex-direction: column; align-items: stretch; gap: 24px; }
+  .p-pics li { grid-template-columns: 34% 1fr; }
+  .p-says { flex-direction: column; gap: 14px; }
+  .p-says li { font-size: 1.2em; }
+  .p-time { gap: 24px; }
+  .p-steps { grid-template-columns: 1fr; gap: 10px; }
+  .p-steps li { display: grid; grid-template-columns: 4em 3.6em 1fr; align-items: center; column-gap: 12px; }
+  .p-steps b { font-size: 1.6em; }
+  .p-steps i { display: none; }
+  .p-line { font-size: 1.2em; }
+}
+
+/* Chicken Fire deck, slides 8-12 (chicken-fire/deck-q.html). Classes start with q-; sizes in em of the stage. */
+.q-dense .stage { padding: 2em 3em 1.5em; }
+.q-dense .body { margin-top: 1em; }
+.q-dense h2 { font-size: 1.9em; }
+
+/* 8: five-step flow, step 2 is the gate */
+.q-flow { display: flex; align-items: stretch; }
+.q-flow li { flex: 1; min-width: 0; position: relative; display: grid; place-items: center; padding: .5em .5em; border: 1px solid var(--edge); border-radius: .6em; background: var(--surface); text-align: center; font-size: 1.05em; font-weight: 700; line-height: 1.3; }
+.q-flow li + li { margin-left: 1.6em; }
+.q-flow li + li::before { content: "→"; position: absolute; left: -1.35em; top: 50%; transform: translateY(-50%); color: var(--accent); font-weight: 800; font-size: 1.2em; }
+.q-flow .q-gate { flex: .8; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-size: 1.3em; font-weight: 800; }
+
+.q-cases { margin-top: 1.1em; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4em; }
+.q-cases li { min-width: 0; }
+.q-cases img { width: 100%; height: auto; border: 1px solid var(--edge); border-radius: .5em; background: #fff; }
+.q-cases strong { display: block; margin-top: .4em; font-size: 1.25em; }
+.q-cases span { display: block; font-size: 1.05em; color: var(--muted); text-wrap: balance; }
+.q-note { margin-top: .8em; }
+
+/* 9: example faces, steps and criteria side by side */
+.q-eg { display: flex; align-items: center; gap: .8em; margin-top: .4em; }
+.q-eg .lead { margin-top: 0; font-size: 1.15em; margin-right: .6em; }
+.q-eg img { width: 2.6em; height: 2.6em; border-radius: 50%; }
+.q-eg i { font-style: normal; font-weight: 800; color: var(--accent); }
+.q-check { flex-direction: row; justify-content: flex-start; align-items: stretch; gap: 0; margin-top: .6em; }
+.q-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.q-col + .q-col { padding-left: 2em; border-left: 1px solid var(--edge); }
+.q-col:first-child { padding-right: 2em; }
+.q-col h3 { font-size: 1.1em; font-weight: 800; color: var(--accent); padding-bottom: .3em; }
+.q-steps, .q-done { flex: 1; display: grid; grid-auto-rows: 1fr; counter-reset: n; border-top: 1px solid var(--edge); }
+.q-steps li, .q-done li { counter-increment: n; position: relative; display: flex; align-items: center; padding: 0 0 0 2em; border-bottom: 1px solid var(--line); font-size: 1.05em; line-height: 1.3; text-wrap: pretty; }
+.q-steps li::before { content: counter(n); position: absolute; left: 0; font-weight: 800; font-size: 1.15em; color: var(--accent); }
+.q-done li { color: #fff; font-weight: 700; }
+.q-done li::before { content: "✓"; position: absolute; left: 0; font-weight: 800; color: var(--accent); }
+.q-line { margin-top: .6em; font-size: 1.15em; font-weight: 800; color: var(--accent); }
+
+/* 11: four big numbers, last one is the widest */
+.q-stats { grid-template-columns: 1.05fr .95fr 1.1fr 1.5fr; }
+.q-stats li { padding-left: 1.2em; padding-right: .6em; }
+.q-stats b { font-size: 4.2em; }
+.q-stats strong { font-size: 1.25em; }
+.q-stats span { font-size: 1em; white-space: nowrap; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .q-dense .stage { padding: 0; }
+  .q-dense .body { margin-top: 1.4em; }
+  .q-dense h2 { font-size: 1.6em; }
+  .q-flow { flex-direction: column; }
+  .q-flow li { padding: 10px 12px; }
+  .q-flow li + li { margin: 24px 0 0; }
+  .q-flow li + li::before { content: "↓"; left: 50%; top: -22px; transform: translateX(-50%); }
+  .q-flow .q-gate { font-size: 1.15em; }
+  .q-cases { grid-template-columns: 1fr; gap: 20px; }
+  .q-eg { flex-wrap: wrap; }
+  .q-check { flex-direction: column; gap: 24px; }
+  .q-col:first-child { padding-right: 0; }
+  .q-col + .q-col { padding-left: 0; border-left: 0; }
+  .q-steps li, .q-done li { padding-top: 8px; padding-bottom: 8px; }
+  .q-line { font-size: 1.1em; margin-top: 16px; }
+  .q-stats { grid-template-columns: 1fr 1fr; }
+  .q-stats li, .q-stats li:first-child { padding: 0; }
+  .q-stats b { font-size: 2.8em; }
+}
