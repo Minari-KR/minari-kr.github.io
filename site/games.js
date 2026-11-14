@@ -27,11 +27,4 @@ window.GAMES = [
       { label: '영상', url: 'https://www.youtube.com/watch?v=BGQOpXTESr8' },
     ],
   },
-  {
-    title: 'Rio Simulation',
-    genre: '캐릭터 교류',
-    thumb: 'thumbs/rio-idle.webp',
-    play: 'games/rio-idle/index.html',
-    video: '',
-  },
 ];
