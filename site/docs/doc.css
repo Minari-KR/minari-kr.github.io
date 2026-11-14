@@ -120,4 +120,6 @@ td img { display: block; width: 96px; height: 96px; object-fit: contain; margin-
 .wide th { position: sticky; top: 0; z-index: 1; box-shadow: 0 1px 0 var(--line); }  /* column names stay in view in the 197-row sheet */
 .wide tr:hover td { background: #ffffff08; }
 .wide td img { width: 40px; height: 40px; margin: 0; }
+.wide .table-wrap { margin: 8px 0 24px; }
+.wide td.wrap { white-space: normal; min-width: 14em; overflow-wrap: anywhere; }  /* long cells only (make-docs.py) */
 @media (min-width: 1180px) { .wide .table-wrap { overflow: visible; } }  /* no inner scroller, so the sticky header follows the page */

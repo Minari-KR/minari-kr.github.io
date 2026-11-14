@@ -10,6 +10,10 @@ window.GAMES = [
     thumb: 'thumbs/chicken-fire.webp',
     play: 'games/chicken-fire/index.html',
     video: '',
+    links: [
+      { label: '기획서', url: 'docs/chicken-fire/gdd.html' },
+      { label: '리소스 문서', url: 'docs/chicken-fire/resources.html' },
+    ],
   },
   {
     title: '쭉쭉냥 : 고양이 퍼즐',

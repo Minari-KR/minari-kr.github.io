@@ -2,7 +2,8 @@
 
     python -I tools/make-docs.py site/docs/zzukzzuk-nyang
 
-- every *.md in the folder -> same name .html (links to .md become .html, outside links open a new tab)
+- every *.md in the folder -> same name .html (links to .md become .html, outside links open a new tab);
+  a file whose first line is <!-- wide --> becomes a full-width page with one-line table cells (resource lists)
 - every *.xlsx -> same name .html: each sheet as a table, pictures anchored in cells shown in place
   (saved as WebP under <name>-img/)
 Needs python-markdown, openpyxl and Pillow. Run it again after editing a document, then commit the output.
@@ -54,6 +55,20 @@ def md_page(src, css):
                                                markdown.extensions.toc.TocExtension(slugify=github_slug)])
     body = re.sub(r'href="([^"#:]+)\.md(#[^"]*)?"', r'href="\1.html\2"', body)
     body = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', body)
+    title = re.search(r"^# (.+)$", text, re.M)
+    title = title.group(1) if title else src.stem
+    if text.lstrip().startswith("<!-- wide -->"):
+        # a table-heavy page (resource list): whole popup width, every cell on one line,
+        # the "목차" list becomes a row of tabs like the sheet tabs of a workbook page
+        body = re.sub(r'<h2 id="목차">.*?(?=<h2 )',
+                      lambda m: '<nav class="tabs" aria-label="목차">' + "".join(re.findall(r"<a .*?</a>", m[0])) + "</nav>\n",
+                      body, count=1, flags=re.S)
+        body = body.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
+        # only a long cell (a file list, a URL, a remark) may fold, so the table still fits the popup
+        body = re.sub(r"<td>((?:(?!</td>).)*)</td>",
+                      lambda m: f'<td class="wrap">{m[1]}</td>' if len(html.unescape(re.sub(r"<[^>]+>", "", m[1])).strip()) > 28 else m[0],
+                      body, flags=re.S)
+        return page(title, body, css, "doc wide")
     # the "목차" section becomes a nav, which doc.css keeps beside the text on wide screens
     body = re.sub(r'(<h2 id="목차">.*?)(?=<h2 )', r'<nav class="toc" aria-label="목차">\1</nav>\n', body, count=1, flags=re.S)
     # short cells (labels, values, names) stay on one line; only long explanations wrap (see .nw in doc.css)
@@ -69,8 +84,7 @@ def md_page(src, css):
         h1 = re.search(r'<h1[^>]*>.*?</h1>\n?', rest, flags=re.S)
         head = h1.group(0) if h1 else ''
         body = head + nav.group(0) + '<div class="content">\n' + rest.replace(head, '', 1) + '</div>'
-    title = re.search(r"^# (.+)$", text, re.M)
-    return page(title.group(1) if title else src.stem, body, css)
+    return page(title, body, css)
 
 
 def cell_text(value):

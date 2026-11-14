@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <title>Chicken Fire 리소스 목록</title>
+  <link rel="stylesheet" href="../doc.css">
+</head>
+<body>
+<main class="doc wide">
+<!-- wide -->
+<h1 id="chicken-fire-리소스-목록">Chicken Fire 리소스 목록</h1>
+<blockquote>
+<p>게임(아레나 장면)이 실제로 불러 쓰는 리소스만 적었습니다. 에디터 도구, 시험용 장면, 보관용 예전 파일은 뺐습니다. 기준은 2026-10-11 보관본입니다.
+사실은 파일과 출처 기록(<code>Assets/ChickenFire/Credits</code>, <code>ArtSource</code>의 CREDITS)에서 옮겼습니다. 어떻게 만들었는지 기록이 없으면 기록 없음이라고 적었습니다.
+썸네일은 PNG 그림이 있는 표에만 넣었고, 크기/길이 칸은 값이 있는 표에만 두었습니다. 폴더 경로는 표 위에 적었습니다.</p>
+</blockquote>
+<nav class="tabs" aria-label="목차"><a href="#1-모델">모델</a><a href="#2-애니메이션">애니메이션</a><a href="#3-셰이더--머티리얼">셰이더 · 머티리얼</a><a href="#4-사운드">사운드</a><a href="#5-ui--아이콘--글꼴">UI · 아이콘 · 글꼴</a><a href="#6-외부-에셋-라이선스">외부 에셋 라이선스</a></nav>
+<h2 id="1-모델">1. 모델</h2>
+<p><code>Assets/ChickenFire/Art/Chicken/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>닭</td>
+<td>Chicken.fbx</td>
+<td>플레이어(노란 닭)와 적(하얀 닭) 모두</td>
+<td>외부 에셋 (FBX로 바꾸고 크기 맞춤)</td>
+<td>CC BY 4.0 (Chickensoft)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Generated/</code> — 게임이 닭 모델에서 나눠 만든 적 닭용 메시</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>적 닭 몸(눈 뺌)</td>
+<td>EnemyBodyWithoutEyes.asset</td>
+<td>적 닭 몸</td>
+<td>외부 에셋을 고침 (눈을 떼어 냄)</td>
+<td>CC BY 4.0 (Chickensoft)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>적 닭 평소 눈</td>
+<td>EnemyNormalEyes.asset</td>
+<td>적 닭 평소 표정 (삼각형 384개)</td>
+<td>외부 에셋을 고침</td>
+<td>CC BY 4.0 (Chickensoft)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>적 닭 &gt; &lt; 눈</td>
+<td>EnemySqueezedEyes.asset</td>
+<td>불에 맞은 적 닭 표정</td>
+<td>직접 제작 (AI 참고 그림)</td>
+<td>CC BY 4.0 (Chickensoft)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Handmade/GearV2/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>화염방사기</td>
+<td>FireGunV2.fbx</td>
+<td>플레이어가 양 날개로 쥔 총</td>
+<td>직접 제작 (Blender, AI 참고 그림)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>6</td>
+<td>연료 가방</td>
+<td>FuelBackpackV2.fbx</td>
+<td>플레이어 등의 쌍연료통과 호스</td>
+<td>직접 제작 (Blender, AI 참고 그림)</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Handmade/</code> — 게임은 이 FBX로 만든 메시(<code>Generated/KFCBucketCombined.asset</code>, <code>Generated/Wind_Oak_*.asset</code>)를 씁니다</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>치킨통</td>
+<td>KFCBucket.fbx</td>
+<td>쓰러진 닭 자리에 떨어지는 치킨통</td>
+<td>삼각형 8,292개</td>
+<td>직접 제작 (Blender, 사진 참고)</td>
+<td>자체 제작 (라벨은 3장 15번)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>불타는 참나무</td>
+<td>BurnableOak.fbx</td>
+<td>아레나 참나무 12그루</td>
+<td>삼각형 560개</td>
+<td>외부 에셋을 고침 (잎과 가지를 나눔)</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Farm/Quaternius/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>헛간</td>
+<td>Barn.fbx</td>
+<td>북쪽 헛간 마당 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>닭장</td>
+<td>ChickenCoop.fbx</td>
+<td>남서쪽 2채 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>울타리</td>
+<td>Fence.fbx</td>
+<td>아레나 경계 32개</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>사일로</td>
+<td>Silo.fbx</td>
+<td>북쪽 헛간 마당 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>물탱크</td>
+<td>WaterTower.fbx</td>
+<td>북쪽 헛간 마당 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>14</td>
+<td>우물</td>
+<td>Well.fbx</td>
+<td>남서쪽 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Nature/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15</td>
+<td>호박</td>
+<td>crop_pumpkin.fbx</td>
+<td>동쪽 호박밭 20개 (탐)</td>
+<td>외부 에셋</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>옥수수</td>
+<td>crops_cornStageC.fbx</td>
+<td>서쪽 옥수수밭 24개 (탐)</td>
+<td>외부 에셋</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>밀</td>
+<td>crops_wheatStageB.fbx</td>
+<td>북동쪽 밀밭 36개 (탐)</td>
+<td>외부 에셋</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>장작더미</td>
+<td>log_stack.fbx</td>
+<td>곳곳 6개 (탐)</td>
+<td>외부 에셋</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>작은 바위</td>
+<td>rock_smallA.fbx</td>
+<td>곳곳 6개 (타지 않음)</td>
+<td>외부 에셋</td>
+<td>CC0 (Kenney Nature Kit)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/QuaterniusGrass/</code> — 게임은 이 FBX로 만든 메시(<code>Generated/Quaternius_Grass_*.asset</code>)를 씁니다</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>작은 풀</td>
+<td>Grass_Small.fbx</td>
+<td>바닥 전체에 깔린 풀 (타지 않음)</td>
+<td>외부 에셋 (크기·기준점 맞춤)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>21</td>
+<td>큰 풀</td>
+<td>Grass_Large.fbx</td>
+<td>바닥 풀, 곳곳의 타는 풀숲 24개</td>
+<td>외부 에셋 (크기·기준점 맞춤)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/FireBreathParticles/Generated/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22</td>
+<td>불길 줄기 메시</td>
+<td>FlameStreamOverlapMesh.asset</td>
+<td>화염방사기 불길</td>
+<td>직접 제작 (Blender)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>23</td>
+<td>불혀 메시</td>
+<td>FlameTongueForwardMesh.asset</td>
+<td>화염방사기 불길 끝</td>
+<td>직접 제작 (Blender)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>24</td>
+<td>연기 덩어리 메시</td>
+<td>SmokePuffMesh.asset</td>
+<td>불길 연기</td>
+<td>직접 제작 (Blender)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>25</td>
+<td>불티 메시</td>
+<td>SparkForwardMesh.asset</td>
+<td>불길 불티</td>
+<td>직접 제작 (Blender)</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Generated/Cartoon/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>26</td>
+<td>외곽선 메시 8개</td>
+<td>Silhouette_….asset (8개)</td>
+<td>닭·장비·치킨통·나무·건물의 카툰 외곽선</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>원본 모델의 라이선스를 따름</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="2-애니메이션">2. 애니메이션</h2>
+<p><code>Assets/ChickenFire/Art/Chicken/</code> — Chicken.fbx 안에 든 동작 중 게임이 쓰는 것</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>서 있기</td>
+<td>Chicken.fbx (idle)</td>
+<td>플레이어·적 닭이 멈췄을 때</td>
+<td></td>
+<td>외부 에셋</td>
+<td>CC0 (Chickensoft)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>걷기</td>
+<td>Chicken.fbx (walk)</td>
+<td>플레이어 이동, 적 닭 이동</td>
+<td>0.792초 반복</td>
+<td>외부 에셋</td>
+<td>CC0 (Chickensoft)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>달리기</td>
+<td>Chicken.fbx (run)</td>
+<td>플레이어 이동 동작에 걷기와 섞어 씀</td>
+<td>0.5초 반복</td>
+<td>외부 에셋</td>
+<td>CC0 (Chickensoft)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Chicken/Locomotion/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>뒷걸음질</td>
+<td>Backpedal.fbx</td>
+<td>조준 반대쪽으로 걸을 때</td>
+<td>0.5초 반복</td>
+<td>직접 제작 (Blender 스크립트)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>왼발로 멈추기</td>
+<td>StopL.fbx</td>
+<td>왼발이 땅에 있을 때 멈춤</td>
+<td>0.42초</td>
+<td>직접 제작 (Blender 스크립트)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>오른발로 멈추기</td>
+<td>StopR.fbx</td>
+<td>오른발이 땅에 있을 때 멈춤</td>
+<td>0.42초</td>
+<td>직접 제작 (Blender 스크립트)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Art/Chicken/Panic/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>불에 놀람</td>
+<td>BurnStartle.fbx</td>
+<td>적 닭이 처음 불에 맞았을 때</td>
+<td>0.2초</td>
+<td>직접 제작 (Blender, AI 참고 그림)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>허둥지둥 도망</td>
+<td>PanicRun.fbx</td>
+<td>적 닭이 날개를 퍼덕이며 도망칠 때</td>
+<td>0.5초 반복</td>
+<td>직접 제작 (Blender, AI 참고 그림)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>숨 고르기</td>
+<td>PanicRecover.fbx</td>
+<td>도망이 끝나고 평소로 돌아올 때</td>
+<td>0.3초</td>
+<td>직접 제작 (Blender, AI 참고 그림)</td>
+<td>자체 제작 (Chickensoft 뼈대)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Generated/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>플레이어 동작 연결</td>
+<td>Chicken.controller</td>
+<td>서 있기·걷기·뒷걸음질·멈추기 전환</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>11</td>
+<td>적 닭 동작 연결</td>
+<td>EnemyPanic.controller</td>
+<td>서 있기·걷기·놀람·도망·회복 전환</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="3-셰이더--머티리얼">3. 셰이더 · 머티리얼</h2>
+<p><code>Assets/ChickenFire/Shaders/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>카툰 명암 셰이더</td>
+<td>VertexFarm.shader</td>
+<td>거의 모든 모델의 3단 명암, 바람 흔들림</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>2</td>
+<td>외곽선 셰이더</td>
+<td>CartoonOutline.shader</td>
+<td>캐릭터·장비·나무·건물 외곽선</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>3</td>
+<td>풀 외곽선 셰이더</td>
+<td>GrassOutline.shader</td>
+<td>풀 외곽선</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>4</td>
+<td>타는 잎 셰이더</td>
+<td>BurningFoliage.shader</td>
+<td>참나무 잎이 타 들어가는 모습</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>5</td>
+<td>타는 잎 외곽선 셰이더</td>
+<td>BurningFoliageOutline.shader</td>
+<td>타는 잎의 외곽선</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>6</td>
+<td>붙은 불 셰이더</td>
+<td>AttachedFlame.shader</td>
+<td>물건에 옮겨붙은 불꽃</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>7</td>
+<td>바람 계산</td>
+<td>FarmWind.hlsl</td>
+<td>풀과 나무 흔들림</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>8</td>
+<td>탄 자국 계산</td>
+<td>TreeBurnMask.hlsl</td>
+<td>잎이 타 들어가는 경계</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/FireBreathParticles/Shaders/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>만화풍 불꽃 셰이더</td>
+<td>ToonFlowFire.shader</td>
+<td>화염방사기 불길</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>10</td>
+<td>부드러운 연기 셰이더</td>
+<td>SoftSmoke.shader</td>
+<td>불길 연기</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>11</td>
+<td>둥근 창 계산</td>
+<td>EnemyOcclusionWindow.hlsl</td>
+<td>가려진 적 닭 둘레를 뚫어 보이게 함</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/FireBreathParticles/Textures/</code>, <code>Assets/ChickenFire/Art/Textures/</code>, <code>Assets/ChickenFire/Generated/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>썸네일</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>연기 그림 묶음</td>
+<td>SmokeAtlas.png</td>
+<td>불길 연기</td>
+<td>512 × 256</td>
+<td><img src="resources-img/smoke-atlas.webp" width="40" height="40" alt=""></td>
+<td>직접 제작 (에디터 도구가 만듦)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>13</td>
+<td>타는 빛 그림</td>
+<td>BurnGlow.asset</td>
+<td>불타는 물건의 빛</td>
+<td></td>
+<td></td>
+<td>직접 제작 (에디터 도구가 만듦)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>14</td>
+<td>탄 자국 모양</td>
+<td>ScorchMask.asset</td>
+<td>바닥 탄 자국</td>
+<td></td>
+<td></td>
+<td>직접 제작 (에디터 도구가 만듦)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>15</td>
+<td>치킨통 라벨</td>
+<td>KFCLabel.png</td>
+<td>치킨통 겉면 그림</td>
+<td>1024 × 1536</td>
+<td>—</td>
+<td>AI 생성 (사진 참고, 사용자 승인)</td>
+<td class="wrap">실제 상표(KFC) 로고와 초상을 본뜸. 허락 기록 없음</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Generated/</code> — 머티리얼은 모델마다 묶어 적었습니다</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16</td>
+<td>플레이어 닭 재질</td>
+<td>Chicken_DefaultMaterial.mat</td>
+<td>노란 닭</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>17</td>
+<td>적 닭 재질</td>
+<td>WhiteChicken.mat</td>
+<td>하얀 닭</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>18</td>
+<td>장비 재질 5개</td>
+<td class="wrap">GearV2 Brass / Charcoal / Dial / Red / Rubber.mat</td>
+<td>화염방사기·연료 가방</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>19</td>
+<td>치킨통 재질 5개</td>
+<td class="wrap">KFCBucket_Bucket crimson / Bucket paper / Drumstick ivory / Drumstick roast / KFC printed label.mat</td>
+<td>치킨통</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>20</td>
+<td>헛간 재질 4개</td>
+<td class="wrap">Barn_DarkRed / LightRed / RoofBlack / White.mat</td>
+<td>헛간</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>21</td>
+<td>닭장 재질 5개</td>
+<td class="wrap">ChickenCoop_Brown / DarkRed / LightRed / RoofBlack / White.mat</td>
+<td>닭장</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>22</td>
+<td>사일로 재질 5개</td>
+<td class="wrap">Silo_Brown / DarkRed / Grey / LightRed / White.mat</td>
+<td>사일로</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>23</td>
+<td>물탱크 재질 3개</td>
+<td class="wrap">WaterTower_Brown / DarkGrey / Grey.mat</td>
+<td>물탱크</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>우물 재질 5개</td>
+<td class="wrap">Well_Brown / DarkGrey / Grey / LightRed / White.mat</td>
+<td>우물</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>25</td>
+<td>울타리 재질</td>
+<td>Fence_Brown.mat</td>
+<td>울타리</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Quaternius)</td>
+</tr>
+<tr>
+<td>26</td>
+<td>작물·장작·바위 재질 9개</td>
+<td class="wrap">crop_pumpkin_grass / crop_pumpkin_leafsFall / crops_cornStageC_grass / crops_wheatStageB__defaultMat / crops_wheatStageB_woodInner / log_stack_woodBark / log_stack_woodInner / rock_smallA_dirt / rock_smallA_grass.mat</td>
+<td>호박·옥수수·밀·장작더미·바위</td>
+<td>직접 제작 (원본 색을 옮김)</td>
+<td>CC0 (Kenney)</td>
+</tr>
+<tr>
+<td>27</td>
+<td>참나무 재질 3개</td>
+<td class="wrap">tree_oak_woodBark / BurningLeaves / BurningLeavesOutline.mat</td>
+<td>참나무 줄기, 타는 잎과 그 외곽선</td>
+<td>직접 제작 (에디터 도구)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>28</td>
+<td>풀 재질 2개</td>
+<td class="wrap">QuaterniusGrass / QuaterniusGrassOutline.mat</td>
+<td>바닥 풀과 외곽선</td>
+<td>직접 제작 (색·바람 조절)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>29</td>
+<td>바닥 재질 4개</td>
+<td class="wrap">Pasture / Field / Grove / Dirt.mat</td>
+<td>아레나 바닥</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>30</td>
+<td>외곽선 재질 2개</td>
+<td class="wrap">CharacterOutline / SceneryOutline.mat (Cartoon 폴더)</td>
+<td>캐릭터용 굵은 선, 배경용 얇은 선</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>31</td>
+<td>불·연기·자국 재질 4개</td>
+<td class="wrap">AttachedFlame / TreeSmoke / Scorch / BurnGlow.mat</td>
+<td>붙은 불, 타는 연기, 탄 자국, 타는 빛</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/FireBreathParticles/Generated/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32</td>
+<td>화염방사기 불길 재질 5개</td>
+<td class="wrap">FlyingFire / MuzzleFire / OuterFire / Smoke / Sparks.mat</td>
+<td>불길, 총구 불, 바깥 불, 연기, 불티</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4-사운드">4. 사운드</h2>
+<p><code>Assets/ChickenFire/Audio/</code> — 소리마다 기본 크기를 정한 묶음 설정</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>소리 묶음 설정</td>
+<td>ChickenSoundBank.asset</td>
+<td>아래 모든 효과음의 연결과 기본 크기</td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Audio/SFX/</code> — 모두 외부 소리를 잘라 앞뒤를 다듬고, 반복 소리는 끊김 없이 이어지게 하고, 크기를 맞춘 것입니다</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>화염방사기 점화</td>
+<td>Flame_Ignite.wav</td>
+<td>불을 켤 때</td>
+<td>1.10초</td>
+<td>외부 에셋 (BigSoundBank #1340)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>화염방사기 분사</td>
+<td>Flame_Loop.wav</td>
+<td>불을 뿜는 동안 반복</td>
+<td>4.00초</td>
+<td>외부 에셋 (BigSoundBank #0930)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>화염방사기 끄기</td>
+<td>Flame_Stop.wav</td>
+<td>불을 끌 때</td>
+<td>1.35초</td>
+<td>외부 에셋 (BigSoundBank #0930)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>지글지글</td>
+<td>Flame_Sizzle_Loop.wav</td>
+<td>불이 물체나 닭에 닿는 동안 반복</td>
+<td>4.00초</td>
+<td>외부 에셋 (BigSoundBank #0145)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>풀밭 발소리 1~5</td>
+<td>Step_Grass_0~4.ogg</td>
+<td>플레이어 발이 땅에 닿을 때</td>
+<td>0.59~0.78초</td>
+<td>외부 에셋 (Kenney Impact Sounds)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>닭 놀람 1</td>
+<td>Hen_Startle_0.wav</td>
+<td>적 닭이 불에 맞았을 때</td>
+<td>0.75초</td>
+<td>외부 에셋 (BigSoundBank #0453)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>닭 놀람 2·3</td>
+<td class="wrap">Hen_Startle_1.wav, Hen_Startle_2.wav</td>
+<td>적 닭이 불에 맞았을 때</td>
+<td>0.60초, 0.90초</td>
+<td>외부 에셋 (BigSoundBank #1040)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>9</td>
+<td>닭 허둥지둥 1~3</td>
+<td>Hen_Panic_0~2.wav</td>
+<td>도망치는 닭이 있을 때 가끔</td>
+<td>1.30초</td>
+<td>외부 에셋 (BigSoundBank #0282)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>10</td>
+<td>닭 허둥지둥 4</td>
+<td>Hen_Panic_3.wav</td>
+<td>도망치는 닭이 있을 때 가끔</td>
+<td>1.10초</td>
+<td>외부 에셋 (BigSoundBank #1039)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>11</td>
+<td>닭 비명</td>
+<td>Hen_Death.wav</td>
+<td>적 닭이 쓰러질 때</td>
+<td>0.90초</td>
+<td>외부 에셋 (BigSoundBank #1040)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>12</td>
+<td>펑 1·2</td>
+<td class="wrap">Death_Poof_0.ogg, Death_Poof_1.ogg</td>
+<td>적 닭이 사라질 때</td>
+<td>0.51초, 0.57초</td>
+<td>외부 에셋 (Kenney Impact Sounds)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>13</td>
+<td>치킨통 등장 1·2</td>
+<td class="wrap">Bucket_Pop_0.ogg, Bucket_Pop_1.ogg</td>
+<td>치킨통이 떨어질 때</td>
+<td>0.19초</td>
+<td class="wrap">외부 에셋 (Kenney Interface Sounds)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>14</td>
+<td>물건 점화</td>
+<td>Prop_Ignite.wav</td>
+<td>작물·나무에 불이 붙을 때</td>
+<td>1.80초</td>
+<td>외부 에셋 (BigSoundBank #1340)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>15</td>
+<td>타는 소리 1·2</td>
+<td class="wrap">Burn_Loop_0.wav, Burn_Loop_1.wav</td>
+<td>물건이 타는 동안 반복</td>
+<td>6.00초</td>
+<td>외부 에셋 (BigSoundBank #0987)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>16</td>
+<td>바삭</td>
+<td>Eat_Crunch.wav</td>
+<td>치킨통을 먹을 때</td>
+<td>0.80초</td>
+<td>외부 에셋 (BigSoundBank #1113)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>17</td>
+<td>시간 추가 차임</td>
+<td>Time_Gain_Chime.ogg</td>
+<td>먹고 0.1초 뒤</td>
+<td>0.54초</td>
+<td class="wrap">외부 에셋 (Kenney Interface Sounds)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>18</td>
+<td>남은 시간 똑딱</td>
+<td>Time_Warning_Tick.ogg</td>
+<td>10초 이하에서 1초마다</td>
+<td>0.02초</td>
+<td class="wrap">외부 에셋 (Kenney Interface Sounds)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>19</td>
+<td>시간 종료 징글</td>
+<td>TimeUp_Jingle.ogg</td>
+<td>남은 시간이 0이 될 때</td>
+<td>1.00초</td>
+<td>외부 에셋 (Kenney Music Jingles)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>20</td>
+<td>보상 줄어듦</td>
+<td>Reward_Drop.ogg</td>
+<td>한 마리당 보상이 줄어들 때</td>
+<td>0.21초</td>
+<td class="wrap">외부 에셋 (Kenney Interface Sounds)</td>
+<td>CC0</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-ui--아이콘--글꼴">5. UI · 아이콘 · 글꼴</h2>
+<p><code>Assets/ChickenFire/Resources/GameSettings/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>썸네일</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>톱니 아이콘</td>
+<td>gear.png</td>
+<td>오른쪽 위 설정 버튼</td>
+<td>100 × 100</td>
+<td><img src="resources-img/gear.webp" width="40" height="40" alt=""></td>
+<td>외부 에셋 (Kenney Game Icons)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>닫기 아이콘</td>
+<td>cross.png</td>
+<td>설정 창 닫기 버튼</td>
+<td>100 × 100</td>
+<td><img src="resources-img/cross.webp" width="40" height="40" alt=""></td>
+<td>외부 에셋 (Kenney Game Icons)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>소리 켬 아이콘</td>
+<td>audioOn.png</td>
+<td>설정 창 소리 켜기 · 끄기 버튼</td>
+<td>100 × 100</td>
+<td><img src="resources-img/audio-on.webp" width="40" height="40" alt=""></td>
+<td>외부 에셋 (Kenney Game Icons)</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>소리 끔 아이콘</td>
+<td>audioOff.png</td>
+<td>설정 창 소리 켜기 · 끄기 버튼</td>
+<td>100 × 100</td>
+<td><img src="resources-img/audio-off.webp" width="40" height="40" alt=""></td>
+<td>외부 에셋 (Kenney Game Icons)</td>
+<td>CC0</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Resources/SurvivalHud/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>썸네일</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>둥근 판</td>
+<td>Panel.png</td>
+<td>HUD·설정 창·게임 종료 창의 둥근 바탕</td>
+<td>256 × 256</td>
+<td><img src="resources-img/panel.webp" width="40" height="40" alt=""></td>
+<td>직접 제작 (스크립트로 그림)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>6</td>
+<td>시계 아이콘</td>
+<td>Clock.png</td>
+<td>남은 시간 옆</td>
+<td>256 × 256</td>
+<td><img src="resources-img/clock.webp" width="40" height="40" alt=""></td>
+<td>직접 제작 (스크립트로 그림)</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>7</td>
+<td>닭다리 아이콘</td>
+<td>Drumstick.png</td>
+<td>먹은 수 옆</td>
+<td>1254 × 1254</td>
+<td><img src="resources-img/drumstick.webp" width="40" height="40" alt=""></td>
+<td>기록 없음</td>
+<td>기록 없음</td>
+</tr>
+<tr>
+<td>8</td>
+<td>HUD 화면 배치</td>
+<td>HudCanvas.prefab</td>
+<td>먹은 수 · 보상 · 남은 시간 칸</td>
+<td></td>
+<td></td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+<tr>
+<td>9</td>
+<td>HUD 위치 값</td>
+<td>Layout.asset</td>
+<td>HUD 칸의 위치와 크기</td>
+<td></td>
+<td></td>
+<td>직접 제작</td>
+<td>자체 제작</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Assets/ChickenFire/Resources/Fonts/</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>순번</th>
+<th>리소스명</th>
+<th>파일 이름</th>
+<th>쓰는 곳</th>
+<th>크기/길이</th>
+<th>제작 방식</th>
+<th>라이선스</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>게임 글꼴</td>
+<td class="wrap">Nunito-Bold.ttf (+ Nunito-OFL.txt)</td>
+<td>게임 안 모든 글자</td>
+<td>39 KB (라틴 글자만)</td>
+<td>외부 에셋</td>
+<td>SIL OFL 1.1</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="6-외부-에셋-라이선스">6. 외부 에셋 라이선스</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>에셋 팩</th>
+<th>만든 사람</th>
+<th>라이선스</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chickensoft Mascot (닭 모델)</td>
+<td>Tibo, Chickensoft</td>
+<td class="wrap">모델 CC BY 4.0 (출처 표시 필요), 동작 CC0 1.0</td>
+<td class="wrap">https://github.com/chickensoft-games/Chicken</td>
+</tr>
+<tr>
+<td>Nature Kit</td>
+<td>Kenney</td>
+<td>CC0 1.0</td>
+<td class="wrap">https://kenney.nl/assets/nature-kit</td>
+</tr>
+<tr>
+<td>LowPoly Farm Buildings</td>
+<td>Quaternius</td>
+<td>CC0 1.0</td>
+<td class="wrap">https://quaternius.itch.io/lowpoly-farm-buildings</td>
+</tr>
+<tr>
+<td class="wrap">Ultimate Stylized Nature Pack (풀)</td>
+<td>Quaternius</td>
+<td>CC0 1.0</td>
+<td class="wrap">https://quaternius.com/packs/ultimatestylizednature.html</td>
+</tr>
+<tr>
+<td>BigSoundBank</td>
+<td>Joseph Sardin</td>
+<td>CC0</td>
+<td>https://bigsoundbank.com</td>
+</tr>
+<tr>
+<td class="wrap">Impact Sounds · Interface Sounds · Music Jingles</td>
+<td>Kenney</td>
+<td>CC0</td>
+<td>https://kenney.nl</td>
+</tr>
+<tr>
+<td>Game Icons</td>
+<td>Kenney</td>
+<td>CC0</td>
+<td class="wrap">https://kenney.nl/assets/game-icons</td>
+</tr>
+<tr>
+<td>Nunito</td>
+<td>The Nunito Project Authors</td>
+<td>SIL Open Font License 1.1</td>
+<td class="wrap">Google Fonts / Fontsource (주소는 기록에 없음)</td>
+</tr>
+</tbody>
+</table></div>
+<p><sub>출처: <code>Assets/ChickenFire/Credits/Attribution.txt</code>, <code>ArtSource/Audio/CREDITS.md</code>, <code>ArtSource/UI/CREDITS.md</code>, <code>ArtSource/Farm/CREDITS.md</code>, <code>BucketRemodel.txt</code>, <code>EnemyBurnEyesPlan.txt</code>, <code>EnemyPanicPlan.txt</code>, 아레나 장면과 프리팹의 참조 관계</sub></p>
+</main>
+</body>
+</html>
