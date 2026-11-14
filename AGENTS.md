@@ -22,6 +22,7 @@
 | `site/thumbs/` | 카드 썸네일(640×360 WebP) |
 | `site/games/<slug>/` | Unity 웹 빌드(Chicken Fire·ERZZ·쭉쭉냥·Rio Idle) |
 | `site/docs/<게임>/` | 게임 문서. 쭉쭉냥: 게임 기획서 `gdd.md`(무엇을 왜 그렇게 설계했는지: 기둥·코어 루프·퍼즐 설계·난이도 곡선 등, 외부 스킬 BMAD `gds-create-gdd` 틀, 카드의 '기획서' 버튼), 구현 값을 적은 제작 명세 `game-design.md`(기획서 안 링크로만 들어감)(그림 `images/`, 레벨 데이터 `data/`)와 리소스 목록 `zzukzzuk-nyang-resources.xlsx`. 원본(.md·.xlsx)을 고친 뒤 `python -I tools/make-docs.py site/docs/zzukzzuk-nyang`로 같은 이름의 `.html`을 다시 만들고 함께 커밋합니다(엑셀 그림은 `<이름>-img/`). 카드의 `links` 버튼이 이 `.html`을 게임과 같은 팝업에서 엽니다. 쭉쭉냥 원본 저장소가 비공개라 원본 코드는 넣지 않습니다(사용자 결정) |
+| `site/docs/zzukzzuk-nyang/images/screen-flow.svg` | 기획서 9장·제작 명세 6.1의 화면 흐름도(`diagram-design` 스킬 순서도, 사이트 어두운 색). 고칠 때는 `tools/make-screen-flow.py`로 HTML을 만들고 스킬의 `export_svg.py --system-fonts`로 SVG를 뽑습니다(PNG 내보내기는 Playwright가 없어 안 씀) |
 | `site/docs/doc.css` | 문서 페이지의 어두운 디자인(모든 게임 문서가 같이 씀) |
 | `tools/make-docs.py` | 문서 변환 도구(Python, python-markdown·openpyxl·Pillow 필요). 사이트에는 안 올라감 |
 | `.github/workflows/check.yml` | `main`에 올리면 스크립트 문법을 확인하고 `site/`를 GitHub Pages에 배포 |

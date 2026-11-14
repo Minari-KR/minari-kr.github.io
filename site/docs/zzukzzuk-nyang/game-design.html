@@ -1052,29 +1052,7 @@ Shuffle = Fisher–Yates 뒤에서부터, j = (int)(Value() × (i + 1))
 <hr />
 <h2 id="6-화면-흐름과-ui">6. 화면 흐름과 UI</h2>
 <h3 id="61-흐름">6.1 흐름</h3>
-<pre><code class="language-mermaid">flowchart TD
-    T[타이틀] --&gt;|게임 시작 접시| LS[레벨 선택]
-    T --&gt;|튜토리얼 접시| TU[튜토리얼 0-1 ~ 0-4]
-    T --&gt;|일일 도전 접시| DI{카드를 볼 때인가}
-    T --&gt;|&quot;게임 종료 접시, 웹은 없음&quot;| Q[앱 종료]
-    T --&gt;|메달 탭| MB[메달 도감]
-    T -.-&gt;|메달 바뀜| MC[메달 연출]
-    LS --&gt;|칸 탭| G[인게임 레벨]
-    LS --&gt;|타이틀로| T
-    G --&gt;|클리어 → 탭| G2[다음 레벨]
-    G --&gt;|마지막 남은 레벨을 깸| AC[모든 레벨 클리어]
-    AC --&gt; T
-    AC --&gt; LS
-    G --&gt;|▦ / 뒤로| LS
-    TU --&gt;|마지막 단계 끝 또는 건너뛰기| G
-    DI --&gt;|카드| DC[소개 카드 / 완료 카드]
-    DI --&gt;|바로| DG[일일 도전 문제]
-    DC --&gt;|시작 / 다시 풀기| DG
-    DC --&gt;|타이틀로 / 뒤로| T
-    DC --&gt;|메달 도감| MB
-    DG --&gt;|3개 끝 → 탭, ▦, 뒤로| T
-    MC --&gt;|바로 도전| DI
-</code></pre>
+<p><a href="images/screen-flow.svg"><img alt="쭉쭉냥 화면 흐름도: 타이틀에서 메뉴 접시로 레벨 선택·튜토리얼·일일 도전·메달 도감·앱 종료로 이동" src="images/screen-flow.svg" /></a></p>
 <p>모든 화면 이동은 6.9절의 화면 전환을 거친다. 앞으로 가면 새 화면이 오른쪽에서, 뒤로 가면 왼쪽에서 온다.</p>
 <h3 id="62-타이틀-화면">6.2 타이틀 화면</h3>
 <p><img src="images/1_title.jpg" width="200" alt="타이틀(예전 캡처)"></p>
