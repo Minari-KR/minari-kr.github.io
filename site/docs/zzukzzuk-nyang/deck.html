@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex">
+  <title>쭉쭉냥 : 고양이 퍼즐 — AI와 만든 과정</title>
+  <link rel="stylesheet" href="../deck.css">
+  <script src="../deck.js" defer></script>
+</head>
+<body>
+<main>
+
+<section class="slide cover" aria-label="표지">
+  <div class="stage">
+    <div class="cover-text">
+      <p class="kicker">AI와 함께 만든 1인 개발 게임</p>
+      <h1>쭉쭉냥 <span>: 고양이 퍼즐</span></h1>
+      <p class="lead">기획부터 Google Play 출시까지,<br>AI와 어떻게 만들었는지 정리했습니다.</p>
+      <ul class="chips">
+        <li>1인 개발</li>
+        <li>레벨 197개</li>
+        <li>Google Play 178개국</li>
+      </ul>
+      <p class="note hint">방향키나 마우스 휠로 넘겨 보세요 →</p>
+    </div>
+    <div class="phones">
+      <img src="images/deck/store_06_title.webp" alt="쭉쭉냥 첫 화면" width="720" height="1280">
+      <img src="images/deck/store_01_hanbut.webp" alt="고양이를 늘여 고양이 얼굴 모양을 그리는 플레이 화면" width="720" height="1280">
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="한눈에 보기">
+  <div class="stage">
+    <p class="kicker">1. 결과 · 한눈에 보기</p>
+    <h2>혼자서, AI와 함께 출시까지 마쳤습니다</h2>
+    <div class="body">
+      <ul class="stats">
+        <li><b>197</b><strong>레벨</strong><span>튜토리얼 4단계는 따로</span></li>
+        <li><b>1,573</b><strong>자동 테스트</strong><span>고친 뒤 다시 돌려 확인</span></li>
+        <li><b>178</b><strong>출시 국가</strong><span>Google Play 정식 공개</span></li>
+        <li><b>3<small>주 반</small></b><strong>기록된 작업 기간</strong><span>2026. 9. 29 ~ 10. 23</span></li>
+      </ul>
+      <ul class="chips">
+        <li>한국어 · 영어</li>
+        <li>매일 새 퍼즐 3개</li>
+        <li>메달 6단계</li>
+        <li>Android · PC</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide side" aria-label="어떤 게임인가">
+  <div class="stage">
+    <div class="side-text">
+      <p class="kicker">1. 결과 · 어떤 게임인가</p>
+      <h2>고양이를 늘여서 모양을 그립니다</h2>
+      <p class="lead">늘어나는 고양이 몸으로 견본의 모든 선을 한&nbsp;번씩 지나는 한붓그리기 퍼즐입니다.</p>
+      <ul class="points">
+        <li><strong>간편한 조작감</strong><span>조작 습관이나 실수 때문에 지는 일이 없습니다</span></li>
+        <li><strong>손맛 있는 한붓그리기</strong><span>몸이 접시에 감기고 풀리며 소리가 납니다</span></li>
+      </ul>
+    </div>
+    <div class="phones">
+      <img src="images/deck/store_01_hanbut.webp" alt="고양이를 늘여 모양을 그리는 플레이 화면" width="720" height="1280">
+      <img src="images/deck/store_02_clear.webp" alt="레벨을 깬 화면" width="720" height="1280">
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="내가 정한 것, AI가 한 것">
+  <div class="stage">
+    <p class="kicker">2. AI와 일한 방식 · 내가 정한 것, AI가 한 것</p>
+    <h2>방향은 제가 정하고, 만드는 일은 AI가 했습니다</h2>
+    <div class="body">
+      <ul class="cols">
+        <li>
+          <h3><small>사람</small>제가 정한 것</h3>
+          <ul>
+            <li>난이도 기준: 같은 생선을 다시 지나는 횟수</li>
+            <li>소리 취향: 무거운 효과음 대신 가벼운 소리</li>
+            <li>레벨 순서: 난이도대로 다시 배치</li>
+            <li>올리기 전에는 꼭 제 확인 받기</li>
+          </ul>
+        </li>
+        <li class="ai">
+          <h3><small>AI</small>AI가 한 것</h3>
+          <ul>
+            <li>게임 코드와 레벨 검사 도구</li>
+            <li>레벨 배경 그림, 앱 아이콘, 메달 그림</li>
+            <li>자동 테스트와 빌드</li>
+            <li>게임 자료 조사와 스토어 문구</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="AI 팀 구성">
+  <div class="stage">
+    <p class="kicker">2. AI와 일한 방식 · AI 팀 구성</p>
+    <h2>AI마다 잘하는 일을 나눠 맡겼습니다</h2>
+    <div class="body">
+      <ul class="cols n4">
+        <li class="ai">
+          <h3><small>개발</small>Claude Code</h3>
+          <ul><li>게임 코드</li><li>검사 도구</li><li>테스트·빌드</li></ul>
+        </li>
+        <li>
+          <h3><small>그림</small>Codex</h3>
+          <ul><li>레벨 배경</li><li>앱 아이콘</li><li>메달 그림</li></ul>
+          <b>197<small>장</small></b>
+        </li>
+        <li>
+          <h3><small>조사·문구</small>Sonnet</h3>
+          <ul><li>퍼즐 게임 8개 조사</li><li>스토어 문구</li></ul>
+        </li>
+        <li>
+          <h3><small>문장</small>Gemini</h3>
+          <ul><li>제가 쓴 글 다듬기</li></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="일하는 순서">
+  <div class="stage">
+    <p class="kicker">2. AI와 일한 방식 · 일하는 순서</p>
+    <h2>매번 같은 순서로 일했습니다</h2>
+    <p class="lead">AI가 지켜야 할 규칙을 파일로 적어 두고, 검사를 통과한 것만 남겼습니다.</p>
+    <div class="body">
+      <ol class="flow">
+        <li><i>1</i><strong>규칙 파일</strong><span>할 일과 지킬 것</span></li>
+        <li><i>2</i><strong>작업</strong><span>코드·그림·레벨</span></li>
+        <li><i>3</i><strong>검사</strong><span>파이썬·Unity</span></li>
+        <li><i>4</i><strong>기록</strong><span>한 일과 이유</span></li>
+        <li><i>5</i><strong>커밋</strong><span>저장하고 다음 일로</span></li>
+      </ol>
+      <p class="flow-back">↻ 다음 작업도 1번부터 다시</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="개발 일정">
+  <div class="stage">
+    <p class="kicker">2. AI와 일한 방식 · 개발 일정</p>
+    <h2>기록된 작업 기간은 3주 반입니다</h2>
+    <div class="body">
+      <ol class="timeline">
+        <li><time>~9. 29</time><strong>프로토타입</strong><span>첫 커밋</span></li>
+        <li><time>9. 30</time><strong>핵심 플레이</strong><span>튜토리얼까지</span></li>
+        <li><time>10. 1~2</time><strong>콘텐츠</strong><span>힌트·일일 도전·메달</span></li>
+        <li><time>10. 2~4</time><strong>출시 준비</strong><span>비공개 테스트</span></li>
+        <li class="last"><time>10. 17~22</time><strong>레벨 197개</strong><span>테스트 의견 반영</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="레벨 197개 만들기">
+  <div class="stage">
+    <p class="kicker">3. 사례 · 레벨 197개 만들기</p>
+    <h2>레벨마다 풀리는지 검사하고, 그림을 겹쳐 봤습니다</h2>
+    <div class="body">
+      <ol class="flow small">
+        <li><strong>모양 정하기</strong></li>
+        <li><strong>그리는 순서 찾기</strong><span>파이썬</span></li>
+        <li><strong>재생 검사</strong><span>정말 풀리는지</span></li>
+        <li><strong>배경 그림</strong><span>Codex</span></li>
+        <li><strong>겹쳐서 확인</strong><span>선과 그림이 맞는지</span></li>
+      </ol>
+      <div class="shot">
+        <img src="images/deck/levels_001-010.webp" alt="레벨 1~10의 그림 위에 생선 위치와 선을 겹친 확인용 그림" width="1280" height="591">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="난이도 기준 다시 세우기">
+  <div class="stage">
+    <p class="kicker">3. 사례 · 난이도 기준 다시 세우기</p>
+    <h2>난이도는 "다시 지나는 횟수"로 나눴습니다</h2>
+    <div class="body">
+      <p class="quote">"사람들이 어렵게 느끼는 건 같은 생선을 한 번 더 지나갈 때"<cite>직접 해 보고 제가 찾은 기준</cite></p>
+      <ul class="stats n3">
+        <li><b>71</b><strong>쉬움</strong><span>다시 지나는 곳 0번</span></li>
+        <li><b>38</b><strong>보통</strong><span>다시 지나는 곳 1번</span></li>
+        <li><b>91</b><strong>어려움</strong><span>다시 지나는 곳 2번 이상</span></li>
+      </ul>
+      <p class="note">(난이도 재정의 당시 200개 기준)</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="사람이 잡아낸 문제">
+  <div class="stage">
+    <p class="kicker">3. 사례 · 사람이 잡아낸 문제</p>
+    <h2>폰에서 직접 해 보고 문제를 찾았습니다</h2>
+    <div class="body">
+      <ul class="fixes">
+        <li><span>폰에서 화면이 뚝뚝 끊김</span><i>→</i><strong>60프레임, HDR 끔, 글자 미리 그려 두기</strong></li>
+        <li><span>긴 폰에서 UI가 잘림</span><i>→</i><strong>화면 맞춤 방식 바꿈, 세로 1080×1920 확인</strong></li>
+        <li><span>묵직한 "두둥탁" 효과음</span><i>→</i><strong>원래의 가벼운 소리 유지</strong></li>
+      </ul>
+      <p class="lead">제가 잡은 문제는 <b>다음부터 지킬 규칙</b>으로 남겼습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="품질 확인">
+  <div class="stage">
+    <p class="kicker">3. 사례 · 품질 확인</p>
+    <h2>고칠 때마다 자동 검사로 확인했습니다</h2>
+    <div class="body">
+      <ul class="stats n3">
+        <li><b><span class="from">134 →</span>1,573</b><strong>자동 테스트</strong><span>기능이 늘 때마다 함께 늘림</span></li>
+        <li><b><span class="from">5 →</span>0</b><strong>일일 퍼즐 차이</strong><span>파이썬과 게임이 만든 퍼즐 2,160개 비교</span></li>
+        <li><b><span class="from none">0 →</span>20<small>개</small></b><strong>코드 점검</strong><span>찾은 문제 모두 고침</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="출시까지">
+  <div class="stage">
+    <p class="kicker">4. 출시 · 출시까지</p>
+    <h2>Google Play 검토를 거쳐 정식 출시했습니다</h2>
+    <div class="body">
+      <ol class="timeline n4">
+        <li><time>10. 3</time><strong>비공개 테스트</strong><span>테스터 12명 · 14일</span></li>
+        <li><time>10. 4</time><strong>1.0.1 검토 통과</strong><span>테스터에게 업데이트</span></li>
+        <li><time>정식 신청</time><strong>한 번 막힘</strong><span>데이터 보안 설문을 고쳐 다시 냄</span></li>
+        <li class="last"><time>10. 19</time><strong>정식 출시 승인</strong><span>178개국</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide" aria-label="배운 점과 한계">
+  <div class="stage">
+    <p class="kicker">5. 마무리 · 배운 점과 한계</p>
+    <h2>부족했던 점도 남겨 둡니다</h2>
+    <div class="body">
+      <ul class="points">
+        <li><strong>난이도 설계가 가장 약했습니다</strong><span>점수로 나눴다가, 해 보고 나서야 기준을 다시 세웠습니다</span></li>
+        <li><strong>출시가 끝이 아닙니다</strong><span>테스트 의견을 받아 레벨과 난이도를 계속 고쳤습니다</span></li>
+      </ul>
+      <p class="actions">
+        <a href="gdd.html">자세한 기획서</a>
+        <a href="https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang" target="_blank" rel="noopener noreferrer">Google Play</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
