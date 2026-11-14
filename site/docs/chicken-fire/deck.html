@@ -58,7 +58,7 @@
     <p class="kicker">1. 게임 · 3일의 흐름</p>
     <h2>불 효과 실험에서 타임어택 게임까지</h2>
     <ol class="body a-path">
-      <li><b>출발</b><span>이전 프로젝트에서 만든 불 효과를 게임으로</span></li>
+      <li><b>출발</b><span>연습 프로젝트에서 공부한 카툰풍 불 효과를 게임으로</span></li>
       <li><b>첫 방향</b><span>작은 농장 마당, 쿼터뷰, 눈에 잘 띄는 닭과 불꽃</span></li>
       <li><b>시제품</b><span>끝없이 이어지는 농장</span></li>
       <li class="a-goal"><b>방향 전환</b><span>40 × 40 m 아레나와 30초 생존 라운드</span></li>
@@ -223,16 +223,48 @@
   </div>
 </section>
 
-<section class="slide e-dense" aria-label="학습 실행력: AI로 배워 게임에 적용">
+<section class="slide" aria-label="학습 실행력: 연습 프로젝트에서 공부한 불 효과와 셰이더">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
-    <h2>모르는 기술은 AI로 배워 게임에 바로 적용</h2>
+    <h2>카툰풍 불 효과와 셰이더를 먼저 공부하고, 게임에 적용</h2>
+    <div class="body r-study">
+      <div class="r-from">
+        <h3>연습 프로젝트 <small>2026. 10. 6 ~ 7</small></h3>
+        <img src="images/deck/study-fire.webp" alt="연습 프로젝트에서 만든 카툰풍 불꽃이 일렁이는 모습" width="256" height="256">
+        <ul>
+          <li>툰 셰이딩과 외곽선</li>
+          <li>불꽃 플립북과 일렁이는 빛</li>
+          <li>타들어 가며 사라지는 디졸브</li>
+          <li>열기 왜곡(아지랑이)</li>
+        </ul>
+      </div>
+      <ul class="r-to">
+        <li>
+          <img class="r-wide" src="images/deck/shot-fire.webp" alt="게임 화면: 색을 단계로 끊은 카툰풍 화염방사기 불길" width="1280" height="720">
+          <p><strong>화염방사기 VFX</strong><span>색을 단계로 끊은 카툰풍 불길</span></p>
+        </li>
+        <li>
+          <span class="r-pair">
+            <img src="images/deck/see-before.webp" alt="불에 가려 닭이 보이지 않는 화면" width="600" height="545">
+            <i aria-hidden="true">→</i>
+            <img src="images/deck/see-after.webp" alt="불 뒤의 닭이 둥근 창으로 비쳐 보이는 화면" width="600" height="545">
+          </span>
+          <p><strong>가려진 닭 보이게</strong><span>불이나 나무 뒤의 닭을 둥근 창으로 비쳐 보이게</span></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide e-dense" aria-label="학습 실행력: 그 밖에 배워서 적용한 것">
+  <div class="stage">
+    <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
+    <h2>만들다 막힌 문제도 AI로 배워 바로 적용</h2>
     <div class="body">
       <table class="e-table">
         <colgroup><col><col><col></colgroup>
         <thead><tr><th>풀어야 했던 문제</th><th>AI로 배운 것</th><th>게임에 적용</th></tr></thead>
         <tbody>
-          <tr><td>불이나 건물 뒤의 닭이 안 보임</td><td>가린 부분만 뚫어 보이는 스텐실과 깊이 비교</td><td>닭 주변에 둥근 창</td></tr>
           <tr><td>풀밭 전체를 바람에 흔들기</td><td>정점 셰이더에서 흔들고 뿌리는 고정</td><td>그림자와 외곽선까지 함께 흔들리는 풀</td></tr>
           <tr><td>달리는 닭이 나는 것처럼 보임</td><td>동작 재생 속도를 실제 이동 속도에 맞추기</td><td>걷기 동작으로 바꾸고 발을 땅에 붙임</td></tr>
           <tr><td>닭 무리가 한 길로 몰림</td><td>서로 밀어내는 분리 조향, 미리 만들어 두고 다시 쓰는 풀링</td><td>흩어져 도망치는 닭 12마리</td></tr>
@@ -265,7 +297,7 @@
       <ul class="f-sum">
         <li><span class="tag">AI 리더십</span><p>그림으로 먼저 확인하고, 승인한 것만 제작</p></li>
         <li><span class="tag">구조화 능력</span><p>기능마다 단계와 완료 기준을 적고 검사로 확인</p></li>
-        <li><span class="tag">학습 실행력</span><p>모르는 기술은 AI로 배워 게임에 바로 적용</p></li>
+        <li><span class="tag">학습 실행력</span><p>불 효과와 셰이더를 먼저 공부하고 게임에 바로 적용</p></li>
       </ul>
       <p class="f-done">3일 만에 웹에서 바로 플레이하는 타임어택 슈팅 완성</p>
       <div class="actions">

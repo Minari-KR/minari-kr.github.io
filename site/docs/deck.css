@@ -792,3 +792,32 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .q-stats li, .q-stats li:first-child { padding: 0; }
   .q-stats b { font-size: 2.8em; }
 }
+
+/* Chicken Fire: studied first in a practice project, then applied (classes start with r-) */
+.r-study { flex-direction: row; align-items: stretch; justify-content: flex-start; gap: 0; margin-top: 1.1em; }
+.r-from { flex: 0 0 31%; padding-right: 2em; display: flex; flex-direction: column; }
+.r-from h3 { font-size: 1.3em; font-weight: 800; color: var(--accent); }
+.r-from h3 small { display: block; font-size: .72em; font-weight: 700; color: var(--muted); }
+.r-from img { margin-top: .5em; width: 7em; height: 7em; border-radius: .7em; }
+.r-from ul { margin-top: .6em; display: grid; gap: .2em; }
+.r-from li { font-size: 1.05em; padding-left: .9em; position: relative; }
+.r-from li::before { content: ""; position: absolute; left: 0; top: .6em; width: .4em; height: .4em; border-radius: 50%; background: var(--accent); }
+.r-to { flex: 1; min-width: 0; position: relative; padding-left: 3.4em; border-left: 1px solid var(--edge); display: grid; gap: 1.2em; align-content: center; }
+.r-to::before { content: "→"; position: absolute; left: -.52em; top: 50%; transform: translateY(-50%); width: 1.04em; text-align: center; background: var(--bg); color: var(--accent); font-size: 2em; font-weight: 800; line-height: 1.4; }
+.r-to li { min-width: 0; display: grid; grid-template-columns: 17em 1fr; align-items: center; gap: 1.6em; }   /* picture, then what it is */
+.r-to img { border-radius: .6em; border: 1px solid var(--edge); }
+.r-wide { width: 100%; height: auto; }
+.r-pair { display: flex; align-items: center; gap: .4em; }
+.r-pair img { flex: 1; min-width: 0; height: auto; }
+.r-pair i { font-style: normal; font-weight: 800; color: var(--accent); }
+.r-to strong { display: block; font-size: 1.45em; }
+.r-to p span { display: block; margin-top: .2em; font-size: 1.1em; color: var(--muted); text-wrap: balance; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .r-study { flex-direction: column; gap: 24px; }
+  .r-from { flex: none; padding-right: 0; }
+  .r-from img { width: 140px; height: 140px; }
+  .r-to { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--edge); gap: 24px; }
+  .r-to li { grid-template-columns: 1fr; gap: 10px; }
+  .r-to::before { content: "↓"; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 1.5em; }
+}
