@@ -404,12 +404,6 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 .c-ladder { display: flex; flex-direction: column; align-items: flex-start; gap: .35em; margin: .6em 0 .6em; }
 .c-ladder li { position: relative; padding: .25em .9em; border-radius: .5em; background: var(--surface-2); font-size: 1.1em; font-weight: 700; white-space: nowrap; }
 
-/* two phones, each with what it gives the player */
-.c-pair { flex-direction: row; align-items: center; gap: 3em; }
-.c-pair li { flex: 1; min-width: 0; display: flex; align-items: center; gap: 1.6em; }
-.c-pair .a-phone { flex: none; height: 17.5em; }
-.c-pair strong { display: block; font-size: 1.5em; line-height: 1.3; text-wrap: balance; }
-.c-pair span { display: block; margin-top: .5em; font-size: 1.1em; color: var(--muted); text-wrap: pretty; }
 
 /* difficulty by how often a dish is passed again, shown on three real levels */
 .c-was { margin-top: 1em; font-size: 1.1em; color: var(--muted); }
@@ -441,10 +435,6 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 @media (max-width: 640px) and (orientation: portrait) {
   .c-shot .a-phone { height: auto; width: 62%; }
   .c-ladder li { white-space: normal; }
-  .c-pair { flex-direction: column; align-items: stretch; gap: 28px; }
-  .c-pair li { gap: 16px; }
-  .c-pair .a-phone { height: auto; width: 40%; }
-  .c-pair strong { font-size: 1.25em; }
   .c-levels { flex-direction: column; align-items: stretch; gap: 20px; }
   .c-level { width: 96px; height: 96px; }
   .c-two { flex-direction: column; gap: 28px; }
@@ -628,4 +618,21 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 @media (max-width: 640px) and (orientation: portrait) {
   .g-demo { flex: none; flex-direction: column; align-items: stretch; gap: 16px; }
   .g-board { flex: none; align-self: stretch; width: 100%; height: auto; }
+}
+
+/* Retention slide: the daily-challenge screen, why it exists, the three devices (classes start with h-) */
+.h-shot { flex: none; }
+.h-shot .a-phone { height: 19em; }
+.h-ret h2 { font-size: 1.75em; }
+.h-why { margin-top: .5em; font-size: 1.1em; color: var(--muted); text-wrap: pretty; }
+.h-rows { margin-top: .8em; display: grid; gap: .55em; }
+.h-rows li { padding-left: 1em; border-left: .25em solid var(--accent); }
+.h-rows strong { display: block; font-size: 1.3em; }
+.h-rows span { display: block; font-size: 1.05em; color: var(--muted); }
+.h-medals { margin-top: .8em; height: 3.2em; width: auto; border-radius: 0; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .h-shot .a-phone { height: auto; width: 62%; margin: 0 auto; }
+  .h-ret h2 { font-size: 1.6em; }
+  .h-medals { height: auto; width: 100%; }
 }
