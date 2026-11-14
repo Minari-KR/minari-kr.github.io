@@ -294,7 +294,9 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 /* 7: two columns, left one is the point */
 .b-roles { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3.5em; align-items: start; }
 .b-roles h3 { font-size: 1.1em; font-weight: 800; margin-bottom: .8em; }
-.b-roles ul { display: grid; gap: .7em; }
+.b-roles ol { display: grid; gap: .7em; counter-reset: n; }
+.b-roles li { counter-increment: n; display: flex; gap: .5em; }
+.b-roles li::before { content: counter(n) "."; flex: none; color: var(--accent); font-weight: 800; font-variant-numeric: tabular-nums; }
 .b-me { padding: 1.4em 1.8em; border-left: .3em solid var(--accent); background: var(--surface); border-radius: 0 .6em .6em 0; }
 .b-me h3 { color: var(--accent); }
 .b-me li { font-size: 1.7em; font-weight: 800; line-height: 1.3; color: #fff; }
@@ -389,4 +391,63 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .b-after b { font-size: 2.8em; }
   .b-note, .b-order, .b-trio dt, .b-flow span, .b-tl span { font-size: .95em; }
   .b-todo li { font-size: 1.15em; padding: 14px 0; }
+}
+
+/* Fixes after the user's review (classes start with c-) */
+/* one phone with its caption, two points beside it */
+.c-shot { flex: none; display: flex; flex-direction: column; align-items: center; }
+.c-shot .a-phone { height: 19em; }
+.c-shot figcaption { margin-top: .5em; font-size: .95em; color: var(--muted); }
+.c-block { margin-top: 1.2em; padding-left: 1em; border-left: .25em solid var(--accent); }
+.c-block strong { display: block; font-size: 1.4em; }
+.c-block span { display: block; margin-top: .2em; font-size: 1.05em; color: var(--muted); }
+.c-ladder { display: flex; flex-direction: column; align-items: flex-start; gap: .35em; margin: .6em 0 .6em; }
+.c-ladder li { position: relative; padding: .25em .9em; border-radius: .5em; background: var(--surface-2); font-size: 1.1em; font-weight: 700; white-space: nowrap; }
+
+/* two phones, each with what it gives the player */
+.c-pair { flex-direction: row; align-items: center; gap: 3em; }
+.c-pair li { flex: 1; min-width: 0; display: flex; align-items: center; gap: 1.6em; }
+.c-pair .a-phone { flex: none; height: 17.5em; }
+.c-pair strong { display: block; font-size: 1.5em; line-height: 1.3; text-wrap: balance; }
+.c-pair span { display: block; margin-top: .5em; font-size: 1.1em; color: var(--muted); text-wrap: pretty; }
+
+/* difficulty by how often a dish is passed again, shown on three real levels */
+.c-was { margin-top: 1em; font-size: 1.1em; color: var(--muted); }
+.c-seen { margin-top: .4em; font-size: 1.35em; font-weight: 800; }
+.c-levels { flex-direction: row; align-items: flex-end; gap: 2em; margin-top: 1.2em; }
+.c-levels li { flex: 1; min-width: 0; display: flex; align-items: center; gap: 1.2em; }
+.c-level { flex: none; width: 6.5em; height: 7.5em; }
+.c-level line { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; }
+.c-level circle { fill: var(--surface-2); stroke: var(--muted); stroke-width: 2; }
+.c-level circle.re { fill: var(--accent); stroke: var(--accent); }
+.c-levels b { display: block; font-size: 1.9em; font-weight: 800; line-height: 1.1; color: var(--accent); white-space: nowrap; }
+.c-levels strong { display: block; margin-top: .2em; font-size: 1.1em; white-space: nowrap; }
+.c-levels span { display: block; font-size: 1em; color: var(--muted); }
+.c-key { margin-top: 1em; }
+
+/* two choices side by side */
+.c-two { flex-direction: row; justify-content: flex-start; align-items: flex-start; gap: 0; }
+.c-two > li { flex: 1; min-width: 0; padding: 0 2em; border-left: 1px solid var(--edge); }
+.c-two > li:first-child { flex: 1.25; padding-left: 0; border-left: 0; }
+.c-two > li:last-child { padding-right: 0; }
+.c-two h3 { font-size: 1.8em; font-weight: 800; line-height: 1.2; color: var(--accent); }
+.c-row { display: flex; gap: .9em; margin-top: .9em; font-size: 1.05em; color: var(--muted); }
+.c-row span { text-wrap: balance; }
+.c-row b { flex: none; width: 2.4em; font-weight: 800; color: var(--accent); }
+.c-row.c-pick { font-size: 1.25em; font-weight: 800; color: #fff; }
+.c-row.c-pick b { width: 2em; }
+.c-eg { margin-top: 1.2em; padding: .7em 1em; border-radius: .6em; background: var(--surface); font-size: 1em; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .c-shot .a-phone { height: auto; width: 62%; }
+  .c-ladder li { white-space: normal; }
+  .c-pair { flex-direction: column; align-items: stretch; gap: 28px; }
+  .c-pair li { gap: 16px; }
+  .c-pair .a-phone { height: auto; width: 40%; }
+  .c-pair strong { font-size: 1.25em; }
+  .c-levels { flex-direction: column; align-items: stretch; gap: 20px; }
+  .c-level { width: 96px; height: 96px; }
+  .c-two { flex-direction: column; gap: 28px; }
+  .c-two > li, .c-two > li:first-child, .c-two > li:last-child { padding: 0 0 0 16px; border-left: 3px solid var(--edge); }
+  .c-row.c-pick { font-size: 1.15em; }
 }
