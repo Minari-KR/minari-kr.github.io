@@ -25,6 +25,7 @@
 | `site/docs/zzukzzuk-nyang/images/screen-flow.svg` | 기획서 9장·제작 명세 6.1의 화면 흐름도(`diagram-design` 스킬 순서도, 사이트 어두운 색). 고칠 때는 `tools/make-screen-flow.py`로 HTML을 만들고 스킬의 `export_svg.py --system-fonts`로 SVG를 뽑습니다(PNG 내보내기는 Playwright가 없어 안 씀) |
 | `site/docs/doc.css` | 문서 페이지의 어두운 디자인(모든 게임 문서가 같이 씀) |
 | `tools/make-docs.py` | 문서 변환 도구(Python, python-markdown·openpyxl·Pillow 필요). 사이트에는 안 올라감 |
+| `의사결정.md` | 사용자가 고른 것과 그 이유(최신이 위). 사용자가 고르거나 의도를 말할 때마다 바로 적음(전역 규칙, `안내.md` 의사결정) |
 | `.github/workflows/check.yml` | `main`에 올리면 스크립트 문법을 확인하고 `site/`를 GitHub Pages에 배포 |
 
 ## 게임 목록 고치기 (`site/games.js`)
