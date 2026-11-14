@@ -84,7 +84,7 @@
   <div class="stage">
     <div class="side-text">
       <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
-      <h2>손과 귀로 "맞았다"를 느끼게</h2>
+      <h2>정답은 손맛과 소리로 알려 주기</h2>
       <ul class="a-pts">
         <li><strong>감길 때마다 한 음씩 상승</strong><span>한 판을 풀면 짧은 멜로디 하나</span></li>
         <li><strong>냥이 표정이 곧 판정</strong><span>맞으면 기쁨, 틀리면 깜짝</span></li>
@@ -104,29 +104,29 @@
   </div>
 </section>
 
-<section class="slide side" aria-label="플레이 경험 둘: 스스로 푸는 재미">
+<section class="slide d-dense" aria-label="플레이 경험 둘: 끝까지 깰 수 있게 돕는 힌트">
   <div class="stage">
-    <figure class="c-shot">
-      <img class="a-phone" src="images/deck/shot-sample.webp" alt="레벨을 시작할 때 견본 그림이 보이는 화면" width="720" height="1280">
-      <figcaption>시작할 때 잠깐 보이는 견본 그림</figcaption>
-    </figure>
-    <div class="side-text">
-      <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
-      <h2>막혀도 답은 직접 찾게</h2>
-      <div class="c-block">
-        <strong>견본 그림은 잠깐만 보여 주기</strong>
-        <span>계속 보이면 이을 곳이 다 보여 너무 쉬워짐</span>
-      </div>
-      <div class="c-block">
-        <strong>막히면 약한 힌트부터 차례로</strong>
-        <ol class="c-ladder">
-          <li>① 그림 다시 보기</li>
-          <li>② 순서 요령 한마디</li>
-          <li>③ 시작 접시 반짝임</li>
-        </ol>
-        <span>쉬운 판은 25초부터, 어려운 판은 60초부터.<br>정답 경로를 통째로 보여 주는 힌트는 없음</span>
-      </div>
-    </div>
+    <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
+    <h2>막혀도 끝까지 깰 수 있게, 답은 직접 찾게</h2>
+    <p class="lead">막힌 시간이 쌓이면 약한 도움부터 차례로. 정답 경로는 끝까지 보여 주지 않음</p>
+    <ol class="body d-steps">
+      <li>
+        <p class="d-when"><b class="d-time">25<small>초</small></b><strong>① 그림 다시 보기</strong></p>
+        <p class="d-what">무엇을 그리는지 다시 떠올리게</p>
+        <img class="a-phone" src="images/deck/shot-hint1.webp" alt="그림 다시 보기 힌트가 나온 화면" width="720" height="1280">
+      </li>
+      <li>
+        <p class="d-when"><b class="d-time">40<small>초</small></b><strong>② 순서 요령 한마디</strong></p>
+        <p class="d-what">냥이가 그리는 순서의 요령을 귀띔</p>
+        <img class="a-phone" src="images/deck/shot-hint2.webp" alt="순서 요령 한마디가 나온 화면" width="720" height="1280">
+      </li>
+      <li>
+        <p class="d-when"><b class="d-time">55<small>초</small></b><strong>③ 시작 접시 반짝임</strong></p>
+        <p class="d-what">어디서 시작하면 되는지 표시</p>
+        <img class="a-phone" src="images/deck/shot-hint3.webp" alt="시작 접시가 반짝이는 화면" width="720" height="1280">
+      </li>
+    </ol>
+    <p class="note d-note">쉬운 판 기준. 어려운 판은 60 · 90 · 120초로 늦춰 고민할 시간을 더 줌. 3번 실패하면 앞당김</p>
   </div>
 </section>
 
@@ -176,22 +176,40 @@
   </div>
 </section>
 
-<section class="slide b-dense" aria-label="구조화 능력: 레벨 확장 다섯 단계">
+<section class="slide d-dense" aria-label="구조화 능력: 레벨 추가를 다섯 단계와 통과 기준으로">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
-    <h2>레벨 100개를 200개로, 다섯 단계로 쪼개기</h2>
-    <p class="lead">한 번에 100개를 늘리는 대신, 단계마다 통과 기준을 두고 25개씩 4묶음으로</p>
-    <ol class="flow small b-flow">
-      <li><strong>모양 잡기</strong></li>
-      <li><strong>그리는 순서 찾기</strong><span>(파이썬)</span></li>
-      <li><strong>재생 검사</strong></li>
-      <li><strong>배경 그림</strong><span>(Codex)</span></li>
-      <li><strong>겹쳐서 확인</strong></li>
-    </ol>
-    <div class="b-pic">
-      <img src="images/deck/levels_001-010.webp" alt="레벨 1~10의 배경 그림 열 장" width="1280" height="591">
+    <h2>레벨 100개 추가를 다섯 단계와 통과 기준으로</h2>
+    <p class="lead">25개씩 4묶음. 기준을 넘은 레벨만 다음 단계로</p>
+    <div class="body d-pipe">
+      <div class="d-head"><span>단계</span><span>통과 기준</span><span>검사</span></div>
+      <ol>
+        <li><b class="d-n">1</b><strong>모양 잡기</strong><span>접시와 선을 좌표로 적고 보드 크기에 맞춤</span><em></em></li>
+        <li><b class="d-n">2</b><strong>간격 검사</strong><span>접시 사이 1.3 이상, 선과 접시 사이 0.45 이상</span><em>파이썬</em></li>
+        <li><b class="d-n">3</b><strong>순서 찾기와 재생</strong><span>세 가지 조작으로 자동 재생해 풀려야 통과</span><em>파이썬</em></li>
+        <li><b class="d-n">4</b><strong>일직선 거르기</strong><span>접시를 거의 곧게(170° 넘게) 지나는 순서는 버림</span><em>파이썬</em></li>
+        <li><b class="d-n">5</b><strong>게임에 넣고 확정</strong><span>전체를 난이도 순으로 다시 섞고 Unity 테스트 전부 통과</span><em>Unity</em></li>
+      </ol>
     </div>
-    <p class="note b-note">접시를 거의 일직선으로 지나는 순서는 탈락. 마지막에 197개만 남김</p>
+    <p class="note d-note">배경 그림은 그 뒤 Codex가 그리고 선 위에 겹쳐 확인. 마지막에 197개만 남김</p>
+  </div>
+</section>
+
+<section class="slide d-dense" aria-label="AI 리더십: 직접 조정하려고 만든 레벨 편집 도구">
+  <div class="stage d-tool">
+    <figure class="d-shot">
+      <img src="images/deck/tool-level-editor.webp" alt="레벨 편집 도구 화면: 접시를 끌어 옮기고 검사 결과를 바로 확인" width="1280" height="800">
+    </figure>
+    <div class="d-why">
+      <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
+      <h2>세밀한 조정은 내가 직접, 레벨 편집 도구</h2>
+      <dl>
+        <dt>만든 이유</dt><dd>접시 위치를 말로 설명해 고치게 하는 대신 직접 끌어서 조정. AI 사용량도 아낌</dd>
+        <dt>하는 일</dt><dd>접시를 끌어 옮기면 간격과 일직선 문제를 바로 표시</dd>
+        <dt>게임에 반영</dt><dd>저장한 수정은 파이썬 검사를 모두 통과할 때만 반영</dd>
+        <dt>쓴 곳</dt><dd>레벨 18개의 접시 위치 조정. 같은 방식으로 UI 배치 도구도 제작</dd>
+      </dl>
+    </div>
   </div>
 </section>
 
@@ -215,49 +233,76 @@
   </div>
 </section>
 
-<section class="slide b-s10" aria-label="AI 리더십: 다시 확인한 숫자">
+<section class="slide e-dense" aria-label="AI 리더십: 기준을 정하고 되돌리기">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
-    <h2>AI가 만든 것은 한 번 더 확인</h2>
+    <h2>AI 결과물도 기준에 안 맞으면 되돌리기</h2>
     <div class="body">
-      <ul class="stats n3">
-        <li><b><span class="from">134 →</span>1,573</b><strong>자동 테스트</strong><span>기능이 늘 때마다 함께 추가</span></li>
-        <li><b><span class="from">5 →</span>0</b><strong>일일 퍼즐 계산 차이</strong><span>파이썬과 게임이 만든 퍼즐 2,160개 비교</span></li>
-        <li><b><span class="from none">0 →</span>20<small>건</small></b><strong>코드 점검</strong><span>찾은 문제 모두 수정</span></li>
-      </ul>
-      <p class="note b-order">확인 순서: 파이썬 검사 → Unity 재생 테스트 → 기록 → 저장</p>
+      <div class="e-lead">
+      <div class="e-bar">
+        <h3>규칙 파일에 적어 둔 기준</h3>
+        <ol>
+          <li>테스트는 전부 통과해야 반영</li>
+          <li>UI 확인은 세로 화면 1080×1920으로</li>
+          <li>힌트는 답을 너무 빨리 주지 않기</li>
+          <li>올리기 전에는 매번 내 확인</li>
+        </ol>
+      </div>
+      <div class="e-back">
+        <h3>되돌린 사례 <span class="note">AI가 낸 것 → 내 판단</span></h3>
+        <ul>
+          <li><span class="e-ai">묵직한 "두둥 탁" 효과음</span><span class="e-me">"별로다, 기존 걸로". 가벼운 소리 유지</span></li>
+          <li><span class="e-ai">다시 그린 배경 그림 4장</span><span class="e-me">각져서 귀엽지 않음. 처음 그림을 두고 접시를 직접 조정</span></li>
+          <li><span class="e-ai">가로 화면으로 한 UI 점검</span><span class="e-me">세로로 다시 점검, 규칙에 추가</span></li>
+          <li><span class="e-ai">올 클리어 화면</span><span class="e-me">굵기와 버튼 폭까지 7번 넘게 고쳐 완성</span></li>
+        </ul>
+      </div>
+      </div>
+      <p class="e-line">자동 테스트 134 → 1,573개 · 코드 점검에서 찾은 20건 모두 수정</p>
     </div>
   </div>
 </section>
 
-<section class="slide" aria-label="학습 실행력: 막힌 곳 고치기">
+<section class="slide e-dense" aria-label="학습 실행력: AI에게 배워 게임에 적용">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
-    <h2>막힌 곳은 익혀서 바로 고치기</h2>
+    <h2>모르는 기술은 AI에게 배워 게임에 바로 적용</h2>
     <div class="body">
-      <ul class="fixes b-fixes">
-        <li><span>폰에서 화면이 뚝뚝 끊김</span><i>→</i><strong>60프레임, HDR 끄기, 글자 미리 그려 두기</strong></li>
-        <li><span>긴 폰에서 UI가 잘림</span><i>→</i><strong>화면 맞춤 방식 변경</strong></li>
-        <li><span>빨리 끌면 접시에 안 붙음</span><i>→</i><strong>붙는 범위 넓히고 "지나가며 잇기"도 정답으로</strong></li>
-        <li><span>스토어 심사 반려 (데이터 보안 양식)</span><i>→</i><strong>원인 찾아 고친 뒤 다시 제출, 승인</strong></li>
-      </ul>
-      <p class="b-line">첫 기록 9.29 → 정식 출시 승인 10.19</p>
+      <table class="e-table">
+        <colgroup><col><col><col></colgroup>
+        <thead><tr><th>풀어야 했던 문제</th><th>AI와 익힌 것</th><th>게임에 적용</th></tr></thead>
+        <tbody>
+          <tr><td>서버 없이 매일 새 퍼즐</td><td>날짜를 씨앗으로 쓰는 난수. 같은 날짜면 같은 결과</td><td>일일 도전 하루 3개, 같은 날엔 누구에게나 같은 퍼즐</td></tr>
+          <tr><td>풀 수 없는 모양 걸러 내기</td><td>한붓그리기 원리. 선이 홀수 개 모인 접시는 0개 또는 2개</td><td>레벨 검사 도구와 시작 접시 힌트</td></tr>
+          <tr><td>검사는 통과했는데 게임에서 접시를 건너뜀</td><td>거의 일직선인 세 접시는 소수점 오차로 가운데를 놓침</td><td>170° 넘는 꺾임 금지를 편집 도구와 검사 규칙으로</td></tr>
+          <tr><td>끌 때 냥이 머리가 한 박자 늦음</td><td>한 프레임 안의 계산 순서와 그리는 순서</td><td>몸통 그리기를 프레임 맨 뒤로, 폰은 60프레임</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<section class="slide" aria-label="고민과 선택 하나: 난이도 기준">
+<section class="slide e-dense" aria-label="고민과 선택 하나: 어려운 판의 기준">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 · 고민한 지점 ①</p>
-    <h2>난이도 기준을 "다시 지나는 횟수" 하나로</h2>
-    <p class="c-was">처음엔 선 수와 갈림길 수를 더한 점수로 단계를 나눔. 실제 체감과 어긋남</p>
-    <p class="c-seen">"사람들이 어렵게 느끼는 건 같은 생선을 한 번 더 지나갈 때"</p>
-    <ul class="body c-levels">
-      <li><svg class="c-level" viewBox="0 0 88 117" role="img" aria-label="집 레벨의 선과 접시"><line x1="12.0" y1="104.8" x2="12.0" y2="44.0"/><line x1="12.0" y1="44.0" x2="44.0" y2="12.0"/><line x1="44.0" y1="12.0" x2="76.0" y2="44.0"/><line x1="76.0" y1="44.0" x2="76.0" y2="104.8"/><line x1="76.0" y1="104.8" x2="12.0" y2="104.8"/><circle cx="44.0" cy="12.0" r="6"/><circle cx="12.0" cy="44.0" r="6"/><circle cx="76.0" cy="44.0" r="6"/><circle cx="12.0" cy="104.8" r="6"/><circle cx="76.0" cy="104.8" r="6"/></svg><p><b>0번</b><strong>쉬움 · 69개</strong><span>예: 집</span></p></li>
-      <li><svg class="c-level" viewBox="0 0 107 88" role="img" aria-label="물고기 레벨의 선과 접시"><line x1="12.0" y1="44.0" x2="44.0" y2="12.0"/><line x1="44.0" y1="12.0" x2="71.2" y2="44.0"/><line x1="71.2" y1="44.0" x2="95.2" y2="18.4"/><line x1="95.2" y1="18.4" x2="95.2" y2="69.6"/><line x1="95.2" y1="69.6" x2="71.2" y2="44.0"/><line x1="71.2" y1="44.0" x2="44.0" y2="76.0"/><line x1="44.0" y1="76.0" x2="12.0" y2="44.0"/><circle cx="12.0" cy="44.0" r="6"/><circle cx="44.0" cy="12.0" r="6"/><circle class="re" cx="71.2" cy="44.0" r="9"/><circle cx="44.0" cy="76.0" r="6"/><circle cx="95.2" cy="18.4" r="6"/><circle cx="95.2" cy="69.6" r="6"/></svg><p><b>1번</b><strong>보통 · 38개</strong><span>예: 물고기</span></p></li>
-      <li><svg class="c-level" viewBox="0 0 94 126" role="img" aria-label="연 레벨의 선과 접시"><line x1="47.2" y1="12.0" x2="12.0" y2="63.2"/><line x1="12.0" y1="63.2" x2="47.2" y2="114.4"/><line x1="47.2" y1="114.4" x2="82.4" y2="63.2"/><line x1="82.4" y1="63.2" x2="47.2" y2="12.0"/><line x1="47.2" y1="12.0" x2="47.2" y2="114.4"/><circle class="re" cx="47.2" cy="12.0" r="9"/><circle cx="12.0" cy="63.2" r="6"/><circle cx="82.4" cy="63.2" r="6"/><circle class="re" cx="47.2" cy="114.4" r="9"/></svg><p><b>2번 이상</b><strong>어려움 · 90개</strong><span>예: 연</span></p></li>
-    </ul>
-    <p class="note c-key">초록 접시 = 이미 지나갔는데 다시 지나야 하는 접시 · 숫자는 레벨 197개 중 개수</p>
+    <h2>"어떤 판이 어려운 판인가"를 다시 정하기</h2>
+    <div class="body e-think">
+      <ol class="e-steps">
+        <li><b>처음 기준</b><span>선 수, 갈림길, 막다른 길 확률 등 여섯 가지를 더한 점수</span></li>
+        <li><b>어긋남</b><span>같은 "한 번 다시 지나기"인데 국자는 보통, 돛단배는 어려움</span></li>
+        <li class="e-quote"><b>관찰</b><span>"사람들이 어렵게 느끼는 건 같은 접시를 한 번 더 지나갈 때"</span></li>
+        <li class="e-decide"><b>결정</b><span>다시 지나는 횟수 하나로 단계 구분. 접시와 선은 그대로 두고 단계만 다시 나눔</span></li>
+        <li><b>남긴 것</b><span>점수는 버리지 않고 같은 단계 안의 순서와 힌트 시간에 사용</span></li>
+      </ol>
+      <div class="e-result">
+        <ul class="e-levels">
+          <li><svg class="c-level" viewBox="0 0 88 117" role="img" aria-label="집 레벨의 선과 접시"><line x1="12.0" y1="104.8" x2="12.0" y2="44.0"/><line x1="12.0" y1="44.0" x2="44.0" y2="12.0"/><line x1="44.0" y1="12.0" x2="76.0" y2="44.0"/><line x1="76.0" y1="44.0" x2="76.0" y2="104.8"/><line x1="76.0" y1="104.8" x2="12.0" y2="104.8"/><circle cx="44.0" cy="12.0" r="6"/><circle cx="12.0" cy="44.0" r="6"/><circle cx="76.0" cy="44.0" r="6"/><circle cx="12.0" cy="104.8" r="6"/><circle cx="76.0" cy="104.8" r="6"/></svg><p><b>0번</b><strong>쉬움 · 69개</strong><span>예: 집</span></p></li>
+          <li><svg class="c-level" viewBox="0 0 107 88" role="img" aria-label="물고기 레벨의 선과 접시"><line x1="12.0" y1="44.0" x2="44.0" y2="12.0"/><line x1="44.0" y1="12.0" x2="71.2" y2="44.0"/><line x1="71.2" y1="44.0" x2="95.2" y2="18.4"/><line x1="95.2" y1="18.4" x2="95.2" y2="69.6"/><line x1="95.2" y1="69.6" x2="71.2" y2="44.0"/><line x1="71.2" y1="44.0" x2="44.0" y2="76.0"/><line x1="44.0" y1="76.0" x2="12.0" y2="44.0"/><circle cx="12.0" cy="44.0" r="6"/><circle cx="44.0" cy="12.0" r="6"/><circle class="re" cx="71.2" cy="44.0" r="9"/><circle cx="44.0" cy="76.0" r="6"/><circle cx="95.2" cy="18.4" r="6"/><circle cx="95.2" cy="69.6" r="6"/></svg><p><b>1번</b><strong>보통 · 38개</strong><span>예: 물고기</span></p></li>
+          <li><svg class="c-level" viewBox="0 0 94 126" role="img" aria-label="연 레벨의 선과 접시"><line x1="47.2" y1="12.0" x2="12.0" y2="63.2"/><line x1="12.0" y1="63.2" x2="47.2" y2="114.4"/><line x1="47.2" y1="114.4" x2="82.4" y2="63.2"/><line x1="82.4" y1="63.2" x2="47.2" y2="12.0"/><line x1="47.2" y1="12.0" x2="47.2" y2="114.4"/><circle class="re" cx="47.2" cy="12.0" r="9"/><circle cx="12.0" cy="63.2" r="6"/><circle cx="82.4" cy="63.2" r="6"/><circle class="re" cx="47.2" cy="114.4" r="9"/></svg><p><b>2번 이상</b><strong>어려움 · 90개</strong><span>예: 연 (예전 점수로는 낮은 편)</span></p></li>
+        </ul>
+        <p class="note e-key">초록 접시 = 이미 지나갔는데 다시 지나야 하는 접시</p>
+      </div>
+    </div>
   </div>
 </section>
 

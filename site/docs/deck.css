@@ -238,8 +238,8 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 .a-loop li:last-child { border-bottom: 0; }
 .a-loop b { flex: none; width: 2.6em; font-size: 1.6em; font-weight: 800; color: var(--accent); }
 .a-loop span { font-size: 1.15em; }
-.a-loop::after { content: "↻"; position: absolute; right: -2.9em; top: 8%; bottom: 8%; width: 2em; display: flex; align-items: center; justify-content: flex-end; padding-right: .1em; border: .15em solid var(--accent); border-left: 0; border-radius: 0 1em 1em 0; color: var(--accent); font-size: 1.6em; font-weight: 800; }
-.a-loop::before { content: "◀"; position: absolute; right: -3.3em; top: 8%; transform: translateY(-50%); color: var(--accent); font-size: .9em; }
+.a-loop::after { content: ""; position: absolute; right: -3em; top: 10%; bottom: 10%; width: 2.2em; border: .16em solid var(--accent); border-left: 0; border-radius: 0 1.1em 1.1em 0; }
+.a-loop::before { content: ""; position: absolute; right: -.95em; top: 10%; transform: translateY(calc(-50% + .08em)); border-style: solid; border-width: .5em .8em .5em 0; border-color: transparent var(--accent) transparent transparent; }  /* arrowhead: the last step goes back to the first */
 
 /* 5 and 6: phones with the points */
 .a-duo { align-self: stretch; min-height: 0; display: flex; align-items: center; gap: 1.6em; }
@@ -450,4 +450,141 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .c-two { flex-direction: column; gap: 28px; }
   .c-two > li, .c-two > li:first-child, .c-two > li:last-child { padding: 0 0 0 16px; border-left: 3px solid var(--edge); }
   .c-row.c-pick { font-size: 1.15em; }
+}
+
+/* Deck v2 replacement slides (zzukzzuk-nyang/deck-d.html). Classes start with d-; sizes in em of the stage. */
+.d-dense .stage { padding: 2em 3em 1.6em; }
+.d-dense .body { margin-top: 1em; }
+.d-note { margin-top: .6em; }
+
+/* A: three hint stops, time passes left to right along a line */
+.d-steps { flex-direction: row; justify-content: flex-start; gap: 1.6em; }
+.d-steps li { flex: 1; min-width: 0; }
+.d-when { position: relative; display: flex; align-items: baseline; gap: .6em; padding-bottom: .45em; white-space: nowrap; }
+.d-when::after { content: ""; position: absolute; left: 0; right: -1.6em; bottom: 0; height: .14em; background: var(--accent); }  /* stuck time passing */
+.d-steps li:last-child .d-when::after { right: 0; }
+.d-steps li:not(:last-child) .d-when::before { content: ""; position: absolute; right: -1.6em; bottom: -.22em; width: .55em; height: .55em; border: .14em solid var(--accent); border-left: 0; border-bottom: 0; transform: rotate(45deg); }
+.d-time { font-size: 2.1em; font-weight: 800; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.d-time small { font-size: .5em; margin-left: .1em; }
+.d-when strong { font-size: 1.1em; }
+.d-what { margin-top: .5em; font-size: 1.05em; color: var(--muted); }
+.d-steps .a-phone { margin-top: .6em; height: 11em; }
+
+/* B: five rows, step beside its pass criterion */
+.d-pipe { justify-content: flex-start; }
+.d-head, .d-pipe li { display: grid; grid-template-columns: 15em 1fr 5.5em; align-items: center; column-gap: 1.2em; }
+.d-head { padding: 0 0 .3em 3em; font-weight: 700; color: var(--accent); }
+.d-pipe ol { border-top: 1px solid var(--edge); }
+.d-pipe li { position: relative; padding: .45em 0 .45em 3em; border-bottom: 1px solid var(--line); }
+.d-n { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 1.3em; font-weight: 800; display: grid; place-items: center; }
+.d-pipe strong { font-size: 1.3em; line-height: 1.25; }
+.d-pipe li > span { font-size: 1.15em; line-height: 1.35; }
+.d-pipe em { font-style: normal; font-weight: 800; color: var(--accent); }
+.d-pipe li:last-child { border-bottom-color: var(--accent); }
+
+/* C: tool screenshot is the hero */
+.d-dense .d-tool { padding-top: 1.2em; padding-bottom: 1.2em; }
+.d-tool { flex-direction: row; align-items: center; gap: 2.2em; }
+.d-shot { flex: 0 0 56%; }
+.d-shot img { width: 100%; height: auto; border: 1px solid var(--edge); border-radius: .7em; }
+.d-why { flex: 1; min-width: 0; }
+.d-why h2 { font-size: 1.5em; }
+.d-why dl { margin: .8em 0 0; display: grid; gap: .5em; }
+.d-why dt { font-size: .95em; font-weight: 800; color: var(--accent); }
+.d-why dd { margin: .05em 0 0; font-size: 1.05em; line-height: 1.4; font-weight: 700; text-wrap: pretty; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .d-dense .stage { padding: 0; }
+  .d-steps { flex-direction: column; gap: 28px; }
+  .d-when { white-space: normal; flex-wrap: wrap; }
+  .d-when::after, .d-when::before { display: none; }
+  .d-steps .a-phone { height: auto; width: 46%; }
+  .d-head { display: none; }
+  .d-pipe li { grid-template-columns: 1fr; row-gap: 2px; padding: 12px 0 12px 44px; }
+  .d-pipe strong { font-size: 1.2em; }
+  .d-tool { flex-direction: column-reverse; align-items: stretch; gap: 24px; }
+  .d-shot { flex: none; }
+  .d-why h2 { font-size: 1.6em; }
+  .d-why dd { font-size: 1.0625em; }
+  .d-note { font-size: .95em; }
+}
+
+/* Deck v2 replacement slides (zzukzzuk-nyang/deck-e.html). Classes start with e-. */
+.e-dense .stage { padding: 2em 3em 1.6em; }
+.e-dense .body { margin-top: 1em; }
+.e-dense h2 { font-size: 1.9em; }
+
+/* A: the bar on the left, four send-backs on the right (the hero) */
+.e-lead { flex: 1; min-height: 0; display: flex; align-items: center; gap: 2.5em; }
+.e-bar { flex: 0 0 14em; align-self: flex-start; padding-top: .3em; }
+.e-bar h3, .e-back h3 { font-size: 1.05em; font-weight: 800; color: var(--accent); margin-bottom: .6em; }
+.e-bar ol { display: grid; gap: .8em; counter-reset: n; }
+.e-bar li { counter-increment: n; display: flex; gap: .5em; font-size: 1.1em; color: var(--muted); line-height: 1.4; text-wrap: balance; }
+.e-bar li::before { content: counter(n) "."; flex: none; color: var(--accent); font-weight: 800; }
+.e-back { flex: 1; min-width: 0; padding-left: 2.5em; border-left: 1px solid var(--edge); }
+.e-back ul { display: grid; }
+.e-back li { padding: .35em 0; border-bottom: 1px solid var(--line); }
+.e-back li:first-child { border-top: 1px solid var(--line); }
+.e-ai { display: block; font-size: 1.05em; color: var(--muted); }
+.e-me { display: block; font-size: 1.3em; font-weight: 800; line-height: 1.35; color: #fff; text-wrap: pretty; }
+.e-me::before { content: "→ "; color: var(--accent); }
+.e-line { margin-top: .5em; padding-top: .5em; border-top: 1px solid var(--edge); font-size: 1.35em; font-weight: 800; color: var(--accent); }
+
+/* B: three-column table, middle column is the point */
+.e-table { width: 100%; border-collapse: collapse; table-layout: fixed; text-align: left; }
+.e-table th { padding: 0 1em .5em 0; font-size: 1em; font-weight: 800; color: var(--muted); border-bottom: 1px solid var(--edge); }
+.e-table th:nth-child(2) { color: var(--accent); }
+.e-table td { padding: .55em 1.2em .55em 0; vertical-align: middle; border-bottom: 1px solid var(--line); font-size: 1.05em; color: var(--muted); line-height: 1.4; }
+.e-table td:nth-child(1) { font-weight: 700; color: var(--text); }
+.e-table td:nth-child(2) { font-size: 1.15em; font-weight: 800; color: #fff; }
+.e-table td:nth-child(3) { padding-right: 0; }
+.e-table col:nth-child(1) { width: 27%; }
+.e-table col:nth-child(2) { width: 40%; }
+.e-table col:nth-child(3) { width: 33%; }
+
+/* C: thinking steps on the left, three real levels on the right */
+.e-think { flex-direction: row; align-items: stretch; gap: 3em; }
+.e-steps { flex: 1.2; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; counter-reset: n; }
+.e-steps li { counter-increment: n; position: relative; padding: .3em 0 .3em 1.9em; display: grid; grid-template-columns: 4.6em 1fr; gap: .8em; align-items: baseline; border-bottom: 1px solid var(--line); }
+.e-steps li::before { content: counter(n); position: absolute; left: 0; top: .22em; font-size: 1.3em; font-weight: 800; color: var(--accent); }
+.e-steps b { font-size: 1em; font-weight: 800; color: var(--accent); white-space: nowrap; }
+.e-steps span { font-size: 1.05em; color: var(--muted); line-height: 1.4; text-wrap: pretty; }
+.e-steps .e-quote span { font-size: 1.25em; font-weight: 800; color: #fff; }
+.e-steps .e-decide { padding: .45em .8em .45em 2.6em; margin-left: -.7em; grid-template-columns: 4.6em 1fr; border-radius: .5em; background: var(--accent); border-bottom: 0; }
+.e-steps .e-decide::before { left: .7em; }
+.e-steps .e-decide::before, .e-steps .e-decide b { color: var(--accent-ink); }
+.e-steps .e-decide span { font-size: 1.2em; font-weight: 800; color: var(--accent-ink); }
+.e-result { flex: 1; min-width: 0; padding-left: 3em; border-left: 1px solid var(--edge); display: flex; flex-direction: column; justify-content: space-between; }
+.e-levels { display: flex; flex-direction: column; gap: 1.1em; margin: auto 0; }
+.e-result li { display: flex; align-items: center; gap: 1.2em; }
+.e-result .c-level { width: 4.6em; height: 5em; }
+.e-result b { display: block; font-size: 2em; font-weight: 800; line-height: 1.1; color: var(--accent); white-space: nowrap; }
+.e-result strong { display: block; margin-top: .1em; font-size: 1.2em; white-space: nowrap; }
+.e-result span { display: block; font-size: 1em; color: var(--muted); }
+.e-key { margin-top: .5em; padding-bottom: .2em; }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .e-dense .stage { padding: 0; }
+  .e-dense .body { margin-top: 1.4em; }
+  .e-dense h2 { font-size: 1.6em; }
+  .e-lead { display: block; }
+  .e-bar { margin-bottom: 24px; }
+  .e-key { font-size: 1.0625em; }
+  .e-think { flex-direction: column; gap: 24px; }
+  .e-bar { flex: none; }
+  .e-back, .e-result { padding: 0 0 0 16px; border-left: 3px solid var(--edge); }
+  .e-me { font-size: 1.2em; }
+  .e-line { font-size: 1.2em; margin-top: 16px; }
+  .e-table, .e-table tbody, .e-table tr, .e-table td { display: block; width: 100%; }
+  .e-table thead { display: none; }
+  .e-table tr { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .e-table td { padding: 2px 0; border: 0; }
+  .e-table td:nth-child(2) { font-size: 1.15em; }
+  .e-steps { gap: 12px; }
+  .e-steps .e-decide { margin-left: 0; }
+  .e-levels { gap: 20px; }
+  .e-steps li { grid-template-columns: 1fr; gap: 0; }
+  .e-result { gap: 20px; }
+  .e-result .c-level { width: 80px; height: 88px; }
+  .e-result b { font-size: 1.7em; }
 }
