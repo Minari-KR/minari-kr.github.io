@@ -12,13 +12,6 @@ window.GAMES = [
     video: '',
   },
   {
-    title: 'ERZZ',
-    genre: '3인칭 액션',
-    thumb: 'thumbs/erzz.webp',
-    play: 'games/erzz/index.html',
-    video: '',
-  },
-  {
     title: '쭉쭉냥 : 고양이 퍼즐',
     genre: '퍼즐',
     thumb: 'thumbs/zzukzzuk-nyang.webp',
