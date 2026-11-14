@@ -8,11 +8,65 @@ const version = new URL(document.currentScript.src).searchParams.get('v'); // se
 const isMp4 = (src) => /\.mp4($|\?)/i.test(src);
 const isExternal = (src) => /^https:\/\//i.test(src);
 
-function button(label, cls) {
+// --- Popups ---------------------------------------------------------------------------------------------------
+
+// Back closes an open popup instead of leaving the site (on a phone the popup is the whole screen).
+let backCloses = false;
+function show(dialog) {
+  dialog.showModal();
+  history.pushState(null, '');
+  backCloses = true;
+}
+addEventListener('popstate', () => {
+  backCloses = false;
+  for (const d of [player, gameDialog]) if (d.open) d.close();
+  setFrame('about:blank'); // Forward must not bring a closed game back to life behind the page
+});
+
+// location.replace keeps the frame's pages out of browser history: with a plain .src, Back after closing
+// reloaded the closed game inside the hidden frame, sound included.
+function setFrame(src) {
+  gameFrame.contentWindow.location.replace(new URL(src, location.href).href);
+}
+
+// One frame shows games, documents and the workflow picture.
+function openFrame(title, src) {
+  gameFrame.title = title;
+  setFrame(src);
+  show(gameDialog);
+}
+
+// Close: × button, a click outside, Back, or Esc (built into <dialog>).
+for (const d of [player, gameDialog]) {
+  d.querySelector('.close').addEventListener('click', () => d.close());
+  d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+  d.addEventListener('close', () => {
+    if (backCloses) { backCloses = false; history.back(); } // drop the entry show() added
+  });
+}
+player.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.load(); });
+gameDialog.addEventListener('close', () => setFrame('about:blank')); // stop the game and its sound
+gameFrame.addEventListener('load', () => gameFrame.focus()); // keys go to the game right away
+
+// --- Cards ----------------------------------------------------------------------------------------------------
+
+function button(label, cls, href, name) {
   const b = document.createElement('a');
   b.className = `btn ${cls}`;
   b.textContent = label;
+  b.href = href;
+  b.setAttribute('aria-label', name);
   return b;
+}
+
+function newTab(a) {
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.setAttribute('aria-label', `${a.getAttribute('aria-label')} (새 탭)`);
+}
+
+function onClick(a, run) {
+  a.addEventListener('click', (e) => { e.preventDefault(); run(); });
 }
 
 function card(game) {
@@ -40,56 +94,36 @@ function card(game) {
   actions.className = 'actions';
 
   if (game.play) {
-    const play = button('플레이', 'primary');
-    play.href = game.play;
-    play.setAttribute('aria-label', `${game.title} 플레이`);
-    play.addEventListener('click', (e) => {
-      e.preventDefault();
+    const play = button('플레이', 'primary', game.play, `${game.title} 플레이`);
+    onClick(play, () => {
       prefetchStop.abort(); // give the whole connection to this game
-      gameFrame.title = game.title;
-      gameFrame.src = game.play;
-      gameDialog.showModal();
+      openFrame(game.title, game.play);
     });
     actions.append(play);
   }
   if (game.video) {
-    const vid = button('영상', 'ghost');
-    vid.href = game.video;
-    vid.setAttribute('aria-label', `${game.title} 영상`);
+    const vid = button('영상', 'ghost', game.video, `${game.title} 영상`);
     if (isMp4(game.video)) {
-      vid.addEventListener('click', (e) => {
-        e.preventDefault();
+      onClick(vid, () => {
         video.src = game.video;
         video.volume = 0.4; // same default as the games (volume.js)
-        player.showModal();
+        show(player);
         video.play().catch(() => {});
       });
-    } else if (isExternal(game.video)) {
-      vid.target = '_blank';
-      vid.rel = 'noopener noreferrer';
-    }
+    } else if (isExternal(game.video)) newTab(vid);
     actions.append(vid);
   }
-
   body.append(genre, title, actions);
+
   if (game.links?.length) { // documents: site pages (docs/...) open in the popup, https links in a new tab
     const docs = document.createElement('div');
     docs.className = 'actions docs';
     for (const { label, url } of game.links) {
-      const a = button(label, 'ghost');
-      a.href = url;
-      if (isExternal(url)) {
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.setAttribute('aria-label', `${game.title} ${label} (새 탭)`);
-      } else if (/^docs\/[\w./-]+\.html$/.test(url)) {
-        a.setAttribute('aria-label', `${game.title} ${label}`);
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          gameFrame.title = `${game.title} ${label}`;
-          gameFrame.src = version ? `${url}?v=${version}` : url; // same ?v= as this script, so an updated doc is never stale
-          gameDialog.showModal();
-        });
+      const a = button(label, 'ghost', url, `${game.title} ${label}`);
+      if (isExternal(url)) newTab(a);
+      else if (/^docs\/[\w./-]+\.html$/.test(url)) {
+        // same ?v= as this script, so an updated doc is never stale
+        onClick(a, () => openFrame(`${game.title} ${label}`, version ? `${url}?v=${version}` : url));
       } else continue;
       docs.append(a);
     }
@@ -102,12 +136,8 @@ function card(game) {
 grid.append(...window.GAMES.map(card));
 
 // The workflow picture opens full size in the same popup (its words are small on a phone).
-document.querySelector('.workflow-link')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  gameFrame.title = 'AI Workflow';
-  gameFrame.src = e.currentTarget.getAttribute('href');
-  gameDialog.showModal();
-});
+const workflow = document.querySelector('.workflow-link');
+onClick(workflow, () => openFrame('AI Workflow', workflow.getAttribute('href')));
 
 // Unity web builds cannot load from file:// — send the visitor to the published site.
 if (location.protocol === 'file:') {
@@ -116,6 +146,8 @@ if (location.protocol === 'file:') {
   note.textContent = '게임은 파일로 직접 열면 실행되지 않습니다. https://minari-kr.github.io/ 에서 열어 주세요.';
   document.querySelector('main').prepend(note);
 }
+
+// --- Prefetch -------------------------------------------------------------------------------------------------
 
 // Warm the browser cache with each web build while the visitor browses, so pressing 플레이 loads
 // from disk. One file at a time, in list order, and it stops as soon as a game is opened:
@@ -138,15 +170,4 @@ async function prefetchBuilds() {
 }
 // ~200 MB in total: skip on phones/tablets and data-saver connections.
 const skipPrefetch = navigator.connection?.saveData || matchMedia('(pointer: coarse)').matches;
-if (skipPrefetch) { /* games load on demand */ }
-else if ('requestIdleCallback' in window) requestIdleCallback(prefetchBuilds);
-else addEventListener('load', prefetchBuilds);
-
-// Close the popup: × button, a click outside the video, or Esc (built into <dialog>).
-for (const d of [player, gameDialog]) {
-  d.querySelector('.close').addEventListener('click', () => d.close());
-  d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
-}
-player.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.load(); });
-gameFrame.addEventListener('load', () => gameFrame.focus()); // keys go to the game right away
-gameDialog.addEventListener('close', () => { gameFrame.src = 'about:blank'; }); // stop the game and its sound
+if (!skipPrefetch) addEventListener('load', prefetchBuilds);

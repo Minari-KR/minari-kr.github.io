@@ -17,6 +17,8 @@ jobs:
           persist-credentials: false
       - name: Check the gallery scripts parse
         run: for f in site/app.js site/games.js; do node --check "$f"; done
+      - name: Check local links in the gallery and document pages
+        run: python3 tools/check-links.py
       # A new ?v= whenever the gallery or its document pages change, so browsers never keep an old copy (Pages caches
       # 10 min). app.js passes the same ?v= on to the document pages it opens; they pass it to doc.css.
       - name: Version the gallery's script, style and document links

@@ -2,7 +2,7 @@
 
 > **쭉쭉냥 : 고양이 퍼즐**은 제가 AI와 함께 기획부터 개발, Google Play 출시(`com.minari.zzukzzuknyang`)까지 해낸 게임입니다.
 > 이 문서는 그렇게 만든 게임을 **AI가 그대로 다시 만들 수 있도록** 정리한 제작 프롬프트입니다. 아래 내용을 통째로 AI에게 주면 같은 규칙, 같은 숫자, 같은 화면의 게임이 나오도록 실제 게임의 코드와 데이터에서 값을 그대로 옮겨 적었습니다.
-> 함께 주는 자료: 리소스 목록 [`zzukzzuk-nyang-resources.xlsx`](zzukzzuk-nyang-resources.xlsx), 레벨 데이터 [`data/`](data/), 그림 [`images/`](images/). 기준 버전: 1.1.1(Android 버전 코드 4), Unity 6000.5.6f1, URP 17.5.0.
+> 함께 주는 자료: [리소스 목록](zzukzzuk-nyang-resources.html), 레벨 데이터 [`data/levels.json`](data/levels.json)·[레벨 표](data/level_table.md), 그림 `images/`. 기준 버전: 1.1.1(Android 버전 코드 4), Unity 6000.5.6f1, URP 17.5.0.
 
 ## 프롬프트
 
