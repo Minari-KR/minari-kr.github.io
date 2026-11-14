@@ -23,13 +23,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.top, main {
+main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-.top { padding-top: 48px; padding-bottom: 32px; }
+main { padding-top: 48px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 h1 {
   margin: 0;
@@ -149,8 +150,7 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
 }
 
 @media (max-width: 640px) {
-  .top, main { padding-left: 16px; padding-right: 16px; }
-  .top { padding-top: 32px; padding-bottom: 24px; }
+  main { padding-left: 16px; padding-right: 16px; padding-top: 32px; }
   .grid { gap: 16px; }
 }
 

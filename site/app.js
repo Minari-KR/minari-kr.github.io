@@ -104,7 +104,7 @@ grid.append(...window.GAMES.map(card));
 // The workflow picture opens full size in the same popup (its words are small on a phone).
 document.querySelector('.workflow-link')?.addEventListener('click', (e) => {
   e.preventDefault();
-  gameFrame.title = 'AI 작업 워크플로우';
+  gameFrame.title = 'AI Workflow';
   gameFrame.src = e.currentTarget.getAttribute('href');
   gameDialog.showModal();
 });
@@ -114,7 +114,7 @@ if (location.protocol === 'file:') {
   const note = document.createElement('p');
   note.className = 'notice';
   note.textContent = '게임은 파일로 직접 열면 실행되지 않습니다. https://minari-kr.github.io/ 에서 열어 주세요.';
-  document.querySelector('.top').append(note);
+  document.querySelector('main').prepend(note);
 }
 
 // Warm the browser cache with each web build while the visitor browses, so pressing 플레이 loads
