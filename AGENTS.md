@@ -21,14 +21,14 @@
 | `site/games.js` | **게임 목록.** 게임을 넣고 빼고 고치는 곳은 여기 하나입니다 |
 | `site/thumbs/` | 카드 썸네일(640×360 WebP) |
 | `site/games/<slug>/` | Unity 웹 빌드(Chicken Fire·ERZZ·쭉쭉냥·Rio Idle) |
-| `site/docs/<게임>/` | 게임 문서. 쭉쭉냥: 제작 프롬프트 `game-design.md`(AI에게 주는 지시문 + 게임 명세)(그림 `images/`, 레벨 데이터 `data/`)와 리소스 목록 `zzukzzuk-nyang-resources.xlsx`. 원본(.md·.xlsx)을 고친 뒤 `python -I tools/make-docs.py site/docs/zzukzzuk-nyang`로 같은 이름의 `.html`을 다시 만들고 함께 커밋합니다(엑셀 그림은 `<이름>-img/`). 카드의 `links` 버튼이 이 `.html`을 게임과 같은 팝업에서 엽니다. 쭉쭉냥 원본 저장소가 비공개라 원본 코드는 넣지 않습니다(사용자 결정) |
+| `site/docs/<게임>/` | 게임 문서. 쭉쭉냥: 게임 기획서 `gdd.md`(무엇을 왜 그렇게 설계했는지: 기둥·코어 루프·퍼즐 설계·난이도 곡선 등, 외부 스킬 BMAD `gds-create-gdd` 틀, 카드의 '기획서' 버튼), 구현 값을 적은 제작 명세 `game-design.md`(기획서 안 링크로만 들어감)(그림 `images/`, 레벨 데이터 `data/`)와 리소스 목록 `zzukzzuk-nyang-resources.xlsx`. 원본(.md·.xlsx)을 고친 뒤 `python -I tools/make-docs.py site/docs/zzukzzuk-nyang`로 같은 이름의 `.html`을 다시 만들고 함께 커밋합니다(엑셀 그림은 `<이름>-img/`). 카드의 `links` 버튼이 이 `.html`을 게임과 같은 팝업에서 엽니다. 쭉쭉냥 원본 저장소가 비공개라 원본 코드는 넣지 않습니다(사용자 결정) |
 | `site/docs/doc.css` | 문서 페이지의 어두운 디자인(모든 게임 문서가 같이 씀) |
 | `tools/make-docs.py` | 문서 변환 도구(Python, python-markdown·openpyxl·Pillow 필요). 사이트에는 안 올라감 |
 | `.github/workflows/check.yml` | `main`에 올리면 스크립트 문법을 확인하고 `site/`를 GitHub Pages에 배포 |
 
 ## 게임 목록 고치기 (`site/games.js`)
 
-- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, https 주소는 새 탭으로 엶; 지금은 쭉쭉냥의 기획서·리소스 문서), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
+- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, https 주소는 새 탭으로 엶; 지금은 쭉쭉냥의 기획서(`gdd.html`)·리소스 문서), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
 - 목록 순서가 화면의 카드 순서입니다.
 
 ## 게임 빌드 기준
