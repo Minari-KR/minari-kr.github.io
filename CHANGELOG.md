@@ -2,6 +2,12 @@
 
 최신 항목이 위에 옵니다. 2026-11-14 이전(포트폴리오 시절) 기록은 바탕화면 `Minari-포트폴리오\CHANGELOG.md`와 Git 기록(커밋 `98ed65a`까지)에 있습니다.
 
+## 지금 상황 (2026-11-14)
+
+- 공개 사이트 `https://minari-kr.github.io/`: Awards → Games Made with AI(Chicken Fire·쭉쭉냥·Rio Simulation) → AI Workflow. 올리지 않은 변경 없음.
+- 사용자 답을 기다리는 것: (1) 보조 버튼 색 시안 A 회색 채움 / B 초록 선(추천) / C 옅은 초록 채움 중 고르기 → 고르면 버튼을 바꾸고 색 팔레트 표를 `AGENTS.md`에 정리. 지금 보조 버튼 테두리 대비는 1.25:1. (2) Chicken Fire 치킨통 라벨(실제 브랜드 로고를 본뜬 그림)을 바꿀지. (3) Chicken Fire 기획서의 '(의도 기록 없음)' 27곳에 넣을 설계 의도.
+- 설치 여부를 물어 둔 스킬: `im-not-ai`(한국어 윤문, 임시 폴더에서만 씀), BMAD `gds-create-gdd`(기획서 틀만 읽어 씀).
+
 ## 2026-11-14 — 포트폴리오를 AI Game Gallery로 교체 (Claude)
 
 - 요청: 기존 포트폴리오는 바탕화면으로 옮기고, 사이트를 AI Game Gallery로 대체.
