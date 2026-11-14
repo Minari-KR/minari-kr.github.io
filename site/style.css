@@ -75,7 +75,8 @@ main {
 h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 
 .actions { display: flex; gap: 8px; margin-top: auto; padding-top: 16px; }
-.docs { margin-top: 0; padding-top: 8px; }
+.docs { margin-top: 0; padding-top: 8px; flex-wrap: wrap; }
+.docs .btn { flex: 1 1 auto; padding: 0 8px; font-size: .875rem; white-space: nowrap; }  /* three labels on one line; a fourth wraps to a new row */
 
 .btn {
   flex: 1;

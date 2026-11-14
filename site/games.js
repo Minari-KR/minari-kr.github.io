@@ -27,6 +27,7 @@ window.GAMES = [
     links: [
       { label: '기획서', url: 'docs/zzukzzuk-nyang/gdd.html' },
       { label: '리소스 문서', url: 'docs/zzukzzuk-nyang/zzukzzuk-nyang-resources.html' },
+      { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang' },
     ],
   },
   {

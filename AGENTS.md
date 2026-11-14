@@ -31,7 +31,7 @@
 
 ## 게임 목록 고치기 (`site/games.js`)
 
-- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, https 주소는 새 탭으로 엶; 지금은 쭉쭉냥의 기획서(`gdd.html`)·리소스 문서), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
+- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, https 주소는 새 탭으로 엶; 지금은 쭉쭉냥의 기획서(`gdd.html`)·리소스 문서·Google Play), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
 - 목록 순서가 화면의 카드 순서입니다.
 
 ## 게임 빌드 기준
