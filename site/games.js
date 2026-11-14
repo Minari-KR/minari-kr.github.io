@@ -2,7 +2,8 @@
 // thumb: picture in thumbs/ (16:9 is best)
 // play:  a game folder's index.html (e.g. 'games/my-game/index.html') or an https link; '' hides the button
 // video: an .mp4 in videos/ (plays in a popup) or an https link (opens a new tab); '' hides the button
-// links: optional [{ label, url }] document buttons: a page under docs/ (.html) opens in the popup, an https link in a new tab
+// links: optional [{ label, url }] buttons: a page under docs/ (.html) opens in the popup, a YouTube link plays in the video popup,
+//        any other https link opens a new tab
 window.GAMES = [
   {
     title: 'Chicken Fire',
@@ -23,6 +24,7 @@ window.GAMES = [
     links: [
       { label: '기획서', url: 'docs/zzukzzuk-nyang/deck.html' },
       { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang' },
+      { label: '영상', url: 'https://www.youtube.com/watch?v=BGQOpXTESr8' },
     ],
   },
   {

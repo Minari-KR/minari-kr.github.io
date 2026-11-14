@@ -34,7 +34,7 @@
 
 ## 게임 목록 고치기 (`site/games.js`)
 
-- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, https 주소는 새 탭으로 엶; 지금은 Chicken Fire의 기획서, 쭉쭉냥의 기획서(슬라이드 `deck.html`)·Google Play. 리소스 문서 버튼은 2026-11-14 사용자 요청으로 뺌(페이지 파일은 남아 있고 글 기획서 안 링크로만 열림)), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
+- 항목: `links`(선택, `[{ label, url }]` 문서 버튼 줄; `docs/…/….html`은 팝업으로, YouTube 주소는 영상 팝업에서 바로 재생(`youtube-nocookie.com`, 갤러리 CSP에 허용), 다른 https 주소는 새 탭으로 엶; 버튼은 파스텔 색(문서 라벤더 `.doc`, 바깥 링크 하늘 `.store`, 영상 분홍 `.video`); 지금은 Chicken Fire의 기획서, 쭉쭉냥의 기획서(슬라이드 `deck.html`)·Google Play·영상. 리소스 문서 버튼은 2026-11-14 사용자 요청으로 뺌(페이지 파일은 남아 있고 글 기획서 안 링크로만 열림)), `title`(제목), `genre`(장르), `thumb`(썸네일), `play`(게임 `games/<slug>/index.html`, 비우면 플레이 버튼 숨김), `video`(YouTube 주소는 새 탭, `.mp4`는 팝업 재생, 비우면 영상 버튼 숨김).
 - 목록 순서가 화면의 카드 순서입니다.
 
 ## 게임 빌드 기준

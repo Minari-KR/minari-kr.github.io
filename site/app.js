@@ -44,7 +44,25 @@ for (const d of [player, gameDialog]) {
     if (backCloses) { backCloses = false; history.back(); } // drop the entry show() added
   });
 }
-player.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.load(); });
+player.addEventListener('close', () => {
+  video.pause(); video.removeAttribute('src'); video.load();
+  player.querySelector('iframe')?.remove(); // stops a YouTube video
+  video.hidden = false;
+});
+
+const youTubeId = (url) => /^https:\/\/(?:www\.)?(?:youtube\.com\/watch\?(?:.*&)?v=|youtu\.be\/)([\w-]{11})/i.exec(url)?.[1];
+
+// A fresh iframe per video: a new frame's first page adds no browser history entry.
+function playYouTube(id) {
+  const f = document.createElement('iframe');
+  f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+  f.title = '영상';
+  f.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+  f.referrerPolicy = 'strict-origin-when-cross-origin'; // YouTube refuses embeds sent with no referrer (error 153), and this page sends none
+  video.hidden = true;
+  player.append(f);
+  show(player);
+}
 gameDialog.addEventListener('close', () => setFrame('about:blank')); // stop the game and its sound
 gameFrame.addEventListener('load', () => gameFrame.focus()); // keys go to the game right away
 
@@ -115,12 +133,14 @@ function card(game) {
   }
   body.append(genre, title, actions);
 
-  if (game.links?.length) { // documents: site pages (docs/...) open in the popup, https links in a new tab
+  if (game.links?.length) { // site pages (docs/...) open in the popup, YouTube in the video popup, other https links in a new tab
     const docs = document.createElement('div');
     docs.className = 'actions docs';
     for (const { label, url } of game.links) {
-      const a = button(label, 'ghost', url, `${game.title} ${label}`);
-      if (isExternal(url)) newTab(a);
+      const yt = youTubeId(url);
+      const a = button(label, yt ? 'tint video' : isExternal(url) ? 'tint store' : 'tint doc', url, `${game.title} ${label}`);
+      if (yt) onClick(a, () => playYouTube(yt));
+      else if (isExternal(url)) newTab(a);
       else if (/^docs\/[\w./-]+\.html$/.test(url)) {
         // same ?v= as this script, so an updated doc is never stale
         onClick(a, () => openFrame(`${game.title} ${label}`, version ? `${url}?v=${version}` : url));

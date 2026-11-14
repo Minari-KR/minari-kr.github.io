@@ -99,6 +99,13 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .ghost { border: 1px solid var(--line); color: var(--text); }
 .ghost:hover { border-color: var(--muted); }
 
+/* document row: pastel fills so the buttons stand out from the dark card */
+.tint { color: #1c1a24; }
+.tint:hover { filter: brightness(1.08); }
+.doc { background: #cdbff5; }    /* lavender */
+.store { background: #abd5f4; }  /* sky */
+.video { background: #f6bccb; }  /* pink */
+
 .empty { color: var(--muted); }
 
 .notice {
@@ -121,6 +128,8 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 
 .player::backdrop { background: rgba(8, 9, 11, .85); }
 .player video { width: 100%; display: block; border-radius: var(--radius); }
+.player video[hidden] { display: none; }
+.player iframe { width: 100%; aspect-ratio: 16 / 9; max-height: 100%; border: 0; display: block; border-radius: var(--radius); }
 
 .game {
   width: 94vw;
@@ -152,7 +161,7 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
   /* Phone: popups use the whole screen; the close button sits inside, top right, clear of the notch */
   .player { width: 100vw; max-width: 100vw; margin: auto 0; border-radius: 0; }
   .game { height: 100dvh; max-height: 100dvh; margin: 0; }
-  .game iframe, .player video { border-radius: 0; }
+  .game iframe, .player video, .player iframe { border-radius: 0; }
   .close {
     top: calc(8px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); z-index: 1;
     background: rgba(31, 34, 40, .9); box-shadow: 0 0 0 1px var(--line);
