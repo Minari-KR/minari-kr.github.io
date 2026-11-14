@@ -155,6 +155,22 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 @media (max-width: 640px) {
   main { padding-left: 16px; padding-right: 16px; padding-top: 32px; }
   .grid { gap: 16px; }
+
+  /* Phone: popups use the whole screen; the close button sits inside, top right, clear of the notch */
+  .game, .player:not(.game) { width: 100vw; max-width: 100vw; margin: 0; border-radius: 0; }
+  .game { height: 100dvh; max-height: 100dvh; }
+  .player:not(.game) { margin: auto 0; }
+  .game iframe, .player video { border-radius: 0; }
+  .close {
+    top: calc(8px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); z-index: 1;
+    background: rgba(31, 34, 40, .9); box-shadow: 0 0 0 1px var(--line);
+  }
+
+  /* the workflow picture is too small to read inline on a phone; say it opens large */
+  .workflow-link::after {
+    content: "눌러서 크게 보기"; display: block; padding: 10px 0 12px; text-align: center;
+    font-size: .75rem; color: var(--muted); background: var(--surface);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

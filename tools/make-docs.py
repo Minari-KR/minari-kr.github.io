@@ -64,8 +64,11 @@ def md_page(src, css):
     body = re.sub(r"<table>(\s*<thead>\s*<tr>(.*?)</tr>)",
                   lambda m: '<table class="dense">' + m[1] if m[2].count("<th") >= 5 else m[0], body, flags=re.S)
     nav = re.search(r'<nav class="toc".*?</nav>\n', body, flags=re.S)
-    if nav:  # nav first, then every other part of the page in one column (see .content in doc.css)
-        body = nav.group(0) + '<div class="content">\n' + body.replace(nav.group(0), '') + '</div>'
+    if nav:  # title, then nav, then the rest in one column; on a PC doc.css puts the nav beside them (grid)
+        rest = body.replace(nav.group(0), '')
+        h1 = re.search(r'<h1[^>]*>.*?</h1>\n?', rest, flags=re.S)
+        head = h1.group(0) if h1 else ''
+        body = head + nav.group(0) + '<div class="content">\n' + rest.replace(head, '', 1) + '</div>'
     title = re.search(r"^# (.+)$", text, re.M)
     return page(title.group(1) if title else src.stem, body, css)
 
