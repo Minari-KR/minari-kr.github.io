@@ -550,6 +550,19 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
 .e-result span { display: block; font-size: 1em; color: var(--muted); }
 .e-key { margin-top: .5em; padding-bottom: .2em; }
 
+/* Prompt slides (both decks): the e-think steps on the left, the real pictures on the right. Classes start with r-. */
+.e-steps .r-q { display: block; margin-top: .25em; font: 500 .9em/1.35 ui-monospace, Consolas, monospace; color: var(--text); quotes: none; word-break: normal; }
+.r-think { gap: 2em; }
+.r-think .e-steps { flex: 1.5; }
+.r-think .e-result { padding-left: 2em; }
+.r-shots { justify-content: center; align-items: center; gap: .7em; }
+.r-shots img { width: auto; border-radius: .5em; }
+.r-wide img { height: 10.5em; }
+.r-paper img { height: 16em; background: #fff; }
+.r-pair { display: flex; gap: .8em; }
+.r-pair img { height: 5.4em; }
+.r-shots figcaption { margin-top: .2em; text-align: center; }
+
 @media (max-width: 640px) and (orientation: portrait) {
   .e-dense .stage { padding: 0; }
   .e-dense .body { margin-top: 1.4em; }
@@ -558,6 +571,8 @@ h2 { font-size: 2.15em; font-weight: 800; line-height: 1.25; letter-spacing: -.0
   .e-bar { margin-bottom: 24px; }
   .e-key { font-size: 1.0625em; }
   .e-think { flex-direction: column; gap: 24px; }
+  .r-shots img { height: auto; width: 100%; }
+  .r-pair figure { flex: 1; min-width: 0; }
   .e-bar { flex: none; }
   .e-back, .e-result { padding: 0 0 0 16px; border-left: 3px solid var(--edge); }
   .e-me { font-size: 1.2em; }
