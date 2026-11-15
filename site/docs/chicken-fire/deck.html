@@ -178,36 +178,23 @@
     <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
     <h2>기능을 단계와 완료 기준으로 나누기</h2>
     <div class="q-eg">
-      <p class="lead">예: 불에 맞은 닭의 눈 표정</p>
+      <p class="lead">예: 불에 맞은 닭의 눈 표정 · 목표는 "당황한 느낌을 표정으로"</p>
       <img src="images/deck/face-normal.webp" alt="평소 둥근 눈의 닭 얼굴" width="600" height="600">
       <i>→</i>
       <img src="images/deck/face-panic.webp" alt="> < 눈으로 바뀐 닭 얼굴" width="600" height="600">
     </div>
-    <div class="body q-check">
-      <div class="q-col">
-        <h3>작업 순서</h3>
-        <ol class="q-steps">
-          <li>원래 눈 분리 가능 여부 확인</li>
-          <li>같은 자리에 &gt; &lt; 눈 제작</li>
-          <li>얼굴에 붙이고 깜빡임 방지</li>
-          <li>평소 눈 ↔ &gt; &lt; 눈 전환</li>
-          <li>놀람·도주·회복 흐름에 연결</li>
-          <li>쿼터뷰에서 선 두께와 크기 조정</li>
-        </ol>
-      </div>
-      <div class="q-col">
-        <h3>완료 기준</h3>
-        <ul class="q-done">
-          <li>평소 눈과 &gt; &lt; 눈이 겹치지 않음</li>
-          <li>머리가 돌아도 얼굴을 따라 움직임</li>
-          <li>연속으로 맞아도 깜빡이지 않음</li>
-          <li>회복하면 원래 눈, 다시 나올 때 표정이 남지 않음</li>
-          <li>여러 마리가 맞아도 각자 따로 반응</li>
-          <li>플레이 화면 크기에서 표정이 읽힘</li>
-        </ul>
-      </div>
+    <div class="body d-pipe">
+      <div class="d-head"><span>단계</span><span>미리 정한 기준</span><span>확인</span></div>
+      <ol>
+        <li><b class="d-n">1</b><strong>눈 분리 확인</strong><span>안 되면 얼굴을 복원한 전용 모델로 (대안)</span><em>384개 분리</em></li>
+        <li><b class="d-n">2</b><strong>&gt; &lt; 눈 제작과 부착</strong><span>평소 눈과 안 겹치고 얼굴을 따라 움직임</span><em>검사 1개</em></li>
+        <li><b class="d-n">3</b><strong>눈 전환 규칙</strong><span>첫 피격에 바로 교체, 연속 피격에도 유지</span><em>검사 3개</em></li>
+        <li><b class="d-n">4</b><strong>놀람·도주·회복 연결</strong><span>도주·회복 동안 유지, 회복 뒤 평소 눈</span><em>검사 3개</em></li>
+        <li><b class="d-n">5</b><strong>재등장 초기화</strong><span>다시 나온 닭은 평소 눈, 각자 따로 반응</span><em>검사 4개</em></li>
+        <li><b class="d-n">6</b><strong>크기 조정</strong><span>평소 눈의 1.2~1.4배, 게임 카메라 기준</span><em>렌더 4장</em></li>
+      </ol>
     </div>
-    <p class="q-line">검사 11개 통과. 같은 방식의 결과 기록 12개, 통과 검사 100개 이상</p>
+    <p class="q-line">검사 11개 통과 · 범위 밖: 꼬리 불꽃 · 한계: 뒷모습은 표정이 안 보임</p>
   </div>
 </section>
 
