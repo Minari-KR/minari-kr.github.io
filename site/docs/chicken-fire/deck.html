@@ -17,12 +17,12 @@
 <section class="slide cover p-cover" aria-label="표지">
   <div class="stage">
     <div class="cover-text">
-      <p class="kicker">AI와 함께 3일 만에 만든 프로토타입</p>
+      <p class="kicker">AI 활용 · 3일 제작 프로토타입</p>
       <h1>Chicken Fire</h1>
-      <p class="lead">화염방사기를 멘 닭이 시간과 싸우는 타임어택 슈팅</p>
+      <p class="lead">화염방사기로 닭을 잡아 시간을 버는 타임어택 슈팅</p>
       <ul class="chips">
         <li>1인 개발 · 3D 쿼터뷰</li>
-        <li>웹에서 바로 플레이</li>
+        <li>웹 플레이</li>
         <li>2026. 10. 9 ~ 10. 11</li>
       </ul>
       <p class="note hint">방향키나 마우스 휠로 넘겨 보세요 →</p>
@@ -40,18 +40,18 @@
     <ol class="body s-trio">
       <li>
         <div class="s-media"><video class="p-frame" src="images/deck/fx-flame.mp4" width="960" height="540" autoplay muted loop playsinline aria-label="화염방사기 불길 이펙트"></video></div>
-        <p class="s-tag">직접 만든 불길 이펙트</p>
-        <p class="a-cap"><b><i>1</i> 태우기</b><span>화염방사기로 흰 닭을 지지기</span></p>
+        <p class="s-tag">AI로 만든 불길 이펙트</p>
+        <p class="a-cap"><b><i>1</i> 태우기</b><span>화염방사기로 흰 닭 태우기</span></p>
       </li>
       <li>
         <div class="s-media s-3d"><div class="v3d v-bucket" data-view="bucket" role="img" aria-label="돌려 볼 수 있는 3D 치킨통 모델"><img hidden src="images/deck/shot-bucket.webp" alt="치킨통을 먹는 화면" width="1280" height="720"></div></div>
-        <p class="s-tag">AI와 함께 만든 3D 모델 · 돌려 보세요</p>
+        <p class="s-tag">AI로 만든 3D 모델 · 돌려 보세요</p>
         <p class="a-cap"><b><i>2</i> 치킨통</b><span>쓰러진 닭이 치킨통으로 바뀜</span></p>
       </li>
       <li>
         <div class="s-media s-hud"><img src="images/deck/hud-time.webp" alt="게임 화면의 시간 표시: 치킨 1마리 +5초, 남은 시간" width="840" height="392"></div>
         <p class="s-tag">게임 화면의 시간 표시</p>
-        <p class="a-cap"><b><i>3</i> 시간 벌기</b><span>치킨통을 먹으면 +5초. 시간이 0이 되면 끝</span></p>
+        <p class="a-cap"><b><i>3</i> 시간 벌기</b><span>치킨통을 먹으면 +5초, 0초에 종료</span></p>
       </li>
     </ol>
   </div>
@@ -60,7 +60,7 @@
 <section class="slide v-dense" aria-label="플레이 경험 하나: 닭의 반응">
   <div class="stage">
     <p class="kicker">1. 게임 · 플레이어가 느끼는 것</p>
-    <h2>맞은 닭이 온몸으로 반응하게</h2>
+    <h2>불에 맞은 닭의 반응</h2>
     <div class="body v-react">
       <div class="v-block v-chick">
         <div class="v3d" data-view="chicken" role="img" aria-label="돌려 볼 수 있는 3D 흰 닭 모델"><img hidden src="images/deck/face-panic.webp" alt="맞은 닭의 얼굴: 눈이 &gt; &lt; 모양" width="600" height="600"></div>
@@ -72,13 +72,13 @@
           <button type="button" class="v-go" data-act="hit">불 맞히기</button>
         </div>
         <p class="v-live" aria-live="polite">지금: 평소 · 반복</p>
-        <p class="v-cap">버튼을 눌러 보세요 · 게임에 들어간 실제 동작</p>
-        <p class="note">닭 모델: Chickensoft (CC BY 4.0)</p>
+        <p class="v-cap">버튼으로 재생 · 놀람·도주·회복 동작과 표정은 AI 제작</p>
+        <p class="note">외부 모델: Chickensoft (CC BY 4.0)</p>
       </div>
       <ul class="a-pts v-pts">
-        <li><strong>눈이 &gt; &lt; 로</strong><span>"뜨겁고 당황한 느낌"을 표정으로</span></li>
-        <li><strong>놀람 0.2초 → 도주 → 진정</strong><span>2배 속도로 도망치다 2초 뒤 진정</span></li>
-        <li><strong>아픈 느낌 대신 우스꽝스럽게</strong><span>빨간 번쩍임, 꼬꼬댁 소리, 만화 같은 몸짓</span></li>
+        <li><strong>눈이 &gt; &lt; 로</strong><span>피격을 표정으로 전달</span></li>
+        <li><strong>놀람 0.2초 → 도주 → 진정</strong><span>2배 속도로 도주, 2초 뒤 진정</span></li>
+        <li><strong>고통 대신 코믹하게</strong><span>빨간 점멸, 울음소리, 과장된 동작</span></li>
       </ul>
     </div>
   </div>
@@ -95,16 +95,17 @@
           <button type="button" class="v-go" data-act="burn">불 붙이기</button>
           <button type="button" data-act="reset">처음으로</button>
         </div>
+        <p class="note">외부 모델: Kenney (CC0)</p>
       </div>
       <div class="v-side">
         <figure class="v-clip">
           <video src="images/deck/fx-spread.mp4" width="960" height="540" autoplay muted loop playsinline aria-label="불길이 나무 기둥을 만나 양쪽으로 갈라지는 실제 렌더 영상"></video>
-          <figcaption class="v-cap">불길이 물체를 만나 갈라지는 실제 렌더</figcaption>
+          <figcaption class="v-cap">물체에 닿아 갈라지는 불길 · AI 제작 효과</figcaption>
         </figure>
         <ul class="v-lines">
-          <li><strong>0.4초 닿으면 불붙음</strong><span>6초 동안 타며 2.4 m 안으로 번짐</span></li>
+          <li><strong>0.4초 닿으면 불붙음</strong><span>6초간 타며 2.4 m 안으로 번짐</span></li>
           <li><strong>타는 것 122개, 안 타는 것 12개</strong><span>건물과 바위는 길잡이와 엄폐물로</span></li>
-          <li><strong>나무는 잎부터 타고 검은 가지만 남음</strong></li>
+          <li><strong>나무는 잎이 타고 가지만 남음</strong></li>
         </ul>
       </div>
     </div>
@@ -114,12 +115,12 @@
 <section class="slide s-dense" aria-label="고민한 지점: 긴장감">
   <div class="stage">
     <p class="kicker">1. 게임 · 고민한 지점</p>
-    <h2>보상이 줄어드는 압박으로 긴장감 만들기</h2>
+    <h2>보상 감소로 긴장감 만들기</h2>
     <div class="body s-tense">
       <ol class="s-chain">
-        <li><b>고민</b><span>보상이 계속 같으면 플레이가 지루해짐</span></li>
-        <li><b>장치</b><span>시간이 지날수록 치킨통 보상 감소</span></li>
-        <li><b>노린 경험</b><span>점점 조여 오는 압박감과 긴장감</span></li>
+        <li><b>고민</b><span>보상이 일정하면 지루함</span></li>
+        <li><b>장치</b><span>30초마다 보상 감소</span></li>
+        <li><b>노린 경험</b><span>압박감과 긴장감</span></li>
       </ol>
       <div class="s-data">
         <ol class="p-steps">
@@ -131,10 +132,10 @@
         </ol>
         <figure class="s-alert">
           <img src="images/deck/hud-reward-down.webp" alt="화면에 뜨는 알림: REWARD DOWN! CHICKEN +4s" width="1134" height="162">
-          <figcaption>30초마다 화면에 뜨는 알림</figcaption>
+          <figcaption>30초마다 뜨는 알림</figcaption>
         </figure>
       </div>
-      <p class="p-line">닭은 공격하지 않음. 버티려면 점점 더 많이 먹어야 하고, 결국 시계가 이김</p>
+      <p class="p-line">보상이 줄어드는 동안 더 많은 닭을 처리하게 만드는 성장 구조</p>
     </div>
   </div>
 </section>
@@ -142,18 +143,18 @@
 <section class="slide v-dense" aria-label="AI 리더십: 그림으로 먼저 확인">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">AI 리더십</span></p>
-    <h2>그림으로 먼저 확인하고, 승인한 것만 만들기</h2>
+    <h2>그림으로 확인하고 승인한 것만 제작</h2>
     <ol class="v-flow">
       <li>AI 참고 그림</li>
       <li class="v-gate">내 확인</li>
-      <li>Blender 모델과 동작</li>
+      <li>AI가 Blender로 제작</li>
       <li>Unity 적용</li>
     </ol>
     <div class="body v-block v-result">
       <div class="v-tabs">
-        <button type="button" data-tab aria-pressed="true" data-img="images/deck/ref-panic.webp" data-alt="닭 놀람 동작 포즈 시트: 놀람, 달리기, 회복 여섯 포즈" data-note="닭 놀람 동작 — 포즈 시트 승인 뒤 제작. 검사 9개 통과">닭 놀람 동작</button>
-        <button type="button" data-tab aria-pressed="false" data-img="images/deck/ref-eyes.webp" data-alt="화상 표정 시트: 평소 눈, &gt; &lt; 눈, 놀란 눈, 게임 화면" data-note="화상 표정 — 참고 그림 확인 뒤 적용. 검사 11개 통과">화상 표정</button>
-        <button type="button" data-tab aria-pressed="false" data-img="images/deck/ref-gear.webp" data-alt="화염방사기와 연료통을 멘 노란 닭 재디자인 시트" data-note="화염방사기 — 재디자인 그림 확인 뒤 모델 수정">화염방사기</button>
+        <button type="button" data-tab aria-pressed="true" data-img="images/deck/ref-panic.webp" data-alt="닭 놀람 동작 포즈 시트: 놀람, 달리기, 회복 여섯 포즈" data-note="닭 놀람 동작 — 포즈 시트 승인 후 AI 제작. 검사 9개 통과">닭 놀람 동작</button>
+        <button type="button" data-tab aria-pressed="false" data-img="images/deck/ref-eyes.webp" data-alt="화상 표정 시트: 평소 눈, &gt; &lt; 눈, 놀란 눈, 게임 화면" data-note="화상 표정 — 참고 그림 확인 후 AI 제작. 검사 11개 통과">화상 표정</button>
+        <button type="button" data-tab aria-pressed="false" data-img="images/deck/ref-gear.webp" data-alt="화염방사기와 연료통을 멘 노란 닭 재디자인 시트" data-note="화염방사기 — 재디자인 그림 확인 후 AI가 모델 수정">화염방사기</button>
       </div>
       <div class="v-pair">
         <figure class="v-ref">
@@ -162,12 +163,12 @@
         </figure>
         <i aria-hidden="true">→</i>
         <figure class="v-made">
-          <figcaption>만든 결과물 · 돌려 보세요</figcaption>
+          <figcaption>AI 제작 결과물 · 돌려 보세요</figcaption>
           <div class="v3d" data-view="result" role="img" aria-label="돌려 볼 수 있는 3D 결과물"><img hidden src="images/deck/shot-panic.webp" alt="닭들이 도망치는 게임 화면" width="1280" height="720"></div>
         </figure>
       </div>
-      <p class="v-tabnote">닭 놀람 동작 — 포즈 시트 승인 뒤 제작. 검사 9개 통과</p>
-      <p class="note">닭 모델: Chickensoft (CC BY 4.0)</p>
+      <p class="v-tabnote">닭 놀람 동작 — 포즈 시트 승인 후 AI 제작. 검사 9개 통과</p>
+      <p class="note">외부 모델: Chickensoft (CC BY 4.0)</p>
     </div>
   </div>
 </section>
@@ -175,7 +176,7 @@
 <section class="slide q-dense" aria-label="구조화 능력: 단계와 완료 기준">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">구조화 능력</span></p>
-    <h2>기능 하나를 단계와 완료 기준으로 쪼개기</h2>
+    <h2>기능을 단계와 완료 기준으로 나누기</h2>
     <div class="q-eg">
       <p class="lead">예: 불에 맞은 닭의 눈 표정</p>
       <img src="images/deck/face-normal.webp" alt="평소 둥근 눈의 닭 얼굴" width="600" height="600">
@@ -184,14 +185,14 @@
     </div>
     <div class="body q-check">
       <div class="q-col">
-        <h3>만드는 순서</h3>
+        <h3>작업 순서</h3>
         <ol class="q-steps">
-          <li>원래 눈을 따로 떼어 낼 수 있는지 확인</li>
-          <li>같은 자리에 &gt; &lt; 눈 만들기</li>
-          <li>얼굴에 붙이고 깜빡임 없게 띄우기</li>
-          <li>평소 눈과 &gt; &lt; 눈을 바꾸는 장치</li>
+          <li>원래 눈 분리 가능 여부 확인</li>
+          <li>같은 자리에 &gt; &lt; 눈 제작</li>
+          <li>얼굴에 붙이고 깜빡임 방지</li>
+          <li>평소 눈 ↔ &gt; &lt; 눈 전환</li>
           <li>놀람·도주·회복 흐름에 연결</li>
-          <li>실제 쿼터뷰에서 선 두께와 크기 조정</li>
+          <li>쿼터뷰에서 선 두께와 크기 조정</li>
         </ol>
       </div>
       <div class="q-col">
@@ -202,18 +203,18 @@
           <li>연속으로 맞아도 깜빡이지 않음</li>
           <li>회복하면 원래 눈, 다시 나올 때 표정이 남지 않음</li>
           <li>여러 마리가 맞아도 각자 따로 반응</li>
-          <li>실제 플레이 크기에서 표정이 읽힘</li>
+          <li>플레이 화면 크기에서 표정이 읽힘</li>
         </ul>
       </div>
     </div>
-    <p class="q-line">검사 11개 통과. 같은 방식으로 남긴 결과 기록 12개, 통과한 검사 100개 이상</p>
+    <p class="q-line">검사 11개 통과. 같은 방식의 결과 기록 12개, 통과 검사 100개 이상</p>
   </div>
 </section>
 
 <section class="slide v-dense" aria-label="학습 실행력: 연습 프로젝트에서 공부한 불 효과와 셰이더">
   <div class="stage">
     <p class="kicker">2. AI와 만든 과정 <span class="tag">학습 실행력</span></p>
-    <h2 class="v-h2s">카툰풍 불 효과와 셰이더를 먼저 공부하고, 게임에 적용</h2>
+    <h2 class="v-h2s">카툰풍 불 효과와 셰이더를 공부한 뒤 게임에 적용</h2>
     <div class="body v-study">
       <div class="v-from">
         <h3>연습 프로젝트 <span>2026. 10. 6 ~ 7</span></h3>
@@ -221,7 +222,7 @@
         <ul>
           <li>툰 셰이딩과 외곽선</li>
           <li>불꽃 플립북과 일렁이는 빛</li>
-          <li>타들어 가며 사라지는 디졸브</li>
+          <li>타서 사라지는 디졸브</li>
           <li>열기 왜곡(아지랑이)</li>
         </ul>
       </div>
@@ -230,14 +231,14 @@
         <figure>
           <strong>화염방사기 VFX</strong>
           <video src="images/deck/fx-flame.mp4" width="960" height="540" autoplay muted loop playsinline aria-label="화염방사기 불길이 상자를 감싸는 실제 렌더 영상"></video>
-          <figcaption class="v-cap">색을 단계로 끊은 카툰풍 불길 · 실제 렌더</figcaption>
+          <figcaption class="v-cap">색을 단계로 나눈 불길 · AI 제작</figcaption>
         </figure>
         <figure class="v-block">
           <strong>가려진 닭 보이게</strong>
           <div class="v3d" data-view="seethrough" role="img" aria-label="나무 뒤에 숨은 닭을 둥근 창으로 비쳐 보는 3D 체험판"><img hidden src="images/deck/see-after.webp" alt="불 뒤의 닭이 둥근 창으로 비쳐 보이는 화면" width="600" height="545"></div>
           <div class="v-btns"><button type="button" data-act="see" aria-pressed="false">가려진 닭 보이게</button></div>
-          <figcaption class="v-cap">체험판 · 게임과 같은 원리로 다시 만든 것</figcaption>
-          <p class="note">닭 모델: Chickensoft (CC BY 4.0)</p>
+          <figcaption class="v-cap">체험판 · 게임과 같은 원리로 재현</figcaption>
+          <p class="note">외부 모델: Chickensoft (CC BY 4.0)</p>
         </figure>
       </div>
     </div>
@@ -250,17 +251,17 @@
     <h2>한 장 정리</h2>
     <div class="body">
       <ul class="f-sum">
-        <li><span class="tag">AI 리더십</span><p>그림으로 먼저 확인하고, 승인한 것만 제작</p></li>
+        <li><span class="tag">AI 리더십</span><p>그림으로 확인하고 승인한 것만 제작</p></li>
         <li><span class="tag">구조화 능력</span><p>기능마다 단계와 완료 기준을 적고 검사로 확인</p></li>
-        <li><span class="tag">학습 실행력</span><p>불 효과와 셰이더를 먼저 공부하고 게임에 바로 적용</p></li>
+        <li><span class="tag">학습 실행력</span><p>불 효과와 셰이더를 공부한 뒤 게임에 적용</p></li>
       </ul>
       <ul class="s-nums">
         <li><b>3<small>일</small></b><span>제작</span></li>
         <li><b>55<small>개</small></b><span>스크립트</span></li>
         <li><b>134<small>개</small></b><span>아레나 소품</span></li>
-        <li><b>100<small>개 이상</small></b><span>통과한 자동 검사</span></li>
+        <li><b>100<small>개 이상</small></b><span>자동 검사 통과</span></li>
       </ul>
-      <p class="f-done">3일 만에 웹에서 바로 플레이하는 타임어택 슈팅 완성</p>
+      <p class="f-done">3일 만에 웹 플레이 가능한 타임어택 슈팅 완성</p>
       <div class="actions">
         <a href="gdd.html">상세 기획서</a>
       </div>
