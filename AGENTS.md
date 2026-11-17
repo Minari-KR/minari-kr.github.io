@@ -21,7 +21,7 @@
 | `site/games.js` | **게임 목록.** 게임을 넣고 빼고 고치는 곳은 여기 하나입니다 |
 | `site/thumbs/` | 카드 썸네일(640×360 WebP) |
 | 수상 상세(2026-11-17~) | 상 카드 네 개는 `index.html`에 직접 씀, 누구에게나 보임. 위에서부터 사진(`site/awards/photo-*.webp`, 사용자가 준 사진을 긴 변 1040px 이하 WebP로, `.award-photo` 16:9), 상 이름, 게임·역할과 버튼(`.award-brief`), 키워드(`.award-tags`), 상세(`.award-detail`: 한 줄 소개 `.award-about` + 번호 세 단계 `.award-flow` = 문제 발생 → 문제 정의와 해결 → 갈등 해소). 버튼은 `app.js`가 YouTube 영상이면 영상 팝업, 사이트 안 게임이면 게임 팝업으로 엶(바깥 주소는 새 탭). 전용 링크로만 보이게 잠그는 방식은 같은 날 만들었다가 사용자가 빼라고 해서 뺌 |
-| 수상 상세 글 기준 | 면접관이 읽는 완성된 문장('~했습니다'), 짧은 구절로 줄이지 않음. 단순한 문제·해결·결과 나열이 아니라 세 단계 흐름. 사용자가 준 사실만. 카드는 2×2 두 열, 사진은 카드 맨 위 16:9(사용자 지적과 결정, `배운점.md`·`의사결정.md`) |
+| 수상 상세 글 기준 | 면접관이 읽는 완성된 문장('~했습니다'), 짧은 구절로 줄이지 않음. 단순한 문제·해결·결과 나열이 아니라 세 단계 흐름. 사용자가 준 사실만. 카드는 가로 한 줄에 4개(2026-11-17 사용자 결정), 사진은 카드 맨 위 16:9(사용자 지적과 결정, `배운점.md`·`의사결정.md`) |
 | 화면 기준(2026-11-17 사용자 결정) | PC 화면만 맞춤. 휴대폰 배치는 확인하지 않음 |
 | `site/games/reflectory/`·`barrel-good-barrel/` | 수상 상세의 '플레이' 버튼으로만 열리는 웹 게임 두 개(게임 카드 목록에는 없음). `reflectory`: 사용자가 준 Unity 웹 빌드(Brotli 압축)를 풀어 압축 없는 파일로 바꾸고 이름을 `reflectory.*`로 맞춤, 예전 Unity 템플릿이라 `gallery-dark` 스타일은 캔버스(960×600)에 직접 맞춤. `barrel-good-barrel`: 사용자가 준 `index.html` 한 파일(캔버스 게임)에서 바탕색만 사이트 색으로 바꿈, 글꼴(Orbitron)은 Google Fonts에서 불러옴 |
 | `site/games/<slug>/` | Unity 웹 빌드(Chicken Fire·쭉쭉냥). Rio Simulation(`rio-idle`)은 2026-11-14 사용자 요청으로 뺌(카드·빌드·썸네일 삭제, 되살리려면 Git 커밋 `90e07ff`의 `site/games/rio-idle`·`site/thumbs/rio-idle.webp`와 `games.js` 항목). ERZZ는 2026-11-14 사용자 요청으로 뺌(카드·빌드·썸네일 삭제, 되살리려면 Git 커밋 `8006806`의 `site/games/erzz`·`site/thumbs/erzz.webp`와 `games.js` 항목) |
