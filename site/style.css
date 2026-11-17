@@ -179,7 +179,7 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .workflow h2, .awards h2, .section-title { margin: 16px 0 20px; font-size: clamp(1.375rem, 3vw, 1.75rem); font-weight: 800; letter-spacing: -.02em; }
 .workflow-link { position: relative; display: block; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: zoom-in; }
 .workflow-link img { display: block; width: 100%; height: auto; }
-/* Under the picture: why each step exists (four cards, icons cut from workflow.webp), then the two criteria with real examples. */
+/* Under the picture: why each step exists (four cards, icons cut from workflow.webp), */
 .wf-sub { margin: 48px 0 16px; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .wf-step { display: block; color: var(--accent); font-size: .8rem; font-weight: 700; }
 .why { list-style: none; margin: 0; padding: 0; }
@@ -187,26 +187,6 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .why-icons img { height: 54px; width: auto; mix-blend-mode: lighten; }
 .why strong { display: block; font-size: 1.1rem; margin: 2px 0 8px; }
 .why p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.7; word-break: keep-all; }
-.crit-lead { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; margin-bottom: 20px; font-size: .95rem; line-height: 1.7; word-break: keep-all; }
-.crit-lead p { margin: 0; }
-.crit-lead b { display: block; color: var(--accent); font-size: .85rem; margin-bottom: 2px; }
-.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.pillar { position: relative; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; display: flex; flex-direction: column; }
-.pillar-no { position: absolute; top: 24px; right: 28px; font-size: 3rem; font-weight: 800; line-height: 1; color: var(--line); }
-.pillar h4 { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--accent); }
-.pillar-def { margin: 4px 0 20px; font-size: .95rem; }
-.pillar-fig { margin: 0 0 20px; position: relative; }
-.phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.phones div { display: flex; flex-direction: column; gap: 6px; }
-.phones img { width: 100%; height: 220px; object-fit: cover; object-position: center 25%; border-radius: 10px; }
-.phones span { font-size: .75rem; color: var(--muted); text-align: center; }
-.phones div:last-child img { outline: 2px solid var(--accent); outline-offset: 2px; }
-.redo img { display: block; width: 100%; height: 262px; object-fit: contain; background: #fff; border-radius: 10px; }
-.redo .tag { position: absolute; right: 10px; padding: 2px 10px; border-radius: 999px; font-size: .75rem; font-weight: 700; }
-.redo .keep { top: 10px; background: var(--accent); color: var(--accent-ink); }
-.redo .drop { bottom: 10px; background: #f6bccb; color: #1c1a24; }
-.pillar-case { margin: auto 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: .9rem; line-height: 1.7; word-break: keep-all; }
-.pillar-case b { display: block; color: var(--accent); font-size: .8rem; }
 .why strong { word-break: keep-all; }
 .why { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .why li { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
