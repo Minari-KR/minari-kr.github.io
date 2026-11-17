@@ -181,9 +181,6 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .workflow-link img { display: block; width: 100%; height: auto; }
 /* Under the picture: why each step exists (four cards, icons cut from workflow.webp), */
 .wf-sub { margin: 48px 0 16px; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
-.wf-step { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 6px; color: var(--text); font-size: .95rem; font-weight: 700; }
-.step-chip { display: inline-flex; align-items: center; gap: 7px; }
-.step-chip i { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-style: normal; font-size: .8rem; font-weight: 800; }  /* same green numbered circle as the picture */
 .why { list-style: none; margin: 0; padding: 0; }
 .why-icons { display: flex; gap: 6px; }
 .why-icons img { height: 54px; width: auto; mix-blend-mode: lighten; }
@@ -192,7 +189,7 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
 .why strong { word-break: keep-all; }
 .why { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .why li { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
-.why .wf-step { margin-top: 14px; }
+.why strong { margin-top: 14px; white-space: nowrap; font-size: 1.05rem; }  /* titles stay on one line */
 .workflow-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Motion layer over the workflow picture: a light circling the loop, lights flowing to the AIs, all number circles
