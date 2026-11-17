@@ -12,3 +12,6 @@ node_modules/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Award details and photos in plain form: only the encrypted site/private.bin is published (tools/make-private.mjs).
+private/

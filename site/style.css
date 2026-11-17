@@ -199,16 +199,44 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
   --sticker: 120px; --gap: 28px; --name-max: clamp(1.25rem, 2.2vw, 1.625rem);
   --fit: calc((100cqi - var(--sticker) - var(--gap) - 16px) / 11.5);  /* font size at which 11 letters fill the text column */
   container-type: inline-size;
-  display: grid; grid-template-columns: var(--sticker) minmax(0, 1fr); column-gap: var(--gap); align-content: center;
+  display: grid; grid-template-columns: var(--sticker) minmax(0, 1fr); column-gap: var(--gap); align-content: start;
   min-height: 168px; padding: 24px 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
 }
-.award img { grid-row: 1 / 4; width: var(--sticker); height: var(--sticker); align-self: center; transform: rotate(-6deg); }
-.award-year { font-size: min(1rem, calc(var(--fit) * .8)); font-weight: 700; color: var(--accent); }
-.award-name { margin: 2px 0 4px; font-size: min(var(--name-max), var(--fit)); line-height: 1.3; letter-spacing: -.02em; white-space: nowrap; }
-.award-event { font-size: min(1.0625rem, calc(var(--fit) * .8)); color: var(--muted); }
+.award img { grid-area: 2 / 1 / 5 / 2; width: var(--sticker); height: var(--sticker); align-self: center; transform: rotate(-6deg); }
+.award-year { grid-area: 2 / 2; font-size: min(1rem, calc(var(--fit) * .8)); font-weight: 700; color: var(--accent); }
+.award-name { grid-area: 3 / 2; margin: 2px 0 4px; font-size: min(var(--name-max), var(--fit)); line-height: 1.3; letter-spacing: -.02em; white-space: nowrap; }
+.award-event { grid-area: 4 / 2; font-size: min(1.0625rem, calc(var(--fit) * .8)); color: var(--muted); }
+/* Under the sticker row, full card width: brief (game · team · role, video), keyword chips, then the detail rows. */
+.award-brief, .award-tags, .award-detail { grid-column: 1 / -1; font-size: .875rem; }
+.award-detail { font-size: .9rem; line-height: 1.65; }
+.award-brief { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin: 16px 0 0; }
+.award-brief .btn { flex: none; padding: 0 20px; }
+.award-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; padding: 0; }
+.award-tags li { padding: 1px 12px; border: 1px solid var(--accent); border-radius: 999px; color: var(--accent); font-weight: 700; }
+.award-detail { margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--line); word-break: keep-all; text-wrap: pretty; }  /* break between words, no one-word last line */
+.award-about { margin: 0 0 14px; color: var(--muted); }
+/* Photo of the award across the top of the card. One 16:9 box for all four so the two columns line up;
+   the taller photos lose a little at the bottom (people's heads and the stage title stay in). */
+.award .award-photo { grid-column: 1 / -1; grid-row: 1; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 20%; margin: 0 0 20px; border-radius: 12px; transform: none; }
+/* Three numbered steps joined by a line: problem -> how it was defined and solved -> how it settled. */
+.award-flow { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.award-flow li { position: relative; padding: 0 0 14px 36px; counter-increment: step; }
+.award-flow li:last-child { padding-bottom: 0; }
+.award-flow li::before {
+  content: counter(step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); font-size: .75rem; font-weight: 800;
+}
+.award-flow li:not(:last-child)::after { content: ""; position: absolute; left: 11px; top: 30px; bottom: 2px; width: 2px; background: var(--line); }
+.award-flow b { display: block; color: var(--accent); }
+@container (min-width: 860px) {  /* wide card: the three steps sit side by side, left to right */
+  .award-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+  .award-flow li { padding-bottom: 0; }
+  .award-flow li:not(:last-child)::after { display: none; }
+}
 @media (max-width: 760px) {
   .award-list { grid-template-columns: 1fr; gap: 12px; }
   .award { --sticker: 72px; --gap: 16px; --name-max: 1.375rem; min-height: 0; padding: 16px; }
+  .award-brief .btn { flex: 1 0 100%; }  /* the text fills the row, so the button takes its own */
 }
 @media (max-width: 380px) {  /* very narrow phones: a smaller sticker leaves room for the name */
   .award { --sticker: 52px; --gap: 12px; }

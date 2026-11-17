@@ -155,6 +155,31 @@ function card(game) {
 
 grid.append(...window.GAMES.map(card));
 
+// Award details (photo, story, buttons) are published only as the locked file private.bin (tools/make-private.mjs).
+// A link ending in #k=<key> unlocks them; the key stays in the browser (a # part is never sent to the server).
+// Without the key, or with a wrong one, the page keeps the plain cards.
+async function unlockAwards() {
+  const k = /[#&]k=([\w-]{43})(?:&|$)/.exec(location.hash)?.[1];
+  if (!k) return;
+  try {
+    const raw = Uint8Array.from(atob(k.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
+    const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    const file = new Uint8Array(await (await fetch('private.bin', { cache: 'no-cache' })).arrayBuffer());
+    const html = new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: file.subarray(0, 12) }, key, file.subarray(12)));
+    document.querySelector('.award-list').innerHTML = html; // only text locked with the same key can get here (AES-GCM checks it)
+  } catch {
+    return;
+  }
+  // Award buttons use the same popups as the cards: a YouTube link plays, a game page opens in the frame.
+  // Other outside links stay plain new-tab links.
+  for (const a of document.querySelectorAll('.award a')) {
+    const yt = youTubeId(a.href);
+    if (yt) onClick(a, () => playYouTube(yt));
+    else if (!isExternal(a.getAttribute('href'))) onClick(a, () => { prefetchStop.abort(); openFrame(a.getAttribute('aria-label'), a.getAttribute('href')); });
+  }
+}
+unlockAwards();
+
 // The workflow picture opens full size in the same popup (its words are small on a phone).
 const workflow = document.querySelector('.workflow-link');
 onClick(workflow, () => openFrame('AI Workflow', workflow.getAttribute('href')));
