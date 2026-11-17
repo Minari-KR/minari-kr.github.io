@@ -194,11 +194,7 @@ h2 { margin: 0; font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
    The text sizes itself to the card (container units), so the longest name (11 letters) stays on one line and
    never widens the card: without this the page overflowed sideways between 761 and 960px. */
 .awards { padding-bottom: 40px; }
-.award-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }  /* four in one row */
-.award-list .award { --sticker: 56px; --gap: 12px; padding: 20px; }  /* narrow cards: smaller sticker leaves room for the name */
-.award-list .award-year { font-size: .8rem; }
-.award-list .award-name { font-size: .8rem; }  /* longest name (11 letters) still on one line in a quarter-width card */
-.award-list .award-event { font-size: .8rem; }
+.award-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }  /* 2 x 2 */
 .award {
   --sticker: 120px; --gap: 28px; --name-max: clamp(1.25rem, 2.2vw, 1.625rem);
   --fit: calc((100cqi - var(--sticker) - var(--gap) - 16px) / 11.5);  /* font size at which 11 letters fill the text column */
