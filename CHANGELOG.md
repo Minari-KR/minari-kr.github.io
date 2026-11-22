@@ -8,6 +8,11 @@
 - 사용자 답을 기다리는 것: (1) 보조 버튼 색 시안 A 회색 채움 / B 초록 선(추천) / C 옅은 초록 채움 중 고르기 → 고르면 버튼을 바꾸고 색 팔레트 표를 `AGENTS.md`에 정리. 지금 보조 버튼 테두리 대비는 1.25:1. (2) Chicken Fire 치킨통 라벨(실제 브랜드 로고를 본뜬 그림)을 바꿀지. (3) Chicken Fire 기획서의 '(의도 기록 없음)' 27곳에 넣을 설계 의도.
 - 설치 여부를 물어 둔 스킬: `im-not-ai`(한국어 윤문, 임시 폴더에서만 씀), BMAD `gds-create-gdd`(기획서 틀만 읽어 씀).
 
+## 2026-11-22 — Chicken Fire 카드 뺌 (Claude)
+
+- 사용자 요청 "치킨 파이어 빼줘". `games.js` 항목, 웹 빌드 `site/games/chicken-fire`(37MB), 썸네일 `site/thumbs/chicken-fire.webp` 삭제. 되살리려면 Git 커밋 `ff236ac`에서 세 가지를 가져옴.
+- 문서 `site/docs/chicken-fire/`와 `site/vendor/three/`는 남김(카드에서 안 열림). 배포 작업이 `viewer.js`를 읽고 있어 지우려면 `check.yml`도 같이 고쳐야 함.
+
 ## 2026-11-22 — 쭉쭉냥 카드 버튼을 개발 기술서 PDF로 (Claude)
 
 - 사용자 요청: 쭉쭉냥 '기획서'(슬라이드 `deck.html`) 대신 바탕화면 `02_쭉쭉냥_개발기술서.pdf`(23쪽)를 걸기. 파일은 `site/docs/zzukzzuk-nyang/dev-tech.pdf`, 버튼 이름 '개발 기술서'.

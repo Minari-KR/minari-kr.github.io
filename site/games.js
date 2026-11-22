@@ -2,19 +2,9 @@
 // thumb: picture in thumbs/ (16:9 is best)
 // play:  a game folder's index.html (e.g. 'games/my-game/index.html') or an https link; '' hides the button
 // video: an .mp4 in videos/ (plays in a popup) or an https link (opens a new tab); '' hides the button
-// links: optional [{ label, url }] buttons: a page under docs/ (.html) opens in the popup, a YouTube link plays in the video popup,
+// links: optional [{ label, url }] buttons: a page or PDF under docs/ (.html, .pdf) opens in the popup, a YouTube link plays in the video popup,
 //        any other https link opens a new tab
 window.GAMES = [
-  {
-    title: 'Chicken Fire',
-    genre: '타임어택 슈팅',
-    thumb: 'thumbs/chicken-fire.webp',
-    play: 'games/chicken-fire/index.html',
-    video: '',
-    links: [
-      { label: '기획서', url: 'docs/chicken-fire/deck.html' },
-    ],
-  },
   {
     title: '쭉쭉냥 : 고양이 퍼즐',
     genre: '퍼즐',
