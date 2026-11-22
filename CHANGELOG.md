@@ -11,7 +11,7 @@
 ## 2026-11-22 — Chicken Fire 카드 뺌 (Claude)
 
 - 사용자 요청 "치킨 파이어 빼줘". `games.js` 항목, 웹 빌드 `site/games/chicken-fire`(37MB), 썸네일 `site/thumbs/chicken-fire.webp` 삭제. 되살리려면 Git 커밋 `ff236ac`에서 세 가지를 가져옴.
-- 문서 `site/docs/chicken-fire/`와 `site/vendor/three/`는 남김(카드에서 안 열림). 배포 작업이 `viewer.js`를 읽고 있어 지우려면 `check.yml`도 같이 고쳐야 함.
+- 이어서 사용자 "문서도 다 지우고 올려": 문서 `site/docs/chicken-fire/`(5.4MB)와 3D 라이브러리 `site/vendor/three/`도 지우고, `check.yml`이 읽던 `viewer.js`를 뺌. `deck.css`의 Chicken Fire 전용 스타일은 남음(쓰는 곳 없음).
 
 ## 2026-11-22 — 쭉쭉냥 카드 버튼을 개발 기술서 PDF로 (Claude)
 
