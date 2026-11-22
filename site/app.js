@@ -133,7 +133,7 @@ function card(game) {
   }
   body.append(genre, title, actions);
 
-  if (game.links?.length) { // site pages (docs/...) open in the popup, YouTube in the video popup, other https links in a new tab
+  if (game.links?.length) { // site pages and PDFs (docs/...) open in the popup, YouTube in the video popup, other https links in a new tab
     const docs = document.createElement('div');
     docs.className = 'actions docs';
     for (const { label, url } of game.links) {
@@ -141,7 +141,7 @@ function card(game) {
       const a = button(label, yt ? 'tint video' : isExternal(url) ? 'tint store' : 'tint doc', url, `${game.title} ${label}`);
       if (yt) onClick(a, () => playYouTube(yt));
       else if (isExternal(url)) newTab(a);
-      else if (/^docs\/[\w./-]+\.html$/.test(url)) {
+      else if (/^docs\/[\w./-]+\.(html|pdf)$/.test(url)) {
         // same ?v= as this script, so an updated doc is never stale
         onClick(a, () => openFrame(`${game.title} ${label}`, version ? `${url}?v=${version}` : url));
       } else continue;

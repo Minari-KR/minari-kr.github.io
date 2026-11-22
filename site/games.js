@@ -22,7 +22,7 @@ window.GAMES = [
     play: 'games/zzukzzuk-nyang/index.html',
     video: '',
     links: [
-      { label: '기획서', url: 'docs/zzukzzuk-nyang/deck.html' },
+      { label: '개발 기술서', url: 'docs/zzukzzuk-nyang/dev-tech.pdf' },
       { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=com.minari.zzukzzuknyang' },
       { label: '영상', url: 'https://www.youtube.com/watch?v=BGQOpXTESr8' },
     ],
