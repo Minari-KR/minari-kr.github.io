@@ -14,6 +14,11 @@
 <body>
   <h1 class="sr-only">Games Made with AI</h1>
   <main>
+
+    <h2 class="section-title">Games Made with AI</h2>
+    <ul class="grid" id="grid"></ul>
+    <noscript><p class="empty">게임 목록을 보려면 JavaScript가 필요합니다.</p></noscript>
+
     <section class="awards" aria-labelledby="awards-title">
       <h2 id="awards-title">Awards</h2>
       <ul class="award-list">
@@ -72,10 +77,6 @@
       </ul>
     </section>
 
-    <h2 class="section-title">Games Made with AI</h2>
-    <ul class="grid" id="grid"></ul>
-    <noscript><p class="empty">게임 목록을 보려면 JavaScript가 필요합니다.</p></noscript>
-
     <section class="workflow" aria-labelledby="workflow-title">
       <h2 id="workflow-title">AI Workflow</h2>
       <a class="workflow-link" href="workflow.html" aria-label="AI Workflow 그림 크게 보기">
@@ -132,6 +133,10 @@
   <dialog class="player" id="player" aria-label="플레이 영상">
     <button class="close" type="button" aria-label="닫기">×</button>
     <video controls playsinline preload="none"></video>
+  </dialog>
+  <dialog class="player award-pop" id="award-pop" aria-label="수상 상세">
+    <button class="close" type="button" aria-label="닫기">×</button>
+    <ul class="award-list"></ul>
   </dialog>
 </body>
 </html>

@@ -3,6 +3,7 @@ const player = document.getElementById('player');
 const video = player.querySelector('video');
 const gameDialog = document.getElementById('game');
 const gameFrame = gameDialog.querySelector('iframe');
+const awardPop = document.getElementById('award-pop');
 const version = new URL(document.currentScript.src).searchParams.get('v'); // set at deploy (check.yml)
 
 const isMp4 = (src) => /\.mp4($|\?)/i.test(src);
@@ -19,7 +20,7 @@ function show(dialog) {
 }
 addEventListener('popstate', () => {
   backCloses = false;
-  for (const d of [player, gameDialog]) if (d.open) d.close();
+  for (const d of [player, gameDialog, awardPop]) if (d.open) d.close();
   setFrame('about:blank'); // Forward must not bring a closed game back to life behind the page
 });
 
@@ -37,7 +38,7 @@ function openFrame(title, src) {
 }
 
 // Close: × button, a click outside, Back, or Esc (built into <dialog>).
-for (const d of [player, gameDialog]) {
+for (const d of [player, gameDialog, awardPop]) {
   d.querySelector('.close').addEventListener('click', () => d.close());
   d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
   d.addEventListener('close', () => {
@@ -157,10 +158,32 @@ grid.append(...window.GAMES.map(card));
 
 // Award buttons use the same popups as the cards: a YouTube link plays, a game page opens in the frame
 // (without JS the link just opens the page). Other outside links stay plain new-tab links.
-for (const a of document.querySelectorAll('.award a')) {
-  const yt = youTubeId(a.href);
-  if (yt) onClick(a, () => playYouTube(yt));
-  else if (!isExternal(a.getAttribute('href'))) onClick(a, () => { prefetchStop.abort(); openFrame(a.getAttribute('aria-label'), a.getAttribute('href')); });
+function bindAwardLinks(root) {
+  for (const a of root.querySelectorAll('.award a')) {
+    const yt = youTubeId(a.href);
+    if (yt) onClick(a, () => { if (awardPop.open) awardPop.close(); playYouTube(yt); });
+    else if (!isExternal(a.getAttribute('href'))) onClick(a, () => { if (awardPop.open) awardPop.close(); prefetchStop.abort(); openFrame(a.getAttribute('aria-label'), a.getAttribute('href')); });
+  }
+}
+bindAwardLinks(document.querySelector('.awards'));
+
+// Award cards stay short: the three-step story opens in a popup (a copy of the whole card, shown wide).
+const awardList = document.querySelector('.awards .award-list');
+awardList.classList.add('folded');
+for (const li of awardList.children) {
+  const more = document.createElement('button');
+  more.type = 'button';
+  more.className = 'btn ghost award-more';
+  more.textContent = '자세히';
+  more.addEventListener('click', () => {
+    const copy = li.cloneNode(true);
+    awardPop.querySelector('.award-list').replaceChildren(copy);
+    awardPop.setAttribute('aria-label', `${li.querySelector('.award-name').textContent} 상세`);
+    bindAwardLinks(awardPop);
+    show(awardPop);
+    awardPop.querySelector('.award-list').scrollTop = 0;
+  });
+  li.append(more);
 }
 
 // The workflow picture opens full size in the same popup (its words are small on a phone).
